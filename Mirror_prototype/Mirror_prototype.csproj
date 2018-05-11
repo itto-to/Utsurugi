@@ -285,7 +285,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\MakeMirror.cs" />
     <Compile Include="Assets\Scripts\MirrorControl.cs" />
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\StageInfo.cs" />

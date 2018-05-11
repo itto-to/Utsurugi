@@ -57,7 +57,7 @@ public class PlayerControl : MonoBehaviour {
             onMirror = false;
         }
 
-        if (mode == true)
+        if (mode == true && stageInfo.GetComponent<StageInfo>().UpMapW[posX + posY * 10] == true)
         {
             if (Input.GetKeyDown(up) && posY < 3)
             {
@@ -124,7 +124,7 @@ public class PlayerControl : MonoBehaviour {
             }*/
         }
 
-        if (mode == false)
+        if (mode == false && stageInfo.GetComponent<StageInfo>().DownMapW[posX + posY * 10] == true)
         {
             if (Input.GetKeyDown(up) && posY > 0)
             {
@@ -186,12 +186,14 @@ public class PlayerControl : MonoBehaviour {
             keyFlag = true;
             //GameObject.Find("Key").SetActive(false);
             key.gameObject.SetActive(false);
+            mirrorInfo.GetComponent<MirrorControl>().MakeMirror();
         }
 
         if (stageInfo.GetComponent<StageInfo>().CheckDoor(mode, posX + posY * 10) == true && keyFlag == true)
         {
             doorFlag = true;
             door.gameObject.SetActive(false);
+            mirrorInfo.GetComponent<MirrorControl>().MakeMirror();
         }
 
 
