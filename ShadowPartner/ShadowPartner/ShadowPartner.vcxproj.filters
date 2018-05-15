@@ -13,5 +13,96 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\Base">
+      <UniqueIdentifier>{05daf3c7-9c11-4b21-9a1d-b7fefa41a3de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Base\Application">
+      <UniqueIdentifier>{f7f31cab-0d2f-48e2-9d35-cc03e5a08b75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Base\System">
+      <UniqueIdentifier>{b89ddc2f-2e64-421a-a580-1673d79589ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Base\Element">
+      <UniqueIdentifier>{115d69b4-f751-4e59-bd89-9e9f8520cb19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Base">
+      <UniqueIdentifier>{33666cd6-1e51-4952-abd5-3259e53ffd7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Base\System">
+      <UniqueIdentifier>{fa346516-b88b-4e56-ba75-2b4b793033f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Base\Element">
+      <UniqueIdentifier>{445c93b0-68f3-4d0d-b92c-136e3415dfa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Base\Application">
+      <UniqueIdentifier>{90b3e5e5-ca61-4eb9-934b-6a5c98293638}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game">
+      <UniqueIdentifier>{988f1a70-3e29-4cef-9925-e559e0678c1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game">
+      <UniqueIdentifier>{ae0dab84-a9a7-416a-bb62-828775f7ef0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Base\2D">
+      <UniqueIdentifier>{c6751cf0-486c-4bbc-9c1e-4cf9d39c292a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Base\2D">
+      <UniqueIdentifier>{b3a8420f-6dc3-4c4d-8be4-8aa31125c123}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Base\Input">
+      <UniqueIdentifier>{3041d126-1ee5-45fb-813b-131ee65a504b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Base\Input">
+      <UniqueIdentifier>{a50ddfa7-694a-4056-8d4b-02901ddd1453}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Base\Sound">
+      <UniqueIdentifier>{e274b95a-58e0-40bd-b67f-fc59c3caa871}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Base\Sound">
+      <UniqueIdentifier>{e070af6d-6667-4895-8256-5ef8a104da4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Base\Effect">
+      <UniqueIdentifier>{a9efafda-9ab8-4f93-ac6d-9e15edb79b8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Base\Effect">
+      <UniqueIdentifier>{0af2419e-86b0-4a94-bee8-87362b8c94f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Base\Animation">
+      <UniqueIdentifier>{e656aca2-66f9-4e4e-aa34-95f62b931927}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Base\Animation">
+      <UniqueIdentifier>{bf907e52-add1-431b-9ee6-161167b94441}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Base\Math">
+      <UniqueIdentifier>{4f25d4f6-987f-4df6-9167-b724967c3003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Base\Math">
+      <UniqueIdentifier>{69b8318e-de45-4fe6-916b-9fca4ecf78f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Base\Physics">
+      <UniqueIdentifier>{fbedd260-8d82-47e2-a273-dbf47fc02c35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Base\Physics">
+      <UniqueIdentifier>{51d5c3b1-afcf-4d42-8be8-54cfe3179cb5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\Application\application.cpp">
+      <Filter>ソース ファイル\Base\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\System\scene.cpp">
+      <Filter>ソース ファイル\Base\System</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Base\Application\application.h">
+      <Filter>ヘッダー ファイル\Base\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\System\scene.h">
+      <Filter>ヘッダー ファイル\Base\System</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
