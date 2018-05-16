@@ -65,7 +65,7 @@ namespace shadowpartner
 
 		int MainLoop();
 
-		static LRESULT CALLBACK MsgProc(HWND h_wnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+		static LRESULT CALLBACK MsgProc(HWND h_wnd, UINT u_msg, WPARAM w_param, LPARAM l_param);
 
 		// —˜—p‹ÖŽ~
 		Application &operator=(const Application &) { return *this; };

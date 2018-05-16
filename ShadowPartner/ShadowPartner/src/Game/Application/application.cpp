@@ -6,7 +6,7 @@
 #include "application.h"
 
 
-#include "../Time/time.h"
+#include "../../Base/Time/time.h"
 
 namespace shadowpartner
 {
@@ -23,6 +23,8 @@ namespace shadowpartner
 	//**********************************************************
 	const int SCREEN_WIDTH = 1920;
 	const int SCREEN_HEIGHT = 1080;
+
+	const D3DCOLOR BACKGROUND_COLOR = D3DCOLOR_RGBA(255, 255, 255, 255);
 
 	//**********************************************************
 	// Static
@@ -128,6 +130,57 @@ namespace shadowpartner
 		}
 
 		return (int)msg.wParam;
+	}
+
+	//==========================================================
+	// 概要  :メッセージプロシージャ。
+	//==========================================================
+	LRESULT CALLBACK Application::MsgProc(HWND h_wnd, UINT u_msg, WPARAM w_param, LPARAM l_param)
+	{
+		switch (u_msg)
+		{
+		case WM_DESTROY:
+			PostQuitMessage(0);
+			break;
+
+		case WM_COMMAND:
+		{
+
+		}
+
+		case WM_KEYDOWN:
+		{
+			switch (w_param)
+			{
+			case VK_ESCAPE:
+			{
+				DestroyWindow(h_wnd);	// 終了
+			}
+			break;
+
+			case VK_F1:
+			{
+				// F1キーを押したときの動作
+			}
+			break;
+
+			case VK_F2:
+			{
+				// F2キーを押したときの動作
+			}
+			break;
+
+			default:
+				break;
+			}
+		}
+		break;
+
+		default:
+			break;
+		}
+
+		return DefWindowProc(h_wnd, u_msg, w_param, l_param);
 	}
 
 	//==========================================================
@@ -350,6 +403,37 @@ namespace shadowpartner
 			d3d->Release();
 			d3d = NULL;
 		}
+	}
+
+	//==========================================================
+	// 概要  :更新処理を行う。
+	//==========================================================
+	void Application::Update()
+	{
+		// システムの更新(Inputとか)
+
+		// ゲームの更新
+
+	}
+
+	//==========================================================
+	// 概要  :描画処理を行う。
+	//==========================================================
+	void Application::Draw()
+	{
+		// バックバッファ＆Ｚバッファのクリア
+		device->Clear(0, NULL, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER), BACKGROUND_COLOR, 1.0f, 0);
+
+		// 描画の開始
+		if (SUCCEEDED(device->BeginScene()))
+		{
+
+			// 描画の終了
+			device->EndScene();
+		}
+
+		// バックバッファとフロントバッファの入れ替え
+		device->Present(NULL, NULL, NULL, NULL);
 	}
 
 
