@@ -5,6 +5,9 @@
 //==========================================================
 #include "application.h"
 
+
+#include "../Time/time.h"
+
 namespace shadowpartner
 {
 
@@ -34,6 +37,25 @@ namespace shadowpartner
 		}
 
 		return instance_;
+	}
+
+	// コンストラクタ
+	Application::Application()
+		:h_instance_(nullptr)
+		,h_wnd_(nullptr)
+		,d3d(nullptr)
+		,device(nullptr)
+	{
+	}
+
+	// デストラクタ
+	Application::~Application()
+	{
+		if (instance_ != nullptr)
+		{
+			delete instance_;
+			instance_ = nullptr;
+		}
 	}
 
 	//**********************************************************
@@ -95,6 +117,8 @@ namespace shadowpartner
 			}
 			else
 			{
+				Time::Instance()->Update();	// タイマーだけ更新
+
 				if (Time::Instance()->CheckUpdate())
 				{
 					Update();
@@ -107,7 +131,7 @@ namespace shadowpartner
 	}
 
 	//==========================================================
-	// 概要  :
+	// 概要  :初期化処理
 	//==========================================================
 	HRESULT Application::Init()
 	{
@@ -275,12 +299,57 @@ namespace shadowpartner
 		device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);	// 最初のアルファ引数
 		device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_CURRENT);	// ２番目のアルファ引数
 
+		Time::Instance();
+
 		if (FAILED(Init()))
 		{
 			return E_FAIL;
 		}
 
 		return S_OK;
+	}
+
+	//==========================================================
+	// 概要  :終了処理
+	//==========================================================
+	void Application::Uninit()
+	{
+
+	}
+
+	//==========================================================
+	// 概要  :ウィンドウの終了処理を行う。
+	//==========================================================
+	void Application::UninitWindow()
+	{
+		// ウィンドウクラスの登録を解除
+		if (h_instance_)
+		{
+			UnregisterClassA(WINDOW_CLASSNAME, h_instance_);
+		}
+		h_instance_ = nullptr;
+		h_wnd_ = nullptr;
+	}
+
+	//==========================================================
+	// 概要  :Direct3Dの終了処理を行う
+	//==========================================================
+	void Application::UninitDirect3D()
+	{
+		Uninit();
+
+		// Direct3Dの解放
+		if (device != NULL)
+		{// デバイスオブジェクトの開放
+			device->Release();
+			device = NULL;
+		}
+
+		if (d3d != NULL)
+		{// Direct3Dオブジェクトの開放
+			d3d->Release();
+			d3d = NULL;
+		}
 	}
 
 

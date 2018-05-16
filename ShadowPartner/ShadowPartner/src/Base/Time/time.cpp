@@ -15,6 +15,12 @@ namespace shadowpartner
 	const float DEFAULT_TIME_SCALE = 1.0;
 	const int UPDATE_FPS_COUNT = 1000;
 
+	const int FPS_MIN = 1;
+	const int FPS_MAX = 120;
+
+	const float TIME_SCALE_MIN = 0.01f;
+	const float TIME_SCALE_MAX = 5.0f;
+
 	//**********************************************************
 	// Static
 	//**********************************************************
@@ -46,8 +52,18 @@ namespace shadowpartner
 			last_fps_time_ = timeGetTime();
 	}
 
+	// デストラクタ
+	Time::~Time()
+	{
+		if (instance_ != nullptr)
+		{
+			delete instance_;
+			instance_ = nullptr;
+		}
+	}
+
 	//==========================================================
-	// 概要  :タイマーの更新処理
+	// 概要  :タイマーの更新処理。
 	//==========================================================
 	void Time::Update()
 	{
@@ -66,12 +82,61 @@ namespace shadowpartner
 	}
 
 	//==========================================================
-	// 概要  :
-	// 戻り値:
+	// 概要  :フレームの更新を行うか判定します。
+	// 戻り値:更新するならtrue。しないならfalse。
 	//==========================================================
 	bool Time::CheckUpdate()
 	{
-		DWORD elapsed_time = current_time_ - last_exe_time_; // 最後のUpdateからの経過時間
-		//if(elapsed_time >= )
+		DWORD unscaled_elapsed_time = current_time_ - last_exe_time_;
+		DWORD elapsed_time = unscaled_elapsed_time * time_scale_; // 最後のUpdateからの経過時間
+		
+		if (elapsed_time >= 1000 / fps_)
+		{
+			// Updateを行う
+			++frame_count_;
+
+			//フレーム間の時間を記録する。
+			unscaled_delta_time_ = unscaled_elapsed_time;
+			delta_time_ = elapsed_time;
+
+			last_exe_time_ = current_time_;
+			return true;
+		}
+
+		return false;
+	}
+
+	//==========================================================
+	// 概要  :FPSを設定します。設定された範囲でクランプします。
+	//==========================================================
+	void Time::SetFps(int fps)
+	{
+		fps_ = (fps > FPS_MAX) ? FPS_MAX : (fps < FPS_MIN) ? FPS_MIN : fps;
+	}
+
+	//==========================================================
+	// 概要  :FPSを取得します。
+	//==========================================================
+	int Time::GetFps()
+	{
+		return fps_;
+	}
+
+	//==========================================================
+	// 概要  :時間の圧縮率を設定します。
+	//        指定された範囲でクランプします。
+	//==========================================================
+	void Time::SetTimeScale(float time_scale)
+	{
+		time_scale_ = (time_scale > TIME_SCALE_MAX) ? TIME_SCALE_MAX :
+			(time_scale < TIME_SCALE_MIN) ? TIME_SCALE_MIN : time_scale;
+	}
+
+	//==========================================================
+	// 概要  :時間の圧縮率を取得します。
+	//==========================================================
+	float Time::GetTimeScale()
+	{
+		return time_scale_;
 	}
 }

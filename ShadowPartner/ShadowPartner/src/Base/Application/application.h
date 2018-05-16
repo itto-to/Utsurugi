@@ -4,8 +4,8 @@
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 
-#ifndef _APPLICATION_
-#define _APPLICATION_
+#ifndef _BASE_APPLICATION_APPLICATION_H_
+#define _BASE_APPLICATION_APPLICATION_H_
 
 //**********************************************************
 // インクルードファイル
@@ -44,6 +44,7 @@ namespace shadowpartner
 
 	protected:
 		Application();
+		~Application();
 
 		// methods
 		HRESULT Init();
