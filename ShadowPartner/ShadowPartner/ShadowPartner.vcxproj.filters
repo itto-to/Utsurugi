@@ -85,6 +85,12 @@
     <Filter Include="ヘッダー ファイル\Base\Physics">
       <UniqueIdentifier>{51d5c3b1-afcf-4d42-8be8-54cfe3179cb5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Base\Time">
+      <UniqueIdentifier>{83d6ccd1-9941-4357-bebe-314b5e579609}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Base\Time">
+      <UniqueIdentifier>{d8a29d18-e3e8-4a36-8a91-ea91b8405f56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -96,6 +102,9 @@
     <ClCompile Include="src\Base\System\scene.cpp">
       <Filter>ソース ファイル\Base\System</Filter>
     </ClCompile>
+    <ClCompile Include="src\Base\Time\time.cpp">
+      <Filter>ソース ファイル\Base\Time</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base\Application\application.h">
@@ -103,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="src\Base\System\scene.h">
       <Filter>ヘッダー ファイル\Base\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Time\time.h">
+      <Filter>ヘッダー ファイル\Base\Time</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
