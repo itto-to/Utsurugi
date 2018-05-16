@@ -1,5 +1,5 @@
 //==========================================================
-// 概要  :シーンに配置する要素単位
+// 概要  :シーンの構成単位
 // Author:Itsuki Namito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
@@ -11,30 +11,26 @@
 // インクルードファイル
 //**********************************************************
 #include <windows.h>
-
+#include <vector>
+#include "component.h"
 
 namespace shadowpartner
 {
+	class GameObject;
+#include "transform.h"
 
 	//==========================================================
-	// 概要  :アプリケーションの土台部分
-	// 説明  :
+	// 概要  :シーンの構成単位
 	//==========================================================
-	class Application
+	class GameObject
 	{
 	public:
+		GameObject();
+		~GameObject();
+
 		// variables
-		HINSTANCE h_instance_;
-		HWND h_wnd_;
-		LPDIRECT3D9 d3d;
-		LPDIRECT3DDEVICE9 device;
-
-		// methods
-		static Application *Instance();
-		void Run();
-
-	protected:
-		Application();
+		std::vector<Component> components_;
+		
 
 		// methods
 		HRESULT Init();
@@ -42,23 +38,14 @@ namespace shadowpartner
 		void Update();
 		void Draw();
 
-	private:
-		// variables
-		static Application *instance_;
+	protected:
 
 		// methods
-		HRESULT InitWindow();
-		HRESULT InitDirect3D();
 
-		void UninitWindow();
-		void UninitDirect3D();
+	private:
+		// variables
 
-		int MainLoop();
-
-		static LRESULT CALLBACK MsgProc(HWND h_wnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-
-		// 利用禁止
-		Application &operator=(const Application &) { return *this; };
+		// methods
 
 	};
 }

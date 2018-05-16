@@ -1,11 +1,11 @@
 //==========================================================
-// 概要  :シーン
+// 概要  :Transformクラス
 // Author:Itsuki Namito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 
-#ifndef _SCENE_H_
-#define _SCENE_H_
+#ifndef _BASE_ELEMENT_TRANSFORM_H_
+#define _BASE_ELEMENT_TRANSFORM_H_
 
 //**********************************************************
 // インクルードファイル

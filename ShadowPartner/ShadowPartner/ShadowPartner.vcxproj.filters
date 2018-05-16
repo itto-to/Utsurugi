@@ -67,9 +67,6 @@
     <Filter Include="ソース ファイル\Base\Animation">
       <UniqueIdentifier>{bf907e52-add1-431b-9ee6-161167b94441}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Base\Math">
-      <UniqueIdentifier>{4f25d4f6-987f-4df6-9167-b724967c3003}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Base\Math">
       <UniqueIdentifier>{69b8318e-de45-4fe6-916b-9fca4ecf78f4}</UniqueIdentifier>
     </Filter>
@@ -139,6 +136,24 @@
     </ClInclude>
     <ClInclude Include="src\Base\Element\component.h">
       <Filter>ヘッダー ファイル\Base\Element</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Math\vector3.h">
+      <Filter>ヘッダー ファイル\Base\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Math\math.h">
+      <Filter>ヘッダー ファイル\Base\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Math\matrix3x3.h">
+      <Filter>ヘッダー ファイル\Base\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Math\matrix4x3.h">
+      <Filter>ヘッダー ファイル\Base\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Math\quaternion.h">
+      <Filter>ヘッダー ファイル\Base\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Math\vector2.h">
+      <Filter>ヘッダー ファイル\Base\Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
