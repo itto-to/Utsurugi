@@ -1,40 +1,65 @@
 //==========================================================
-// 概要  :アプリケーション
+// 概要  :シーン
 // Author:Itsuki Namito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
-#include "application.h"
+#include "scene.h"
 
 namespace shadowpartner
 {
-
-//**********************************************************
-// マクロ
-//**********************************************************
-#ifndef WINDOW_CLASSNAME
-#define WINDOW_CLASSNAME "ShadowPartner"
-#endif
-
-	//**********************************************************
-	// 定数
-	//**********************************************************
-	const int SCREEN_WIDTH = 1920;
-	const int SCREEN_HEIGHT = 1080;
-
-	//**********************************************************
-	// Static
-	//**********************************************************
-	Application *Application::instance_ = nullptr;
-
-	Application *Application::Instance()
+	// コンストラクタ
+	Scene::Scene()
+		:is_active_(true)
 	{
-		if (instance_ == nullptr)
-		{
-			instance_ = new Application();
-		}
+		Init();
+	}
+	
+	// デストラクタ
+	Scene::~Scene()
+	{
+		Uninit();
 
-		return instance_;
+		for (int i = 0; i < gameObjects_.size(); ++i)
+		{
+			if (gameObjects_[i] != nullptr)
+			{
+				delete gameObjects_[i];
+				gameObjects_[i] = nullptr;
+			}
+		}
 	}
 
+	void Scene::UpdateScene()
+	{
+		// シーンが非アクティブなら更新しない
+		if (!is_active_)
+			return;
 
+		for (int i = 0; i < gameObjects_.size(); ++i)
+		{
+			if (gameObjects_[i]->is_active_)
+			{
+				gameObjects_[i]->Update();
+			}
+		}
+
+		Update();
+	}
+
+	void Scene::DrawScene()
+	{
+		// シーンが非アクティブなら描画しない
+		if (!is_active_)
+			return;
+
+		for (int i = 0; i < gameObjects_.size(); ++i)
+		{
+			if (gameObjects_[i]->is_active_)
+			{
+				gameObjects_[i]->Draw();
+			}
+		}
+
+		Draw();
+	}
 }

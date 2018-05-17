@@ -4,7 +4,7 @@
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 #include "application.h"
-
+#include "../../Base/System/scene_manager.h"
 
 #include "../../Base/Time/time.h"
 
@@ -410,10 +410,7 @@ namespace shadowpartner
 	//==========================================================
 	void Application::Update()
 	{
-		// システムの更新(Inputとか)
-
-		// ゲームの更新
-
+		SceneManager::Instance()->Update();
 	}
 
 	//==========================================================
@@ -427,6 +424,7 @@ namespace shadowpartner
 		// 描画の開始
 		if (SUCCEEDED(device->BeginScene()))
 		{
+			SceneManager::Instance()->Draw();
 
 			// 描画の終了
 			device->EndScene();

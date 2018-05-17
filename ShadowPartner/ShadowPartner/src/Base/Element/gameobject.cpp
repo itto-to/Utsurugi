@@ -39,6 +39,7 @@ namespace shadowpartner
 
 	HRESULT GameObject::Init()
 	{
+		return S_OK;
 	}
 
 	void GameObject::Uninit()
@@ -50,7 +51,7 @@ namespace shadowpartner
 	{
 		for (int i = 0;i < components_.size();++i)
 		{
-			components_[i].UpdateComponent();
+			components_[i]->UpdateComponent();
 		}
 	}
 
@@ -58,7 +59,7 @@ namespace shadowpartner
 	{
 		for (int i = 0;i < components_.size();++i)
 		{
-			components_[i].DrawComponent();
+			components_[i]->DrawComponent();
 		}
 	}
 }

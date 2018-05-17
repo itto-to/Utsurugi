@@ -11,6 +11,7 @@
 // インクルードファイル
 //**********************************************************
 #include "scene.h"
+#include <vector>
 
 //**********************************************************
 // ライブラリへのリンク
@@ -31,6 +32,7 @@ namespace shadowpartner
 	{
 	public:
 		// variables
+		Scene dont_destroy_on_load_;
 
 		// methods
 		static SceneManager *Instance();
@@ -53,20 +55,12 @@ namespace shadowpartner
 		// variables
 		static SceneManager *instance_;
 
+		std::vector<Scene *>scenes_;
+
 		// methods
-		HRESULT InitWindow();
-		HRESULT InitDirect3D();
-
-		void UninitWindow();
-		void UninitDirect3D();
-
-		int MainLoop();
-
-		static LRESULT CALLBACK MsgProc(HWND h_wnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 		// 利用禁止
-		Application &operator=(const Application &) { return *this; };
-
+		SceneManager &operator=(const SceneManager &) { return *this; };
 	};
 }
 

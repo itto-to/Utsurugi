@@ -7,19 +7,16 @@
 #ifndef _BASE_ELEMENT_TRANSFORM_H_
 #define _BASE_ELEMENT_TRANSFORM_H_
 
-class shadowpartner::Transform;
-
 //**********************************************************
 // インクルードファイル
 //**********************************************************
 #include <windows.h>
 #include <vector>
 #include "../Math/math.h"
-#include "gameobject.h"
+#include "component.h"
 
 namespace shadowpartner
 {
-
 	//==========================================================
 	// 概要  :位置、姿勢、拡縮、親子関係の管理
 	//==========================================================
@@ -30,12 +27,12 @@ namespace shadowpartner
 		~Transform();
 
 		// variables
-		Vector2 position;
-		float rotation;
-		Vector2 scale;
+		Vector2 position_;
+		float rotation_;
+		Vector2 scale_;
 
-		Transform *parent;
-		std::vector<Transform *>children;
+		Transform *parent_;
+		std::vector<Transform *> children_;
 
 		// methods
 
@@ -45,10 +42,10 @@ namespace shadowpartner
 		HRESULT Init();
 		void Uninit();
 		void Update();
-		void Draw();
 
 	private:
 		// variables
+		Vector2 offsetPosition_;	// 親Transformを基準としたPosition
 
 		// methods
 

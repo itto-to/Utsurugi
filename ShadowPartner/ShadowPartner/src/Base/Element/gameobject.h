@@ -17,10 +17,6 @@
 
 namespace shadowpartner
 {
-	enum Tag
-	{
-		Untagged = 0,
-	};
 
 	enum Layer
 	{
@@ -37,6 +33,7 @@ namespace shadowpartner
 		~GameObject();
 
 		// variables
+		bool is_active_;
 		Tag tag_;
 		Layer layer_;
 
@@ -63,6 +60,8 @@ namespace shadowpartner
 		// methods
 
 	};
+
 }
+
 
 #endif

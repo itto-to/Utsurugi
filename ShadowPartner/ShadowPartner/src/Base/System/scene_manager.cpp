@@ -1,40 +1,80 @@
 //==========================================================
-// 概要  :アプリケーション
+// 概要  :シーン管理クラス
 // Author:Itsuki Namito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
-#include "application.h"
+#include "scene_manager.h"
 
 namespace shadowpartner
 {
-
-//**********************************************************
-// マクロ
-//**********************************************************
-#ifndef WINDOW_CLASSNAME
-#define WINDOW_CLASSNAME "ShadowPartner"
-#endif
-
 	//**********************************************************
 	// 定数
 	//**********************************************************
-	const int SCREEN_WIDTH = 1920;
-	const int SCREEN_HEIGHT = 1080;
-
 	//**********************************************************
 	// Static
 	//**********************************************************
-	Application *Application::instance_ = nullptr;
+	SceneManager *SceneManager::instance_ = nullptr;
 
-	Application *Application::Instance()
+	SceneManager *SceneManager::Instance()
 	{
 		if (instance_ == nullptr)
 		{
-			instance_ = new Application();
+			instance_ = new SceneManager();
 		}
 
 		return instance_;
 	}
 
+	// コンストラクタ
+	SceneManager::SceneManager()
+	{
+		Init();
+	}
 
+	// デストラクタ
+	SceneManager::~SceneManager()
+	{
+		Uninit();
+
+		for (int i = 0; i < scenes_.size(); ++i)
+		{
+			if (scenes_[i] != nullptr)
+			{
+				delete scenes_[i];
+				scenes_[i] = nullptr;
+			}
+		}
+	}
+
+	HRESULT SceneManager::Init()
+	{
+		return S_OK;
+	}
+
+	void SceneManager::Uninit()
+	{
+
+	}
+
+	void SceneManager::Update()
+	{
+		for (int i = 0; i < scenes_.size(); ++i)
+		{
+			if (scenes_[i]->is_active_)
+			{
+				scenes_[i]->UpdateScene();
+			}
+		}
+	}
+
+	void SceneManager::Draw()
+	{
+		for (int i = 0; i < scenes_.size(); ++i)
+		{
+			if (scenes_[i]->is_active_)
+			{
+				scenes_[i]->DrawScene();
+			}
+		}
+	}
 }

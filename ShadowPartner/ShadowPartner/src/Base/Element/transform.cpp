@@ -1,40 +1,54 @@
 //==========================================================
-// 概要  :アプリケーション
+// 概要  :位置、姿勢、拡縮、親子関係の管理
 // Author:Itsuki Namito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
-#include "application.h"
+#include "transform.h"
 
 namespace shadowpartner
 {
-
-//**********************************************************
-// マクロ
-//**********************************************************
-#ifndef WINDOW_CLASSNAME
-#define WINDOW_CLASSNAME "ShadowPartner"
-#endif
-
-	//**********************************************************
-	// 定数
-	//**********************************************************
-	const int SCREEN_WIDTH = 1920;
-	const int SCREEN_HEIGHT = 1080;
-
-	//**********************************************************
-	// Static
-	//**********************************************************
-	Application *Application::instance_ = nullptr;
-
-	Application *Application::Instance()
+	// コンストラクタ
+	Transform::Transform()
+		:position_(Vector2::zero())
+		,rotation_(0.0f)
+		,scale_(Vector2::zero())
+		,parent_(nullptr)
 	{
-		if (instance_ == nullptr)
-		{
-			instance_ = new Application();
-		}
-
-		return instance_;
+		Init();
 	}
 
+	// デストラクタ
+	Transform::~Transform()
+	{
+		Uninit();
 
+		for (int i = 0; i < children_.size(); ++i)
+		{
+			if (children_[i] != nullptr)
+			{
+				delete children_[i];
+				children_[i] = nullptr;
+			}
+		}
+
+		children_.clear();
+	}
+
+	HRESULT Transform::Init()
+	{
+		return S_OK;
+	}
+
+	void Transform::Uninit()
+	{
+
+	}
+
+	void Transform::Update()
+	{
+		if (parent_ != nullptr)
+		{
+			position_ = parent_->position_ + offsetPosition_;
+		}
+	}
 }

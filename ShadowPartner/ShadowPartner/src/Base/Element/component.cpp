@@ -7,7 +7,6 @@
 
 namespace shadowpartner
 {
-
 //**********************************************************
 // マクロ
 //**********************************************************
@@ -18,9 +17,9 @@ namespace shadowpartner
 
 	// コンストラクタ
 	Component::Component()
-		:gameObject(nullptr)
-		,tag(Tag::Untagged)
-		,transform(nullptr)
+		:gameObject_(nullptr)
+		,tag_(Tag::Untagged)
+		,transform_(nullptr)
 	{
 
 	}
