@@ -364,6 +364,9 @@ namespace shadowpartner
 	D3DXINLINE const Matrix4x3 Inverse(const Matrix4x3 &tran);
 	D3DXINLINE const Matrix4x3 OrthoInverse(const Matrix4x3 &tran);
 
+
+}
+
 //*****************************************************************************
 // 各クラスのヘッダをinclude
 //*****************************************************************************
@@ -372,7 +375,5 @@ namespace shadowpartner
 #include "quaternion.h"
 #include "matrix3x3.h"
 #include "matrix4x3.h"
-
-}
 
 #endif

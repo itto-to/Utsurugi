@@ -7,14 +7,17 @@
 #ifndef _BASE_ELEMENT_COMPONENT_H_
 #define _BASE_ELEMENT_COMPONENT_H_
 
+class shadowpartner::Component;
+
 //**********************************************************
 // インクルードファイル
 //**********************************************************
 #include <windows.h>
+#include "gameobject.h"
+#include "transform.h"
 
 namespace shadowpartner
 {
-
 	//==========================================================
 	// 概要  :GameObjectの構成単位の基底クラス
 	//==========================================================
@@ -26,16 +29,22 @@ namespace shadowpartner
 		virtual ~Component() = 0;
 		
 		// variables
+		GameObject *gameObject;
+		Tag tag;
+		Transform *transform;
 
 		// methods
-		virtual HRESULT Init() = 0;
-		virtual void Uninit() = 0;
-		virtual void Update() = 0;
-		virtual void Draw() = 0;
+		void UpdateComponent();
+		void DrawComponent();
 
 	protected:
 
 		// methods
+		virtual HRESULT Awake() = 0;
+		virtual void Start() = 0;
+		virtual void Uninit() = 0;
+		virtual void Update() = 0;
+		virtual void Draw() = 0;
 
 	private:
 		// variables

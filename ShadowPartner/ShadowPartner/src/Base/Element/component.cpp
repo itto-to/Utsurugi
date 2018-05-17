@@ -18,6 +18,9 @@ namespace shadowpartner
 
 	// コンストラクタ
 	Component::Component()
+		:gameObject(nullptr)
+		,tag(Tag::Untagged)
+		,transform(nullptr)
 	{
 
 	}
@@ -25,5 +28,15 @@ namespace shadowpartner
 	Component::Component(Component &copy)
 	{
 		*this = copy;
+	}
+
+	void Component::UpdateComponent()
+	{
+		Update();
+	}
+
+	void Component::DrawComponent()
+	{
+		Draw();
 	}
 }

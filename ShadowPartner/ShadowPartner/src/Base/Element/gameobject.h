@@ -13,11 +13,19 @@
 #include <windows.h>
 #include <vector>
 #include "component.h"
+#include "transform.h"
 
 namespace shadowpartner
 {
-	class GameObject;
-#include "transform.h"
+	enum Tag
+	{
+		Untagged = 0,
+	};
+
+	enum Layer
+	{
+		Default = 0,
+	};
 
 	//==========================================================
 	// 概要  :シーンの構成単位
@@ -29,14 +37,21 @@ namespace shadowpartner
 		~GameObject();
 
 		// variables
-		std::vector<Component> components_;
-		
+		Tag tag_;
+		Layer layer_;
+
+		Transform *transform_;
+
+		std::vector<Component *> components_;
 
 		// methods
 		HRESULT Init();
 		void Uninit();
 		void Update();
 		void Draw();
+
+		void Destroy();
+		void Destroy(float delay);
 
 	protected:
 

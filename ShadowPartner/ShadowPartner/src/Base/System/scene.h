@@ -27,7 +27,7 @@ namespace shadowpartner
 		virtual ~Scene();
 		
 		// variables
-		//std::vector<
+		std::vector<GameObject *> gameObjects;
 
 		// methods
 		virtual HRESULT Init() = 0;
