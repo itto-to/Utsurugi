@@ -7,6 +7,7 @@
 
 int main()
 {
+
 	shadowpartner::Application::Instance()->Run();
 
 	return 0;

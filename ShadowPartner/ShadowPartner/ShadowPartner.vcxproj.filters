@@ -88,6 +88,48 @@
     <Filter Include="ソース ファイル\Game\Application">
       <UniqueIdentifier>{96727091-97b0-4eb8-b929-987bb042984c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Base\Debug">
+      <UniqueIdentifier>{ead3d25b-4892-42a9-b46d-f91498d9b2cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Scene">
+      <UniqueIdentifier>{fa3e9a56-865a-4a8b-8040-d008ca16e39a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Scene\StageSelect">
+      <UniqueIdentifier>{c01c310b-be4b-41b8-b177-fde4a7672161}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Scene\Title">
+      <UniqueIdentifier>{661680a3-25ba-4e3c-9134-19e6d2b3ef77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Actor">
+      <UniqueIdentifier>{827d7d7f-53bf-4a7f-9a3a-eeda12fc2d37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Actor\Player">
+      <UniqueIdentifier>{f38fe1b1-306d-4d0d-b84f-57f9eeb0a192}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Light">
+      <UniqueIdentifier>{7b452be5-b741-4332-bf19-a36583b9b43b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Base\Debug">
+      <UniqueIdentifier>{1ef4637c-254f-4bc1-89bc-e9a71f3f7285}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Actor">
+      <UniqueIdentifier>{4dd3484f-121a-4c19-8dd6-005aced31aa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Actor\Player">
+      <UniqueIdentifier>{f856d3fc-2511-4ba4-a438-6ad739e7772d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Light">
+      <UniqueIdentifier>{9163e954-1461-49c1-bf93-e24338ad7a7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Scene">
+      <UniqueIdentifier>{a4bf2fd9-68a8-4c0e-8044-32ab1270cd74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Scene\StageSelect">
+      <UniqueIdentifier>{4599920f-4dea-4276-ba34-9e86d07ef533}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Scene\Title">
+      <UniqueIdentifier>{aca40e83-8f95-43c1-a850-92c631616513}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">

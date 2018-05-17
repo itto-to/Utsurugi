@@ -20,9 +20,6 @@ namespace shadowpartner
 	enum Tag
 	{
 		Untagged = 0,
-		Player,
-		Enemy,
-		
 	};
 
 	//==========================================================
