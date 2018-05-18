@@ -38,4 +38,14 @@ namespace shadowpartner
 	{
 		Draw();
 	}
+
+	//==========================================================
+	// 概要  :指定されたComponentの派生クラスへのポインタの取得を試みます。
+	// 引数  :取得したいComponentの派生クラスへのtype_info(typeidを使ってください)
+	// 戻り値:Componentの派生クラスへのポインタ(もしなかったらnullptr)
+	//==========================================================
+	Component *Component::GetComponent(type_info &type)
+	{
+		return gameObject_->GetComponent(type);
+	}
 }

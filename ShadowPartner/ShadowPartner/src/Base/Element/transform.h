@@ -15,6 +15,8 @@
 #include "../Math/math.h"
 #include "component.h"
 
+using namespace math;
+
 namespace shadowpartner
 {
 	//==========================================================
@@ -45,8 +47,7 @@ namespace shadowpartner
 
 	private:
 		// variables
-		Vector2 offsetPosition_;	// eTransform‚ğŠî€‚Æ‚µ‚½Position
-
+		
 		// methods
 
 	};

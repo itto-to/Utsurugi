@@ -9,7 +9,7 @@
 //Constants
 #define SLERP_TOL (0.999f)
 
-namespace shadowpartner
+namespace math
 {
 	//Constructers
 	D3DXINLINE Vector2::Vector2(const Vector2 &vec)

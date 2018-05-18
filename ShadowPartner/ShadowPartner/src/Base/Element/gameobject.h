@@ -39,13 +39,14 @@ namespace shadowpartner
 
 		Transform *transform_;
 
-		std::vector<Component *> components_;
-
 		// methods
 		HRESULT Init();
 		void Uninit();
 		void Update();
 		void Draw();
+
+		void AddComponent(Component *component);
+		Component *GetComponent(type_info &type);
 
 		void Destroy();
 		void Destroy(float delay);
@@ -56,6 +57,7 @@ namespace shadowpartner
 
 	private:
 		// variables
+		std::vector<Component *> components_;
 
 		// methods
 

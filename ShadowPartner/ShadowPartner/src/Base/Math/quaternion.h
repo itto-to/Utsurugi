@@ -6,7 +6,7 @@
 #ifndef _BASE_MATH_QUATERNION_H_
 #define _BASE_MATH_QUATERNION_H_
 
-namespace shadowpartner
+namespace math
 {
 	//Constructor
 

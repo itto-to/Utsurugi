@@ -11,6 +11,7 @@
 // インクルードファイル
 //**********************************************************
 #include <windows.h>
+#include <typeinfo>
 
 namespace shadowpartner
 {
@@ -43,6 +44,8 @@ namespace shadowpartner
 		// methods
 		void UpdateComponent();
 		void DrawComponent();
+
+		Component *GetComponent(type_info &type);
 
 	protected:
 

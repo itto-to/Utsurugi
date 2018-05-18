@@ -6,7 +6,7 @@
 #ifndef _BASE_MATH_MATRIX4X3_H_
 #define _BASE_MATH_MATRIX4X3_H_
 
-namespace shadowpartner
+namespace math
 {
 	//Constructers
 

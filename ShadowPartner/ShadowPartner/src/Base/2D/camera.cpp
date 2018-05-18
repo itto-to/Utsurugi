@@ -46,7 +46,7 @@ namespace shadowpartner
 	// XVˆ—
 	void Camera::Update()
 	{
-		current_zoom_ 
+		//current_zoom_ = 
 	}
 
 	//==========================================================

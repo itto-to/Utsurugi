@@ -6,7 +6,7 @@
 #ifndef _BASE_MATH_MATRIX3X3_H_
 #define _BASE_MATH_MATRIX3X3_H_
 
-namespace shadowpartner
+namespace math
 {
 	//Constructor
 	D3DXINLINE Matrix3x3::Matrix3x3(const Matrix3x3 &mat)

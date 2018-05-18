@@ -6,7 +6,7 @@
 #ifndef _BASE_MATH_VECTOR3_H_
 #define _BASE_MATH_VECTOR3_H_
 
-namespace shadowpartner
+namespace math
 {
 //Constructers
 	D3DXINLINE Vector3::Vector3(const Vector3 &vec)

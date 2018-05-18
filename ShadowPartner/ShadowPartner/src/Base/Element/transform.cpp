@@ -46,9 +46,10 @@ namespace shadowpartner
 
 	void Transform::Update()
 	{
+		Vector2 world_position;
 		if (parent_ != nullptr)
 		{
-			position_ = parent_->position_ + offsetPosition_;
+			
 		}
 	}
 }
