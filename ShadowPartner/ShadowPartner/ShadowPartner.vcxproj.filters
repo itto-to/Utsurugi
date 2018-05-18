@@ -130,11 +130,11 @@
     <Filter Include="ヘッダー ファイル\Game\Scene\Title">
       <UniqueIdentifier>{aca40e83-8f95-43c1-a850-92c631616513}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Base\Camera">
-      <UniqueIdentifier>{7cc95e88-598a-494e-abf7-9dc40bac1aee}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Game\Actor\Common">
+      <UniqueIdentifier>{f649cb33-fbcf-407d-ab93-068af8a47601}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Base\Camera">
-      <UniqueIdentifier>{dcf1d5cc-78f1-45d4-abe2-af2171888a72}</UniqueIdentifier>
+    <Filter Include="ヘッダー ファイル\Game\Actor\Common">
+      <UniqueIdentifier>{19f5967a-2378-46dd-aac4-317243c5179d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +166,9 @@
       <Filter>ソース ファイル\Base\2D</Filter>
     </ClCompile>
     <ClCompile Include="src\Base\2D\texture.cpp">
+      <Filter>ソース ファイル\Base\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\2D\camera.cpp">
       <Filter>ソース ファイル\Base\2D</Filter>
     </ClCompile>
   </ItemGroup>
@@ -213,6 +216,9 @@
       <Filter>ヘッダー ファイル\Base\2D</Filter>
     </ClInclude>
     <ClInclude Include="src\Base\2D\texture.h">
+      <Filter>ヘッダー ファイル\Base\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\2D\camera.h">
       <Filter>ヘッダー ファイル\Base\2D</Filter>
     </ClInclude>
   </ItemGroup>

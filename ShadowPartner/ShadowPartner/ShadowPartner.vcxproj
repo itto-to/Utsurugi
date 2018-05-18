@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Base\2D\camera.cpp" />
     <ClCompile Include="src\Base\2D\sprite.cpp" />
     <ClCompile Include="src\Base\2D\texture.cpp" />
     <ClCompile Include="src\Base\Element\component.cpp" />
@@ -164,6 +165,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Base\2D\camera.h" />
     <ClInclude Include="src\Base\2D\sprite.h" />
     <ClInclude Include="src\Base\2D\texture.h" />
     <ClInclude Include="src\Base\Element\component.h" />
