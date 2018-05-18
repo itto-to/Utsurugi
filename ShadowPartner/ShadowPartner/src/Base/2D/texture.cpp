@@ -1,9 +1,10 @@
 //==========================================================
-// 概要  :GameObjectの構成単位の基底クラス
+// 概要  :テクスチャクラス
 // Author:Itsuki Namito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
-#include "component.h"
+#include "../../Game/Application/application.h"
+#include "texture.h"
 
 namespace shadowpartner
 {
@@ -16,26 +17,25 @@ namespace shadowpartner
 	//**********************************************************
 
 	// コンストラクタ
-	Component::Component()
-		:gameObject_(nullptr)
-		,tag_(Tag::Untagged)
-		,transform_(nullptr)
+	Texture::Texture()
+		:tex_(nullptr)
 	{
 
 	}
 
-	Component::Component(Component &copy)
+	Texture::Texture(const char *file_name)
 	{
-		*this = copy;
+		D3DXCreateTextureFromFile(Application::Instance()->device, (LPCSTR)file_name, &tex_);
 	}
 
-	void Component::UpdateComponent()
+	Texture::~Texture()
 	{
-		Update();
+
 	}
 
-	void Component::DrawComponent()
+	void Texture::Load(const char *file_name)
 	{
-		Draw();
+		D3DXCreateTextureFromFile(Application::Instance()->device, (LPCSTR)file_name, &tex_);
 	}
+
 }

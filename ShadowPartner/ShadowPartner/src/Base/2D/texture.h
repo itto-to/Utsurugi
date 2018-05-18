@@ -1,64 +1,54 @@
 //==========================================================
-// 概要  :GameObjectの構成単位の基底クラス
+// 概要  :テクスチャクラス
 // Author:Itsuki Namito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 
-#ifndef _BASE_ELEMENT_COMPONENT_H_
-#define _BASE_ELEMENT_COMPONENT_H_
+#ifndef _BASE_2D_TEXTURE_H_
+#define _BASE_2D_TEXTURE_H_
 
 //**********************************************************
 // インクルードファイル
 //**********************************************************
-#include <windows.h>
+#include <d3dx9.h>
+#include "../Math/math.h"
+
+//==========================================================
+// マクロ
+//==========================================================
+#define FVF_VERTEX_2D (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)
+#define NUM_TEXTURE_VERTEX (4)
+#define NUM_TEXTURE_POLYGON (2)
 
 namespace shadowpartner
 {
-	class GameObject;
-	class Transform;
-
-	enum Tag
+	struct Vertex2D
 	{
-		Untagged = 0,
+		Vector2 vertex_;
+		float rhw_;
+		D3DCOLOR diffuse_;
+		Vector2 tex_coor_;
 	};
 
 	//==========================================================
-	// 概要  :GameObjectの構成単位の基底クラス
+	// 画像を保持するクラス（あとで参照するクラスにする）
 	//==========================================================
-	class Component
+	class Texture
 	{
 	public:
-		Component();
-		Component(Component &copy);
-		virtual ~Component() {};
-		
-		// variables
-		GameObject *gameObject_;
-		Tag tag_;
-		Transform *transform_;
+		Texture();
+		Texture(const char *file_name);
+		~Texture();
 
-		// methods
-		void UpdateComponent();
-		void DrawComponent();
+		//variables
 
-	protected:
-
-		// methods
-		virtual HRESULT Awake() { return S_OK; };
-		virtual void Start() {};
-		virtual void Uninit() {};
-		virtual void Update() {};
-		virtual void Draw() {};
+		//methods
+		void Load(const char *file_name);
 
 	private:
 		// variables
-
-		// methods
-
+		LPDIRECT3DTEXTURE9 tex_;
 	};
 }
-
-#include "gameobject.h"
-#include "transform.h"
 
 #endif
