@@ -37,6 +37,9 @@ namespace shadowpartner
 		std::vector<Transform *> children_;
 
 		// methods
+		Vector2 GetWorldPosition();
+		float GetWorldRotation();
+		Vector2 GetWorldScale();
 
 	protected:
 

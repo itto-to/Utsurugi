@@ -1,65 +1,48 @@
 //==========================================================
-// 概要  :シーン
+// 概要  :描画のテスト用オブジェクト
 // Author:Itsuki Namito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
-#include "scene.h"
+#include "draw_object.h"
+
+#define TEST_TEXTURE_NAME "Resources/Texture/Fox1.png"
 
 namespace shadowpartner
 {
 	// コンストラクタ
-	Scene::Scene()
-		:is_active_(true)
+	DrawObject::DrawObject()
 	{
-		Init();
+
 	}
-	
+
 	// デストラクタ
-	Scene::~Scene()
+	DrawObject::~DrawObject()
 	{
-		Uninit();
 
-		for (int i = 0; i < gameObjects_.size(); ++i)
-		{
-			if (gameObjects_[i] != nullptr)
-			{
-				delete gameObjects_[i];
-				gameObjects_[i] = nullptr;
-			}
-		}
 	}
 
-	void Scene::UpdateScene()
+	// 終了処理
+	void DrawObject::Uninit()
 	{
-		// シーンが非アクティブなら更新しない
-		if (!is_active_)
-			return;
 
-		for (int i = 0; i < gameObjects_.size(); ++i)
-		{
-			if (gameObjects_[i]->is_active_)
-			{
-				gameObjects_[i]->Update();
-			}
-		}
-
-		Update();
 	}
 
-	void Scene::DrawScene()
+	// 
+	void DrawObject::Awake()
 	{
-		// シーンが非アクティブなら描画しない
-		if (!is_active_)
-			return;
-
-		for (int i = 0; i < gameObjects_.size(); ++i)
-		{
-			if (gameObjects_[i]->is_active_)
-			{
-				gameObjects_[i]->Draw();
-			}
-		}
-
-		Draw();
+		gameObject_->AddComponent(new Sprite(TEST_TEXTURE_NAME));
 	}
+
+	// 更新処理
+	void DrawObject::Update()
+	{
+
+	}
+
+	// 描画処理
+	void DrawObject::Draw()
+	{
+
+	}
+
 }

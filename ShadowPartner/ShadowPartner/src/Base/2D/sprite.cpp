@@ -43,15 +43,16 @@ namespace shadowpartner
 	void Sprite::Draw()
 	{
 		Vector2 draw_pos;	// スクリーン上の描画位置
-		Vector2 screen_center = Vector2(Application::Instance()->GetScreenWidth / 2, Application::Instance()->GetScreenHeight / 2);
-		draw_pos = transform_->position_ - Camera::main_->transform_->position_ + screen_center;
+		Vector2 screen_center = Vector2(Application::Instance()->GetScreenWidth() / 2, Application::Instance()->GetScreenHeight() / 2);
+		draw_pos = transform_->GetWorldPosition() - Camera::main_->transform_->position_ + screen_center;
 
 		float zoom = Camera::main_->GetZoom();
+		Vector2 world_scale = transform_->GetWorldScale();
 		float width, height;
-		width = texture_.GetWidth() * transform_->scale_.x / zoom;
-		height = texture_.GetHeight() * transform_->scale_.y / zoom;
+		width = texture_.GetWidth() * world_scale.x / zoom;
+		height = texture_.GetHeight() * world_scale.y / zoom;
 
-		SetVertex(draw_pos, width, height, transform_->rotation_);
+		SetVertex(draw_pos, width, height, transform_->GetWorldRotation());
 
 		texture_.DrawTriangleStrip(&vertices_[0]);
 	}
@@ -135,12 +136,9 @@ namespace shadowpartner
 		float xsin = hw * sinf(rad), xcos = hw * cosf(rad);
 		float ysin = hh * sinf(rad), ycos = hh * cosf(rad);
 
-		float zoom = Camera::main_->GetZoom();
-
 		vertices_[0].vertex_ = center + Vector2(-xcos + ysin, -xsin - ycos);
 		vertices_[1].vertex_ = center + Vector2(xcos + ysin, xsin - ycos);
 		vertices_[2].vertex_ = center + Vector2(-xcos - ysin, -xsin + ycos);
 		vertices_[3].vertex_ = center + Vector2(xcos - ysin, xsin + ycos);
 	}
-
 }

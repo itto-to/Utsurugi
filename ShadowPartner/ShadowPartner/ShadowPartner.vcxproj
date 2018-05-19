@@ -163,6 +163,7 @@
     <ClCompile Include="src\Base\Time\time.cpp" />
     <ClCompile Include="src\Game\Application\application.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Test\Scene\draw_test_scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base\2D\camera.h" />
@@ -181,6 +182,7 @@
     <ClInclude Include="src\Base\System\scene_manager.h" />
     <ClInclude Include="src\Base\Time\time.h" />
     <ClInclude Include="src\Game\Application\application.h" />
+    <ClInclude Include="src\Test\Scene\draw_test_scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

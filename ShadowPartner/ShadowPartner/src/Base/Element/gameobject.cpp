@@ -18,10 +18,13 @@ namespace shadowpartner
 
 	// コンストラクタ
 	GameObject::GameObject()
-		:tag_(Tag::Untagged)
+		:is_active_(true)
+		,tag_(Tag::Untagged)
 		, layer_(Layer::Default)
 	{
 		transform_ = new Transform();
+
+		AddComponent(transform_);
 
 		Init();
 	}
@@ -44,7 +47,14 @@ namespace shadowpartner
 
 	void GameObject::Uninit()
 	{
-
+		for (int i = 0;i < components_.size();++i)
+		{
+			if (components_[i] != nullptr)
+			{
+				delete components_[i];
+				components_[i] = nullptr;
+			}
+		}
 	}
 
 	void GameObject::Update()

@@ -1,46 +1,37 @@
 //==========================================================
-// 概要  :シーン
+// 概要  :描画のテストシーン
 // Author:Itsuki Namito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 
-#ifndef _BASE_SYSTEM_SCENE_H_
-#define _BASE_SYSTEM_SCENE_H_
+#ifndef _TEST_SCENE_DRAW_TEST_SCENE_H_
+#define _TEST_SCENE_DRAW_TEST_SCENE_H_
 
 //**********************************************************
 // インクルードファイル
 //**********************************************************
-#include <windows.h>
-#include <vector>
-#include "../Element/gameobject.h"
+#include "../../Base/System/scene.h"
 
 namespace shadowpartner
 {
 
 	//==========================================================
-	// 概要  :ア
+	// 概要  :描画のテスト用シーン
 	//==========================================================
-	class Scene
+	class DrawTestScene:public Scene
 	{
 	public:
-		Scene();
-		virtual ~Scene();
+		DrawTestScene();
+		virtual ~DrawTestScene();
 		
 		// variables
-		bool is_active_;
-		std::vector<GameObject *> gameObjects_;
 
 		// methods
-		void UpdateScene();
-		void DrawScene();
 
 	protected:
 
 		// methods
-		virtual HRESULT Init() { return S_OK; };
-		virtual void Uninit() {};
-		virtual void Update() {};
-		virtual void Draw() {};
+		HRESULT Init();
 
 	private:
 		// variables

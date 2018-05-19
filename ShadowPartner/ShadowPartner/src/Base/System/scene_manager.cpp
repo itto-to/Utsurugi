@@ -5,6 +5,9 @@
 //==========================================================
 #include "scene_manager.h"
 
+// Å‰‚É“Ç‚İ‚ŞƒV[ƒ“
+#include "../../Test/Scene/draw_test_scene.h"
+
 namespace shadowpartner
 {
 	//**********************************************************
@@ -48,6 +51,10 @@ namespace shadowpartner
 
 	HRESULT SceneManager::Init()
 	{
+		DrawTestScene *draw_test_scene = new DrawTestScene();
+
+		scenes_.push_back(draw_test_scene);
+
 		return S_OK;
 	}
 

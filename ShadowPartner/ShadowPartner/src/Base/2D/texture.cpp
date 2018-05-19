@@ -25,7 +25,10 @@ namespace shadowpartner
 
 	Texture::Texture(const char *file_name)
 	{
-		D3DXCreateTextureFromFile(Application::Instance()->device, (LPCSTR)file_name, &tex_);
+		if (FAILED(D3DXCreateTextureFromFile(Application::Instance()->device, (LPCSTR)file_name, &tex_)))
+		{
+			MessageBox(NULL, "テクスチャーの読み込みに失敗しました。", "警告！", MB_ICONWARNING);
+		}
 	}
 
 	Texture::~Texture()
@@ -36,7 +39,10 @@ namespace shadowpartner
 	// 画像読み込み
 	void Texture::Load(const char *file_name)
 	{
-		D3DXCreateTextureFromFile(Application::Instance()->device, (LPCSTR)file_name, &tex_);
+		if (FAILED(D3DXCreateTextureFromFile(Application::Instance()->device, (LPCSTR)file_name, &tex_)))
+		{
+			MessageBox(NULL, "テクスチャーの読み込みに失敗しました。", "警告！", MB_ICONWARNING);
+		}
 	}
 
 	//==========================================================

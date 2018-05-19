@@ -1,65 +1,52 @@
 //==========================================================
-// 概要  :シーン
+// 概要  :描画のテスト用シーン
 // Author:Itsuki Namito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
-#include "scene.h"
+#include "draw_test_scene.h"
+#include "../../Base/2D/camera.h"
+#include "../../Base/2D/sprite.h"
+
+#define TEST_TEXTURE_NAME "Resources/Texture/Earth.png"
 
 namespace shadowpartner
 {
 	// コンストラクタ
-	Scene::Scene()
-		:is_active_(true)
+	DrawTestScene::DrawTestScene()
 	{
-		Init();
+		// カメラオブジェクトを生成
+		{
+			GameObject *camera_object = new GameObject();
+			camera_object->transform_->position_ = Vector2(0, 0);
+			Camera *camera = new Camera();
+			camera_object->AddComponent(camera);
+
+			gameObjects_.push_back(camera_object);
+		}
+
+		// 描画オブジェクトを生成
+		{
+			GameObject *draw_object = new GameObject();
+			draw_object->transform_->position_ = Vector2(0, 0);
+			Sprite *sprite = new Sprite(TEST_TEXTURE_NAME);
+			sprite->SetSize(Vector2(100,100));
+			draw_object->AddComponent(sprite);
+
+			gameObjects_.push_back(draw_object);
+		}
+
 	}
 	
 	// デストラクタ
-	Scene::~Scene()
+	DrawTestScene::~DrawTestScene()
 	{
-		Uninit();
-
-		for (int i = 0; i < gameObjects_.size(); ++i)
-		{
-			if (gameObjects_[i] != nullptr)
-			{
-				delete gameObjects_[i];
-				gameObjects_[i] = nullptr;
-			}
-		}
 	}
 
-	void Scene::UpdateScene()
+	// 初期化処理
+	HRESULT DrawTestScene::Init()
 	{
-		// シーンが非アクティブなら更新しない
-		if (!is_active_)
-			return;
 
-		for (int i = 0; i < gameObjects_.size(); ++i)
-		{
-			if (gameObjects_[i]->is_active_)
-			{
-				gameObjects_[i]->Update();
-			}
-		}
-
-		Update();
+		return S_OK;
 	}
 
-	void Scene::DrawScene()
-	{
-		// シーンが非アクティブなら描画しない
-		if (!is_active_)
-			return;
-
-		for (int i = 0; i < gameObjects_.size(); ++i)
-		{
-			if (gameObjects_[i]->is_active_)
-			{
-				gameObjects_[i]->Draw();
-			}
-		}
-
-		Draw();
-	}
 }
