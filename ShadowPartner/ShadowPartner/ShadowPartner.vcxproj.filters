@@ -136,6 +136,24 @@
     <Filter Include="ヘッダー ファイル\Game\Actor\Common">
       <UniqueIdentifier>{19f5967a-2378-46dd-aac4-317243c5179d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Test">
+      <UniqueIdentifier>{1fe58000-9b75-4259-97bb-bd9763871562}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Test\Scene">
+      <UniqueIdentifier>{c348ede8-8c38-4565-9c36-a4958a93139d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Test\Object">
+      <UniqueIdentifier>{51ba2a71-b1aa-4ccd-8584-9b94f6a6e5b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Test">
+      <UniqueIdentifier>{a81e5d61-c1ca-4a70-8da5-abdf59906ac2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Test\Object">
+      <UniqueIdentifier>{bc38f97a-cee3-4889-ad15-3fe1fe4fb7b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Test\Scene">
+      <UniqueIdentifier>{28a8bb31-861a-444a-97ae-363ad5fecbbe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
