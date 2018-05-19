@@ -11,9 +11,9 @@
 namespace shadowpartner
 {
 
-//**********************************************************
-// マクロ
-//**********************************************************
+	//**********************************************************
+	// マクロ
+	//**********************************************************
 #ifndef WINDOW_CLASSNAME
 #define WINDOW_CLASSNAME "ShadowPartner"
 #endif
@@ -21,9 +21,6 @@ namespace shadowpartner
 	//**********************************************************
 	// 定数
 	//**********************************************************
-	const int SCREEN_WIDTH = 1920;
-	const int SCREEN_HEIGHT = 1080;
-
 	const D3DCOLOR BACKGROUND_COLOR = D3DCOLOR_RGBA(255, 255, 255, 255);
 
 	//**********************************************************
@@ -44,9 +41,9 @@ namespace shadowpartner
 	// コンストラクタ
 	Application::Application()
 		:h_instance_(nullptr)
-		,h_wnd_(nullptr)
-		,d3d(nullptr)
-		,device(nullptr)
+		, h_wnd_(nullptr)
+		, d3d(nullptr)
+		, device(nullptr)
 	{
 	}
 
@@ -67,8 +64,12 @@ namespace shadowpartner
 	//==========================================================
 	// 概要  :アプリケーションを実行する
 	//==========================================================
-	void Application::Run()
+	void Application::Run(UINT screen_width, UINT screen_height)
 	{
+		// ウィンドウサイズの設定
+		screen_width_ = screen_width;
+		screen_height_ = screen_height;
+
 		if (FAILED(InitWindow()))
 		{
 			return;
@@ -235,8 +236,8 @@ namespace shadowpartner
 				WS_OVERLAPPEDWINDOW,
 				CW_USEDEFAULT,
 				CW_USEDEFAULT,
-				SCREEN_WIDTH + GetSystemMetrics(SM_CXDLGFRAME) * 2,
-				SCREEN_HEIGHT + GetSystemMetrics(SM_CYDLGFRAME) * 2 + GetSystemMetrics(SM_CYCAPTION),
+				screen_width_ + GetSystemMetrics(SM_CXDLGFRAME) * 2,
+				screen_height_ + GetSystemMetrics(SM_CYDLGFRAME) * 2 + GetSystemMetrics(SM_CYCAPTION),
 				NULL,
 				NULL,
 				h_instance_,
@@ -282,8 +283,8 @@ namespace shadowpartner
 		// デバイスのプレゼンテーションパラメータの設定
 		ZeroMemory(&d3dpp, sizeof(d3dpp));			// ワークをゼロクリア
 		d3dpp.BackBufferCount = 1;					// バックバッファの数
-		d3dpp.BackBufferWidth = SCREEN_WIDTH;		// ゲーム画面サイズ(幅)
-		d3dpp.BackBufferHeight = SCREEN_HEIGHT;		// ゲーム画面サイズ(高さ)
+		d3dpp.BackBufferWidth = screen_width_;		// ゲーム画面サイズ(幅)
+		d3dpp.BackBufferHeight = screen_height_;		// ゲーム画面サイズ(高さ)
 		d3dpp.BackBufferFormat = d3ddm.Format;		// バックバッファフォーマットはディスプレイモードに合わせて使う
 		d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;	// 映像信号に同期してフリップする
 		d3dpp.Windowed = TRUE;						// ウィンドウモード
@@ -434,5 +435,22 @@ namespace shadowpartner
 		device->Present(NULL, NULL, NULL, NULL);
 	}
 
+	//==========================================================
+	// 概要  :ウィンドウの横幅を取得します。
+	// 戻り値:ウィンドウの横幅
+	//==========================================================
+	UINT Application::GetScreenWidth()
+	{
+		return screen_width_;
+	}
+
+	//==========================================================
+	// 概要  :ウィンドウの縦幅を取得します。
+	// 戻り値:ウィンドウの縦幅
+	//==========================================================
+	UINT Application::GetScreenHeight()
+	{
+		return screen_height_;
+	}
 
 }

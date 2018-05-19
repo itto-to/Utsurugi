@@ -4,6 +4,8 @@
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 #include "sprite.h"
+#include "camera.h"
+#include "../../Game/Application/application.h"
 
 namespace shadowpartner
 {
@@ -17,8 +19,12 @@ namespace shadowpartner
 
 	// コンストラクタ
 	Sprite::Sprite(const char *file_name)
+		:uv_offset_(Vector2::zero())
+		,uv_size_(Vector2::one())
 	{
 		texture_ = Texture(file_name);
+
+		MakeVertex();
 	}
 
 	// コピーコンストラクタ
@@ -36,14 +42,25 @@ namespace shadowpartner
 	// 描画処理
 	void Sprite::Draw()
 	{
+		Vector2 draw_pos;	// スクリーン上の描画位置
+		Vector2 screen_center = Vector2(Application::Instance()->GetScreenWidth / 2, Application::Instance()->GetScreenHeight / 2);
+		draw_pos = transform_->position_ - Camera::main_->transform_->position_ + screen_center;
 
+		float zoom = Camera::main_->GetZoom();
+		float width, height;
+		width = texture_.GetWidth() * transform_->scale_.x / zoom;
+		height = texture_.GetHeight() * transform_->scale_.y / zoom;
+
+		SetVertex(draw_pos, width, height, transform_->rotation_);
+
+		texture_.DrawTriangleStrip(&vertices_[0]);
 	}
 
 	//==========================================================
 	// 概要  :スプライトの色を変更します。
 	// 引数  :変更したい色。
 	//==========================================================
-	void Sprite::SetColor(D3DCOLOR &color)
+	void Sprite::SetColor(const D3DCOLOR &color)
 	{
 		for (int i = 0; i < NUM_TEXTURE_VERTEX;++i)
 		{
@@ -55,9 +72,28 @@ namespace shadowpartner
 	// 概要  :Transformのscaleを基準とした大きさを指定します。
 	// 引数  :伸縮の割合
 	//==========================================================
-	void Sprite::SetSize(Vector2 &size)
+	void Sprite::SetSize(const Vector2 &size)
 	{
-		size_ = size;
+		texture_.SetWidth(size.x);
+		texture_.SetHeight(size.y);
+	}
+
+	//==========================================================
+	// 概要  :テクスチャーのuv座標の左上を設定します。
+	// 引数  :左上の座標
+	//==========================================================
+	void Sprite::SetUvOffset(const Vector2 &offset)
+	{
+		uv_offset_ = offset;
+	}
+
+	//==========================================================
+	// 概要  :uvの大きさを設定します。
+	// 引数  :テクスチャーのuv座標の左上から右下までのベクトル
+	//==========================================================
+	void Sprite::SetUvSize(const Vector2 &size)
+	{
+		uv_size_ = size;
 	}
 
 	//==========================================================
@@ -98,6 +134,8 @@ namespace shadowpartner
 
 		float xsin = hw * sinf(rad), xcos = hw * cosf(rad);
 		float ysin = hh * sinf(rad), ycos = hh * cosf(rad);
+
+		float zoom = Camera::main_->GetZoom();
 
 		vertices_[0].vertex_ = center + Vector2(-xcos + ysin, -xsin - ycos);
 		vertices_[1].vertex_ = center + Vector2(xcos + ysin, xsin - ycos);

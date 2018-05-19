@@ -32,6 +32,7 @@ namespace shadowpartner
 		static Camera *main_;
 
 		//methods
+		float GetZoom();
 		void SetZoom(const float &zoom);
 		void SetSmoothness(const float &smoothness);
 	protected:

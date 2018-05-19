@@ -47,9 +47,20 @@ namespace shadowpartner
 		//methods
 		void Load(const char *file_name);
 
+		void DrawTriangleStrip(const Vertex2D *vertices);
+		void DrawTriangleFan(const Vertex2D *vertices,UINT primitive_count);
+
+		void SetSize(float width, float height);
+		void SetWidth(float width);
+		float GetWidth();
+		void SetHeight(float height);
+		float GetHeight();
+
 	private:
 		// variables
 		LPDIRECT3DTEXTURE9 tex_;
+		float width_;	// このテクスチャーの横幅
+		float height_;
 	};
 }
 

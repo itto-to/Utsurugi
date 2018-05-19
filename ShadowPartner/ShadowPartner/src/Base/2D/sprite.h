@@ -32,18 +32,19 @@ namespace shadowpartner
 		//variables
 
 		//methods
-		void SetColor(D3DCOLOR &color);
-		void SetSize(Vector2 &size);
+		void SetColor(const D3DCOLOR &color);
+		void SetSize(const Vector2 &size);
+		void SetUvOffset(const Vector2 &offset);
+		void SetUvSize(const Vector2 &size);
 
 	protected:
 		void Draw();
 
 	private:
 		// variables
-		Texture texture_;
-		Vector2 size_;
-		Vector2 uv_offset_;
-		Vector2 uv_size_;
+		Texture texture_;	
+		Vector2 uv_offset_;		// テクスチャーのuv座標の左上
+		Vector2 uv_size_;		// テクスチャーのuv座標の左上から右下までのベクトル
 		Vertex2D vertices_[NUM_TEXTURE_VERTEX];
 
 		// methods

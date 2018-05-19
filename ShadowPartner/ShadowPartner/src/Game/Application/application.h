@@ -22,6 +22,12 @@
 #pragma comment (lib,"dinput8.lib")
 #pragma comment (lib,"winmm.lib")
 
+//==========================================================
+// É}ÉNÉç
+//==========================================================
+#define DEFAULT_SCREEN_WIDTH  (1920)
+#define DEFAULT_SCREEN_HEIGHT (1080)
+
 namespace shadowpartner
 {
 
@@ -40,7 +46,10 @@ namespace shadowpartner
 
 		// methods
 		static Application *Instance();
-		void Run();
+		void Run(UINT screen_width = DEFAULT_SCREEN_WIDTH, UINT screen_height = DEFAULT_SCREEN_HEIGHT);
+
+		UINT GetScreenWidth();
+		UINT GetScreenHeight();
 
 	protected:
 		Application();
@@ -55,6 +64,9 @@ namespace shadowpartner
 	private:
 		// variables
 		static Application *instance_;
+
+		UINT screen_width_;
+		UINT screen_height_;
 
 		// methods
 		HRESULT InitWindow();
