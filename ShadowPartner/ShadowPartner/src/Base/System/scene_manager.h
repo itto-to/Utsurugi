@@ -42,7 +42,9 @@ namespace shadowpartner
 		void Update();
 		void Draw();
 
-		int CountCurrentScene();
+		int SceneCount();
+		Scene *GetCurrentScene();
+		int GetCurrentSceneIndex();
 		Scene *GetSceneByIndex(int index);
 
 	protected:
@@ -56,6 +58,9 @@ namespace shadowpartner
 		static SceneManager *instance_;
 
 		std::vector<Scene *>scenes_;
+
+		Scene *current_scene_;
+		int current_scene_index_;
 
 		// methods
 

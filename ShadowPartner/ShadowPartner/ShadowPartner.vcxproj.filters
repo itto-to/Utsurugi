@@ -148,6 +148,12 @@
     <Filter Include="ソース ファイル\Test\Scene">
       <UniqueIdentifier>{28a8bb31-861a-444a-97ae-363ad5fecbbe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Test\Object">
+      <UniqueIdentifier>{ac7717a3-bdf0-4732-9583-c771c1d63559}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Test\Object">
+      <UniqueIdentifier>{2c4041c1-06c8-4e1c-b518-6e4523a6ad0a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -185,6 +191,15 @@
     </ClCompile>
     <ClCompile Include="src\Test\Scene\draw_test_scene.cpp">
       <Filter>ソース ファイル\Test\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Test\Object\fps_object.cpp">
+      <Filter>ソース ファイル\Test\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Test\Object\draw_number.cpp">
+      <Filter>ソース ファイル\Test\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Test\Object\frame_counter.cpp">
+      <Filter>ソース ファイル\Test\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +253,15 @@
     </ClInclude>
     <ClInclude Include="src\Test\Scene\draw_test_scene.h">
       <Filter>ヘッダー ファイル\Test\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Test\Object\fps_object.h">
+      <Filter>ヘッダー ファイル\Test\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Test\Object\draw_number.h">
+      <Filter>ヘッダー ファイル\Test\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Test\Object\frame_counter.h">
+      <Filter>ヘッダー ファイル\Test\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

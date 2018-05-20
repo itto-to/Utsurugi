@@ -49,7 +49,7 @@ namespace shadowpartner
 
 		// methods
 		void MakeVertex();
-		void SetVertex(const Vector2 &center, const float &width,
+		void SetVertex(const Vector3 &center, const float &width,
 			const float &height, const float &rotation);
 	};
 }

@@ -79,10 +79,7 @@ namespace shadowpartner
 	//==========================================================
 	void GameObject::AddComponent(Component *component)
 	{
-		component->gameObject_ = this;
-		component->transform_ = transform_;
-
-		component->tag_ = tag_;
+		component->Attached(this, transform_, tag_);
 
 		components_.push_back(component);
 	}

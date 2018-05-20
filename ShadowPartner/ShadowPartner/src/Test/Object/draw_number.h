@@ -1,11 +1,11 @@
 //==========================================================
-// 概要  :描画のテスト用オブジェクト
+// 概要  :数字のテクスチャーを表示するだけ
 // Author:Itsuki Namito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 
-#ifndef _TEST_OBJECT_DRAW_OBJECT_H_
-#define _TEST_OBJECT_DRAW_OBJECT_H_
+#ifndef _TEST_OBJECT_DRAW_NUMBER_H_
+#define _TEST_OBJECT_DRAW_NUMBER_H_
 
 //**********************************************************
 // インクルードファイル
@@ -17,28 +17,31 @@ namespace shadowpartner
 {
 
 	//==========================================================
-	// 概要  :描画のテスト用オブジェクト
+	// 概要  :数字のテクスチャーを表示するだけ
 	//==========================================================
-	class DrawObject:public Component
+	class DrawNumber:public Component
 	{
 	public:
-		DrawObject();
-		virtual ~DrawObject();
+		DrawNumber();
+		virtual ~DrawNumber();
 		
 		// variables
 
 		// methods
+		void SetNumber(int number);	// このオブジェクトは何桁目を描画するのかを設定する
 
 	protected:
 
 		// methods
 		void Uninit();
-		void Awake();
+		void Start();
 		void Update();
 		void Draw();
 
 	private:
 		// variables
+		int number_;
+		Sprite *number_sprite_;
 
 		// methods
 

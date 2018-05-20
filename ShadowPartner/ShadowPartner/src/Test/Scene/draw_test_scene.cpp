@@ -7,17 +7,32 @@
 #include "../../Base/2D/camera.h"
 #include "../../Base/2D/sprite.h"
 
-#define TEST_TEXTURE_NAME "Resources/Texture/Earth.png"
+#include "../Object/frame_counter.h"
+#include "../Object/fps_object.h"
+
+#define TEST_TEXTURE_NAME "Resources/Texture/Fox1.png"
 
 namespace shadowpartner
 {
 	// コンストラクタ
 	DrawTestScene::DrawTestScene()
 	{
+
+	}
+	
+	// デストラクタ
+	DrawTestScene::~DrawTestScene()
+	{
+
+	}
+
+	// 初期化処理
+	HRESULT DrawTestScene::Init()
+	{
 		// カメラオブジェクトを生成
 		{
-			GameObject *camera_object = new GameObject();
-			camera_object->transform_->position_ = Vector2(0, 0);
+			camera_object = new GameObject();
+			camera_object->transform_->position_ = Vector2(0.0f, 0.0f);
 			Camera *camera = new Camera();
 			camera_object->AddComponent(camera);
 
@@ -26,25 +41,35 @@ namespace shadowpartner
 
 		// 描画オブジェクトを生成
 		{
-			GameObject *draw_object = new GameObject();
-			draw_object->transform_->position_ = Vector2(0, 0);
+			draw_object = new GameObject();
+			draw_object->transform_->position_ = Vector2(0.0f, -200.0f);
 			Sprite *sprite = new Sprite(TEST_TEXTURE_NAME);
-			sprite->SetSize(Vector2(100,100));
+			sprite->SetSize(Vector2(100, 100));
 			draw_object->AddComponent(sprite);
 
 			gameObjects_.push_back(draw_object);
 		}
 
-	}
-	
-	// デストラクタ
-	DrawTestScene::~DrawTestScene()
-	{
-	}
+		// ゲーム開始時からのカウントオブジェクトを生成
+		{
+			draw_count_object = new GameObject();
+			draw_count_object->transform_->position_ = Vector2(-300.0f, 0.0f);
+			draw_count_object->transform_->scale_ = Vector2(2.0f, 2.0f);
+			FrameCounter *frame_counter = new FrameCounter();
+			draw_count_object->AddComponent(frame_counter);
 
-	// 初期化処理
-	HRESULT DrawTestScene::Init()
-	{
+			gameObjects_.push_back(draw_count_object);
+		}
+
+		// FPS表示オブジェクトを生成
+		{
+			draw_fps_object = new GameObject();
+			draw_fps_object->transform_->position_ = Vector2(-300.0f, 200.0f);
+			FpsObject *fps_object = new FpsObject();
+			draw_fps_object->AddComponent(fps_object);
+
+			gameObjects_.push_back(draw_fps_object);
+		}
 
 		return S_OK;
 	}

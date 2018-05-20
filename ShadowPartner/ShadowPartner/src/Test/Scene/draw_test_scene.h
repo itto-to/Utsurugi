@@ -35,8 +35,15 @@ namespace shadowpartner
 
 	private:
 		// variables
+		GameObject *camera_object;
+		GameObject *draw_object;
+		GameObject *draw_count_object;
+		GameObject *draw_fps_object;
+
 
 		// methods
+
+
 
 		// —˜—p‹ÖŽ~
 	};

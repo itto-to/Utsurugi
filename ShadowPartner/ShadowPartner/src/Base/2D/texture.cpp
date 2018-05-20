@@ -19,11 +19,16 @@ namespace shadowpartner
 		// コンストラクタ
 	Texture::Texture()
 		:tex_(nullptr)
+		,width_(10.0f)
+		,height_(10.0f)
 	{
 
 	}
 
 	Texture::Texture(const char *file_name)
+		:tex_(nullptr)
+		,width_(10.0f)
+		,height_(10.0f)
 	{
 		if (FAILED(D3DXCreateTextureFromFile(Application::Instance()->device, (LPCSTR)file_name, &tex_)))
 		{

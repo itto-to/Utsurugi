@@ -37,7 +37,8 @@ namespace shadowpartner
 		virtual ~Component() {};
 		
 		// variables
-		GameObject *gameObject_;
+		bool is_active_;
+		GameObject *game_object_;
 		Tag tag_;
 		Transform *transform_;
 
@@ -45,13 +46,16 @@ namespace shadowpartner
 		void UpdateComponent();
 		void DrawComponent();
 
+		void SetActive(bool is_active);
+
+		void Attached(GameObject *game_object, Transform *transform, Tag tag);
 		Component *GetComponent(type_info &type);
 
 	protected:
 
 		// methods
-		virtual HRESULT Awake() { return S_OK; };
-		virtual void Start() {};
+		virtual HRESULT Awake() { return S_OK; };	// コンストラクタで呼ばれます.game_object_やtransform_はnullptrです。
+		virtual void Start() {};					// ゲームオブジェクトにアタッチされたタイミングやSetActive(true)で呼ばれます。
 		virtual void Uninit() {};
 		virtual void Update() {};
 		virtual void Draw() {};

@@ -42,9 +42,10 @@ namespace shadowpartner
 	// ï`âÊèàóù
 	void Sprite::Draw()
 	{
-		Vector2 draw_pos;	// ÉXÉNÉäÅ[Éìè„ÇÃï`âÊà íu
-		Vector2 screen_center = Vector2(Application::Instance()->GetScreenWidth() / 2, Application::Instance()->GetScreenHeight() / 2);
-		draw_pos = transform_->GetWorldPosition() - Camera::main_->transform_->position_ + screen_center;
+		Vector3 world_pos = Vector3(transform_->GetWorldPosition(), 0.0f);
+		Vector3 draw_pos = Vector3(world_pos.x,-world_pos.y,0.0f);	// ÉXÉNÉäÅ[Éìè„ÇÃï`âÊà íu.Ç‹Ç∏yé≤ÇÃï˚å¸ÇïœÇ¶ÇÈ
+		Vector3 screen_center = Vector3(Application::Instance()->GetScreenWidth() / 2, Application::Instance()->GetScreenHeight() / 2,0.0f);
+		draw_pos += Vector3(Camera::main_->transform_->position_,0.0f) + screen_center;
 
 		float zoom = Camera::main_->GetZoom();
 		Vector2 world_scale = transform_->GetWorldScale();
@@ -126,7 +127,7 @@ namespace shadowpartner
 	//	height  :ècïù
 	//	rotition:âÒì]
 	//==========================================================
-	void Sprite::SetVertex(const Vector2 &center, const float &width,
+	void Sprite::SetVertex(const Vector3 &center, const float &width,
 		const float &height, const float &rotation)
 	{
 		float hw = width / 2.0f, hh = height / 2.0f;
@@ -136,9 +137,14 @@ namespace shadowpartner
 		float xsin = hw * sinf(rad), xcos = hw * cosf(rad);
 		float ysin = hh * sinf(rad), ycos = hh * cosf(rad);
 
-		vertices_[0].vertex_ = center + Vector2(-xcos + ysin, -xsin - ycos);
-		vertices_[1].vertex_ = center + Vector2(xcos + ysin, xsin - ycos);
-		vertices_[2].vertex_ = center + Vector2(-xcos - ysin, -xsin + ycos);
-		vertices_[3].vertex_ = center + Vector2(xcos - ysin, xsin + ycos);
+		vertices_[0].vertex_ = center + Vector3(-xcos + ysin, -xsin - ycos,0.0f);
+		vertices_[1].vertex_ = center + Vector3(xcos + ysin, xsin - ycos,0.0f);
+		vertices_[2].vertex_ = center + Vector3(-xcos - ysin, -xsin + ycos,0.0f);
+		vertices_[3].vertex_ = center + Vector3(xcos - ysin, xsin + ycos,0.0f);
+
+		vertices_[0].tex_coor_ = uv_offset_;
+		vertices_[1].tex_coor_ = uv_offset_ + Vector2(uv_size_.x, 0.0f);
+		vertices_[2].tex_coor_ = uv_offset_ + Vector2(0.0f, uv_size_.y);
+		vertices_[3].tex_coor_ = uv_offset_ + uv_size_;
 	}
 }

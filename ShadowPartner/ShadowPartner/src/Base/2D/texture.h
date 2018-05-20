@@ -26,7 +26,7 @@ namespace shadowpartner
 {
 	struct Vertex2D
 	{
-		Vector2 vertex_;
+		Vector3 vertex_;
 		float rhw_;
 		D3DCOLOR diffuse_;
 		Vector2 tex_coor_;
