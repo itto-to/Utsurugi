@@ -7,6 +7,7 @@
 #include "../../Base/System/scene_manager.h"
 
 #include "../../Base/Time/time.h"
+#include "../../Base/Input/input.h"
 
 namespace shadowpartner
 {
@@ -189,6 +190,7 @@ namespace shadowpartner
 	//==========================================================
 	HRESULT Application::Init()
 	{
+		input::Input::Instance()->Init(h_instance_,h_wnd_);
 
 		return S_OK;
 	}

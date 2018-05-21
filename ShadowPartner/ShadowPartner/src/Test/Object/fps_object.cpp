@@ -4,7 +4,7 @@
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 #include <math.h>
-
+#include <stdio.h>
 #include "fps_object.h"
 
 #include "../../Base/System/scene_manager.h"

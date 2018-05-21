@@ -6,6 +6,7 @@
 #include "draw_test_scene.h"
 #include "../../Base/2D/camera.h"
 #include "../../Base/2D/sprite.h"
+#include "../../Base/Input/input.h"
 
 #include "../Object/frame_counter.h"
 #include "../Object/fps_object.h"
@@ -29,6 +30,8 @@ namespace shadowpartner
 	// 初期化処理
 	HRESULT DrawTestScene::Init()
 	{
+		printf("描画テストのシーンのオブジェクトを生成します。");
+
 		// カメラオブジェクトを生成
 		{
 			camera_object = new GameObject();
@@ -74,4 +77,11 @@ namespace shadowpartner
 		return S_OK;
 	}
 
+	void DrawTestScene::Update()
+	{
+		float move = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
+		draw_object->transform_->position_.x += move;
+
+		printf("move:%f\n", &move);
+	}
 }
