@@ -155,7 +155,6 @@
     <ClCompile Include="src\Base\2D\camera.cpp" />
     <ClCompile Include="src\Base\2D\sprite.cpp" />
     <ClCompile Include="src\Base\2D\texture.cpp" />
-    <ClCompile Include="src\Base\Debug\console_log.cpp" />
     <ClCompile Include="src\Base\Element\component.cpp" />
     <ClCompile Include="src\Base\Element\gameobject.cpp" />
     <ClCompile Include="src\Base\Element\transform.cpp" />
@@ -177,7 +176,6 @@
     <ClInclude Include="src\Base\2D\camera.h" />
     <ClInclude Include="src\Base\2D\sprite.h" />
     <ClInclude Include="src\Base\2D\texture.h" />
-    <ClInclude Include="src\Base\Debug\console_log.h" />
     <ClInclude Include="src\Base\Element\component.h" />
     <ClInclude Include="src\Base\Element\gameobject.h" />
     <ClInclude Include="src\Base\Element\transform.h" />

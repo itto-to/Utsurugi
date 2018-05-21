@@ -201,9 +201,6 @@
     <ClCompile Include="src\Test\Object\frame_counter.cpp">
       <Filter>ソース ファイル\Test\Object</Filter>
     </ClCompile>
-    <ClCompile Include="src\Base\Debug\console_log.cpp">
-      <Filter>ソース ファイル\Base\Debug</Filter>
-    </ClCompile>
     <ClCompile Include="src\Base\Input\keyboard.cpp">
       <Filter>ソース ファイル\Base\Input</Filter>
     </ClCompile>
@@ -277,9 +274,6 @@
     </ClInclude>
     <ClInclude Include="src\Test\Object\frame_counter.h">
       <Filter>ヘッダー ファイル\Test\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Base\Debug\console_log.h">
-      <Filter>ヘッダー ファイル\Base\Debug</Filter>
     </ClInclude>
     <ClInclude Include="src\Base\Input\keyboard.h">
       <Filter>ヘッダー ファイル\Base\Input</Filter>

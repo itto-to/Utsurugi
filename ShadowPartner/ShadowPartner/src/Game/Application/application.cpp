@@ -370,7 +370,7 @@ namespace shadowpartner
 	//==========================================================
 	void Application::Uninit()
 	{
-
+		input::Input::Instance()->Uninit();
 	}
 
 	//==========================================================
@@ -413,6 +413,8 @@ namespace shadowpartner
 	//==========================================================
 	void Application::Update()
 	{
+		input::Input::Instance()->Update();
+
 		SceneManager::Instance()->Update();
 	}
 
