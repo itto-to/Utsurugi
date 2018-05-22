@@ -213,6 +213,9 @@
     <ClCompile Include="src\Base\Input\input.cpp">
       <Filter>ソース ファイル\Base\Input</Filter>
     </ClCompile>
+    <ClCompile Include="src\Base\Debug\debugger.cpp">
+      <Filter>ソース ファイル\Base\Debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base\System\scene.h">
@@ -286,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="src\Base\Input\input.h">
       <Filter>ヘッダー ファイル\Base\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Debug\debugger.h">
+      <Filter>ヘッダー ファイル\Base\Debug</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

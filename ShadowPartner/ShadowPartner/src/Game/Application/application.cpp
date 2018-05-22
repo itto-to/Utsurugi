@@ -9,6 +9,10 @@
 #include "../../Base/Time/time.h"
 #include "../../Base/Input/input.h"
 
+#ifdef _DEBUG
+#include "../../Base/Debug/debugger.h"
+#endif
+
 namespace shadowpartner
 {
 
@@ -166,11 +170,19 @@ namespace shadowpartner
 			}
 			break;
 
-			case VK_F2:
+			//case VK_F2:
+			//{
+			//	// F2キーを押したときの動作
+			//}
+			//break;
+
+#ifdef _DEBUG
+			case VK_F9:
 			{
-				// F2キーを押したときの動作
+				debug::Debug::BreakPoint();
 			}
 			break;
+#endif
 
 			default:
 				break;
@@ -190,6 +202,9 @@ namespace shadowpartner
 	//==========================================================
 	HRESULT Application::Init()
 	{
+#ifdef _DEBUG
+		debug::Debug::Init();
+#endif
 		input::Input::Instance()->Init(h_instance_,h_wnd_);
 
 		return S_OK;
@@ -370,6 +385,10 @@ namespace shadowpartner
 	//==========================================================
 	void Application::Uninit()
 	{
+#ifdef _DEBUG
+		debug::Debug::Uninit();
+#endif
+
 		input::Input::Instance()->Uninit();
 	}
 
@@ -416,6 +435,10 @@ namespace shadowpartner
 		input::Input::Instance()->Update();
 
 		SceneManager::Instance()->Update();
+
+#ifdef _DEBUG
+		debug::Debug::Update();
+#endif
 	}
 
 	//==========================================================

@@ -8,6 +8,10 @@
 #include "../../Base/2D/sprite.h"
 #include "../../Base/Input/input.h"
 
+#ifdef _DEBUG
+#include "../../Base/Debug/debugger.h"
+#endif
+
 #include "../Object/frame_counter.h"
 #include "../Object/fps_object.h"
 
@@ -82,6 +86,11 @@ namespace shadowpartner
 		float move = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
 		draw_object->transform_->position_.x += move;
 
-		printf("move:%f\n", &move);
+#ifdef _DEBUG
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
+		{
+			debug::Debug::Log("Log:%d", 1);
+		}
+#endif
 	}
 }
