@@ -15,6 +15,8 @@
 #include "../Object/frame_counter.h"
 #include "../Object/fps_object.h"
 
+#include "../../Base/Time/time.h"
+
 #define TEST_TEXTURE_NAME "Resources/Texture/Fox1.png"
 
 namespace shadowpartner
@@ -83,14 +85,23 @@ namespace shadowpartner
 
 	void DrawTestScene::Update()
 	{
-		float move = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
-		draw_object->transform_->position_.x += move;
+		float move = input::Input::Instance()->GetAxis(input::InputAxis::MouseX);
+		draw_object->transform_->position_.x += move * 10 * Time::Instance()->delta_time_;
+		system("cls");
+		printf("move:%f\n", move);
 
+<<<<<<< HEAD
 #ifdef _DEBUG
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
 		{
 			debug::Debug::Log("Log:%d", 1);
 		}
 #endif
+=======
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Down))
+		{
+			draw_object->transform_->position_.y += 100.0f;
+		}
+>>>>>>> 161a44622ac47c57c9331b49c634d095a664506e
 	}
 }
