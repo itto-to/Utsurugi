@@ -154,6 +154,12 @@
     <Filter Include="ソース ファイル\Test\Object">
       <UniqueIdentifier>{2c4041c1-06c8-4e1c-b518-6e4523a6ad0a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Base\Physics\Element">
+      <UniqueIdentifier>{66546879-6932-4697-aeba-e74cd2c1dfb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Base\Physics\Element">
+      <UniqueIdentifier>{a3b72673-a829-4c39-81b4-b3ae9341c311}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -215,6 +221,9 @@
     </ClCompile>
     <ClCompile Include="src\Base\Debug\debugger.cpp">
       <Filter>ソース ファイル\Base\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\Physics\Element\collider.cpp">
+      <Filter>ソース ファイル\Base\Physics\Element</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -292,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="src\Base\Debug\debugger.h">
       <Filter>ヘッダー ファイル\Base\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Physics\Element\collider.h">
+      <Filter>ヘッダー ファイル\Base\Physics\Element</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -71,8 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(SolutionDir)ShadowPartner\liquidfun_include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(SolutionDir)ShadowPartner\liquidfun_lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -163,6 +163,7 @@
     <ClCompile Include="src\Base\Input\input.cpp" />
     <ClCompile Include="src\Base\Input\keyboard.cpp" />
     <ClCompile Include="src\Base\Input\mouse.cpp" />
+    <ClCompile Include="src\Base\Physics\Element\collider.cpp" />
     <ClCompile Include="src\Base\System\scene.cpp" />
     <ClCompile Include="src\Base\System\scene_manager.cpp" />
     <ClCompile Include="src\Base\Time\time.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="src\Base\Math\quaternion.h" />
     <ClInclude Include="src\Base\Math\vector2.h" />
     <ClInclude Include="src\Base\Math\vector3.h" />
+    <ClInclude Include="src\Base\Physics\Element\collider.h" />
     <ClInclude Include="src\Base\System\scene.h" />
     <ClInclude Include="src\Base\System\scene_manager.h" />
     <ClInclude Include="src\Base\Time\time.h" />
