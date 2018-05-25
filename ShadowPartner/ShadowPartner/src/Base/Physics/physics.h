@@ -52,15 +52,10 @@ namespace physics
 		float bounciness_;	// îΩî≠åWêî
 
 		// methods
-		void SetTransform(const Vector2 &pos, const float &ori);
 
 	protected:
-		// variables
-		b2Body *body_;
 
 		// methods
-		void FixedUpdate();
-
 		virtual void OnCollisionEnter(Collider *hit) {};
 		virtual void OnCollisionStay(Collider *hit) {};
 		virtual void OnCollisionExit(Collider *hit) {};

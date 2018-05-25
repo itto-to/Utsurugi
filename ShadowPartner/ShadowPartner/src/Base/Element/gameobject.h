@@ -20,7 +20,7 @@ namespace shadowpartner
 
 	enum Layer
 	{
-		Default = 0,
+		kDefault = 0,
 	};
 
 	//==========================================================

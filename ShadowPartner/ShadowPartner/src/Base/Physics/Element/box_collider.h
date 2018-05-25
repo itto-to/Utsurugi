@@ -1,65 +1,60 @@
 //==========================================================
-// 概要  :全コライダーの基底クラス
+// 概要  :矩形の当たり判定
 // Author:Itsuki Namito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 
-#ifndef _BASE_PHYSICS_ELEMENT_COLLIDER_H_
-#define _BASE_PHYSICS_ELEMENT_COLLIDER_H_
+#ifndef _BASE_PHYSICS_ELEMENT_BOX_COLLIDER_H_
+#define _BASE_PHYSICS_ELEMENT_BOX_COLLIDER_H_
 
 //**********************************************************
 // インクルードファイル
 //**********************************************************
-#include <Box2D\Box2D.h>
-#include "../../Element/component.h"
-#include <windows.h>
-#include <typeinfo>
-
-#ifdef _DEBUG
-#pragma comment (lib,"liquidfun_debug.lib")
-#else
-#pragma comment (lib, "liquidfun_release.lib")
-#endif
+#include "collider.h"
 
 using namespace shadowpartner;
 
 namespace physics
 {
-	enum PhysicsShape
+	//
+	struct BoxInitializer
 	{
-		Box,
-		Circle,
-		Polygon,
-		Edge,
-		ShapeCount
+		Vector2 pos_;		// 位置
+		float width_;		// 横幅
+		float height_;		// 縦幅
+		bool is_static_;	// 静止オブジェクトかどうか
+		float density_;		// 密度
+		float friction_;	// 摩擦係数
+		float bounciness_;	// 反発係数
+
+		BoxInitializer()
+			:pos_(Vector2::zero())
+			, width_(1.0f)
+			, height_(1.0f)
+			, is_static_(true)
+			, density_(1.0f)
+			, friction_(0.6f)
+			, bounciness_(0.0f)
+		{
+		}
 	};
 
 	//==========================================================
 	// 概要  :全コライダーの基底クラス
 	//==========================================================
-	class Collider : public Component
+	class BoxCollider : public Collider
 	{
 	public:
-		Collider();
-		Collider(Collider &copy);
-		virtual ~Collider() {};
+		BoxCollider(const BoxInitializer &initializer);
+		virtual ~BoxCollider() {};
 
-		// variables
-		PhysicsShape shape;
-		bool is_trigger_;	// トリガーとして設定するかどうか
-
-		float friction_;	// 動摩擦係数
-		float bounciness_;	// 反発係数
-
+		// ariables
 		// methods
-		void SetTransform(const Vector2 &pos, const float &ori);
 
 	protected:
-		// variables
-		b2Body *body_;
 
 		// methods
-		void FixedUpdate();
+		void Start();
 
 		virtual void OnCollisionEnter(Collider *hit) {};
 		virtual void OnCollisionStay(Collider *hit) {};
@@ -70,7 +65,7 @@ namespace physics
 
 	private:
 		// variables
-
+		Vector2 size_;
 
 		// methods
 

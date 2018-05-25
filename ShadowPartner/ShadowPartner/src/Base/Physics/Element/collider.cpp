@@ -29,4 +29,15 @@ namespace physics
 	{
 		*this = copy;
 	}
+
+	void Collider::SetTransform(const Vector2 &pos, const float &ori)
+	{
+		body_->SetTransform(b2Vec2(pos.x, pos.y), ori);
+	}
+
+	void Collider::FixedUpdate()
+	{
+		transform_->position_ = Vector2(body_->GetPosition().x,body_->GetPosition().y);
+		transform_->rotation_ = body_->GetAngle();
+	}
 }

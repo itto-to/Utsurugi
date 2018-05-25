@@ -163,7 +163,11 @@
     <ClCompile Include="src\Base\Input\input.cpp" />
     <ClCompile Include="src\Base\Input\keyboard.cpp" />
     <ClCompile Include="src\Base\Input\mouse.cpp" />
+    <ClCompile Include="src\Base\Physics\Element\box_collider.cpp" />
+    <ClCompile Include="src\Base\Physics\Element\circle_collider.cpp" />
     <ClCompile Include="src\Base\Physics\Element\collider.cpp" />
+    <ClCompile Include="src\Base\Physics\Element\polygon_collider.cpp" />
+    <ClCompile Include="src\Base\Physics\World\physics_world.cpp" />
     <ClCompile Include="src\Base\System\scene.cpp" />
     <ClCompile Include="src\Base\System\scene_manager.cpp" />
     <ClCompile Include="src\Base\Time\time.cpp" />
@@ -192,7 +196,12 @@
     <ClInclude Include="src\Base\Math\quaternion.h" />
     <ClInclude Include="src\Base\Math\vector2.h" />
     <ClInclude Include="src\Base\Math\vector3.h" />
+    <ClInclude Include="src\Base\Physics\Element\box_collider.h" />
+    <ClInclude Include="src\Base\Physics\Element\circle_collider.h" />
     <ClInclude Include="src\Base\Physics\Element\collider.h" />
+    <ClInclude Include="src\Base\Physics\Element\polygon_collider.h" />
+    <ClInclude Include="src\Base\Physics\physics.h" />
+    <ClInclude Include="src\Base\Physics\World\physics_world.h" />
     <ClInclude Include="src\Base\System\scene.h" />
     <ClInclude Include="src\Base\System\scene_manager.h" />
     <ClInclude Include="src\Base\Time\time.h" />

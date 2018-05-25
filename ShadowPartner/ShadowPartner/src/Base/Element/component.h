@@ -20,9 +20,9 @@ namespace shadowpartner
 
 	enum Tag
 	{
-		Untagged = 0,
-		Player,
-		Enemy,
+		kUntagged = 0,
+		kPlayer,
+		kEnemy,
 		
 	};
 
@@ -58,6 +58,7 @@ namespace shadowpartner
 		virtual void Start() {};					// ゲームオブジェクトにアタッチされたタイミングやSetActive(true)で呼ばれます。
 		virtual void Uninit() {};
 		virtual void Update() {};
+		virtual void FixedUpdate() {};
 		virtual void Draw() {};
 
 	private:

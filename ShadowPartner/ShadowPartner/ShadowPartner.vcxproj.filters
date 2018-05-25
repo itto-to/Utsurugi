@@ -160,6 +160,12 @@
     <Filter Include="ソース ファイル\Base\Physics\Element">
       <UniqueIdentifier>{a3b72673-a829-4c39-81b4-b3ae9341c311}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Base\Physics\World">
+      <UniqueIdentifier>{8b5310f9-e024-4d34-89e2-3f793284b10d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Base\Physics\World">
+      <UniqueIdentifier>{8c548a2c-ea76-4f5c-b9c7-e9b064732503}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -224,6 +230,18 @@
     </ClCompile>
     <ClCompile Include="src\Base\Physics\Element\collider.cpp">
       <Filter>ソース ファイル\Base\Physics\Element</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\Physics\Element\polygon_collider.cpp">
+      <Filter>ソース ファイル\Base\Physics\Element</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\Physics\Element\box_collider.cpp">
+      <Filter>ソース ファイル\Base\Physics\Element</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\Physics\Element\circle_collider.cpp">
+      <Filter>ソース ファイル\Base\Physics\Element</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\Physics\World\physics_world.cpp">
+      <Filter>ソース ファイル\Base\Physics\World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -304,6 +322,21 @@
     </ClInclude>
     <ClInclude Include="src\Base\Physics\Element\collider.h">
       <Filter>ヘッダー ファイル\Base\Physics\Element</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Physics\Element\circle_collider.h">
+      <Filter>ヘッダー ファイル\Base\Physics\Element</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Physics\Element\polygon_collider.h">
+      <Filter>ヘッダー ファイル\Base\Physics\Element</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Physics\Element\box_collider.h">
+      <Filter>ヘッダー ファイル\Base\Physics\Element</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Physics\World\physics_world.h">
+      <Filter>ヘッダー ファイル\Base\Physics\World</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Physics\physics.h">
+      <Filter>ヘッダー ファイル\Base\Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
