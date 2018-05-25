@@ -21,6 +21,7 @@ namespace physics
 		,is_trigger_(false)
 		,friction_(0.6f)
 		,bounciness_(0.0f)
+		,index_(0)
 	{
 
 	}

@@ -1,5 +1,5 @@
 //==========================================================
-// 概要  :全コライダーの基底クラス
+// 概要  :矩形の当たり判定
 // Author:Itsuki Namito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
@@ -27,7 +27,7 @@ namespace physics
 
 		box_body_def.position = b2Vec2(ini.pos_.x, ini.pos_.y);
 
-		body_ = PhysicsWorld::CreateBody(&box_body_def);
+		body_ = PhysicsWorld::CreateBody(this,&box_body_def);
 
 		b2PolygonShape box;
 		box.SetAsBox(ini.width_, ini.height_);

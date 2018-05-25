@@ -74,8 +74,11 @@ namespace physics
 	// 概要  :物理エンジンの制御下にあるColliderを追加する
 	// 引数  :Colliderの定義へのポインタ
 	//==========================================================
-	b2Body *PhysicsWorld::CreateBody(const b2BodyDef *body_def)
+	b2Body *PhysicsWorld::CreateBody(Collider *collider,const b2BodyDef *body_def)
 	{
+		collider->index_ = instance_->colliders_.size();
+		instance_->colliders_.push_back(collider);
+
 		return instance_->world_.CreateBody(body_def);
 	}
 

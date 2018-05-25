@@ -23,7 +23,7 @@ namespace physics
 		// variables
 		
 		// methods
-		static b2Body *CreateBody(const b2BodyDef *body_def);
+		static b2Body *CreateBody(Collider *collider,const b2BodyDef *body_def);
 
 		static void Init();
 		static void Uninit();
@@ -36,6 +36,8 @@ namespace physics
 		static int GetVelocityIteration();
 		static void SetPositionIteration(const int &value);
 		static int GetPositionIteration();
+
+		static int BodyCount();
 
 	private:
 		PhysicsWorld();
@@ -50,7 +52,6 @@ namespace physics
 		int position_iteration_;
 
 		std::vector<Collider *> colliders_;
-
 		// methods
 
 	};
