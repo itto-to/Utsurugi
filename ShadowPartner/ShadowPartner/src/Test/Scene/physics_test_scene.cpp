@@ -22,8 +22,18 @@ using namespace physics;
 
 namespace shadowpartner
 {
+	const Vector2 pyramid_points[15] =
+	{
+		{100,0},{120,0},{140,0},{160,0},{180,0},
+		{110,20},{130,20},{150,20},{170,20},
+		{120,40},{140,40},{160,40},
+		{130,60},{150,60},
+		{140,80} 
+	};
+
 	// コンストラクタ
 	PhysicsTestScene::PhysicsTestScene()
+		:pyramids_(nullptr)
 	{
 
 	}
@@ -52,17 +62,17 @@ namespace shadowpartner
 		// 静止したボックス
 		{
 			static_box = new GameObject();
-			static_box->transform_->position_ = Vector2(0.0f, -100.0f);
+			static_box->transform_->position_ = Vector2(0.0f, -215.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
-			sprite->SetSize(Vector2(800, 200));
+			sprite->SetSize(Vector2(1120, 200));
 			sprite->SetColor(D3DCOLOR_RGBA(0, 255, 0, 255));
 			static_box->AddComponent(sprite);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-			box_init.width_ = 800.0f;
+			box_init.width_ = 1120.0f;
 			box_init.height_ = 200.0f;
 			box_init.pos_ = static_box->transform_->position_;
 
@@ -76,7 +86,7 @@ namespace shadowpartner
 		// 動かせるボックス
 		{
 			dynamic_box = new GameObject();
-			dynamic_box->transform_->position_ = Vector2(100.0f, 300.0f);
+			dynamic_box->transform_->position_ = Vector2(0.0f, 0.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
@@ -101,17 +111,17 @@ namespace shadowpartner
 		// 動かない円形のオブジェクト
 		{
 			static_circle = new GameObject();
-			static_circle->transform_->position_ = Vector2(0.0f, 200.0f);
+			static_circle->transform_->position_ = Vector2(400.0f, -130.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(100, 100));
+			sprite->SetSize(Vector2(200, 200));
 			sprite->SetColor(D3DCOLOR_RGBA(30, 200, 30, 255));
 			static_circle->AddComponent(sprite);
 
 			// 円形の当たり判定の設定
 			CircleInitializer circle_init;
-			circle_init.radius_ = 50.0f;
+			circle_init.radius_ = 100.0f;
 			circle_init.pos_ = static_circle->transform_->position_;
 
 			CircleCollider *circle_collider = new CircleCollider(circle_init);
@@ -124,7 +134,7 @@ namespace shadowpartner
 		// 動く円形のオブジェクト
 		{
 			dynamic_circle = new GameObject();
-			dynamic_circle->transform_->position_ = Vector2(-50.0f, 300.0f);
+			dynamic_circle->transform_->position_ = Vector2(-100.0f, 0.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
@@ -145,22 +155,66 @@ namespace shadowpartner
 			gameObjects_.push_back(dynamic_circle);
 		}
 
+		// ピラミッド作る
+		{
+			pyramids_ = new GameObject[15];
+
+			for (int i = 0;i < 15;++i)
+			{
+				pyramids_[i].transform_->position_ = pyramid_points[i];
+
+				Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
+				sprite->SetSize(Vector2(20, 20));
+				sprite->SetColor(D3DCOLOR_RGBA(200, 153, 50, 255));
+				pyramids_[i].AddComponent(sprite);
+
+				// 矩形の当たり判定の設定
+				BoxInitializer box_init;
+				box_init.width_ = 20.0f;
+				box_init.height_ = 20.0f;
+				box_init.is_static_ = false;
+				box_init.pos_ = pyramids_[i].transform_->position_;
+
+				BoxCollider *box_collider = new BoxCollider(box_init);
+				pyramids_[i].AddComponent(box_collider);
+
+				// シーンにゲームオブジェクトを登録
+				gameObjects_.push_back(&pyramids_[i]);
+			}
+		}
+
+
 		return S_OK;
 	}
 
 	void PhysicsTestScene::Update()
 	{
-		if (input::Input::Instance()->GetButton(input::InputButton::Action))
-		{
-			CircleCollider *circle_collider = dynamic_circle->GetComponent<CircleCollider>();
+		CircleCollider *circle_collider = dynamic_circle->GetComponent<CircleCollider>();
 
-			circle_collider->Stop();
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump))
+		{
+			circle_collider->AddForce(Vector2::up() * 700000.0f);
 		}
 
-		Vector2 move;
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
+		{
+			static int z = 0;
+			z = (z + 1) % 3;
+			Camera::main_->SetZoom(0.5f + 0.33f * (z + 1));
+		}
+
+		Vector2 move = Vector2::zero();
 		move.x = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
 		move.y = input::Input::Instance()->GetAxis(input::InputAxis::Vertical);
 
-		dynamic_circle->transform_->position_ += move;
+		dynamic_circle->GetComponent<CircleCollider>()->AddForce(move * 100000.0f);
+
+		debug::Debug::Log("zoom:%f", Camera::main_->GetZoom());
+	}
+
+	void PhysicsTestScene::Uninit()
+	{
+		if (pyramids_ != nullptr)
+			delete[] pyramids_;
 	}
 }

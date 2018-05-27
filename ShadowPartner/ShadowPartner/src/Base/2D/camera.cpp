@@ -15,10 +15,10 @@ namespace shadowpartner
 	// 定数
 	//**********************************************************
 	const float ZOOM_MIN = 0.5f;
-	const float ZOOM_MAX = 10.0f;
+	const float ZOOM_MAX = 1.5f;
 
 	const float SMOOTHNESS_MIN = 0.0f;
-	const float SMOOTHNESS_MAX = 99.9f;
+	const float SMOOTHNESS_MAX = 0.99f;
 	
 	//**********************************************************
 	// static
@@ -29,7 +29,7 @@ namespace shadowpartner
 	Camera::Camera()
 		:current_zoom_(1.0f)
 		, target_zoom_(1.0f)
-		, smoothness_(97.0f)
+		, smoothness_(0.97f)
 	{
 		if (main_ == nullptr)
 		{
@@ -46,7 +46,7 @@ namespace shadowpartner
 	// 更新処理
 	void Camera::Update()
 	{
-		//current_zoom_ = 
+		current_zoom_ = current_zoom_ * smoothness_ + target_zoom_ * (1.0f - smoothness_);
 	}
 
 	//==========================================================
@@ -56,6 +56,15 @@ namespace shadowpartner
 	float Camera::GetZoom()
 	{
 		return current_zoom_;
+	}
+
+	//==========================================================
+	// 概要  :ズームの目標値を取得します。
+	// 戻り値:現在のズーム
+	//==========================================================
+	float Camera::GetTargetZoom()
+	{
+		return target_zoom_;
 	}
 
 	//==========================================================

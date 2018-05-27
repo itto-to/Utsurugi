@@ -33,6 +33,7 @@ namespace shadowpartner
 
 		//methods
 		float GetZoom();
+		float GetTargetZoom();
 		void SetZoom(const float &zoom);
 		void SetSmoothness(const float &smoothness);
 	protected:

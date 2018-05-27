@@ -58,6 +58,8 @@ namespace physics
 		Vector2 GetPosition();
 		float GetAngle();
 
+		void AddForce(const Vector2 &force);
+
 		void Stop();
 
 	protected:

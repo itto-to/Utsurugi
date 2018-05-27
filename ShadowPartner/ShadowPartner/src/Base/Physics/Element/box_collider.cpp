@@ -32,7 +32,7 @@ namespace physics
 		body_ = PhysicsWorld::CreateBody(this,&box_body_def);
 
 		b2PolygonShape box;
-		box.SetAsBox(ini.width_, ini.height_);
+		box.SetAsBox(ini.width_ / 2.0f, ini.height_ / 2.0f);
 
 		if (ini.is_static_)
 		{

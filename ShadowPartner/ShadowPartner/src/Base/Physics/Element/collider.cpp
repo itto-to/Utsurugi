@@ -53,6 +53,11 @@ namespace physics
 		return body_->GetAngle();
 	}
 
+	void Collider::AddForce(const Vector2 &force)
+	{
+		body_->ApplyForceToCenter(b2Vec2(force.x,force.y),true);
+	}
+
 	void Collider::Stop()
 	{
 		body_->SetLinearVelocity(b2Vec2_zero);

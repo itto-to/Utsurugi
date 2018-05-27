@@ -14,7 +14,6 @@
 
 namespace shadowpartner
 {
-
 	//==========================================================
 	// 概要  :描画のテスト用シーン
 	//==========================================================
@@ -33,6 +32,7 @@ namespace shadowpartner
 		// methods
 		HRESULT Init();
 		void Update();
+		void Uninit();
 
 	private:
 		// variables
@@ -42,6 +42,7 @@ namespace shadowpartner
 		GameObject *static_circle;
 		GameObject *dynamic_circle;
 
+		GameObject *pyramids_;
 
 		// methods
 

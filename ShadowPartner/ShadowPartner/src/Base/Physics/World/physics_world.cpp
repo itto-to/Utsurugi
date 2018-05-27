@@ -18,7 +18,7 @@ namespace physics
 	//**********************************************************
 	// íËêî
 	//**********************************************************
-	const b2Vec2 DEFAULT_GRAVITY = b2Vec2(0.0f, -10.0f);
+	const b2Vec2 DEFAULT_GRAVITY = b2Vec2(0.0f, -20.0f);
 
 	// static
 	PhysicsWorld *PhysicsWorld::instance_ = nullptr;
@@ -27,8 +27,8 @@ namespace physics
 	PhysicsWorld::PhysicsWorld()
 		:world_(b2World(DEFAULT_GRAVITY))
 		, time_step_(1.0f / 60.0f)
-		, velocity_iteration_(6)
-		, position_iteration_(2)
+		, velocity_iteration_(10)
+		, position_iteration_(10)
 	{
 		world_.SetAllowSleeping(true);
 		world_.SetWarmStarting(true);
