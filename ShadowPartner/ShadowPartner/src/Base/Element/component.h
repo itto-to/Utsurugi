@@ -49,7 +49,17 @@ namespace shadowpartner
 		void SetActive(bool is_active);
 
 		void Attached(GameObject *game_object, Transform *transform, Tag tag);
-		Component *GetComponent(type_info &type);
+
+		//==========================================================
+		// 概要  :指定されたComponentの派生クラスへのポインタの取得を試みます。
+		// 戻り値:Componentの派生クラスへのポインタ(もしなかったらnullptr)
+		//==========================================================
+		template <typename T>
+		T *GetComponent() 
+		{
+			return game_object_->GetComponent<T>();
+		}
+
 
 	protected:
 

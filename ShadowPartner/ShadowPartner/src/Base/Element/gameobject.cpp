@@ -19,8 +19,8 @@ namespace shadowpartner
 	// コンストラクタ
 	GameObject::GameObject()
 		:is_active_(true)
-		,tag_(Tag::Untagged)
-		, layer_(Layer::Default)
+		,tag_(Tag::kUntagged)
+		, layer_(Layer::kDefault)
 	{
 		transform_ = new Transform();
 
@@ -84,21 +84,4 @@ namespace shadowpartner
 		components_.push_back(component);
 	}
 
-	//==========================================================
-	// 概要  :指定されたComponentの派生クラスへのポインタの取得を試みます。
-	// 引数  :取得したいComponentの派生クラスへのtype_info(typeidを使ってください)
-	// 戻り値:Componentの派生クラスへのポインタ(もしなかったらnullptr)
-	//==========================================================
-	Component *GameObject::GetComponent(type_info &type)
-	{
-		for (int i = 0; i < components_.size(); ++i)
-		{
-			if (typeid(*components_[i]) == type)
-			{
-				return components_[i];
-			}
-		}
-
-		return nullptr;
-	}
 }

@@ -19,6 +19,8 @@ namespace physics
 	// コンストラクタ
 	CircleCollider::CircleCollider(const CircleInitializer &ini)
 	{
+		shape_ = PhysicsShape::kCircle;
+
 		b2BodyDef circle_body_def;
 		if (ini.is_static_)
 			circle_body_def.type = b2_staticBody;
@@ -48,8 +50,7 @@ namespace physics
 		}
 	}
 
-	Collider::Collider(Collider &copy)
+	void CircleCollider::Start()
 	{
-		*this = copy;
 	}
 }

@@ -27,11 +27,11 @@ namespace physics
 {
 	enum PhysicsShape
 	{
-		Box,
-		Circle,
-		Polygon,
-		Edge,
-		ShapeCount
+		kBox,
+		kCircle,
+		kPolygon,
+		kEdge,
+		kShapeCount
 	};
 
 	//==========================================================
@@ -45,7 +45,7 @@ namespace physics
 		virtual ~Collider() {};
 
 		// variables
-		PhysicsShape shape;
+		PhysicsShape shape_;
 		bool is_trigger_;	// トリガーとして設定するかどうか
 
 		float friction_;	// 動摩擦係数
@@ -54,6 +54,11 @@ namespace physics
 		int index_;	// ワールドに紐づけられたインデックス
 		// methods
 		void SetTransform(const Vector2 &pos, const float &ori);
+
+		Vector2 GetPosition();
+		float GetAngle();
+
+		void Stop();
 
 	protected:
 		// variables

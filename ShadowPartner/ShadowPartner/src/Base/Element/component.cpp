@@ -19,7 +19,7 @@ namespace shadowpartner
 	Component::Component()
 		:is_active_(false)
 		, game_object_(nullptr)
-		, tag_(Tag::Untagged)
+		, tag_(Tag::kUntagged)
 		, transform_(nullptr)
 	{
 		Awake();
@@ -74,15 +74,5 @@ namespace shadowpartner
 		tag_ = tag;
 
 		SetActive(true);
-	}
-
-	//==========================================================
-	// 概要  :指定されたComponentの派生クラスへのポインタの取得を試みます。
-	// 引数  :取得したいComponentの派生クラスへのtype_info(typeidを使ってください)
-	// 戻り値:Componentの派生クラスへのポインタ(もしなかったらnullptr)
-	//==========================================================
-	Component *Component::GetComponent(type_info &type)
-	{
-		return game_object_->GetComponent(type);
 	}
 }

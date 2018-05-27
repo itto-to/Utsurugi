@@ -163,6 +163,7 @@
     <ClCompile Include="src\Base\Input\input.cpp" />
     <ClCompile Include="src\Base\Input\keyboard.cpp" />
     <ClCompile Include="src\Base\Input\mouse.cpp" />
+    <ClCompile Include="src\Base\Physics\Debug\debug_draw.cpp" />
     <ClCompile Include="src\Base\Physics\Element\box_collider.cpp" />
     <ClCompile Include="src\Base\Physics\Element\circle_collider.cpp" />
     <ClCompile Include="src\Base\Physics\Element\collider.cpp" />
@@ -177,6 +178,7 @@
     <ClCompile Include="src\Test\Object\fps_object.cpp" />
     <ClCompile Include="src\Test\Object\frame_counter.cpp" />
     <ClCompile Include="src\Test\Scene\draw_test_scene.cpp" />
+    <ClCompile Include="src\Test\Scene\physics_test_scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base\2D\camera.h" />
@@ -196,6 +198,7 @@
     <ClInclude Include="src\Base\Math\quaternion.h" />
     <ClInclude Include="src\Base\Math\vector2.h" />
     <ClInclude Include="src\Base\Math\vector3.h" />
+    <ClInclude Include="src\Base\Physics\Debug\debug_draw.h" />
     <ClInclude Include="src\Base\Physics\Element\box_collider.h" />
     <ClInclude Include="src\Base\Physics\Element\circle_collider.h" />
     <ClInclude Include="src\Base\Physics\Element\collider.h" />
@@ -210,6 +213,7 @@
     <ClInclude Include="src\Test\Object\fps_object.h" />
     <ClInclude Include="src\Test\Object\frame_counter.h" />
     <ClInclude Include="src\Test\Scene\draw_test_scene.h" />
+    <ClInclude Include="src\Test\Scene\physics_test_scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

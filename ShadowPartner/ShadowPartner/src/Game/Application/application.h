@@ -25,8 +25,8 @@
 //==========================================================
 // É}ÉNÉç
 //==========================================================
-#define DEFAULT_SCREEN_WIDTH  (800)
-#define DEFAULT_SCREEN_HEIGHT (600)
+#define DEFAULT_SCREEN_WIDTH  (1120)
+#define DEFAULT_SCREEN_HEIGHT (630)
 
 namespace shadowpartner
 {

@@ -38,11 +38,20 @@ namespace physics
 	{
 		if (instance_ == nullptr)
 			instance_ = new PhysicsWorld();
+
+#ifdef _DEBUG
+		instance_->debug_draw_.Init();
+		instance_->world_.SetDebugDraw(&instance_->debug_draw_);
+#endif
 	}
 
 	// 終了処理
 	void PhysicsWorld::Uninit()
 	{
+#ifdef _DEBUG
+		instance_->debug_draw_.Uninit();
+#endif
+
 		if (instance_ != nullptr)
 		{
 			delete instance_;
@@ -68,7 +77,26 @@ namespace physics
 				instance_->velocity_iteration_,
 				instance_->position_iteration_
 				);
+
+		for (int i = 0;i < instance_->colliders_.size();++i)
+		{
+			instance_->colliders_[i]->transform_->position_ =
+				instance_->colliders_[i]->GetPosition();
+
+			instance_->colliders_[i]->transform_->rotation_ =
+				instance_->colliders_[i]->GetAngle();
+		}
+
 	}
+
+#ifdef _DEBUG
+	void PhysicsWorld::Draw()
+	{
+		instance_->world_.DrawDebugData();
+		instance_->debug_draw_.Draw();
+	}
+
+#endif
 
 	//==========================================================
 	// 概要  :物理エンジンの制御下にあるColliderを追加する

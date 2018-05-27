@@ -46,7 +46,24 @@ namespace shadowpartner
 		void Draw();
 
 		void AddComponent(Component *component);
-		Component *GetComponent(type_info &type);
+
+		//==========================================================
+		// 概要  :指定されたComponentの派生クラスへのポインタの取得を試みます。
+		// 戻り値:Componentの派生クラスへのポインタ(もしなかったらnullptr)
+		//==========================================================
+		template <typename T>
+		T *GetComponent()
+		{
+			for (int i = 0; i < components_.size(); ++i)
+			{
+				if (typeid(*components_[i]) == typeid(T))
+				{
+					return (T *)components_[i];
+				}
+			}
+
+			return nullptr;
+		}
 
 		void Destroy();
 		void Destroy(float delay);

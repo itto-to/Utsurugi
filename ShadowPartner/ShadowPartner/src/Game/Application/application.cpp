@@ -8,6 +8,7 @@
 
 #include "../../Base/Time/time.h"
 #include "../../Base/Input/input.h"
+#include "../../Base/Physics/physics.h"
 
 #ifdef _DEBUG
 #include "../../Base/Debug/debugger.h"
@@ -206,6 +207,7 @@ namespace shadowpartner
 		debug::Debug::Init();
 #endif
 		input::Input::Instance()->Init(h_instance_,h_wnd_);
+		physics::PhysicsWorld::Init();
 
 		return S_OK;
 	}
@@ -388,7 +390,7 @@ namespace shadowpartner
 #ifdef _DEBUG
 		debug::Debug::Uninit();
 #endif
-
+		physics::PhysicsWorld::Uninit();
 		input::Input::Instance()->Uninit();
 	}
 
@@ -436,6 +438,8 @@ namespace shadowpartner
 
 		SceneManager::Instance()->Update();
 
+		physics::PhysicsWorld::Step();
+
 #ifdef _DEBUG
 		debug::Debug::Update();
 #endif
@@ -453,6 +457,10 @@ namespace shadowpartner
 		if (SUCCEEDED(device->BeginScene()))
 		{
 			SceneManager::Instance()->Draw();
+
+#ifdef _DEBUG
+			physics::PhysicsWorld::Draw();
+#endif
 
 			// •`‰æ‚ÌI—¹
 			device->EndScene();

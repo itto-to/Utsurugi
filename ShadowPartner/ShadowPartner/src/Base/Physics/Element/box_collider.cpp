@@ -19,6 +19,8 @@ namespace physics
 	// コンストラクタ
 	BoxCollider::BoxCollider(const BoxInitializer &ini)
 	{
+		shape_ = PhysicsShape::kBox;
+
 		b2BodyDef box_body_def;
 		if (ini.is_static_)
 			box_body_def.type = b2_staticBody;
@@ -47,8 +49,8 @@ namespace physics
 		}
 	}
 
-	Collider::Collider(Collider &copy)
+	void BoxCollider::Start()
 	{
-		*this = copy;
+
 	}
 }

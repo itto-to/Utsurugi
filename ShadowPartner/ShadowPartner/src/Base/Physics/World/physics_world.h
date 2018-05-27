@@ -11,6 +11,9 @@
 // インクルードファイル
 //**********************************************************
 #include "../Element/collider.h"
+#ifdef _DEBUG
+#include "../Debug/debug_draw.h"
+#endif
 
 namespace physics
 {
@@ -28,6 +31,10 @@ namespace physics
 		static void Init();
 		static void Uninit();
 		static void Step();
+
+#ifdef _DEBUG
+		static void Draw();
+#endif
 
 		// Accessor・Mutator
 		static void SetTimeStep(const float &value);
@@ -52,6 +59,11 @@ namespace physics
 		int position_iteration_;
 
 		std::vector<Collider *> colliders_;
+
+#ifdef _DEBUG
+		DebugDraw debug_draw_;
+#endif
+
 		// methods
 
 	};
