@@ -27,12 +27,12 @@ namespace physics
 		else
 			circle_body_def.type = b2_dynamicBody;
 
-		circle_body_def.position = b2Vec2(ini.pos_.x, ini.pos_.y);
+		circle_body_def.position.Set(ini.pos_.x, ini.pos_.y);
 
 		body_ = PhysicsWorld::CreateBody(this, &circle_body_def);
 
 		b2CircleShape circle;
-		circle.m_p.Set(ini.pos_.x, ini.pos_.y);
+		circle.m_p.Set(0.0f, 0.0f);
 		circle.m_radius = ini.radius_;
 
 		if (ini.is_static_)

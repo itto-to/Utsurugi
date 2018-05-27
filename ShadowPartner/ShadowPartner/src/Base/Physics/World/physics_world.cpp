@@ -26,11 +26,14 @@ namespace physics
 	// コンストラクタ
 	PhysicsWorld::PhysicsWorld()
 		:world_(b2World(DEFAULT_GRAVITY))
-		, time_step_(0.016f)
-		, velocity_iteration_(10)
-		, position_iteration_(10)
+		, time_step_(1.0f / 60.0f)
+		, velocity_iteration_(6)
+		, position_iteration_(2)
 	{
-
+		world_.SetAllowSleeping(true);
+		world_.SetWarmStarting(true);
+		world_.SetContinuousPhysics(true);
+		world_.SetSubStepping(true);
 	}
 
 	// 初期化処理

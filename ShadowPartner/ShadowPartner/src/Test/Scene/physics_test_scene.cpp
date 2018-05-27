@@ -76,7 +76,7 @@ namespace shadowpartner
 		// 動かせるボックス
 		{
 			dynamic_box = new GameObject();
-			dynamic_box->transform_->position_ = Vector2(50.0f, 100.0f);
+			dynamic_box->transform_->position_ = Vector2(100.0f, 300.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
@@ -101,17 +101,17 @@ namespace shadowpartner
 		// 動かない円形のオブジェクト
 		{
 			static_circle = new GameObject();
-			static_circle->transform_->position_ = Vector2(0.0f, 100.0f);
+			static_circle->transform_->position_ = Vector2(0.0f, 200.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
 			sprite->SetSize(Vector2(100, 100));
-			sprite->SetColor(D3DCOLOR_RGBA(30, 255, 30, 255));
+			sprite->SetColor(D3DCOLOR_RGBA(30, 200, 30, 255));
 			static_circle->AddComponent(sprite);
 
-			// 矩形の当たり判定の設定
+			// 円形の当たり判定の設定
 			CircleInitializer circle_init;
-			circle_init.radius_ = 100.0f;
+			circle_init.radius_ = 50.0f;
 			circle_init.pos_ = static_circle->transform_->position_;
 
 			CircleCollider *circle_collider = new CircleCollider(circle_init);
@@ -124,7 +124,7 @@ namespace shadowpartner
 		// 動く円形のオブジェクト
 		{
 			dynamic_circle = new GameObject();
-			dynamic_circle->transform_->position_ = Vector2(-50.0f, 200.0f);
+			dynamic_circle->transform_->position_ = Vector2(-50.0f, 300.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
@@ -132,9 +132,9 @@ namespace shadowpartner
 			sprite->SetColor(D3DCOLOR_RGBA(255, 0, 0, 255));
 			dynamic_circle->AddComponent(sprite);
 
-			// 矩形の当たり判定の設定
+			// 円形の当たり判定の設定
 			CircleInitializer circle_init;
-			circle_init.radius_ = 20.0f;
+			circle_init.radius_ = 10.0f;
 			circle_init.pos_ = dynamic_circle->transform_->position_;
 			circle_init.is_static_ = false;
 

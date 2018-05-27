@@ -27,7 +27,7 @@ namespace physics
 		else
 			box_body_def.type = b2_dynamicBody;
 
-		box_body_def.position = b2Vec2(ini.pos_.x, ini.pos_.y);
+		box_body_def.position.Set(ini.pos_.x, ini.pos_.y);
 
 		body_ = PhysicsWorld::CreateBody(this,&box_body_def);
 
