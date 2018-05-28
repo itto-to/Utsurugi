@@ -10,7 +10,8 @@
 
 #include <stdarg.h>
 
-#define DEBUG_LOG_STRING_LENGTH (40)	// 一行の文字の最大
+#define DEBUG_LOG_STRING_LENGTH (60)	// 一行の文字の最大
+#define DEBUG_STOP_WATCH_NUM (4)
 
 namespace debug
 {
@@ -22,13 +23,19 @@ namespace debug
 		DebugViewCount
 	};
 
+	struct StopWatch
+	{
+		long start_;
+		long finish_;
+	};
+
 	class Debug
 	{
 	public:
 		// methods
 		// 適切なタイミングで要呼び出し
 		static void Init();
-		static void Update();
+		static void Draw();
 		static void Uninit();
 		static void Reset();
 
@@ -39,6 +46,9 @@ namespace debug
 
 		static void SetView(DebugView view);
 
+		static void StopWatchStart(int index = 0);
+		static void StopWatchFinish(int index = 0);
+
 	private:
 		// variables
 		static DebugView debug_view_;
@@ -48,6 +58,8 @@ namespace debug
 
 		static bool draw_physics_wireframe;
 		static bool draw_sprite_wireframe;
+
+		static StopWatch stop_watches_[];
 
 		// methods
 		static void ShawHeader();

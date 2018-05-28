@@ -16,7 +16,7 @@
 #include <Windows.h>
 #endif
 
-#define DEBUG_UPDATE_INTERVAL (5)
+#define DEBUG_UPDATE_INTERVAL (6)
 #define DEBUG_LOG_LINE_MAX (5)			// 同時に表示できるログの数
 
 #define DEBUG_HEADEER_LINE_COUNT (3)
@@ -38,6 +38,8 @@ namespace debug
 	bool Debug::draw_physics_wireframe = false;
 	bool Debug::draw_sprite_wireframe = false;
 
+	StopWatch Debug::stop_watches_[DEBUG_STOP_WATCH_NUM];
+
 	// 初期化処理
 	void Debug::Init()
 	{
@@ -45,7 +47,7 @@ namespace debug
 	}
 
 	// 更新処理
-	void Debug::Update()
+	void Debug::Draw()
 	{
 		++log_interval_count_ %= (DEBUG_UPDATE_INTERVAL + 1);
 
@@ -62,7 +64,7 @@ namespace debug
 			debug_view_ = DebugView::Visualization;
 		}
 
-		if (log_interval_count_)
+		if (log_interval_count_ == 0)
 		{
 			system("cls");
 
@@ -119,17 +121,20 @@ namespace debug
 	//==========================================================
 	void Debug::Log(char *format, ...)
 	{
-		int insert_line = log_line_count_;
+		int insert_line;	// 新しくログを挿入する行
 
 		// もしLineの上限まで来たら最古のログは消える
-		if (log_line_count_ == DEBUG_LOG_LINE_MAX - 1)
+		if (log_line_count_ == DEBUG_LOG_LINE_MAX)
+		{
 			for (int i = 1;i < log_line_count_;++i)
 			{
 				strcpy_s(&log_lines_[i - 1][0], DEBUG_LOG_STRING_LENGTH, &log_lines_[i][0]);
 			}
+			insert_line = DEBUG_LOG_LINE_MAX - 1;
+		}
 		else
 		{
-			++log_line_count_;
+			insert_line = log_line_count_++;
 		}
 
 		va_list list;
@@ -264,6 +269,11 @@ namespace debug
 		printf("TimeScale:%.2f\n", shadowpartner::Time::Instance()->GetTimeScale());
 		printf("DeltaTime:%7.4f\n", (float)shadowpartner::Time::Instance()->delta_time_ / 1000.0f);
 		printf("AppTime  :%7.2f秒\n", (float)shadowpartner::Time::Instance()->app_time_ / 1000.0f);
+
+		for (int i = 0;i < DEBUG_STOP_WATCH_NUM;++i)
+		{
+			printf("ストップウォッチ%d:%dms\n", i, stop_watches_[i].finish_ - stop_watches_[i].start_);
+		}
 	}
 
 	//==========================================================
@@ -280,4 +290,28 @@ namespace debug
 		printf(" static:青  dynamic:赤\n");
 		printf("スプライト:%s\n", (draw_sprite_wireframe) ? ("true") : ("false"));
 	}
+
+	//==========================================================
+	// 概要  :ストップウォッチの計測を開始します。
+	// 引数  :ストップウォッチの番号
+	//==========================================================
+	void Debug::StopWatchStart(int index)
+	{
+		if (index >= 0 || index < DEBUG_STOP_WATCH_NUM)
+		{
+			stop_watches_[index].start_ = timeGetTime();
+		}
+	}
+	//==========================================================
+	// 概要  :ストップウォッチの計測を終了します。
+	// 引数  :ストップウォッチの番号
+	//==========================================================
+	void Debug::StopWatchFinish(int index)
+	{
+		if (index >= 0 || index < DEBUG_STOP_WATCH_NUM)
+		{
+			stop_watches_[index].finish_ = timeGetTime();
+		}
+	}
+
 }

@@ -127,10 +127,12 @@ namespace shadowpartner
 			else
 			{
 				Time::Instance()->Update();	// タイマーだけ更新
-
 				if (Time::Instance()->CheckUpdate())
 				{
+					debug::Debug::StopWatchStart(3);
 					Update();
+					debug::Debug::StopWatchFinish(3);
+
 					Draw();
 				}
 			}
@@ -440,9 +442,6 @@ namespace shadowpartner
 
 		physics::PhysicsWorld::Step();
 
-#ifdef _DEBUG
-		debug::Debug::Update();
-#endif
 	}
 
 	//==========================================================
@@ -460,6 +459,7 @@ namespace shadowpartner
 
 #ifdef _DEBUG
 			physics::PhysicsWorld::Draw();
+			debug::Debug::Draw();
 #endif
 
 			// 描画の終了

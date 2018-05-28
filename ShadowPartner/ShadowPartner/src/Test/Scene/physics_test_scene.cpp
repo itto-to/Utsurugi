@@ -201,6 +201,8 @@ namespace shadowpartner
 			static int z = 0;
 			z = (z + 1) % 3;
 			Camera::main_->SetZoom(0.5f + 0.33f * (z + 1));
+
+			debug::Debug::Log("set target_zoom_:%f", 0.5f + 0.33f * (z + 1));
 		}
 
 		Vector2 move = Vector2::zero();
@@ -208,8 +210,6 @@ namespace shadowpartner
 		move.y = input::Input::Instance()->GetAxis(input::InputAxis::Vertical);
 
 		dynamic_circle->GetComponent<CircleCollider>()->AddForce(move * 100000.0f);
-
-		debug::Debug::Log("zoom:%f", Camera::main_->GetZoom());
 	}
 
 	void PhysicsTestScene::Uninit()
