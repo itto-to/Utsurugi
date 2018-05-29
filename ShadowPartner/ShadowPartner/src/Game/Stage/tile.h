@@ -10,8 +10,8 @@
 //==========================================================
 // É}ÉNÉç
 //==========================================================
-#define TEXT_VERTICAL (20)
-#define TEXT_HORIZONTAL (8)
+#define TEST_VERTICAL (20)
+#define TEST_HORIZONTAL (8)
 namespace shadowpartner
 {
 	//==========================================================
@@ -28,6 +28,7 @@ namespace shadowpartner
 		Tile(const char *file_name, char no, Layer layer, bool pass) ;
 		Tile(const Tile &copy);
 		~Tile();
+
 		//variables
 		Layer tilelayer_;
 		bool is_pass_;

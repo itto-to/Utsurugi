@@ -21,10 +21,10 @@ namespace shadowpartner
 		number_ = no;
 		tilelayer_ = kDefault;
 		is_pass_ = FALSE;
-		float sizex_ = 1.0f / TEXT_HORIZONTAL;
-		float sizey_ = 1.0f / TEXT_VERTICAL;
-		sprite.SetUvOffset(Vector2((no - 1) % TEXT_HORIZONTAL*sizex_, (no - 1) / TEXT_HORIZONTAL*sizey_));
-		sprite.SetUvSize(Vector2(no% TEXT_HORIZONTAL*sizex_, no / TEXT_HORIZONTAL*sizey_));
+		float sizex_ = 1.0f / TEST_HORIZONTAL;
+		float sizey_ = 1.0f / TEST_VERTICAL;
+		sprite.SetUvOffset(Vector2((no - 1) % TEST_HORIZONTAL*sizex_, (no - 1) / TEST_HORIZONTAL*sizey_));
+		sprite.SetUvSize(Vector2(no% TEST_HORIZONTAL*sizex_, no / TEST_HORIZONTAL*sizey_));
 
 	}
 
@@ -33,10 +33,10 @@ namespace shadowpartner
 		number_ = no;
 		tilelayer_ = layer;
 		is_pass_ = pass;
-		float sizex_ = 1.0f / TEXT_HORIZONTAL;
-		float sizey_ = 1.0f / TEXT_VERTICAL;
-		sprite.SetUvOffset(Vector2((no - 1) % TEXT_HORIZONTAL*sizex_, (no - 1) / TEXT_HORIZONTAL*sizey_));
-		sprite.SetUvSize(Vector2(no% TEXT_HORIZONTAL*sizex_, no / TEXT_HORIZONTAL*sizey_));
+		float sizex_ = 1.0f / TEST_HORIZONTAL;
+		float sizey_ = 1.0f / TEST_VERTICAL;
+		sprite.SetUvOffset(Vector2((no - 1) % TEST_HORIZONTAL*sizex_, (no - 1) / TEST_HORIZONTAL*sizey_));
+		sprite.SetUvSize(Vector2(no% TEST_HORIZONTAL*sizex_, no / TEST_HORIZONTAL*sizey_));
 
 	}
 
