@@ -193,7 +193,7 @@ namespace shadowpartner
 
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump))
 		{
-			circle_collider->AddForce(Vector2::up() * 700000.0f);
+			circle_collider->AddForce(Vector2::up() * 700000000.0f);
 		}
 
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
@@ -209,7 +209,7 @@ namespace shadowpartner
 		move.x = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
 		move.y = input::Input::Instance()->GetAxis(input::InputAxis::Vertical);
 
-		dynamic_circle->GetComponent<CircleCollider>()->AddForce(move * 100000.0f);
+		dynamic_circle->GetComponent<CircleCollider>()->AddForce(move * 10000000.0f);
 	}
 
 	void PhysicsTestScene::Uninit()

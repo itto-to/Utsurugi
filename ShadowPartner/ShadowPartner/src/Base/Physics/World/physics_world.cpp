@@ -18,7 +18,7 @@ namespace physics
 	//**********************************************************
 	// 定数
 	//**********************************************************
-	const b2Vec2 DEFAULT_GRAVITY = b2Vec2(0.0f, -20.0f);
+	const b2Vec2 DEFAULT_GRAVITY = b2Vec2(0.0f, -980.0f);
 
 	// static
 	PhysicsWorld *PhysicsWorld::instance_ = nullptr;
@@ -26,7 +26,7 @@ namespace physics
 	// コンストラクタ
 	PhysicsWorld::PhysicsWorld()
 		:world_(b2World(DEFAULT_GRAVITY))
-		, time_step_(1.0f / 60.0f)
+		, time_step_(1.0f / 30.0f)
 		, velocity_iteration_(10)
 		, position_iteration_(10)
 	{
