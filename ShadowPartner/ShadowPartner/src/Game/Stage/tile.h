@@ -10,8 +10,8 @@
 //==========================================================
 // É}ÉNÉç
 //==========================================================
-#define TEST_VERTICAL (20)
-#define TEST_HORIZONTAL (8)
+#define TEST_VERTICAL (4)
+#define TEST_HORIZONTAL (3)
 namespace shadowpartner
 {
 	//==========================================================
