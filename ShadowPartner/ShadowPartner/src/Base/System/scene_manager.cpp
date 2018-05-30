@@ -136,14 +136,19 @@ namespace shadowpartner
 	//==========================================================
 	void SceneManager::LoadScene(Scene *new_scene)
 	{
-		//for (int i = 0;i < instance_->scenes_.size();++i)
-		//{
-		//	delete instance_->scenes_[i];
-		//	instance_->scenes_[i] = nullptr;
-		//}
+		// 既存のシーンを削除
+		for (int i = 0;i < instance_->scenes_.size();++i)
+		{
+			delete instance_->scenes_[i];
+			instance_->scenes_[i] = nullptr;
+		}
 
-		//instance_->scenes_.clear();
+		instance_->scenes_.clear();
 
-		//instance_->scenes_.push_back(new_scene);
+		// 新しいシーンの作成
+		instance_->current_scene_ = new_scene;
+		instance_->current_scene_->Init();
+
+		instance_->scenes_.push_back(new_scene);
 	}
 }

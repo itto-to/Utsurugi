@@ -36,8 +36,9 @@ namespace shadowpartner
 	// 初期化処理
 	HRESULT DrawTestScene::Init()
 	{
-		printf("描画テストのシーンのオブジェクトを生成します。");
-
+#ifdef _DEBUG
+		debug::Debug::Log("描画テストのシーンのオブジェクトを生成します。");
+#endif
 		// カメラオブジェクトを生成
 		{
 			camera_object = new GameObject();

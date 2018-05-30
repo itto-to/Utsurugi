@@ -40,7 +40,10 @@ namespace shadowpartner
 	// デストラクタ
 	Camera::~Camera()
 	{
-
+		if (main_ == this)
+		{
+			main_ = nullptr;
+		}
 	}
 
 	// 更新処理

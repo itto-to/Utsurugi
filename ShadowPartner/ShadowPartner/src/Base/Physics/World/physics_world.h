@@ -27,7 +27,7 @@ namespace physics
 		
 		// methods
 		static b2Body *CreateBody(Collider *collider,const b2BodyDef *body_def);
-		static void DestroyBody(b2Body *body);
+		static void DestroyBody(int index,b2Body *body);
 
 		static void Init();
 		static void Uninit();

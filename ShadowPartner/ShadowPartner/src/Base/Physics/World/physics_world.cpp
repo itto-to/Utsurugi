@@ -113,9 +113,16 @@ namespace physics
 		return instance_->world_.CreateBody(body_def);
 	}
 
-	void PhysicsWorld::DestroyBody(b2Body *body)
+	void PhysicsWorld::DestroyBody(int index,b2Body *body)
 	{
 		instance_->world_.DestroyBody(body);
+
+		for (int i = index + 1;i < instance_->colliders_.size();++i)
+		{
+			--instance_->colliders_[i]->index_;
+		}
+
+		instance_->colliders_.erase(instance_->colliders_.begin() + index);
 	}
 
 	// AccessorEMutator

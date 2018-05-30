@@ -31,7 +31,7 @@ namespace shadowpartner
 		std::vector<GameObject *> gameObjects_;
 
 		// methods
-		virtual HRESULT Init() { return S_OK; };
+		virtual HRESULT Init();
 		void UpdateScene();
 		void DrawScene();
 

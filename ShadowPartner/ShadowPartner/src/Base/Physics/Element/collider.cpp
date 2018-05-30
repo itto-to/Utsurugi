@@ -34,7 +34,7 @@ namespace physics
 
 	Collider::~Collider()
 	{
-
+		PhysicsWorld::DestroyBody(index_,body_);
 	}
 
 	void Collider::SetTransform(const Vector2 &pos, const float &ori)
