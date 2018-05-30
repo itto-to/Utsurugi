@@ -47,6 +47,8 @@ namespace shadowpartner
 		int GetCurrentSceneIndex();
 		Scene *GetSceneByIndex(int index);
 
+		static void LoadScene(Scene *new_scene);
+
 	protected:
 		SceneManager();
 		~SceneManager();

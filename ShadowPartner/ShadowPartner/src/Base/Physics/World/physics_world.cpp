@@ -27,8 +27,8 @@ namespace physics
 	PhysicsWorld::PhysicsWorld()
 		:world_(b2World(DEFAULT_GRAVITY))
 		, time_step_(1.0f / 60.0f)
-		, velocity_iteration_(10)
-		, position_iteration_(10)
+		, velocity_iteration_(6)
+		, position_iteration_(2)
 	{
 		world_.SetAllowSleeping(true);
 		world_.SetWarmStarting(true);
@@ -95,8 +95,8 @@ namespace physics
 #ifdef _DEBUG
 	void PhysicsWorld::Draw()
 	{
-		instance_->world_.DrawDebugData();
-		instance_->debug_draw_.Draw();
+		//instance_->world_.DrawDebugData();
+		//instance_->debug_draw_.Draw();
 	}
 
 #endif
@@ -111,6 +111,11 @@ namespace physics
 		instance_->colliders_.push_back(collider);
 
 		return instance_->world_.CreateBody(body_def);
+	}
+
+	void PhysicsWorld::DestroyBody(b2Body *body)
+	{
+		instance_->world_.DestroyBody(body);
 	}
 
 	// AccessorEMutator

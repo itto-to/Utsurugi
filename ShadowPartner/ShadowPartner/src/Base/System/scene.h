@@ -38,9 +38,9 @@ namespace shadowpartner
 	protected:
 
 		// methods
-		virtual void Uninit() {};
-		virtual void Update() {};
-		virtual void Draw() {};
+		virtual void Uninit();
+		virtual void Update();
+		virtual void Draw();
 
 	private:
 		// variables

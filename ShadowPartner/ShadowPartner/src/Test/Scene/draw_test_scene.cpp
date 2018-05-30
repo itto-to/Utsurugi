@@ -94,6 +94,10 @@ namespace shadowpartner
 		return S_OK;
 	}
 
+	void DrawTestScene::Uninit()
+	{
+	}
+
 	void DrawTestScene::Update()
 	{
 		float move = input::Input::Instance()->GetAxis(input::InputAxis::MouseX);

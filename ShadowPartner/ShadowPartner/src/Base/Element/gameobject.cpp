@@ -33,11 +33,6 @@ namespace shadowpartner
 	GameObject::~GameObject()
 	{
 		Uninit();
-
-		if (transform_ != nullptr)
-		{
-			delete transform_;
-		}
 	}
 
 	HRESULT GameObject::Init()

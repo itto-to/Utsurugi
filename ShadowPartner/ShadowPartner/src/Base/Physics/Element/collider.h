@@ -42,7 +42,7 @@ namespace physics
 	public:
 		Collider();
 		Collider(Collider &copy);
-		virtual ~Collider() {};
+		virtual ~Collider();
 
 		// variables
 		PhysicsShape shape_;

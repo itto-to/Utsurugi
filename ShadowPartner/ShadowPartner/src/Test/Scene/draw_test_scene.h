@@ -32,6 +32,7 @@ namespace shadowpartner
 
 		// methods
 		HRESULT Init();
+		void Uninit();
 		void Update();
 
 	private:

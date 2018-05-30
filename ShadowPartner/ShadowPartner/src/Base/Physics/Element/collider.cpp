@@ -4,6 +4,7 @@
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 #include "collider.h"
+#include "../World/physics_world.h"
 
 namespace physics
 {
@@ -29,6 +30,11 @@ namespace physics
 	Collider::Collider(Collider &copy)
 	{
 		*this = copy;
+	}
+
+	Collider::~Collider()
+	{
+
 	}
 
 	void Collider::SetTransform(const Vector2 &pos, const float &ori)
