@@ -26,7 +26,7 @@ namespace physics
 	// コンストラクタ
 	PhysicsWorld::PhysicsWorld()
 		:world_(b2World(DEFAULT_GRAVITY))
-		, time_step_(1.0f / 30.0f)
+		, time_step_(1.0f / 60.0f)
 		, velocity_iteration_(10)
 		, position_iteration_(10)
 	{

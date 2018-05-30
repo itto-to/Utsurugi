@@ -113,11 +113,6 @@ namespace physics
 
 		LPDIRECT3DDEVICE9 device = Application::Instance()->device;
 
-		//D3DXMATRIX world_matrix;
-		//D3DXMatrixIdentity(&world_matrix);
-
-		//device->SetTransform(D3DTS_WORLD, &world_matrix);
-
 		device->SetStreamSource(0, vertex_buff_, 0, sizeof(DebugVertex));
 		device->SetIndices(index_buff_);
 
