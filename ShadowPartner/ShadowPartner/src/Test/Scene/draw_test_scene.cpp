@@ -7,6 +7,7 @@
 #include "../../Base/2D/camera.h"
 #include "../../Base/2D/sprite.h"
 #include "../../Base/Input/input.h"
+#include "../../Game/Stage/tile.h"
 
 #ifdef _DEBUG
 #include "../../Base/Debug/debugger.h"
@@ -18,6 +19,7 @@
 #include "../../Base/Time/time.h"
 
 #define TEST_TEXTURE_NAME "Resources/Texture/Fox1.png"
+#define TEST_TILES_NAME "Resources/Tiles/053-Wall01.png"
 
 namespace shadowpartner
 {
@@ -58,6 +60,15 @@ namespace shadowpartner
 			draw_object->AddComponent(sprite);
 
 			gameObjects_.push_back(draw_object);
+
+			draw_tile = new GameObject();
+			draw_tile->transform_->position_ = Vector2(0.0f, -100.0f);
+			Tile *tile = new Tile(TEST_TILES_NAME,3);
+			tile->sprite.SetSize(Vector2(50,50));
+			draw_tile->AddComponent(&(tile->sprite));
+
+			gameObjects_.push_back(draw_tile);
+
 		}
 
 		// ゲーム開始時からのカウントオブジェクトを生成
