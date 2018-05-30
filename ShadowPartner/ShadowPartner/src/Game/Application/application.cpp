@@ -12,7 +12,16 @@
 
 #ifdef _DEBUG
 #include "../../Base/Debug/debugger.h"
-#endif
+// メモリリーク検出
+#define _CRTDBG_MAP_ALLOC 
+#include <stdlib.h> 
+#include <crtdbg.h>  
+
+#ifndef DBG_NEW 
+#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ ) 
+#define new DBG_NEW 
+#endif 
+#endif  // _DEBUG  
 
 namespace shadowpartner
 {
@@ -56,11 +65,6 @@ namespace shadowpartner
 	// デストラクタ
 	Application::~Application()
 	{
-		if (instance_ != nullptr)
-		{
-			delete instance_;
-			instance_ = nullptr;
-		}
 	}
 
 	//**********************************************************
@@ -72,6 +76,11 @@ namespace shadowpartner
 	//==========================================================
 	void Application::Run(UINT screen_width, UINT screen_height)
 	{
+#ifdef _DEBUG
+		_CrtDumpMemoryLeaks();
+		_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif
+
 		// ウィンドウサイズの設定
 		screen_width_ = screen_width;
 		screen_height_ = screen_height;
@@ -96,9 +105,14 @@ namespace shadowpartner
 
 		// 終了処理
 
-		Uninit();
-
 		timeEndPeriod(1);				// 分解能を戻す
+
+		// インスタンス削除
+		if (instance_ != nullptr)
+		{
+			delete instance_;
+			instance_ = nullptr;
+		}
 	}
 
 	//==========================================================
@@ -394,6 +408,7 @@ namespace shadowpartner
 #endif
 		physics::PhysicsWorld::Uninit();
 		input::Input::Instance()->Uninit();
+
 	}
 
 	//==========================================================
@@ -459,7 +474,7 @@ namespace shadowpartner
 
 #ifdef _DEBUG
 			physics::PhysicsWorld::Draw();
-			debug::Debug::Draw();
+			//debug::Debug::Draw();
 #endif
 
 			// 描画の終了

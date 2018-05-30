@@ -178,6 +178,12 @@
     <Filter Include="ヘッダー ファイル\Game\Stage">
       <UniqueIdentifier>{69ca8f3c-ed18-46f6-97c6-fea6aaaf7979}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Base\Physics\Func">
+      <UniqueIdentifier>{228623f4-de72-4e4e-879a-902717d13166}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Base\Physics\Func">
+      <UniqueIdentifier>{fc1915c6-1f3c-4644-8111-9f555d499311}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -263,6 +269,9 @@
     </ClCompile>
     <ClCompile Include="src\Game\Stage\tile.cpp">
       <Filter>ソース ファイル\Game\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\Physics\Func\physics_func.cpp">
+      <Filter>ソース ファイル\Base\Physics\Func</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -370,6 +379,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\Stage\tile.h">
       <Filter>ヘッダー ファイル\Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Physics\Func\physics_func.h">
+      <Filter>ヘッダー ファイル\Base\Physics\Func</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

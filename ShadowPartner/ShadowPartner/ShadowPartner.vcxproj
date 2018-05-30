@@ -170,6 +170,7 @@
     <ClCompile Include="src\Base\Physics\Element\circle_collider.cpp" />
     <ClCompile Include="src\Base\Physics\Element\collider.cpp" />
     <ClCompile Include="src\Base\Physics\Element\polygon_collider.cpp" />
+    <ClCompile Include="src\Base\Physics\Func\physics_func.cpp" />
     <ClCompile Include="src\Base\Physics\World\physics_world.cpp" />
     <ClCompile Include="src\Base\System\scene.cpp" />
     <ClCompile Include="src\Base\System\scene_manager.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="src\Base\Physics\Element\circle_collider.h" />
     <ClInclude Include="src\Base\Physics\Element\collider.h" />
     <ClInclude Include="src\Base\Physics\Element\polygon_collider.h" />
+    <ClInclude Include="src\Base\Physics\Func\physics_func.h" />
     <ClInclude Include="src\Base\Physics\physics.h" />
     <ClInclude Include="src\Base\Physics\World\physics_world.h" />
     <ClInclude Include="src\Base\System\scene.h" />

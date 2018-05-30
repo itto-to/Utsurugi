@@ -193,10 +193,15 @@ namespace shadowpartner
 	{
 		CircleCollider *circle_collider = dynamic_circle->GetComponent<CircleCollider>();
 
-		if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump))
-		{
-			circle_collider->AddForce(Vector2::up() * 700000000.0f);
-		}
+		RaycastHit hit_info = physics::PhysicsFunc::Raycast(
+			dynamic_circle->transform_->position_ + Vector2::down() * 9.9f,
+			Vector2::down(), 0.15f);
+
+		if (hit_info.collider != nullptr)
+			if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump))
+			{
+				circle_collider->AddForce(Vector2::up() * 700000000.0f);
+			}
 
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
 		{

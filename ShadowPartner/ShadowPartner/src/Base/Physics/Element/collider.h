@@ -62,6 +62,8 @@ namespace physics
 
 		void Stop();
 
+		friend class PhysicsFunc;
+
 	protected:
 		// variables
 		b2Body *body_;

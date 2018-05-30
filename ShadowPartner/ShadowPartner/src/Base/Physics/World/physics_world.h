@@ -47,6 +47,8 @@ namespace physics
 
 		static int BodyCount();
 
+		friend class PhysicsFunc;
+
 	private:
 		PhysicsWorld();
 		void operator=(const PhysicsWorld &obj) {};
@@ -62,7 +64,7 @@ namespace physics
 		std::vector<Collider *> colliders_;
 
 #ifdef _DEBUG
-		DebugDraw debug_draw_;
+		DebugDraw *debug_draw_;
 #endif
 
 		// methods

@@ -27,8 +27,9 @@ namespace physics
 	PhysicsWorld::PhysicsWorld()
 		:world_(b2World(DEFAULT_GRAVITY))
 		, time_step_(1.0f / 60.0f)
-		, velocity_iteration_(6)
-		, position_iteration_(2)
+		, velocity_iteration_(15)
+		, position_iteration_(15)
+		,debug_draw_(nullptr)
 	{
 		world_.SetAllowSleeping(true);
 		world_.SetWarmStarting(true);
@@ -40,11 +41,13 @@ namespace physics
 	void PhysicsWorld::Init()
 	{
 		if (instance_ == nullptr)
+		{
 			instance_ = new PhysicsWorld();
-
+			instance_->debug_draw_ = new DebugDraw();
+		}
 #ifdef _DEBUG
-		instance_->debug_draw_.Init();
-		instance_->world_.SetDebugDraw(&instance_->debug_draw_);
+		instance_->debug_draw_->Init();
+		instance_->world_.SetDebugDraw(instance_->debug_draw_);
 #endif
 	}
 
@@ -52,11 +55,17 @@ namespace physics
 	void PhysicsWorld::Uninit()
 	{
 #ifdef _DEBUG
-		instance_->debug_draw_.Uninit();
+		instance_->debug_draw_->Uninit();
 #endif
 
 		if (instance_ != nullptr)
 		{
+			if (instance_->debug_draw_ != nullptr)
+			{
+				delete instance_->debug_draw_;
+				instance_->debug_draw_ = nullptr;
+			}
+
 			delete instance_;
 			instance_ = nullptr;
 		}
@@ -154,5 +163,10 @@ namespace physics
 	int PhysicsWorld::GetPositionIteration()
 	{
 		return instance_->position_iteration_;
+	}
+
+	int PhysicsWorld::BodyCount()
+	{
+		return instance_->colliders_.size();
 	}
 }

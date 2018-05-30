@@ -49,16 +49,16 @@ namespace shadowpartner
 				scenes_[i] = nullptr;
 			}
 		}
+
+		if (instance_ != nullptr)
+		{
+			delete instance_;
+			instance_ = nullptr;
+		}
 	}
 
 	HRESULT SceneManager::Init()
 	{
-		//PhysicsTestScene *physics_test_scene = new PhysicsTestScene();
-		//current_scene_ = physics_test_scene;
-
-		//current_scene_->Init();
-
-		//scenes_.push_back(physics_test_scene);
 
 		DrawTestScene *draw_test_scene = new DrawTestScene();
 		current_scene_ = draw_test_scene;
