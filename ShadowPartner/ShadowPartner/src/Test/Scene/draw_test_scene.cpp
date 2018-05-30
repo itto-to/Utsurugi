@@ -8,6 +8,8 @@
 #include "../../Base/2D/sprite.h"
 #include "../../Base/Input/input.h"
 #include "../../Game/Stage/tile.h"
+#include "../../Base/System/scene_manager.h"
+#include "physics_test_scene.h"
 
 #ifdef _DEBUG
 #include "../../Base/Debug/debugger.h"
@@ -39,7 +41,7 @@ namespace shadowpartner
 	HRESULT DrawTestScene::Init()
 	{
 #ifdef _DEBUG
-		debug::Debug::Log("描画テストのシーンのオブジェクトを生成します。");
+		debug::Debug::Log("シーンの切り替え：描画テスト");
 #endif
 		// カメラオブジェクトを生成
 		{
@@ -114,5 +116,8 @@ namespace shadowpartner
 		{
 			draw_object->transform_->position_.y += 100.0f;
 		}
+
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Cancel))
+			SceneManager::LoadScene(new PhysicsTestScene());
 	}
 }

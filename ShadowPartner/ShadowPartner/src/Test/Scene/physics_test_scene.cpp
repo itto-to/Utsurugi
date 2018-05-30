@@ -48,8 +48,9 @@ namespace shadowpartner
 	// 初期化処理
 	HRESULT PhysicsTestScene::Init()
 	{
-		printf("描画テストのシーンのオブジェクトを生成します。");
-
+#ifdef _DEBUG
+		debug::Debug::Log("シーンの切り替え：物理テスト");
+#endif
 		// カメラオブジェクトを生成
 		{
 			camera_object = new GameObject();
