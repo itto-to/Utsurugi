@@ -129,4 +129,21 @@ namespace shadowpartner
 	{
 		return scenes_[index];
 	}
+
+	//==========================================================
+	// 概要  :新しいシーンを読み込みます。古いシーンは削除されます。
+	// 引数  :新しいシーンのインスタンスへのポインタ。(newしておいてください。)
+	//==========================================================
+	void SceneManager::LoadScene(Scene *new_scene)
+	{
+		//for (int i = 0;i < instance_->scenes_.size();++i)
+		//{
+		//	delete instance_->scenes_[i];
+		//	instance_->scenes_[i] = nullptr;
+		//}
+
+		//instance_->scenes_.clear();
+
+		//instance_->scenes_.push_back(new_scene);
+	}
 }

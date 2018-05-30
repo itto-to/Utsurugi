@@ -18,15 +18,6 @@ namespace shadowpartner
 	Scene::~Scene()
 	{
 		Uninit();
-
-		for (int i = 0; i < gameObjects_.size(); ++i)
-		{
-			if (gameObjects_[i] != nullptr)
-			{
-				delete gameObjects_[i];
-				gameObjects_[i] = nullptr;
-			}
-		}
 	}
 
 	void Scene::UpdateScene()
@@ -61,5 +52,32 @@ namespace shadowpartner
 		}
 
 		Draw();
+	}
+
+	//==========================================================
+	// 概要  :シーンにあるゲームオブジェクトを解放します。
+	//==========================================================
+	void Scene::Uninit()
+	{
+		for (int i = 0; i < gameObjects_.size(); ++i)
+		{
+			if (gameObjects_[i] != nullptr)
+			{
+				delete gameObjects_[i];
+				gameObjects_[i] = nullptr;
+			}
+		}
+	}
+
+	// 更新処理
+	void Scene::Update()
+	{
+
+	}
+
+	// 描画処理
+	void Scene::Draw()
+	{
+
 	}
 }

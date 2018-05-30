@@ -7,6 +7,8 @@
 #include "../../Base/2D/camera.h"
 #include "../../Base/2D/sprite.h"
 #include "../../Base/Input/input.h"
+#include "../../Base/System/scene_manager.h"
+#include "draw_test_scene.h"
 
 #ifdef _DEBUG
 #include "../../Base/Debug/debugger.h"
@@ -28,12 +30,11 @@ namespace shadowpartner
 		{110,20},{130,20},{150,20},{170,20},
 		{120,40},{140,40},{160,40},
 		{130,60},{150,60},
-		{140,80} 
+		{140,80}
 	};
 
 	// コンストラクタ
 	PhysicsTestScene::PhysicsTestScene()
-		:pyramids_(nullptr)
 	{
 
 	}
@@ -157,29 +158,29 @@ namespace shadowpartner
 
 		// ピラミッド作る
 		{
-			pyramids_ = new GameObject[15];
-
 			for (int i = 0;i < 15;++i)
 			{
-				pyramids_[i].transform_->position_ = pyramid_points[i];
+				pyramids_[i] = new GameObject();
+
+				pyramids_[i]->transform_->position_ = pyramid_points[i];
 
 				Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
 				sprite->SetSize(Vector2(20, 20));
 				sprite->SetColor(D3DCOLOR_RGBA(200, 153, 50, 255));
-				pyramids_[i].AddComponent(sprite);
+				pyramids_[i]->AddComponent(sprite);
 
 				// 矩形の当たり判定の設定
 				BoxInitializer box_init;
 				box_init.width_ = 20.0f;
 				box_init.height_ = 20.0f;
 				box_init.is_static_ = false;
-				box_init.pos_ = pyramids_[i].transform_->position_;
+				box_init.pos_ = pyramids_[i]->transform_->position_;
 
 				BoxCollider *box_collider = new BoxCollider(box_init);
-				pyramids_[i].AddComponent(box_collider);
+				pyramids_[i]->AddComponent(box_collider);
 
 				// シーンにゲームオブジェクトを登録
-				gameObjects_.push_back(&pyramids_[i]);
+				gameObjects_.push_back(pyramids_[i]);
 			}
 		}
 
@@ -210,11 +211,12 @@ namespace shadowpartner
 		move.y = input::Input::Instance()->GetAxis(input::InputAxis::Vertical);
 
 		dynamic_circle->GetComponent<CircleCollider>()->AddForce(move * 10000000.0f);
+
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Cancel))
+			SceneManager::LoadScene(new DrawTestScene());
 	}
 
 	void PhysicsTestScene::Uninit()
 	{
-		if (pyramids_ != nullptr)
-			delete[] pyramids_;
 	}
 }
