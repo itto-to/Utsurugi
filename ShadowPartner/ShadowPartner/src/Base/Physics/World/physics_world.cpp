@@ -27,14 +27,14 @@ namespace physics
 	PhysicsWorld::PhysicsWorld()
 		:world_(b2World(DEFAULT_GRAVITY))
 		, time_step_(1.0f / 60.0f)
-		, velocity_iteration_(15)
-		, position_iteration_(15)
+		, velocity_iteration_(10)
+		, position_iteration_(10)
 		,debug_draw_(nullptr)
 	{
 		world_.SetAllowSleeping(true);
 		world_.SetWarmStarting(true);
 		world_.SetContinuousPhysics(true);
-		world_.SetSubStepping(true);
+		world_.SetSubStepping(false);
 	}
 
 	// èâä˙âªèàóù
