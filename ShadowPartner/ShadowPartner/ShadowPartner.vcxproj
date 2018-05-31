@@ -165,8 +165,6 @@
     <ClCompile Include="src\Base\Input\input.cpp" />
     <ClCompile Include="src\Base\Input\keyboard.cpp" />
     <ClCompile Include="src\Base\Input\mouse.cpp" />
-    <ClCompile Include="src\Base\Light\corner_candidates.cpp" />
-    <ClCompile Include="src\Base\Light\light.cpp" />
     <ClCompile Include="src\Base\Physics\Debug\debug_draw.cpp" />
     <ClCompile Include="src\Base\Physics\Element\box_collider.cpp" />
     <ClCompile Include="src\Base\Physics\Element\circle_collider.cpp" />
@@ -178,6 +176,7 @@
     <ClCompile Include="src\Base\System\scene_manager.cpp" />
     <ClCompile Include="src\Base\Time\time.cpp" />
     <ClCompile Include="src\Game\Application\application.cpp" />
+    <ClCompile Include="src\Game\Stage\stage.cpp" />
     <ClCompile Include="src\Game\Stage\tile.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Test\Object\draw_number.cpp" />
@@ -198,8 +197,6 @@
     <ClInclude Include="src\Base\Input\input.h" />
     <ClInclude Include="src\Base\Input\keyboard.h" />
     <ClInclude Include="src\Base\Input\mouse.h" />
-    <ClInclude Include="src\Base\Light\corner_candidates.h" />
-    <ClInclude Include="src\Base\Light\light.h" />
     <ClInclude Include="src\Base\Math\math.h" />
     <ClInclude Include="src\Base\Math\matrix3x3.h" />
     <ClInclude Include="src\Base\Math\matrix4x3.h" />

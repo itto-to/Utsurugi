@@ -38,11 +38,7 @@ namespace shadowpartner
 
 	Texture::~Texture()
 	{
-		if (tex_ != nullptr)
-		{
-			tex_->Release();
-			tex_ = nullptr;
-		}
+
 	}
 
 	// ‰æ‘œ“Ç‚İ‚İ

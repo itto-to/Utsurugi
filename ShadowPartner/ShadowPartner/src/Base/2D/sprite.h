@@ -42,7 +42,7 @@ namespace shadowpartner
 
 	private:
 		// variables
-		Texture *texture_;	
+		Texture texture_;	
 		Vector2 uv_offset_;		// テクスチャーのuv座標の左上
 		Vector2 uv_size_;		// テクスチャーのuv座標の左上から右下までのベクトル
 		Vertex2D vertices_[NUM_TEXTURE_VERTEX];

@@ -22,7 +22,7 @@ namespace shadowpartner
 		:uv_offset_(Vector2::zero())
 		,uv_size_(Vector2::one())
 	{
-		texture_ = new Texture(file_name);
+		texture_ = Texture(file_name);
 
 		MakeVertex();
 	}
@@ -36,10 +36,7 @@ namespace shadowpartner
 	// デストラクタ
 	Sprite::~Sprite()
 	{
-		if (texture_ != nullptr)
-		{
-			delete texture_;
-		}
+
 	}
 
 	// 描画処理
@@ -53,12 +50,12 @@ namespace shadowpartner
 		float zoom = Camera::main_->GetZoom();
 		Vector2 world_scale = transform_->GetWorldScale();
 		float width, height;
-		width = texture_->GetWidth() * world_scale.x / zoom;
-		height = texture_->GetHeight() * world_scale.y / zoom;
+		width = texture_.GetWidth() * world_scale.x / zoom;
+		height = texture_.GetHeight() * world_scale.y / zoom;
 
 		SetVertex(draw_pos, width, height, transform_->GetWorldRotation());
 
-		texture_->DrawTriangleStrip(&vertices_[0]);
+		texture_.DrawTriangleStrip(&vertices_[0]);
 	}
 
 	//==========================================================
@@ -79,8 +76,8 @@ namespace shadowpartner
 	//==========================================================
 	void Sprite::SetSize(const Vector2 &size)
 	{
-		texture_->SetWidth(size.x);
-		texture_->SetHeight(size.y);
+		texture_.SetWidth(size.x);
+		texture_.SetHeight(size.y);
 	}
 
 	//==========================================================
