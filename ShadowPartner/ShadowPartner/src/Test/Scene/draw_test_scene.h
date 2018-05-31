@@ -12,6 +12,12 @@
 //**********************************************************
 #include "../../Base/System/scene.h"
 
+//==========================================================
+// É}ÉNÉç
+//==========================================================
+#define TILE_TEST_MAX (4)
+
+
 namespace shadowpartner
 {
 
@@ -39,7 +45,7 @@ namespace shadowpartner
 		// variables
 		GameObject *camera_object;
 		GameObject *draw_object;
-		GameObject *draw_tile;
+		GameObject *draw_tile[TILE_TEST_MAX];
 		GameObject *draw_count_object;
 		GameObject *draw_fps_object;
 

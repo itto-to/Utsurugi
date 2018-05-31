@@ -8,6 +8,7 @@
 #include "../../Base/2D/sprite.h"
 #include "../../Base/Input/input.h"
 #include "../../Game/Stage/tile.h"
+#include "../../Game/Stage/Stage.h"
 #include "../../Base/System/scene_manager.h"
 #include "physics_test_scene.h"
 
@@ -55,6 +56,18 @@ namespace shadowpartner
 
 		// 描画オブジェクトを生成
 		{
+			for (int i = 0; i <TILE_TEST_MAX; i++)
+			{
+				draw_tile[i] = new GameObject();
+				draw_tile[i]->transform_->position_ = Vector2(0.0f, -100.0f - float(i * 50));
+				Tile *tile = new Tile(TEST_TILES_NAME, 2);
+				tile->sprite.SetSize(Vector2(50, 50));
+				draw_tile[i]->AddComponent(&(tile->sprite));
+
+				gameObjects_.push_back(draw_tile[i]);
+
+			}
+
 			draw_object = new GameObject();
 			draw_object->transform_->position_ = Vector2(0.0f, -200.0f);
 			Sprite *sprite = new Sprite(TEST_TEXTURE_NAME);
@@ -63,13 +76,6 @@ namespace shadowpartner
 
 			gameObjects_.push_back(draw_object);
 
-			draw_tile = new GameObject();
-			draw_tile->transform_->position_ = Vector2(0.0f, -100.0f);
-			Tile *tile = new Tile(TEST_TILES_NAME,3);
-			tile->sprite.SetSize(Vector2(50,50));
-			draw_tile->AddComponent(&(tile->sprite));
-
-			gameObjects_.push_back(draw_tile);
 
 		}
 
