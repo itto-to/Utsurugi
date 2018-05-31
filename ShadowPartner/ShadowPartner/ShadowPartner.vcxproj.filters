@@ -184,6 +184,12 @@
     <Filter Include="ヘッダー ファイル\Base\Physics\Func">
       <UniqueIdentifier>{fc1915c6-1f3c-4644-8111-9f555d499311}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Base\Light">
+      <UniqueIdentifier>{ed365629-dd8d-4829-b4d6-0d9e0645d151}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Base\Light">
+      <UniqueIdentifier>{b1c443ec-980d-46e2-8204-e630c3795597}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -272,6 +278,12 @@
     </ClCompile>
     <ClCompile Include="src\Base\Physics\Func\physics_func.cpp">
       <Filter>ソース ファイル\Base\Physics\Func</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\Light\corner_candidates.cpp">
+      <Filter>ソース ファイル\Base\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\Light\light.cpp">
+      <Filter>ソース ファイル\Base\Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -382,6 +394,12 @@
     </ClInclude>
     <ClInclude Include="src\Base\Physics\Func\physics_func.h">
       <Filter>ヘッダー ファイル\Base\Physics\Func</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Light\corner_candidates.h">
+      <Filter>ヘッダー ファイル\Base\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Light\light.h">
+      <Filter>ヘッダー ファイル\Base\Light</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
