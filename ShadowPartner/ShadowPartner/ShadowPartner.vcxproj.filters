@@ -273,9 +273,6 @@
     <ClCompile Include="src\Base\Physics\Func\physics_func.cpp">
       <Filter>ソース ファイル\Base\Physics\Func</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Stage\stage.cpp">
-      <Filter>ソース ファイル\Game\Stage</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base\System\scene.h">

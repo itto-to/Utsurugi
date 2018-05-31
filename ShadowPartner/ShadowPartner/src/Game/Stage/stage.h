@@ -5,9 +5,7 @@
 // インクルードファイル
 //**********************************************************
 #include "tile.h"
-#include "../Application/application.h"
-#include "../../Base/Element/component.h"
-
+#include "../../Game/Application/application.h"
 
 
 //==========================================================
@@ -23,17 +21,15 @@ namespace shadowpartner
 	//==========================================================
 
 
-	class Stage :public Component
+	class Stage
 	{
 	public:
-		Stage(int cell_vertical,int cell_horizontal);
+
+
 		//variables
-		//bool stage_pass_[CELL_VERTICAL][CELL_HORIZONTAL];
 
 		//methods
 	private:
-		Tile **tiles_;
-		friend class CornerCandidates;
 		// variables
 
 		// methods

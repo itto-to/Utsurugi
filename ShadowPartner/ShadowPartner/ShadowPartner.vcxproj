@@ -176,7 +176,6 @@
     <ClCompile Include="src\Base\System\scene_manager.cpp" />
     <ClCompile Include="src\Base\Time\time.cpp" />
     <ClCompile Include="src\Game\Application\application.cpp" />
-    <ClCompile Include="src\Game\Stage\stage.cpp" />
     <ClCompile Include="src\Game\Stage\tile.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Test\Object\draw_number.cpp" />
