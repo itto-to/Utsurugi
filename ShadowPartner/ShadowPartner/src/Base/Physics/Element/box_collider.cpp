@@ -47,10 +47,21 @@ namespace physics
 
 			body_->CreateFixture(&box_fixture_def);
 		}
+
+		size_ = Vector2(ini.width_, ini.height_);
 	}
 
 	void BoxCollider::Start()
 	{
 
+	}
+
+	//==========================================================
+	// ŠT—v  :BoxCollider‚Ìc‰¡‚Ì‘å‚«‚³‚ğ‹L˜^‚µ‚½size_‚ğ•Ô‚µ‚Ü‚·B
+	// –ß‚è’l:c‰¡‚Ì‘å‚«‚³
+	//==========================================================
+	Vector2 BoxCollider::GetSize()
+	{
+		return size_;
 	}
 }

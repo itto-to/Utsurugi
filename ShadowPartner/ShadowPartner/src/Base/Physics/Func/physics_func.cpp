@@ -126,6 +126,8 @@ namespace physics
 	{
 		RaycastHit hit_info;
 
+		direction.Normalize();
+
 		b2Vec2 point1 = b2Vec2(start.x, start.y);
 		b2Vec2 point2 = point1 + b2Vec2(direction.x, direction.y) * distance;
 

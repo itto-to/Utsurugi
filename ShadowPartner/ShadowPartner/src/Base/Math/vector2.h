@@ -264,6 +264,11 @@ namespace math
 		return D3DXVec2Length(&vec);
 	}
 
+	D3DXINLINE double LengthD(const Vector2 &vec)
+	{
+		return sqrt((double)((vec.x * vec.x) + (vec.y * vec.y)));
+	}
+
 	D3DXINLINE float LengthSq(const Vector2 &vec)									//大きさの2乗を求める(√の計算がない分高速)
 	{
 		return D3DXVec2LengthSq(&vec);
@@ -347,6 +352,35 @@ namespace math
 		return result;
 	}
 
+	// 二つのベクトルがなす角度を返します。
+	D3DXINLINE const float Angle(const Vector2 &vec0, const Vector2 &vec1)
+	{
+		double rad = acos(Dot(vec0, vec1) / (Length(vec0) * Length(vec1)));
+		float degree = (float)(rad * 180.0f / (double)D3DX_PI);
+		return degree;
+		D3DXToDegree(0);
+		//return acosf(Dot(vec0, vec1) / (Length(vec0) * Length(vec1)));
+	}
+
+	// x軸正方向とのなす角度を度数で返します。
+	D3DXINLINE const float Angle(const Vector2 &vec)
+	{
+		double len = LengthD(vec);
+		double cos = ((double)vec.x / len);
+		double rad = acos((double)vec.x / LengthD(vec));
+		double degree = (rad * 180.0f / (double)D3DX_PI);
+		return (float)degree;
+		//return acosf(Dot(vec0, vec1) / (Length(vec0) * Length(vec1)));
+	}
+
+	// ベクトルを指定の角度分、反時計回りに回転させます
+	D3DXINLINE const Vector2 Rotate(const Vector2 &vec, const float &degree)
+	{
+		float rad = D3DXToRadian(degree);
+		float cos = cosf(rad), sin = sinf(rad);
+
+		return Vector2(vec.x * cos - vec.y * sin, vec.x * sin + vec.y * cos);
+	}
 }
 
 #endif

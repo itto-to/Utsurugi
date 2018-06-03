@@ -36,7 +36,7 @@ namespace physics
 			rhw_ = 1.0f;
 			color_ = B2_TO_D3D_COLOR(c);
 		}
-		inline DebugVertex(const b2Vec2 &v, const D3DXCOLOR &c)
+		inline DebugVertex(const b2Vec2 &v, const D3DCOLOR &c)
 		{
 			pos_[0] = v.x;
 			pos_[1] = v.y;

@@ -50,6 +50,7 @@ namespace physics
 
 		// ariables
 		// methods
+		Vector2 GetSize();
 
 	protected:
 

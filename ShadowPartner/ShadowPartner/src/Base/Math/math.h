@@ -85,6 +85,7 @@ namespace math
 	D3DXINLINE float Dot(const Vector2 &vec0, const Vector2 &vec1);					//内積を求める
 	D3DXINLINE float Cross(const Vector2 &vec0, const Vector2 &vec1);		//外積を求める
 	D3DXINLINE float Length(const Vector2 &vec);									//大きさを求める
+	D3DXINLINE double LengthD(const Vector2 &vec);									//doubleで大きさを求める
 	D3DXINLINE float LengthSq(const Vector2 &vec);									//大きさの2乗を求める(√の計算がない分高速)
 	D3DXINLINE void Normalize(Vector2 &out, const Vector2 &vec);					//正規化する
 	D3DXINLINE const Vector2 Normalize(const Vector2 &vec);							//正規化する
@@ -95,6 +96,10 @@ namespace math
 	//ベジエ曲線で補間する。useClampをtrueにすると戻り値はstart～end間に限定される
 	D3DXINLINE const Vector2 Bezier(float t, const Vector2 &sp, const Vector2 &cp0, const Vector2 &cp1, const Vector2 &ep, bool useClamp = false);
 
+	D3DXINLINE const float Angle(const Vector2 &vec0, const Vector2 &vec1);	// 二つのベクトルがなす角度を度数で返します。
+	D3DXINLINE const float Angle(const Vector2 &vec);						// x軸正方向とのなす角度を度数で返します。
+
+	D3DXINLINE const Vector2 Rotate(const Vector2 &vec,const float &degree);
 
 	//*****************************************************************************
 	//*****************************************************************************

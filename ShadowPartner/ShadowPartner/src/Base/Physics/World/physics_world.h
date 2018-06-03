@@ -15,6 +15,11 @@
 #include "../Debug/debug_draw.h"
 #endif
 
+namespace shadowpartner
+{
+	class Light;
+}
+
 namespace physics
 {
 	//==========================================================
@@ -48,6 +53,7 @@ namespace physics
 		static int BodyCount();
 
 		friend class PhysicsFunc;
+		friend class shadowpartner::Light;
 
 	private:
 		PhysicsWorld();

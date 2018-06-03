@@ -60,6 +60,19 @@ namespace shadowpartner
 			return game_object_->GetComponent<T>();
 		}
 
+		//==========================================================
+		// 概要  :Componentの実体が指定されたクラスであるか調べる。
+		// 戻り値:クラスが同じならtrue、違うならfalse
+		//==========================================================
+		template <typename T>
+		bool Is()
+		{
+			if (typeid(*this) == typeid(T))
+			{
+				return true;
+			}
+			return false;
+		}
 
 	protected:
 

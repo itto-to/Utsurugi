@@ -48,9 +48,20 @@ namespace physics
 
 			body_->CreateFixture(&circle_fixture_def);
 		}
+
+		radius_ = ini.radius_;
 	}
 
 	void CircleCollider::Start()
 	{
+	}
+
+	//==========================================================
+	// ŠT—v  :CircleCollider‚Ì”¼Œa‚ğ‹L˜^‚µ‚½radius_‚ğ•Ô‚µ‚Ü‚·B
+	// –ß‚è’l:“–‚½‚è”»’è‚Ì”¼Œa
+	//==========================================================
+	float CircleCollider::GetRadius()
+	{
+		return radius_;
 	}
 }

@@ -49,6 +49,8 @@ namespace physics
 		// ariables
 		// methods
 
+		float GetRadius();
+
 	protected:
 
 		// methods

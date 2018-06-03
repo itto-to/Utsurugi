@@ -38,13 +38,16 @@ namespace shadowpartner
 		static std::vector<math::Vector2> GetCandidatePoints
 			(
 				std::vector<physics::Collider *> colliders,
-				const math::Vector2 center, 
-				const float distance = FLT_MAX
+				const math::Vector2 &center, 
+				const float &distance = FLT_MAX
 				);
 	private:
 		// variables
 		static CornerCandidates *instance_;
-		std::vector<math::Vector2> static_points_;
+		static std::vector<math::Vector2> static_points_;
+
+		static std::vector<math::Vector2> GetCandidatesFromBox(physics::Collider *collider,const math::Vector2 &light_center,const float &distance);
+		static std::vector<math::Vector2> GetCandidatesFromCircle(physics::Collider *collider, const math::Vector2 &light_center, const float &distance);
 	};
 }
 

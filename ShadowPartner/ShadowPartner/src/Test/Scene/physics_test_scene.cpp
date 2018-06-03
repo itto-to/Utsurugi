@@ -6,9 +6,10 @@
 #include "physics_test_scene.h"
 #include "../../Base/2D/camera.h"
 #include "../../Base/2D/sprite.h"
+#include "../../Base/Light/light.h"
 #include "../../Base/Input/input.h"
 #include "../../Base/System/scene_manager.h"
-#include "draw_test_scene.h"
+#include "light_test_scene.h"
 
 #ifdef _DEBUG
 #include "../../Base/Debug/debugger.h"
@@ -59,6 +60,30 @@ namespace shadowpartner
 			camera_object->AddComponent(camera);
 
 			gameObjects_.push_back(camera_object);
+		}
+
+		// 動く円形のオブジェクト
+		{
+			dynamic_circle = new GameObject();
+			dynamic_circle->transform_->position_ = Vector2(-100.0f, 100.0f);
+
+			// スプライトの設定
+			Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
+			sprite->SetSize(Vector2(20, 20));
+			sprite->SetColor(D3DCOLOR_RGBA(255, 0, 0, 255));
+			dynamic_circle->AddComponent(sprite);
+
+			// 円形の当たり判定の設定
+			CircleInitializer circle_init;
+			circle_init.radius_ = 10.0f;
+			circle_init.pos_ = dynamic_circle->transform_->position_;
+			circle_init.is_static_ = false;
+
+			CircleCollider *circle_collider = new CircleCollider(circle_init);
+			dynamic_circle->AddComponent(circle_collider);
+
+			// シーンにゲームオブジェクトを登録
+			gameObjects_.push_back(dynamic_circle);
 		}
 
 		// 静止したボックス
@@ -133,30 +158,6 @@ namespace shadowpartner
 			gameObjects_.push_back(static_circle);
 		}
 
-		// 動く円形のオブジェクト
-		{
-			dynamic_circle = new GameObject();
-			dynamic_circle->transform_->position_ = Vector2(-100.0f, 0.0f);
-
-			// スプライトの設定
-			Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(20, 20));
-			sprite->SetColor(D3DCOLOR_RGBA(255, 0, 0, 255));
-			dynamic_circle->AddComponent(sprite);
-
-			// 円形の当たり判定の設定
-			CircleInitializer circle_init;
-			circle_init.radius_ = 10.0f;
-			circle_init.pos_ = dynamic_circle->transform_->position_;
-			circle_init.is_static_ = false;
-
-			CircleCollider *circle_collider = new CircleCollider(circle_init);
-			dynamic_circle->AddComponent(circle_collider);
-
-			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(dynamic_circle);
-		}
-
 		// ピラミッド作る
 		{
 			for (int i = 0;i < 15;++i)
@@ -219,7 +220,7 @@ namespace shadowpartner
 		dynamic_circle->GetComponent<CircleCollider>()->AddForce(move * 10000000.0f);
 
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Cancel))
-			SceneManager::LoadScene(new DrawTestScene());
+			SceneManager::LoadScene(new LightTestScene());
 	}
 
 	void PhysicsTestScene::Uninit()

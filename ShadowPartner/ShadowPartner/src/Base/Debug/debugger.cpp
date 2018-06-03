@@ -16,6 +16,8 @@
 #include <Windows.h>
 #endif
 
+#include <crtdbg.h>
+
 #define DEBUG_UPDATE_INTERVAL (6)
 #define DEBUG_LOG_LINE_MAX (5)			// “¯‚É•\¦‚Å‚«‚éƒƒO‚Ì”
 
@@ -212,7 +214,7 @@ namespace debug
 	void Debug::BreakPoint(bool condition)
 	{
 		if (condition)
-			__asm int 3;
+			_CrtDbgBreak();
 	}
 
 	//==========================================================
