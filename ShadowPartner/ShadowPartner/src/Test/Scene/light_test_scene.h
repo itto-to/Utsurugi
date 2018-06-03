@@ -44,6 +44,9 @@ namespace shadowpartner
 		GameObject *right_wall_;
 		GameObject *floor_;
 
+		GameObject *block1_;
+		GameObject *circles_[11];
+
 		GameObject *pyramids_[15];
 
 		// methods

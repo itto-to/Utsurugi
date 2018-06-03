@@ -69,8 +69,9 @@ namespace shadowpartner
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(20, 20));
+			sprite->SetSize(Vector2(30, 30));
 			sprite->SetColor(D3DCOLOR_RGBA(255, 0, 0, 255));
+			sprite->SetOrderInLayer(1);
 			dynamic_circle->AddComponent(sprite);
 
 			// 円形の当たり判定の設定

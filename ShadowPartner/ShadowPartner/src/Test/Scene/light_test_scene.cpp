@@ -35,6 +35,12 @@ namespace shadowpartner
 		{140,80}
 	};
 
+	const Vector2 circle_points[11] =
+	{
+		{ -360,180 },{ -280,220 },{ -210,190 },{ -140,220 },{ -70,200 },
+		{ 0,210 },{ 70,230 },{ 140,210 },{ 210,170 },{ 280,180 },{360,230}
+	};
+
 	// コンストラクタ
 	LightTestScene::LightTestScene()
 	{
@@ -66,18 +72,19 @@ namespace shadowpartner
 		// ライトのオブジェクト
 		{
 			light_object_ = new GameObject();
-			light_object_->transform_->position_ = Vector2(0.0f, 200.0f);
+			light_object_->transform_->position_ = Vector2(0.0f, 270.0f);
 
 			// ライトの設定
 			LightInitializer light_init;
 			light_init.radius_ = 100.0f;
+			light_init.color_ = D3DCOLOR_RGBA(0xff, 0xff, 0x99, 0x77);
 			Light *light = new Light(light_init);
 			light_object_->AddComponent(light);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(LIGHT_TEXTURE_NAME);
 			sprite->SetSize(Vector2(100, 100));
-			sprite->SetColor(D3DCOLOR_RGBA(200, 200, 100, 255));
+			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0x99, 0xff));
 			light_object_->AddComponent(sprite);
 
 			// シーンにゲームオブジェクトを登録
@@ -87,17 +94,17 @@ namespace shadowpartner
 		// 動く円形のオブジェクト
 		{
 			player_ = new GameObject();
-			player_->transform_->position_ = Vector2(-100.0f, 150.0f);
+			player_->transform_->position_ = Vector2(-100.0f, 50.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(20, 20));
+			sprite->SetSize(Vector2(100, 100));
 			sprite->SetColor(D3DCOLOR_RGBA(255, 0, 0, 255));
 			player_->AddComponent(sprite);
 
 			// 円形の当たり判定の設定
 			CircleInitializer circle_init;
-			circle_init.radius_ = 10.0f;
+			circle_init.radius_ = 50.0f;
 			circle_init.pos_ = player_->transform_->position_;
 			circle_init.is_static_ = false;
 
@@ -204,6 +211,56 @@ namespace shadowpartner
 			gameObjects_.push_back(floor_);
 		}
 
+		// 適当なブロック
+		{
+			block1_ = new GameObject();
+			block1_->transform_->position_ = Vector2(150.0f, -100.0f);
+
+			// スプライトの設定
+			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
+			sprite->SetSize(Vector2(300, 50));
+			sprite->SetColor(D3DCOLOR_RGBA(100, 100, 100, 255));
+			block1_->AddComponent(sprite);
+
+			// 矩形の当たり判定の設定
+			BoxInitializer box_init;
+			box_init.width_ = 300.0f;
+			box_init.height_ = 50.0f;
+			box_init.pos_ = block1_->transform_->position_;
+
+			BoxCollider *box_collider = new BoxCollider(box_init);
+			block1_->AddComponent(box_collider);
+
+			// シーンにゲームオブジェクトを登録
+			gameObjects_.push_back(block1_);
+		}
+
+		// 適当な円を作る
+		{
+			for (int i = 0;i < 11;++i)
+			{
+				circles_[i] = new GameObject();
+
+				circles_[i]->transform_->position_ = circle_points[i];
+
+				Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
+				sprite->SetSize(Vector2(30, 30));
+				sprite->SetColor(D3DCOLOR_RGBA(50, 153, 200, 255));
+				circles_[i]->AddComponent(sprite);
+
+				// 矩形の当たり判定の設定
+				CircleInitializer circle_init;
+				circle_init.radius_ = 15.0f;
+				circle_init.pos_ = circles_[i]->transform_->position_;
+
+				CircleCollider *circle_collider = new CircleCollider(circle_init);
+				circles_[i]->AddComponent(circle_collider);
+
+				// シーンにゲームオブジェクトを登録
+				gameObjects_.push_back(circles_[i]);
+			}
+		}
+
 		// ピラミッド作る
 		{
 			for (int i = 0;i < 15;++i)
@@ -269,6 +326,13 @@ namespace shadowpartner
 
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Cancel))
 			SceneManager::LoadScene(new DrawTestScene());
+
+		float shift = input::Input::Instance()->GetAxis(input::InputAxis::MouseX);
+		light_object_->transform_->position_.x += shift * 10 * Time::Instance()->delta_time_;
+		if (light_object_->transform_->position_.x < -350.0f)
+			light_object_->transform_->position_.x = 350.0f;
+		if (light_object_->transform_->position_.x > 350.0f)
+			light_object_->transform_->position_.x = -350.0f;
 	}
 
 	void LightTestScene::Uninit()

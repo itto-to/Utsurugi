@@ -21,6 +21,7 @@ namespace shadowpartner
 	Sprite::Sprite(const char *file_name)
 		:uv_offset_(Vector2::zero())
 		,uv_size_(Vector2::one())
+		,order_in_layer_(0)
 	{
 		texture_ = Texture(file_name);
 
@@ -96,6 +97,15 @@ namespace shadowpartner
 	void Sprite::SetUvSize(const Vector2 &size)
 	{
 		uv_size_ = size;
+	}
+
+	//==========================================================
+	// ŠT—v  :•`‰æ‡‚ğİ’è‚µ‚Ü‚·B¬‚³‚¢”š‚©‚ç•`‰æ‚µ‚Ü‚·B
+	// ˆø”  :•`‰æ‚Ì‡”Ô
+	//==========================================================
+	void Sprite::SetOrderInLayer(const int &layer)
+	{
+		order_in_layer_ = layer;
 	}
 
 	//==========================================================

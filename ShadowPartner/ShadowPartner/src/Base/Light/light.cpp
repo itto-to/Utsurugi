@@ -9,6 +9,10 @@
 
 #include "corner_candidates.h"
 
+#ifdef _DEBUG
+#include "../Debug/debugger.h"
+#endif
+
 using namespace std;
 
 namespace shadowpartner
@@ -124,11 +128,11 @@ namespace shadowpartner
 	}
 
 	// レイを撃つ時にdirectionをどれだけずらすか
-	static const float SHIFT_DEGREE = 0.00005f;
+	static const float SHIFT_DEGREE = 0.00003f;
 	// レイの長さがこの値以上の割合なら遮られずに到達したとみなす。
 	static const float VALID_RAY_LENGTH_RATE = 0.99f;
 	// 光源の点を除いた光の頂点の最小値
-	static const int LIGHT_VERTEX_MIN = 36;
+	static const int LIGHT_VERTEX_MIN = 72;
 	//==========================================================
 	// 概要  :新しい光の頂点を計算する。
 	// 引数  :光の頂点の入れ物となるコンテナ
@@ -234,6 +238,10 @@ namespace shadowpartner
 				sort_buffer_.push_back(SortTemp(i, 360.0f - Angle(points[i] - light_center)));
 		}
 
+
+#ifdef _DEBUG
+		debug::Debug::StopWatchStart(2);
+#endif
 		// クイックソートを行う
 		//QuickSort(1, sort_buffer_.size() - 1);
 
@@ -242,6 +250,10 @@ namespace shadowpartner
 
 		// バブルソートを行う。
 		BubbleSort();
+
+#ifdef _DEBUG
+		debug::Debug::StopWatchFinish(2);
+#endif
 
 		sort_buffer_.push_back(sort_buffer_[1]);
 		vertex_count_ = sort_buffer_.size();

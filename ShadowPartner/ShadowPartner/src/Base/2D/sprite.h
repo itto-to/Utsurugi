@@ -36,6 +36,7 @@ namespace shadowpartner
 		void SetSize(const Vector2 &size);
 		void SetUvOffset(const Vector2 &offset);
 		void SetUvSize(const Vector2 &size);
+		void SetOrderInLayer(const int &layer);
 
 	protected:
 		void Draw();
@@ -46,6 +47,7 @@ namespace shadowpartner
 		Vector2 uv_offset_;		// テクスチャーのuv座標の左上
 		Vector2 uv_size_;		// テクスチャーのuv座標の左上から右下までのベクトル
 		Vertex2D vertices_[NUM_TEXTURE_VERTEX];
+		int order_in_layer_;
 
 		// methods
 		void MakeVertex();
