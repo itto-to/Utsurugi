@@ -22,7 +22,7 @@ namespace shadowpartner
 	{
 	public:
 
-		Sprite sprite;
+		Sprite *sprite;
 
 		Tile(const char *file_name, char no);
 		Tile(const char *file_name, char no, Layer layer, bool pass) ;

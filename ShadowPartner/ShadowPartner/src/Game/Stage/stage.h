@@ -13,7 +13,7 @@
 //==========================================================
 // マクロ
 //==========================================================
-#define STAGE_DATA "Resources/Stage/stage_file.dat"
+#define STAGE_DATA "stage_file.dat"
 #define CELL_VERTICAL (20)	//（仮）
 #define CELL_HORIZONTAL (15)//（仮）
 #define FILE_CHAR_BUFFER (32)//（仮）
@@ -34,7 +34,7 @@ namespace shadowpartner
 	{
 	public:
 		Stage(StageNumber stageno);
-		void LoadStageData (StageNumber stageno);
+		void LoadStageData (int stageno);
 		~Stage();
 		//methods
 	private:

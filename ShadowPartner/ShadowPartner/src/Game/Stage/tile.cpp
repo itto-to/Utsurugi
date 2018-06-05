@@ -16,8 +16,9 @@ namespace shadowpartner
 	//**********************************************************
 
 	// コンストラクタ
-	Tile::Tile(const char *file_name, char no) :sprite(file_name)
+	Tile::Tile(const char *file_name, char no)
 	{
+		sprite = new Sprite(file_name);
 		number_ = no-1;
 		tilelayer_ = kDefault;
 		is_pass_ = FALSE;
@@ -25,13 +26,14 @@ namespace shadowpartner
 		char y = number_ / TEST_HORIZONTAL;
 		float sizex_ = 1.0f / TEST_HORIZONTAL;
 		float sizey_ = 1.0f / TEST_VERTICAL;
-		sprite.SetUvOffset(Vector2((float)(x)* sizex_, (float)(y)* sizey_));
-		sprite.SetUvSize(Vector2(sizex_,sizey_));
+		sprite->SetUvOffset(Vector2((float)(x)* sizex_, (float)(y)* sizey_));
+		sprite->SetUvSize(Vector2(sizex_,sizey_));
 
 	}
 
-	Tile::Tile(const char *file_name, char no, Layer layer, bool pass) :sprite(file_name)
+	Tile::Tile(const char *file_name, char no, Layer layer, bool pass)
 	{
+		sprite = new Sprite(file_name);
 		number_ = no-1;
 		tilelayer_ = layer;
 		is_pass_ = pass;
@@ -39,8 +41,8 @@ namespace shadowpartner
 		char y = number_ / TEST_HORIZONTAL;
 		float sizex_ = 1.0f / TEST_HORIZONTAL;
 		float sizey_ = 1.0f / TEST_VERTICAL;
-		sprite.SetUvOffset(Vector2((float)(x)* sizex_, (float)(y)* sizey_));
-		sprite.SetUvSize(Vector2(sizex_, sizey_));
+		sprite->SetUvOffset(Vector2((float)(x)* sizex_, (float)(y)* sizey_));
+		sprite->SetUvSize(Vector2(sizex_, sizey_));
 
 	}
 
