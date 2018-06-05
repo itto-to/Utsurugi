@@ -13,25 +13,35 @@
 //==========================================================
 // マクロ
 //==========================================================
+#define STAGE_DATA "Resources/Stage/stage_file.dat"
 #define CELL_VERTICAL (20)	//（仮）
 #define CELL_HORIZONTAL (15)//（仮）
+#define FILE_CHAR_BUFFER (32)//（仮）
 
 namespace shadowpartner
 {
+	enum StageNumber
+	{
+		kTest = 0,
+	};
+
 	//==========================================================
 	// ステージクラス
 	//==========================================================
 
 
-	class Stage :public Component
+	class Stage :public GameObject
 	{
 	public:
-		Stage(int cell_vertical,int cell_horizontal);
-		//variables
-		//bool stage_pass_[CELL_VERTICAL][CELL_HORIZONTAL];
-
+		Stage(StageNumber stageno);
+		void LoadStageData (StageNumber stageno);
+		~Stage();
 		//methods
 	private:
+		unsigned devide_horizontal;
+		unsigned devide_vertical;
+		unsigned cell_horizontal;
+		unsigned cell_vertical;
 		Tile **tiles_;
 		friend class CornerCandidates;
 		// variables

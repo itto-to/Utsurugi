@@ -1,0 +1,11 @@
+test_file.dat
+	ステージ名
+	画像名
+	VERTICAL_
+	HORIZONTAL_
+	CELL_VERTICAL_
+	CELL_HORIZONTAL_
+test_no.csv
+	number_
+test_pass.csv
+	is_pass_

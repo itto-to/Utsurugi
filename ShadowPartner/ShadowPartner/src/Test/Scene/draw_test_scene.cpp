@@ -56,17 +56,21 @@ namespace shadowpartner
 
 		// 描画オブジェクトを生成
 		{
-			for (int i = 0; i <TILE_TEST_MAX; i++)
-			{
-				draw_tile[i] = new GameObject();
-				draw_tile[i]->transform_->position_ = Vector2(0.0f, -100.0f - float(i * 50));
-				Tile *tile = new Tile(TEST_TILES_NAME, 2);
-				tile->sprite.SetSize(Vector2(50, 50));
-				draw_tile[i]->AddComponent(&(tile->sprite));
+			//for (int i = 0; i <TILE_TEST_MAX; i++)
+			//{
+			//	draw_tile[i] = new GameObject();
+			//	draw_tile[i]->transform_->position_ = Vector2(0.0f, -100.0f - float(i * 50));
+			//	Tile *tile = new Tile(TEST_TILES_NAME, 2);
+			//	tile->sprite.SetSize(Vector2(50, 50));
+			//	draw_tile[i]->AddComponent(&(tile->sprite));
 
-				gameObjects_.push_back(draw_tile[i]);
+			//	gameObjects_.push_back(draw_tile[i]);
 
-			}
+			//}
+
+			 draw_stage=new Stage(kTest);
+			gameObjects_.push_back(draw_stage);
+
 
 			draw_object = new GameObject();
 			draw_object->transform_->position_ = Vector2(0.0f, -200.0f);
