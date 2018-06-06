@@ -7,28 +7,79 @@ namespace shadowpartner
 	{
 
 		LoadStageData(stageno);
-		tiles_ = new Tile *[cell_vertical];
+		tiles_ = new Tile *[cell_vertical * cell_horizontal];
 		for (int y = 0; y <= cell_vertical; y++)
 		{
-
 			for (int x = 0; x < cell_horizontal; x++)
 			{
-				tiles_[x] =new Tile("Resources/Tiles/053-Wall01.png",5);
-				//tiles_[x]->transform_->position_ = Vector2(0.0f, -100.0f - float(i * 50));
+				//　MakeVertex
+				tiles_[y * cell_horizontal + x] =new Tile("Resources/Tiles/053-Wall01.png", 5);
 
-				// タイルサイズ
-				tiles_[x]->sprite->SetSize(Vector2(
-				DEFAULT_SCREEN_WIDTH/ cell_horizontal, 
-				DEFAULT_SCREEN_HEIGHT/ cell_vertical
-				));
-				tiles_[x]->sprite->transform_->position_ = Vector2(
-					DEFAULT_SCREEN_WIDTH / cell_horizontal*x,
-					DEFAULT_SCREEN_HEIGHT / cell_vertical*y);
-				AddComponent(tiles_[x]->sprite);
+				tiles_[y * cell_horizontal + x]->vertices_[0].rhw_ =
+					tiles_[y * cell_horizontal + x]->vertices_[1].rhw_ =
+					tiles_[y * cell_horizontal + x]->vertices_[2].rhw_ =
+					tiles_[y * cell_horizontal + x]->vertices_[3].rhw_ = 1.0f;
+
+				tiles_[y * cell_horizontal + x]->vertices_[0].diffuse_ =
+					tiles_[y * cell_horizontal + x]->vertices_[1].diffuse_ =
+					tiles_[y * cell_horizontal + x]->vertices_[2].diffuse_ =
+					tiles_[y * cell_horizontal + x]->vertices_[3].diffuse_ = D3DCOLOR_RGBA(255, 255, 255, 255);
+
+				tiles_[y * cell_horizontal + x]->vertices_[0].tex_coor_ = Vector2::zero();
+				tiles_[y * cell_horizontal + x]->vertices_[1].tex_coor_ = Vector2(1.0f, 0.0f);
+				tiles_[y * cell_horizontal + x]->vertices_[2].tex_coor_ = Vector2(0.0f, 1.0f);
+				tiles_[y * cell_horizontal + x]->vertices_[3].tex_coor_ = Vector2::one();
+
+
 			}
 		}
 
 	}
+
+	void Stage::Draw()
+	{
+		Vector3 world_pos = Vector3(transform_->GetWorldPosition(), 0.0f);
+		Vector3 draw_pos = Vector3(world_pos.x, -world_pos.y, 0.0f) / Camera::main_->GetZoom();	// スクリーン上の描画位置.まずy軸の方向を変える
+		Vector3 screen_center = Vector3(Application::Instance()->GetScreenWidth() / 2, Application::Instance()->GetScreenHeight() / 2, 0.0f);
+		draw_pos += Vector3(Camera::main_->transform_->position_, 0.0f) + screen_center;
+
+		float zoom = Camera::main_->GetZoom();
+		//Vector2 world_scale = transform_->GetWorldScale();
+
+		float x_size = DEFAULT_SCREEN_WIDTH / cell_horizontal / zoom;
+		float y_size = DEFAULT_SCREEN_HEIGHT / cell_vertical / zoom;
+
+		for (int y = 0; y <= cell_vertical; y++)
+		{
+			for (int x = 0; x < cell_horizontal; x++)
+			{
+				Vector2 uv_offset = tiles_[y * cell_horizontal + x]->uv_offset_;
+				Vector2 uv_size = tiles_[y * cell_horizontal + x]->uv_size_;
+
+
+				//SetVertex
+				float vertex_left= x*x_size;
+				float vertex_right= vertex_left+ x_size;
+				float vertex_up= y*y_size;
+				float vertex_down= vertex_up+ y_size;
+				tiles_[y * cell_horizontal + x]->vertices_[0].vertex_ = Vector3(vertex_left, vertex_up, 0.0f);
+				tiles_[y * cell_horizontal + x]->vertices_[1].vertex_ = Vector3(vertex_right, vertex_up, 0.0f);
+				tiles_[y * cell_horizontal + x]->vertices_[2].vertex_ = Vector3(vertex_left, vertex_down, 0.0f);
+				tiles_[y * cell_horizontal + x]->vertices_[3].vertex_ = Vector3(vertex_right, vertex_down, 0.0f);
+
+				tiles_[y * cell_horizontal + x]->vertices_[0].tex_coor_ = uv_offset;
+				tiles_[y * cell_horizontal + x]->vertices_[1].tex_coor_ = uv_offset + Vector2(uv_size.x, 0.0f);
+				tiles_[y * cell_horizontal + x]->vertices_[2].tex_coor_ = uv_offset + Vector2(0.0f, uv_size.y);
+				tiles_[y * cell_horizontal + x]->vertices_[3].tex_coor_ = uv_offset + uv_size;
+
+				
+				tiles_[y * cell_horizontal + x]->texture_.DrawTriangleStrip(&(tiles_[y * cell_horizontal + x]->vertices_[0]));
+				
+
+			}
+		}
+	}
+
 
 	void Stage::LoadStageData(int stageno)
 	{
@@ -65,8 +116,8 @@ namespace shadowpartner
 
 	Stage::~Stage()
 	{
-		delete[] * tiles_;
-		delete[] tiles_;
+		//delete[] * tiles_;
+		//delete[] tiles_;
 	}
 
 }

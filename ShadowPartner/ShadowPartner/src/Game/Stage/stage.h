@@ -5,6 +5,8 @@
 // インクルードファイル
 //**********************************************************
 #include "tile.h"
+#include "../../Base/2D/camera.h"
+#include "../../Base/2D/sprite.h"
 #include "../Application/application.h"
 #include "../../Base/Element/component.h"
 
@@ -30,13 +32,16 @@ namespace shadowpartner
 	//==========================================================
 
 
-	class Stage :public GameObject
+	class Stage :public Component
 	{
 	public:
 		Stage(StageNumber stageno);
 		void LoadStageData (int stageno);
 		~Stage();
-		//methods
+
+	protected:
+		void Draw();
+
 	private:
 		unsigned devide_horizontal;
 		unsigned devide_vertical;
