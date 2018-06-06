@@ -7,15 +7,34 @@ namespace shadowpartner
 	{
 
 		LoadStageData(stageno);
+
 		tiles_ = new Tile *[cell_vertical * cell_horizontal];
+
+		errno_t err;
+		FILE *fp;
+		err = fopen_s(&fp, TILE_DATA, "r");	// ファイルを開く
+		if (err == 0)
+		{
+			printf("The file 'test_no.csv' was opened\n");
+		}
+		else
+		{
+			printf("The file 'test_no.csv' was not opened\n");
+		}
+
 		for (int y = 0; y <= cell_vertical; y++)
 		{
 			for (int x = 0; x < cell_horizontal; x++)
 			{
+				int tileno;
+				fscanf_s(fp, "%d,", &tileno);
+
 				//　MakeVertex
-				tiles_[y * cell_horizontal + x] =new Tile("Resources/Tiles/053-Wall01.png", 2);
+				tiles_[y * cell_horizontal + x] =new Tile(TILE_PICTURE, tileno);
 			}
 		}
+
+		fclose(fp);							// ファイル操作終了
 
 	}
 
