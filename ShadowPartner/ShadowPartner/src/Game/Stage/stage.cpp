@@ -13,24 +13,7 @@ namespace shadowpartner
 			for (int x = 0; x < cell_horizontal; x++)
 			{
 				//@MakeVertex
-				tiles_[y * cell_horizontal + x] =new Tile("Resources/Tiles/053-Wall01.png", 5);
-
-				tiles_[y * cell_horizontal + x]->vertices_[0].rhw_ =
-					tiles_[y * cell_horizontal + x]->vertices_[1].rhw_ =
-					tiles_[y * cell_horizontal + x]->vertices_[2].rhw_ =
-					tiles_[y * cell_horizontal + x]->vertices_[3].rhw_ = 1.0f;
-
-				tiles_[y * cell_horizontal + x]->vertices_[0].diffuse_ =
-					tiles_[y * cell_horizontal + x]->vertices_[1].diffuse_ =
-					tiles_[y * cell_horizontal + x]->vertices_[2].diffuse_ =
-					tiles_[y * cell_horizontal + x]->vertices_[3].diffuse_ = D3DCOLOR_RGBA(255, 255, 255, 255);
-
-				tiles_[y * cell_horizontal + x]->vertices_[0].tex_coor_ = Vector2::zero();
-				tiles_[y * cell_horizontal + x]->vertices_[1].tex_coor_ = Vector2(1.0f, 0.0f);
-				tiles_[y * cell_horizontal + x]->vertices_[2].tex_coor_ = Vector2(0.0f, 1.0f);
-				tiles_[y * cell_horizontal + x]->vertices_[3].tex_coor_ = Vector2::one();
-
-
+				tiles_[y * cell_horizontal + x] =new Tile("Resources/Tiles/053-Wall01.png", 2);
 			}
 		}
 
@@ -73,7 +56,7 @@ namespace shadowpartner
 				tiles_[y * cell_horizontal + x]->vertices_[3].tex_coor_ = uv_offset + uv_size;
 
 				
-				tiles_[y * cell_horizontal + x]->texture_.DrawTriangleStrip(&(tiles_[y * cell_horizontal + x]->vertices_[0]));
+				tiles_[y * cell_horizontal + x]->texture_->DrawTriangleStrip(&(tiles_[y * cell_horizontal + x]->vertices_[0]));
 				
 
 			}
@@ -116,8 +99,13 @@ namespace shadowpartner
 
 	Stage::~Stage()
 	{
-		//delete[] * tiles_;
-		//delete[] tiles_;
+		if (tiles_ != nullptr)
+		{
+			delete []*tiles_;
+			//delete []tiles_;
+
+		}
+
 	}
 
 }

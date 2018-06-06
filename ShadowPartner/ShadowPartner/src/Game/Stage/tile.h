@@ -33,7 +33,7 @@ namespace shadowpartner
 		//variables
 		Layer tilelayer_;
 		bool is_pass_;
-		Texture texture_;
+		Texture *texture_;
 		Vertex2D vertices_[NUM_TEXTURE_VERTEX];
 		Vector2 uv_offset_;		// テクスチャーのuv座標の左上
 		Vector2 uv_size_;		// テクスチャーのuv座標の左上から右下までのベクトル
