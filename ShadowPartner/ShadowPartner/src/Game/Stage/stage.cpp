@@ -22,7 +22,7 @@ namespace shadowpartner
 			printf("The file 'test_no.csv' was not opened\n");
 		}
 
-		for (int y = 0; y <= cell_vertical; y++)
+		for (int y = 0; y < cell_vertical; y++)
 		{
 			for (int x = 0; x < cell_horizontal; x++)
 			{
@@ -51,7 +51,7 @@ namespace shadowpartner
 		float x_size = DEFAULT_SCREEN_WIDTH / cell_horizontal / zoom;
 		float y_size = DEFAULT_SCREEN_HEIGHT / cell_vertical / zoom;
 
-		for (int y = 0; y <= cell_vertical; y++)
+		for (int y = 0; y < cell_vertical; y++)
 		{
 			for (int x = 0; x < cell_horizontal; x++)
 			{
