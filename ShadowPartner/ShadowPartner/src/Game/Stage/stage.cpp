@@ -30,7 +30,7 @@ namespace shadowpartner
 				fscanf_s(fp, "%d,", &tileno);
 
 				//Å@MakeVertex
-				tiles_[y * cell_horizontal + x] =new Tile(TILE_PICTURE, tileno, devide_horizontal, devide_vertical, cell_horizontal, cell_vertical);
+				tiles_[y * cell_horizontal + x] =new Tile(TILE_PICTURE, tileno);
 			}
 		}
 

@@ -4,14 +4,15 @@
 //**********************************************************
 // インクルードファイル
 //**********************************************************
-#include "../Application/application.h"
 #include "../../Base/2D/sprite.h"
 #include "../../Base/2D/texture.h"
-#include "../../Base/Physics/Element/circle_collider.h"
-#include "../../Base/Physics/Physics.h"
 
-using namespace physics;
 
+//==========================================================
+// マクロ
+//==========================================================
+#define TEST_VERTICAL (4)
+#define TEST_HORIZONTAL (3)
 namespace shadowpartner
 {
 	//==========================================================
@@ -24,14 +25,14 @@ namespace shadowpartner
 
 		//Sprite *sprite;
 
-		Tile(const char *file_name, char no, 
-			unsigned devide_horizontal, unsigned devide_vertical,
-			unsigned cell_horizontal, unsigned cell_vertical);
+		Tile(const char *file_name, char no);
+		Tile(const char *file_name, char no, Layer layer, bool pass) ;
+		Tile(const Tile &copy);
 		~Tile();
 
 		//variables
-		//Layer tilelayer_;
-		BoxCollider *box_collider;
+		Layer tilelayer_;
+		bool is_pass_;
 		Texture *texture_;
 		Vertex2D vertices_[NUM_TEXTURE_VERTEX];
 		Vector2 uv_offset_;		// テクスチャーのuv座標の左上
