@@ -24,9 +24,9 @@ namespace shadowpartner
 		texture_ = new Texture(file_name);
 
 		number_ = no-1;
-		char x = number_ % devide_horizontal;
-		char y = number_ / devide_horizontal;
-		float sizex_ = 1.0f / devide_vertical;
+		unsigned x = number_ % devide_horizontal;
+		unsigned y = number_ / devide_horizontal;
+		float sizex_ = 1.0f / devide_horizontal;
 		float sizey_ = 1.0f / devide_vertical;
 
 		vertices_[0].rhw_ =
@@ -41,15 +41,15 @@ namespace shadowpartner
 		vertices_[3].diffuse_ = D3DCOLOR_RGBA(255, 255, 255, 255);
 
 
-		vertices_[0].tex_coor_ = Vector2::zero();
-		vertices_[1].tex_coor_ = Vector2(1.0f, 0.0f);
-		vertices_[2].tex_coor_ = Vector2(0.0f, 1.0f);
-		vertices_[3].tex_coor_ = Vector2::one();
+		//vertices_[0].tex_coor_ = Vector2::zero();
+		//vertices_[1].tex_coor_ = Vector2(1.0f, 0.0f);
+		//vertices_[2].tex_coor_ = Vector2(0.0f, 1.0f);
+		//vertices_[3].tex_coor_ = Vector2::one();
 
-		vertices_[0].vertex_ = Vector3::zero();
-		vertices_[1].vertex_ = Vector3::zero();
-		vertices_[2].vertex_ = Vector3::zero();
-		vertices_[3].vertex_ = Vector3::zero();
+		//vertices_[0].vertex_ = Vector3::zero();
+		//vertices_[1].vertex_ = Vector3::zero();
+		//vertices_[2].vertex_ = Vector3::zero();
+		//vertices_[3].vertex_ = Vector3::zero();
 
 
 		SetUvOffset(Vector2(x* sizex_, y* sizey_));
