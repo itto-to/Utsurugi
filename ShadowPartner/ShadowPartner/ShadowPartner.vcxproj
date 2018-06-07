@@ -177,6 +177,13 @@
     <ClCompile Include="src\Base\System\scene.cpp" />
     <ClCompile Include="src\Base\System\scene_manager.cpp" />
     <ClCompile Include="src\Base\Time\time.cpp" />
+    <ClCompile Include="src\Game\Actor\Common\actor.cpp" />
+    <ClCompile Include="src\Game\Actor\Common\actor_state.cpp" />
+    <ClCompile Include="src\Game\Actor\Common\jumper.cpp" />
+    <ClCompile Include="src\Game\Actor\Player\idle_state.cpp" />
+    <ClCompile Include="src\Game\Actor\Player\jump_state.cpp" />
+    <ClCompile Include="src\Game\Actor\Player\player_controller.cpp" />
+    <ClCompile Include="src\Game\Actor\Player\walk_state.cpp" />
     <ClCompile Include="src\Game\Application\application.cpp" />
     <ClCompile Include="src\Game\Stage\stage.cpp" />
     <ClCompile Include="src\Game\Stage\tile.cpp" />
@@ -187,6 +194,7 @@
     <ClCompile Include="src\Test\Scene\draw_test_scene.cpp" />
     <ClCompile Include="src\Test\Scene\light_test_scene.cpp" />
     <ClCompile Include="src\Test\Scene\physics_test_scene.cpp" />
+    <ClCompile Include="src\Test\Scene\player_test_scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base\2D\camera.h" />
@@ -219,6 +227,13 @@
     <ClInclude Include="src\Base\System\scene.h" />
     <ClInclude Include="src\Base\System\scene_manager.h" />
     <ClInclude Include="src\Base\Time\time.h" />
+    <ClInclude Include="src\Game\Actor\Common\actor.h" />
+    <ClInclude Include="src\Game\Actor\Common\actor_state.h" />
+    <ClInclude Include="src\Game\Actor\Common\jumper.h" />
+    <ClInclude Include="src\Game\Actor\Player\idle_state.h" />
+    <ClInclude Include="src\Game\Actor\Player\jump_state.h" />
+    <ClInclude Include="src\Game\Actor\Player\player_controller.h" />
+    <ClInclude Include="src\Game\Actor\Player\walk_state.h" />
     <ClInclude Include="src\Game\Application\application.h" />
     <ClInclude Include="src\Game\Stage\stage.h" />
     <ClInclude Include="src\Game\Stage\tile.h" />
@@ -228,6 +243,7 @@
     <ClInclude Include="src\Test\Scene\draw_test_scene.h" />
     <ClInclude Include="src\Test\Scene\light_test_scene.h" />
     <ClInclude Include="src\Test\Scene\physics_test_scene.h" />
+    <ClInclude Include="src\Test\Scene\player_test_scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
