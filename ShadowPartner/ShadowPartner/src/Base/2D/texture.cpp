@@ -24,7 +24,11 @@ namespace shadowpartner
 		,width_(10.0f)
 		,height_(10.0f)
 	{
-
+		if (tex_ != nullptr)
+		{
+			tex_->Release();
+			tex_ = nullptr;
+		}
 	}
 
 	Texture::Texture(const char *file_name)
@@ -51,7 +55,11 @@ namespace shadowpartner
 
 	Texture::~Texture()
 	{
-
+		if (tex_ != nullptr)
+		{
+			tex_->Release();
+			tex_ = nullptr;
+		}
 	}
 
 	// ‰æ‘œ“Ç‚İ‚İ

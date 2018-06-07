@@ -45,6 +45,7 @@ namespace shadowpartner
 		// variables
 		GameObject *camera_object;
 		GameObject *draw_object;
+		GameObject *draw_stage;
 		GameObject *draw_tile[TILE_TEST_MAX];
 		GameObject *draw_count_object;
 		GameObject *draw_fps_object;
