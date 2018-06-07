@@ -21,13 +21,19 @@ namespace shadowpartner {
 		// methods
 		void SetState(ActorState *state);
 		void ChangeState(ActorState *next_state);
+		bool IsControllable();
+		void SetIsControllable(bool is_controllable);
+
 	protected:
 
 		// methods
 		void Update() override;
 
-	private:
+		// variables
 		ActorState *state_;
+		bool is_controllable_;	// ‘€ì‰Â”\‚©‚Ç‚¤‚©
+
+	private:
 
 	};
 

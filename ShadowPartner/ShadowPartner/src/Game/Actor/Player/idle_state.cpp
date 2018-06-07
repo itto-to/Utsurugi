@@ -8,19 +8,24 @@
 
 using namespace physics;
 
-void shadowpartner::IdleState::Execute()
+namespace shadowpartner
 {
-	if (input::Input::Instance()->GetAxis(input::InputAxis::Horizontal) != 0.0f)
+
+	void IdleState::Execute()
 	{
-		// 移動
-		owner_->ChangeState(new WalkState(owner_));
+		if (input::Input::Instance()->GetAxis(input::InputAxis::Horizontal) != 0.0f)
+		{
+			// 移動
+			owner_->ChangeState(new WalkState(owner_));
+		}
+		else if (input::Input::Instance()->GetButton(input::InputButton::Jump))
+		{
+			// ジャンプ
+			// ジャンプ入力
+			BoxCollider *box_collider = owner_->GetComponent<BoxCollider>();
+			box_collider->AddForce(Vector2::up() * 700000000.0f);
+			owner_->ChangeState(new JumpState(owner_));
+		}
 	}
-	else if (input::Input::Instance()->GetButton(input::InputButton::Jump))
-	{
-		// ジャンプ
-		// ジャンプ入力
-		BoxCollider *box_collider = owner_->GetComponent<BoxCollider>();
-		box_collider->AddForce(Vector2::up() * 700000000.0f);
-		owner_->ChangeState(new JumpState(owner_));
-	}
-}
+
+}	// namespace shadowpartner

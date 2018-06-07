@@ -7,9 +7,9 @@
 
 namespace shadowpartner {
 
-	Actor::Actor() : state_(nullptr) {}
+	Actor::Actor() : state_(nullptr), is_controllable_(true) {}
 
-	Actor::Actor(ActorState* state) : state_(state) {}
+	Actor::Actor(ActorState* state) : state_(state) , is_controllable_(true) {}
 
 	Actor::~Actor()
 	{
@@ -29,6 +29,16 @@ namespace shadowpartner {
 		state_ = nullptr;
 
 		state_ = state;
+	}
+
+	bool Actor::IsControllable()
+	{
+		return is_controllable_;
+	}
+
+	void Actor::SetIsControllable(bool is_controllable)
+	{
+		is_controllable_ = is_controllable;
 	}
 
 	void Actor::Update()
