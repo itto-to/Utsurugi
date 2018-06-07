@@ -59,6 +59,7 @@ namespace physics
 		float GetAngle();
 
 		void AddForce(const Vector2 &force);
+		void SetVelocity(const Vector2 &velo);
 
 		void Stop();
 
