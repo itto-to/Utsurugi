@@ -45,6 +45,8 @@ namespace shadowpartner
 		Vector3 screen_center = Vector3(Application::Instance()->GetScreenWidth() / 2, Application::Instance()->GetScreenHeight() / 2, 0.0f);
 		draw_pos += Vector3(Camera::main_->transform_->position_, 0.0f) + screen_center;
 
+		screen_center = Vector3(transform_->position_,0.0f);
+
 		float zoom = Camera::main_->GetZoom();
 		//Vector2 world_scale = transform_->GetWorldScale();
 
@@ -58,16 +60,15 @@ namespace shadowpartner
 				Vector2 uv_offset = tiles_[y * cell_horizontal + x]->uv_offset_;
 				Vector2 uv_size = tiles_[y * cell_horizontal + x]->uv_size_;
 
-
 				//SetVertex
 				float vertex_left= x*x_size;
 				float vertex_right= vertex_left+ x_size;
 				float vertex_up= y*y_size;
 				float vertex_down= vertex_up+ y_size;
-				tiles_[y * cell_horizontal + x]->vertices_[0].vertex_ = Vector3(vertex_left, vertex_up, 0.0f);
-				tiles_[y * cell_horizontal + x]->vertices_[1].vertex_ = Vector3(vertex_right, vertex_up, 0.0f);
-				tiles_[y * cell_horizontal + x]->vertices_[2].vertex_ = Vector3(vertex_left, vertex_down, 0.0f);
-				tiles_[y * cell_horizontal + x]->vertices_[3].vertex_ = Vector3(vertex_right, vertex_down, 0.0f);
+				tiles_[y * cell_horizontal + x]->vertices_[0].vertex_ = screen_center+Vector3(vertex_left, vertex_up, 0.0f);
+				tiles_[y * cell_horizontal + x]->vertices_[1].vertex_ = screen_center+Vector3(vertex_right, vertex_up, 0.0f);
+				tiles_[y * cell_horizontal + x]->vertices_[2].vertex_ = screen_center+Vector3(vertex_left, vertex_down, 0.0f);
+				tiles_[y * cell_horizontal + x]->vertices_[3].vertex_ = screen_center+Vector3(vertex_right, vertex_down, 0.0f);
 
 				tiles_[y * cell_horizontal + x]->vertices_[0].tex_coor_ = uv_offset;
 				tiles_[y * cell_horizontal + x]->vertices_[1].tex_coor_ = uv_offset + Vector2(uv_size.x, 0.0f);
