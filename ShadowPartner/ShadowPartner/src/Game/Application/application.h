@@ -43,6 +43,8 @@ namespace shadowpartner
 		HWND h_wnd_;
 		LPDIRECT3D9 d3d;
 		LPDIRECT3DDEVICE9 device;
+		IDirect3DSurface9 *backSurf;
+		IDirect3DSurface9 *zBuff;
 
 		// methods
 		static Application *Instance();

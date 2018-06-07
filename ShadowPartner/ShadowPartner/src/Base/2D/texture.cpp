@@ -6,6 +6,8 @@
 #include "../../Game/Application/application.h"
 #include "texture.h"
 
+#define SPRITE_EFFECT "Shader/sprite_shader.hlsl"
+
 namespace shadowpartner
 {
 	//**********************************************************
@@ -34,6 +36,17 @@ namespace shadowpartner
 		{
 			MessageBox(NULL, "テクスチャーの読み込みに失敗しました。", "警告！", MB_ICONWARNING);
 		}
+
+		D3DXCreateEffectFromFile(
+			Application::Instance()->device,
+			SPRITE_EFFECT,
+			NULL,
+			NULL,
+			D3DXSHADER_DEBUG,
+			NULL,
+			&effect,
+			NULL
+			);
 	}
 
 	Texture::~Texture()
@@ -58,9 +71,17 @@ namespace shadowpartner
 	{
 		LPDIRECT3DDEVICE9 device = Application::Instance()->device;
 
+		UINT num_pass;
+
+		//effect->Begin(&num_pass,0);
+		//effect->BeginPass(0);
+
 		device->SetTexture(0, tex_);
 		device->SetFVF(FVF_VERTEX_2D);
 		device->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, vertices, sizeof(Vertex2D));
+
+		//effect->EndPass();
+		//effect->End();
 	}
 
 	//==========================================================

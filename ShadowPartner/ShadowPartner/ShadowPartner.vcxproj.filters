@@ -190,6 +190,9 @@
     <Filter Include="ヘッダー ファイル\Base\Light">
       <UniqueIdentifier>{944100da-42a9-4fb3-8a3b-5368f9179f0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{03bcf32d-e38e-4848-adf5-dc3bed1fc9c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -410,5 +413,10 @@
     <ClInclude Include="src\Test\Scene\light_test_scene.h">
       <Filter>ヘッダー ファイル\Test\Scene</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\sprite_shader.hlsli">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

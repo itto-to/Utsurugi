@@ -464,6 +464,9 @@ namespace shadowpartner
 	//==========================================================
 	void Application::Draw()
 	{
+		device->GetRenderTarget(0, &backSurf);
+		device->GetRenderTarget(0, &zBuff);
+
 		// バックバッファ＆Ｚバッファのクリア
 		device->Clear(0, NULL, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER), BACKGROUND_COLOR, 1.0f, 0);
 

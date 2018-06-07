@@ -59,6 +59,7 @@ namespace shadowpartner
 	private:
 		// variables
 		LPDIRECT3DTEXTURE9 tex_;
+		ID3DXEffect *effect;
 		float width_;	// このテクスチャーの横幅
 		float height_;
 	};
