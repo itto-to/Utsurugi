@@ -120,8 +120,7 @@ namespace shadowpartner
 	{
 		if (tiles_ != nullptr)
 		{
-			delete []*tiles_;
-			//delete []tiles_;
+			delete tiles_;
 
 		}
 
