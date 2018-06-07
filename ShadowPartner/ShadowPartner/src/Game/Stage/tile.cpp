@@ -16,17 +16,18 @@ namespace shadowpartner
 	//**********************************************************
 
 	// コンストラクタ
-	Tile::Tile(const char *file_name, char no) 
+	Tile::Tile(const char *file_name,char no, 
+		unsigned devide_horizontal, unsigned devide_vertical,
+		unsigned cell_horizontal, unsigned cell_vertical
+	)
 	{
 		texture_ = new Texture(file_name);
 
 		number_ = no-1;
-		tilelayer_ = kDefault;
-		is_pass_ = FALSE;
-		char x = number_ % TEST_HORIZONTAL;
-		char y = number_ / TEST_HORIZONTAL;
-		float sizex_ = 1.0f / TEST_HORIZONTAL;
-		float sizey_ = 1.0f / TEST_VERTICAL;
+		char x = number_ % devide_horizontal;
+		char y = number_ / devide_horizontal;
+		float sizex_ = 1.0f / devide_vertical;
+		float sizey_ = 1.0f / devide_vertical;
 
 		vertices_[0].rhw_ =
 		vertices_[1].rhw_ =
@@ -54,28 +55,13 @@ namespace shadowpartner
 		SetUvOffset(Vector2(x* sizex_, y* sizey_));
 		SetUvSize(Vector2(sizex_, sizey_));
 
-	}
+		//BoxInitializer box_init;
+		//box_init.width_ = DEFAULT_SCREEN_WIDTH / cell_horizontal;
+		//box_init.height_ = DEFAULT_SCREEN_HEIGHT / cell_vertical;
+		//box_collider = new BoxCollider(box_init);
 
-	Tile::Tile(const char *file_name, char no, Layer layer, bool pass) 
-	{
-		texture_ = new Texture(file_name);
+		//posはstageのインストラクターの中で設定
 
-		number_ = no-1;
-		tilelayer_ = layer;
-		is_pass_ = pass;
-		char x = number_ % TEST_HORIZONTAL;
-		char y = number_ / TEST_HORIZONTAL;
-		float sizex_ = 1.0f / TEST_HORIZONTAL;
-		float sizey_ = 1.0f / TEST_VERTICAL;
-		//sprite->SetUvOffset(Vector2((float)(x)* sizex_, (float)(y)* sizey_));
-		SetUvOffset(Vector2(x* sizex_, y* sizey_));
-		SetUvSize(Vector2(sizex_, sizey_));
-
-	}
-
-	Tile::Tile(const Tile &copy) :texture_(copy.texture_)
-	{
-		*this = copy;
 	}
 
 
