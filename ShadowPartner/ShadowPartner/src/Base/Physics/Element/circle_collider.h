@@ -20,6 +20,7 @@ namespace physics
 	struct CircleInitializer
 	{
 		Vector2 pos_;		// 位置
+		Vector2 offset_;
 		float radius_;
 		bool is_static_;	// 静止オブジェクトかどうか
 		float density_;		// 密度
@@ -28,6 +29,7 @@ namespace physics
 
 		CircleInitializer()
 			:pos_(Vector2::zero())
+			, offset_(Vector2::zero())
 			, radius_(1.0f)
 			, is_static_(true)
 			, density_(1.0f)

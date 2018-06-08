@@ -32,7 +32,7 @@ namespace physics
 		body_ = PhysicsWorld::CreateBody(this, &circle_body_def);
 
 		b2CircleShape circle;
-		circle.m_p.Set(0.0f, 0.0f);
+		circle.m_p.Set(ini.offset_.x,ini.offset_.y);
 		circle.m_radius = ini.radius_;
 
 		if (ini.is_static_)

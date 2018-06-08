@@ -32,7 +32,7 @@ namespace physics
 		body_ = PhysicsWorld::CreateBody(this,&box_body_def);
 
 		b2PolygonShape box;
-		box.SetAsBox(ini.width_ / 2.0f, ini.height_ / 2.0f);
+		box.SetAsBox(ini.width_ / 2.0f, ini.height_ / 2.0f,b2Vec2(ini.offset_.x,ini.offset_.y),0.0f);
 
 		if (ini.is_static_)
 		{
@@ -63,5 +63,32 @@ namespace physics
 	Vector2 BoxCollider::GetSize()
 	{
 		return size_;
+	}
+
+	//==========================================================
+	// ŠT—v  :
+	// ˆø”  :
+	//==========================================================
+	void BoxCollider::ReSet(const BoxInitializer &ini)
+	{
+		//body_->
+
+		//	b2PolygonShape box;
+		//box.SetAsBox(ini.width_ / 2.0f, ini.height_ / 2.0f);
+
+		//if (ini.is_static_)
+		//{
+		//	body_->CreateFixture(&box, 0.0f);
+		//}
+		//else
+		//{
+		//	b2FixtureDef box_fixture_def;
+		//	box_fixture_def.shape = &box;
+		//	box_fixture_def.density = ini.density_;
+		//	box_fixture_def.friction = ini.friction_;
+
+		//	body_->CreateFixture(&box_fixture_def);
+		//}
+
 	}
 }

@@ -20,6 +20,7 @@ namespace physics
 	struct BoxInitializer
 	{
 		Vector2 pos_;		// 位置
+		Vector2 offset_;
 		float width_;		// 横幅
 		float height_;		// 縦幅
 		bool is_static_;	// 静止オブジェクトかどうか
@@ -29,6 +30,7 @@ namespace physics
 
 		BoxInitializer()
 			:pos_(Vector2::zero())
+			, offset_(Vector2::zero())
 			, width_(1.0f)
 			, height_(1.0f)
 			, is_static_(true)
@@ -51,6 +53,8 @@ namespace physics
 		// ariables
 		// methods
 		Vector2 GetSize();
+
+		void ReSet(const BoxInitializer &initializer);
 
 	protected:
 
