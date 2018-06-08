@@ -324,8 +324,7 @@ namespace shadowpartner
 
 		player_->GetComponent<CircleCollider>()->AddForce(move * 10000000.0f);
 
-
-		float shift = 0.001f;
+		float shift = 0.01f;
 		light_object_->transform_->position_.x += shift * 10 * Time::Instance()->delta_time_;
 		if (light_object_->transform_->position_.x < -350.0f)
 			light_object_->transform_->position_.x = 350.0f;

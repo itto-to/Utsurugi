@@ -41,7 +41,7 @@ namespace shadowpartner
 	//==========================================================
 	// 2Dオブジェクトの描画用クラス
 	//==========================================================
-	class Light :public Component
+	class Light:public Component
 	{
 	public:
 		Light(const LightInitializer initializer);
@@ -57,25 +57,18 @@ namespace shadowpartner
 
 
 	protected:
-		void Update();
 		void Draw();
 
 	private:
 		// variables
 		Texture texture_;
 		Vertex2D *light_vertices_;
-		int vertex_count_;
+		int vertex_count_;	
 		math::Vector2 direction_;	// 光の向き
 		float angle_;		// 光の弧の広さ(度数法)
 		float radius_;		// 光の届く長さ
 
 		D3DCOLOR light_color_;	// 光の色
-
-		Transform *player_tran_;
-
-		// プレイヤー関係
-		void IlluminateCheck();
-		void SetPlayer(Transform *player_tran);
 
 		// 光生成関係
 		void ReMesh();		// 光の形を再計算する
@@ -100,8 +93,8 @@ namespace shadowpartner
 		int MedianIndex(int first, int last);
 
 		// QuickSortだと極めて近い値だけの配列の場合軸要素の決定が上手くいかず、無限ループに入ることがあるので、他の方法でソートさせる。
-		void MergeSort(std::vector<SortTemp> &a);
-		void Merge(std::vector<SortTemp> &early, std::vector<SortTemp> &late, std::vector<SortTemp> &a);
+		void MergeSort(std::vector<SortTemp> a);
+		void Merge(std::vector<SortTemp> early, std::vector<SortTemp> late, std::vector<SortTemp> a);
 
 		void BubbleSort();
 	};

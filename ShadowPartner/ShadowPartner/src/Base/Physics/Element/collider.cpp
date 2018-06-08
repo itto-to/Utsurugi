@@ -64,11 +64,6 @@ namespace physics
 		body_->ApplyForceToCenter(b2Vec2(force.x,force.y),true);
 	}
 
-	void Collider::SetVelocity(const Vector2 &velo)
-	{
-		body_->SetLinearVelocity(b2Vec2(velo.x, velo.y));
-	}
-
 	void Collider::Stop()
 	{
 		body_->SetLinearVelocity(b2Vec2_zero);

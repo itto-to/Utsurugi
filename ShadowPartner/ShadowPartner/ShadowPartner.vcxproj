@@ -229,15 +229,6 @@
     <ClInclude Include="src\Test\Scene\light_test_scene.h" />
     <ClInclude Include="src\Test\Scene\physics_test_scene.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Shader\sprite_shader.hlsli">
-      <FileType>Document</FileType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">3.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">vsmain</EntryPointName>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-    </None>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

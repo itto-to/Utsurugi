@@ -30,7 +30,7 @@ namespace shadowpartner
 				fscanf_s(fp, "%d,", &tileno);
 
 				//@MakeVertex
-				tiles_[y * cell_horizontal + x] =new Tile(TILE_PICTURE, tileno);
+				tiles_[y * cell_horizontal + x] =new Tile(TILE_PICTURE, tileno, devide_horizontal, devide_vertical, cell_horizontal, cell_vertical);
 			}
 		}
 
@@ -50,8 +50,10 @@ namespace shadowpartner
 		float zoom = Camera::main_->GetZoom();
 		//Vector2 world_scale = transform_->GetWorldScale();
 
-		float x_size = DEFAULT_SCREEN_WIDTH / cell_horizontal / zoom;
-		float y_size = DEFAULT_SCREEN_HEIGHT / cell_vertical / zoom;
+		//float x_size = DEFAULT_SCREEN_WIDTH / cell_horizontal / zoom;
+		//float y_size = DEFAULT_SCREEN_HEIGHT / cell_vertical / zoom;
+		float x_size = DEFAULT_SCREEN_WIDTH / cell_horizontal /2;
+		float y_size = DEFAULT_SCREEN_HEIGHT / cell_vertical /2;
 
 		for (int y = 0; y < cell_vertical; y++)
 		{

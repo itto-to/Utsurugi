@@ -32,7 +32,6 @@ namespace shadowpartner
 		, angle_(initializer.angle_)
 		, radius_(initializer.radius_)
 		, light_color_(initializer.color_)
-		, player_tran_(nullptr)
 	{
 	}
 
@@ -40,40 +39,6 @@ namespace shadowpartner
 	Light::~Light()
 	{
 
-	}
-
-	// 更新処理
-	void Light::Update()
-	{
-		IlluminateCheck();
-	}
-
-	//==========================================================
-	// 概要  :プレイヤーがこのライトに当たっているかどうかをチェックします。
-	//==========================================================
-	void Light::IlluminateCheck()
-	{
-		// プレイヤーを設定されてなければ何もしない
-		if (player_tran_ == nullptr)
-			return;
-
-		// プレイヤーに向かってレイを撃つ
-		physics::RaycastHit hit_info;
-		hit_info = physics::PhysicsFunc::Raycast(transform_->position_,
-			player_tran_->position_ - transform_->position_, radius_);
-
-		if (hit_info.collider->transform_ == player_tran_)
-		{
-			// プレイヤーに当たっていたときの処理
-		}
-
-		// プレイヤーに当たっていなかったときの処理
-
-	}
-
-	void Light::SetPlayer(Transform *player_tran)
-	{
-		player_tran_ = player_tran;
 	}
 
 	// 描画処理
@@ -90,15 +55,7 @@ namespace shadowpartner
 		width = texture_.GetWidth() * world_scale.x / zoom;
 		height = texture_.GetHeight() * world_scale.y / zoom;
 
-#ifdef _DEBUG
-		debug::Debug::StopWatchStart(2);
-#endif
-
 		ReMesh();		// 光の形を再計算する
-
-#ifdef _DEBUG
-		debug::Debug::StopWatchFinish(2);
-#endif
 
 		SetVertex(draw_pos);	// カメラの位置やズームを踏まえ、描画の位置に頂点を合わせる
 
@@ -282,21 +239,20 @@ namespace shadowpartner
 		}
 
 
+#ifdef _DEBUG
+		debug::Debug::StopWatchStart(2);
+#endif
 		// クイックソートを行う
 		//QuickSort(1, sort_buffer_.size() - 1);
 
-#ifdef _DEBUG
-		debug::Debug::StopWatchStart(1);
-#endif
-
 		// マージソートを行う
-		MergeSort(sort_buffer_);
+		//MergeSort(sort_buffer_);
 
 		// バブルソートを行う。
-		//BubbleSort();
+		BubbleSort();
 
 #ifdef _DEBUG
-		debug::Debug::StopWatchFinish(1);
+		debug::Debug::StopWatchFinish(2);
 #endif
 
 		sort_buffer_.push_back(sort_buffer_[1]);
@@ -424,7 +380,7 @@ namespace shadowpartner
 	//	first      :最初のインデックス
 	//	last       :最後のインデックス
 	//==========================================================
-	void Light::MergeSort(vector<SortTemp> &a)
+	void Light::MergeSort(vector<SortTemp> a)
 	{
 		if (a.size() > 1)
 		{
@@ -449,14 +405,14 @@ namespace shadowpartner
 	//	first      :最初のインデックス
 	//	last       :最後のインデックス
 	//==========================================================
-	void Light::Merge(std::vector<SortTemp> &early, std::vector<SortTemp> &late, std::vector<SortTemp> &a)
+	void Light::Merge(std::vector<SortTemp> early, std::vector<SortTemp> late, std::vector<SortTemp> a)
 	{
 		int e = 0, l = 0;
 
 		// 両方の配列に要素が残っている
 		while (e < early.size() && l < late.size())
 		{
-			if (early[e].angle_ > late[l].angle_)
+			if (early[e].angle_ <= late[l].angle_)
 			{
 				a[e + l] = early[e];
 				++e;
