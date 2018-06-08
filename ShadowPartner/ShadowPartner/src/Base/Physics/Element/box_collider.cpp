@@ -91,4 +91,12 @@ namespace physics
 		//}
 
 	}
+
+
+	void BoxCollider::SetOffset(const Vector2 &offset)
+	{
+		b2PolygonShape *box = (b2PolygonShape *)body_->GetFixtureList()->GetShape();
+
+		box->SetAsBox(size_.x, size_.y, b2Vec2(offset.x, offset.y), 0.0f);
+	}
 }

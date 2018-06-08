@@ -56,6 +56,8 @@ namespace physics
 
 		void ReSet(const BoxInitializer &initializer);
 
+		void SetOffset(const Vector2 &offset);
+
 	protected:
 
 		// methods
