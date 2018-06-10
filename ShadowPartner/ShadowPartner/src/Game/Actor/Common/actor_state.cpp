@@ -9,6 +9,14 @@
 
 namespace shadowpartner {
 
-	ActorState::ActorState(Actor *owner) : owner_(owner) {}
+	ActorState::ActorState(Actor *owner) : owner_(owner)
+	{
+		Enter();
+	}
+
+	ActorState::~ActorState()
+	{
+		Exit();
+	}
 
 } // namespace shadowpartner

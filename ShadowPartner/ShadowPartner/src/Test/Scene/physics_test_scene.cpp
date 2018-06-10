@@ -222,8 +222,7 @@ namespace shadowpartner
 		dynamic_circle->GetComponent<CircleCollider>()->AddForce(move * 10000000.0f);
 
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Cancel))
-			SceneManager::LoadScene(new PlayerTestScene());
-			//SceneManager::LoadScene(new LightTestScene());
+			SceneManager::LoadScene(new LightTestScene());
 	}
 
 	void PhysicsTestScene::Uninit()

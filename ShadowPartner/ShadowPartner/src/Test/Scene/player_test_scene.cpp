@@ -13,6 +13,9 @@
 #include "../../Base/2D/sprite.h"
 #include "../../Base/Light/light.h"
 #include "../../Base/Physics/physics.h"
+#include "../../Base/Input/input.h"
+#include "../../Base/System/scene_manager.h"
+#include "draw_test_scene.h"
 
 #define PLAYER_TEXTURE_NAME "Resources/Texture/Fox1.png"
 #define BOX_TEXTURE_NAME "Resources/Texture/white.png"
@@ -149,6 +152,8 @@ namespace shadowpartner {
 
 	void PlayerTestScene::Update()
 	{
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Cancel))
+			SceneManager::LoadScene(new DrawTestScene());
 	}
 
 	void PlayerTestScene::Uninit()
