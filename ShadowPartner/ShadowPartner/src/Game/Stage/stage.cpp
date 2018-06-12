@@ -3,7 +3,7 @@
 
 namespace shadowpartner
 {
-	Stage::Stage(StageNumber stageno,GameObject &game_object)
+	Stage::Stage(StageNumber stageno,GameObject &game_object, char datatileno[], char datatilepass[])
 	{
 
 		LoadStageData(stageno);
@@ -14,8 +14,8 @@ namespace shadowpartner
 		FILE *fp_no;
 		FILE *fp_pass;
 
-		err_no = fopen_s(&fp_no, TILE_DATA, "r");	// ファイルを開く
-		err_pass = fopen_s(&fp_pass, STAGE_PASS, "r");	// ファイルを開く
+		err_no = fopen_s(&fp_no, datatileno, "r");	// ファイルを開く
+		err_pass = fopen_s(&fp_pass, datatilepass, "r");	// ファイルを開く
 
 		if (err_no == 0)
 		{
@@ -144,16 +144,19 @@ namespace shadowpartner
 			printf("The file 'stage_file.dat' was not opened\n");
 		}
 		
-		//fseek(fp, 0, SEEK_SET);	//	ファイルの始まりからシーク
+		fseek(fp, 0, SEEK_SET);	//	ファイルの始まりからシーク
 		do
 		{
 			fscanf_s(fp, "Stage%d", &compare);
 
 		} while (stageno != compare);
-		fscanf_s(fp, "%d", &devide_horizontal);
-		fscanf_s(fp, "%d", &devide_vertical);
-		fscanf_s(fp, "%d", &cell_horizontal);
-		fscanf_s(fp, "%d", &cell_vertical);
+		fscanf_s(fp, "%d\n", &devide_horizontal);
+		fscanf_s(fp, "%d\n", &devide_vertical);
+		fscanf_s(fp, "%d\n", &cell_horizontal);
+		fscanf_s(fp, "%d\n", &cell_vertical);
+
+		//fscanf_s(fp, "%s", file_tileno);
+		//fscanf_s(fp, "%s", file_tilepass);
 
 
 		fclose(fp);							// ファイル操作終了
@@ -167,7 +170,6 @@ namespace shadowpartner
 			delete tiles_;
 
 		}
-
 	}
 
 }
