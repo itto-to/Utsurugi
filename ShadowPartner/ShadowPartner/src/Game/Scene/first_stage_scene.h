@@ -1,41 +1,33 @@
 //==========================================================
-// 概要  :ステージシーンの基底クラス
+// 概要  :最初のステージクラス
 // Author:Itsuki Namito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 
-#ifndef _GAME_SCENE_STAGE_SCENE_H_
-#define _GAME_SCENE_STAHE_SCENE_H_
+#ifndef _GAME_SCENE_FIRST_STAGE_SCENE_H_
+#define _GAME_SCENE_FIRST_STAHE_SCENE_H_
 
 //**********************************************************
 // インクルードファイル
 //**********************************************************
-#include "../../Base/System/scene.h"
-
-#define STAGE_FASE_MAX (3)
+#include "stage_scene.h"
 
 namespace shadowpartner
 {
 	//==========================================================
 	// 概要  :ステージシーンの基底クラス
 	//==========================================================
-	class StageScene:public Scene
+	class FirstStageScene:public StageScene
 	{
 	public:
-		StageScene();
-		virtual ~StageScene();
+		FirstStageScene();
+		virtual ~FirstStageScene();
 		
 		// variables
 
 		// methods
 
 	protected:
-
-		// variables
-		GameObject *camera_object_;
-		GameObject *stages_[STAGE_FASE_MAX];
-		GameObject *moon_light_;
-		GameObject *player_;
 
 		// methods
 		HRESULT Init();

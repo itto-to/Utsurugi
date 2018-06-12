@@ -8,7 +8,7 @@
 #include "../../Base/2D/sprite.h"
 #include "../../Base/Input/input.h"
 #include "../../Base/System/scene_manager.h"
-#include "stage1_scene.h"
+#include "first_stage_scene.h"
 
 #ifdef _DEBUG
 #include "../../Base/Debug/debugger.h"
@@ -16,7 +16,7 @@
 
 #include "../../Base/Time/time.h"
 
-#define TITLE_LOGO_TEXTURE_NAME "Resources/Texture/Title/Logo.png"
+#define TITLE_LOGO_TEXTURE_NAME "Resources/Texture/Title/TitleLogo.png"
 
 namespace shadowpartner
 {
@@ -36,7 +36,7 @@ namespace shadowpartner
 	HRESULT TitleScene::Init()
 	{
 #ifdef _DEBUG
-		debug::Debug::Log("シーンの切り替え：物理テスト");
+		debug::Debug::Log("シーンの切り替え：タイトル");
 #endif
 		// カメラオブジェクトを生成
 		{
@@ -51,11 +51,11 @@ namespace shadowpartner
 		// タイトルロゴのオブジェクト
 		{
 			title_logo_ = new GameObject();
-			title_logo_->transform_->position_ = Vector2(-100.0f, 300.0f);
+			title_logo_->transform_->position_ = Vector2(-200.0f, 200.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(TITLE_LOGO_TEXTURE_NAME);
-			sprite->SetSize(Vector2(100, 100));
+			sprite->SetSize(Vector2(500, 150));
 			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0x99, 0xff));
 			title_logo_->AddComponent(sprite);
 
@@ -72,7 +72,7 @@ namespace shadowpartner
 	void TitleScene::Update()
 	{
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Start))
-			SceneManager::LoadScene(new DrawTestScene());
+			SceneManager::LoadScene(new FirstStageScene());
 	}
 
 	void TitleScene::Uninit()
