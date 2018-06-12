@@ -16,7 +16,7 @@
 // マクロ
 //==========================================================
 #define STAGE_DATA "stage_file.dat"
-#define STAGE_PASS "stage_file.dat"
+#define STAGE_PASS "test_pass.csv"
 #define TILE_DATA "test_no.csv"
 #define TILE_PICTURE "Resources/Tiles/test.png"
 #define CELL_VERTICAL (20)	//（仮）
@@ -38,7 +38,7 @@ namespace shadowpartner
 	class Stage :public Component
 	{
 	public:
-		Stage(StageNumber stageno,GameObject &game_object);
+		Stage(StageNumber stageno,GameObject &game_object, char datatileno[], char datatilepass[]);
 		void LoadStageData (int stageno);
 		~Stage();
 
@@ -46,6 +46,8 @@ namespace shadowpartner
 		void Draw();
 
 	private:
+		char file_tileno[32];
+		char file_tilepass[32];
 		unsigned devide_horizontal;
 		unsigned devide_vertical;
 		unsigned cell_horizontal;
