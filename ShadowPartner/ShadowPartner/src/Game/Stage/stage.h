@@ -16,8 +16,8 @@
 // マクロ
 //==========================================================
 #define STAGE_DATA "stage_file.dat"
+#define STAGE_PASS "stage_file.dat"
 #define TILE_DATA "test_no.csv"
-//#define TILE_PICTURE "Resources/Tiles/053-Wall01.png"
 #define TILE_PICTURE "Resources/Tiles/test.png"
 #define CELL_VERTICAL (20)	//（仮）
 #define CELL_HORIZONTAL (15)//（仮）
@@ -38,7 +38,7 @@ namespace shadowpartner
 	class Stage :public Component
 	{
 	public:
-		Stage(StageNumber stageno);
+		Stage(StageNumber stageno,GameObject &game_object);
 		void LoadStageData (int stageno);
 		~Stage();
 

@@ -3,17 +3,21 @@
 
 namespace shadowpartner
 {
-	Stage::Stage(StageNumber stageno)
+	Stage::Stage(StageNumber stageno,GameObject &game_object)
 	{
 
 		LoadStageData(stageno);
 
 		tiles_ = new Tile *[cell_vertical * cell_horizontal];
 
-		errno_t err;
-		FILE *fp;
-		err = fopen_s(&fp, TILE_DATA, "r");	// ファイルを開く
-		if (err == 0)
+		errno_t err_no,err_pass;
+		FILE *fp_no;
+		FILE *fp_pass;
+
+		err_no = fopen_s(&fp_no, TILE_DATA, "r");	// ファイルを開く
+		err_pass = fopen_s(&fp_pass, STAGE_PASS, "r");	// ファイルを開く
+
+		if (err_no == 0)
 		{
 			printf("The file 'test_no.csv' was opened\n");
 		}
@@ -22,19 +26,55 @@ namespace shadowpartner
 			printf("The file 'test_no.csv' was not opened\n");
 		}
 
+		if (fp_pass == 0)
+		{
+			printf("The file 'test_no.csv' was opened\n");
+		}
+		else
+		{
+			printf("The file 'test_no.csv' was not opened\n");
+		}
+
+
 		for (int y = 0; y < cell_vertical; y++)
 		{
 			for (int x = 0; x < cell_horizontal; x++)
 			{
 				int tileno;
-				fscanf_s(fp, "%d,", &tileno);
+				int tilepass;
+
+
+				fscanf_s(fp_no, "%d,", &tileno);
+				fscanf_s(fp_pass, "%d,", &tilepass);
 
 				//　MakeVertex
-				tiles_[y * cell_horizontal + x] =new Tile(TILE_PICTURE, tileno, devide_horizontal, devide_vertical, cell_horizontal, cell_vertical);
+				tiles_[y * cell_horizontal + x] =new Tile(TILE_PICTURE, tileno, devide_horizontal, devide_vertical, cell_horizontal, cell_vertical,game_object);
+
+				// 通過不可のタイルだけコライダーを作る
+				if (tilepass)
+				{
+					BoxInitializer box_init;
+					box_init.width_ = DEFAULT_SCREEN_WIDTH / cell_horizontal;
+					box_init.height_ = DEFAULT_SCREEN_HEIGHT / cell_vertical;
+
+					//PosCollider
+					box_init.pos_= Vector2((x+0.5f)*box_init.width_, (y + 0.5f)*box_init.height_);					// BoxCollider座標
+
+
+					tiles_[y * cell_horizontal + x]->box_collider_ = new BoxCollider(box_init);
+
+					game_object.AddComponent(tiles_[y * cell_horizontal + x]->box_collider_);
+				}
+				else
+				{
+					tiles_[y * cell_horizontal + x]->box_collider_ = NULL;
+				}
+
 			}
 		}
 
-		fclose(fp);							// ファイル操作終了
+		fclose(fp_no);							// ファイル操作終了
+		fclose(fp_pass);							// ファイル操作終了
 
 	}
 
@@ -50,10 +90,8 @@ namespace shadowpartner
 		float zoom = Camera::main_->GetZoom();
 		//Vector2 world_scale = transform_->GetWorldScale();
 
-		//float x_size = DEFAULT_SCREEN_WIDTH / cell_horizontal / zoom;
-		//float y_size = DEFAULT_SCREEN_HEIGHT / cell_vertical / zoom;
-		float x_size = DEFAULT_SCREEN_WIDTH / cell_horizontal /2;
-		float y_size = DEFAULT_SCREEN_HEIGHT / cell_vertical /2;
+		float x_size = DEFAULT_SCREEN_WIDTH / cell_horizontal / zoom;
+		float y_size = DEFAULT_SCREEN_HEIGHT / cell_vertical / zoom;
 
 		for (int y = 0; y < cell_vertical; y++)
 		{
@@ -67,15 +105,18 @@ namespace shadowpartner
 				float vertex_right= vertex_left+ x_size;
 				float vertex_up= y*y_size;
 				float vertex_down= vertex_up+ y_size;
-				tiles_[y * cell_horizontal + x]->vertices_[0].vertex_ = screen_center+Vector3(vertex_left, vertex_up, 0.0f);
-				tiles_[y * cell_horizontal + x]->vertices_[1].vertex_ = screen_center+Vector3(vertex_right, vertex_up, 0.0f);
-				tiles_[y * cell_horizontal + x]->vertices_[2].vertex_ = screen_center+Vector3(vertex_left, vertex_down, 0.0f);
-				tiles_[y * cell_horizontal + x]->vertices_[3].vertex_ = screen_center+Vector3(vertex_right, vertex_down, 0.0f);
 
+				// テクスチャ座標
 				tiles_[y * cell_horizontal + x]->vertices_[0].tex_coor_ = uv_offset;
 				tiles_[y * cell_horizontal + x]->vertices_[1].tex_coor_ = uv_offset + Vector2(uv_size.x, 0.0f);
 				tiles_[y * cell_horizontal + x]->vertices_[2].tex_coor_ = uv_offset + Vector2(0.0f, uv_size.y);
 				tiles_[y * cell_horizontal + x]->vertices_[3].tex_coor_ = uv_offset + uv_size;
+
+				// vertex座標
+				tiles_[y * cell_horizontal + x]->vertices_[0].vertex_ = screen_center+Vector3(vertex_left, vertex_up, 0.0f);
+				tiles_[y * cell_horizontal + x]->vertices_[1].vertex_ = screen_center+Vector3(vertex_right, vertex_up, 0.0f);
+				tiles_[y * cell_horizontal + x]->vertices_[2].vertex_ = screen_center+Vector3(vertex_left, vertex_down, 0.0f);
+				tiles_[y * cell_horizontal + x]->vertices_[3].vertex_ = screen_center+Vector3(vertex_right, vertex_down, 0.0f);
 
 				
 				tiles_[y * cell_horizontal + x]->texture_->DrawTriangleStrip(&(tiles_[y * cell_horizontal + x]->vertices_[0]));

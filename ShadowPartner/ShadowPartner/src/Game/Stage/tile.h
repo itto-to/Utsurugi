@@ -26,12 +26,12 @@ namespace shadowpartner
 
 		Tile(const char *file_name, char no, 
 			unsigned devide_horizontal, unsigned devide_vertical,
-			unsigned cell_horizontal, unsigned cell_vertical);
+			unsigned cell_horizontal, unsigned cell_vertical,GameObject &game_object);
 		~Tile();
 
 		//variables
 		//Layer tilelayer_;
-		BoxCollider *box_collider;
+		BoxCollider *box_collider_;
 		Texture *texture_;
 		Vertex2D vertices_[NUM_TEXTURE_VERTEX];
 		Vector2 uv_offset_;		// テクスチャーのuv座標の左上
