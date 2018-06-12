@@ -178,6 +178,8 @@
     <ClCompile Include="src\Base\System\scene_manager.cpp" />
     <ClCompile Include="src\Base\Time\time.cpp" />
     <ClCompile Include="src\Game\Application\application.cpp" />
+    <ClCompile Include="src\Game\Scene\stage_scene.cpp" />
+    <ClCompile Include="src\Game\Scene\title_scene.cpp" />
     <ClCompile Include="src\Game\Stage\stage.cpp" />
     <ClCompile Include="src\Game\Stage\tile.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -220,6 +222,8 @@
     <ClInclude Include="src\Base\System\scene_manager.h" />
     <ClInclude Include="src\Base\Time\time.h" />
     <ClInclude Include="src\Game\Application\application.h" />
+    <ClInclude Include="src\Game\Scene\stage_scene.h" />
+    <ClInclude Include="src\Game\Scene\title_scene.h" />
     <ClInclude Include="src\Game\Stage\stage.h" />
     <ClInclude Include="src\Game\Stage\tile.h" />
     <ClInclude Include="src\Test\Object\draw_number.h" />

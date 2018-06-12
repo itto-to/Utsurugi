@@ -94,12 +94,6 @@
     <Filter Include="ソース ファイル\Game\Scene">
       <UniqueIdentifier>{fa3e9a56-865a-4a8b-8040-d008ca16e39a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Game\Scene\StageSelect">
-      <UniqueIdentifier>{c01c310b-be4b-41b8-b177-fde4a7672161}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Game\Scene\Title">
-      <UniqueIdentifier>{661680a3-25ba-4e3c-9134-19e6d2b3ef77}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Game\Actor">
       <UniqueIdentifier>{827d7d7f-53bf-4a7f-9a3a-eeda12fc2d37}</UniqueIdentifier>
     </Filter>
@@ -123,12 +117,6 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\Game\Scene">
       <UniqueIdentifier>{a4bf2fd9-68a8-4c0e-8044-32ab1270cd74}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Game\Scene\StageSelect">
-      <UniqueIdentifier>{4599920f-4dea-4276-ba34-9e86d07ef533}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Game\Scene\Title">
-      <UniqueIdentifier>{aca40e83-8f95-43c1-a850-92c631616513}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Game\Actor\Common">
       <UniqueIdentifier>{f649cb33-fbcf-407d-ab93-068af8a47601}</UniqueIdentifier>
@@ -291,6 +279,12 @@
     <ClCompile Include="src\Test\Scene\light_test_scene.cpp">
       <Filter>ソース ファイル\Test\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Scene\title_scene.cpp">
+      <Filter>ソース ファイル\Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Scene\stage_scene.cpp">
+      <Filter>ソース ファイル\Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base\System\scene.h">
@@ -409,6 +403,12 @@
     </ClInclude>
     <ClInclude Include="src\Test\Scene\light_test_scene.h">
       <Filter>ヘッダー ファイル\Test\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Scene\title_scene.h">
+      <Filter>ヘッダー ファイル\Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Scene\stage_scene.h">
+      <Filter>ヘッダー ファイル\Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

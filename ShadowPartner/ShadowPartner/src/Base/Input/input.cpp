@@ -334,7 +334,7 @@ namespace input {
 			}
 
 			// スタートボタン(キーボード1とゲームパッドStart)
-			if (CheckKey(DIK_1, i) || CheckPad(0, 9, i))
+			if (CheckKey(DIK_RETURN, i) || CheckPad(0, 9, i))
 			{
 				MeetButton(InputButton::Start, i);
 			}
