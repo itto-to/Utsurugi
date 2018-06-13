@@ -22,7 +22,11 @@ namespace shadowpartner
 		GameObject &game_object
 	)
 	{
-		texture_ = new Texture(file_name);
+		// tileíuÇ©Ç»Ç¢èÍçá
+		if (no ==127)
+			texture_ = NULL;
+		else
+			texture_ = new Texture(file_name);
 
 		number_ = no-1;
 		unsigned x = number_ % devide_horizontal;
