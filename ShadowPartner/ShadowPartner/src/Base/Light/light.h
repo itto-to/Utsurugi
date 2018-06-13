@@ -54,6 +54,7 @@ namespace shadowpartner
 		void SetDirection(const math::Vector2 &direction);
 		void SetAngle(const float &angle);
 		void SetRadius(const float &radius);
+		void GetVertices(std::vector<math::Vector2> &vertices);
 
 
 	protected:

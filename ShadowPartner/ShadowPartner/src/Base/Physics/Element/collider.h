@@ -53,10 +53,10 @@ namespace physics
 
 		int index_;	// ワールドに紐づけられたインデックス
 		// methods
-		void SetTransform(const Vector2 &pos, const float &ori);
+		virtual void SetTransform(const Vector2 &pos, const float &ori);
 
-		Vector2 GetPosition();
-		float GetAngle();
+		virtual Vector2 GetPosition();
+		virtual float GetAngle();
 
 		void AddForce(const Vector2 &force);
 		void SetVelocity(const Vector2 &velo);

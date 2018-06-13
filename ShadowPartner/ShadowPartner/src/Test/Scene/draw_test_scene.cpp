@@ -7,6 +7,8 @@
 #include "../../Base/2D/camera.h"
 #include "../../Base/2D/sprite.h"
 #include "../../Base/Input/input.h"
+#include "../../Game/Actor/Common/actor.h"
+#include "../../Game/Actor/Player/idle_state.h"
 #include "../../Game/Stage/tile.h"
 #include "../../Game/Stage/Stage.h"
 #include "../../Base/System/scene_manager.h"
@@ -71,10 +73,11 @@ namespace shadowpartner
 			Sprite *sprite = new Sprite(TEST_TEXTURE_NAME);
 			sprite->SetSize(Vector2(100, 100));
 			draw_object->AddComponent(sprite);
+			Actor *actor = new Actor();
+			actor->SetState(new IdleState(actor));
+			draw_object->AddComponent(actor);
 
 			gameObjects_.push_back(draw_object);
-
-
 		}
 
 		// ゲーム開始時からのカウントオブジェクトを生成
@@ -107,8 +110,8 @@ namespace shadowpartner
 
 	void DrawTestScene::Update()
 	{
-		float move = input::Input::Instance()->GetAxis(input::InputAxis::MouseX);
-		draw_object->transform_->position_.x += move * 10 * Time::Instance()->delta_time_;
+		//float move = input::Input::Instance()->GetAxis(input::InputAxis::MouseX);
+		//draw_object->transform_->position_.x += move * 10 * Time::Instance()->delta_time_;
 
 #ifdef _DEBUG
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))

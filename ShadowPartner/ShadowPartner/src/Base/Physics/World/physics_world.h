@@ -53,6 +53,7 @@ namespace physics
 		static int BodyCount();
 
 		friend class PhysicsFunc;
+		friend class ContactListener;
 		friend class shadowpartner::Light;
 
 	private:
