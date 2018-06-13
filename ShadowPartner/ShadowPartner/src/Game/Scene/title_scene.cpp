@@ -72,7 +72,10 @@ namespace shadowpartner
 	void TitleScene::Update()
 	{
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Start))
-			SceneManager::LoadScene(new FirstStageScene());
+			SceneManager::LoadScene(new FirstStageScene(3));
+
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
+			debug::Debug::Log("Push Action Button");
 	}
 
 	void TitleScene::Uninit()

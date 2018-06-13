@@ -20,7 +20,8 @@
 namespace shadowpartner
 {
 	// コンストラクタ
-	StageScene::StageScene()
+	StageScene::StageScene(int phase_num)
+		:phase_num_(phase_num)
 	{
 
 	}
@@ -61,6 +62,8 @@ namespace shadowpartner
 			gameObjects_.push_back(moon_light_);
 		}
 
+		current_phase_ = 0;
+
 		return S_OK;
 	}
 
@@ -72,5 +75,25 @@ namespace shadowpartner
 
 	void StageScene::Uninit()
 	{
+
+	}
+
+	void StageScene::NextPhase()
+	{
+		if (current_phase_ < phase_num_)
+		{
+			++current_phase_;
+
+			//Camera::main_->
+		}
+	}
+
+	void StageScene::PrevPhase()
+	{
+		if (current_phase_ > 0)
+		{
+			--current_phase_;
+
+		}
 	}
 }

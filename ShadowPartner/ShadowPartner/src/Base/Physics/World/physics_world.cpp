@@ -18,7 +18,7 @@ namespace physics
 	//**********************************************************
 	// íËêî
 	//**********************************************************
-	const b2Vec2 DEFAULT_GRAVITY = b2Vec2(0.0f, -980.0f);
+	const b2Vec2 DEFAULT_GRAVITY = b2Vec2(0.0f, -6300.0f);
 
 	// static
 	PhysicsWorld *PhysicsWorld::instance_ = nullptr;

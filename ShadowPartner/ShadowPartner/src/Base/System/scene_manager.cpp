@@ -67,6 +67,13 @@ namespace shadowpartner
 
 		scenes_.push_back(title_scene);
 
+		//DrawTestScene *title_scene = new DrawTestScene();
+		//current_scene_ = title_scene;
+
+		//current_scene_->Init();
+
+		//scenes_.push_back(title_scene);
+
 		return S_OK;
 	}
 

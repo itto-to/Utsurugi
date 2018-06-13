@@ -19,14 +19,15 @@
 #include "../../Base/Time/time.h"
 
 #define LIGHT_TEXTURE_NAME "Resources/Texture/LightBulb.png"
-
+#define BACK_GROUND_TEXTURE_NAME "Resources/Texture/Stage/ForestBackGround.png"
 
 using namespace physics;
 
 namespace shadowpartner
 {
 	// コンストラクタ
-	FirstStageScene::FirstStageScene()
+	FirstStageScene::FirstStageScene(int phase_num)
+		:StageScene(phase_num)
 	{
 
 	}
@@ -43,6 +44,16 @@ namespace shadowpartner
 #ifdef _DEBUG
 		debug::Debug::Log("シーンの切り替え：物理テスト");
 #endif
+		// 背景
+		{
+			back_ground = new GameObject();
+			back_ground->transform_->position_ = Vector2(1120, 0);
+
+			Sprite *sprite = new Sprite(BACK_GROUND_TEXTURE_NAME);
+			back_ground->AddComponent(sprite);
+
+			gameObjects_.push_back(back_ground);
+		}
 
 		// Stage Fase1
 		{

@@ -20,7 +20,7 @@ namespace shadowpartner
 	class FirstStageScene:public StageScene
 	{
 	public:
-		FirstStageScene();
+		FirstStageScene(int phase_num);
 		virtual ~FirstStageScene();
 		
 		// variables

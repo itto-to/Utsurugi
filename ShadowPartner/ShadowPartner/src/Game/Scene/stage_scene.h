@@ -22,7 +22,7 @@ namespace shadowpartner
 	class StageScene:public Scene
 	{
 	public:
-		StageScene();
+		StageScene(int phase_num);
 		virtual ~StageScene();
 		
 		// variables
@@ -33,14 +33,21 @@ namespace shadowpartner
 
 		// variables
 		GameObject *camera_object_;
+		GameObject *back_ground;
 		GameObject *stages_[STAGE_FASE_MAX];
 		GameObject *moon_light_;
 		GameObject *player_;
+
+		int phase_num_;
+		int current_phase_;					// ステージのフェーズ
 
 		// methods
 		HRESULT Init();
 		void Update();
 		void Uninit();
+
+		void NextPhase();
+		void PrevPhase();
 
 	private:
 		// variables
