@@ -303,23 +303,23 @@
     <ClCompile Include="src\Game\Actor\Player\idle_state.cpp">
       <Filter>ソース ファイル\Game\Actor\Player</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Actor\Player\player_controller.cpp">
-      <Filter>ソース ファイル\Game\Actor\Player</Filter>
-    </ClCompile>
     <ClCompile Include="src\Test\Scene\player_test_scene.cpp">
       <Filter>ソース ファイル\Test\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\Actor\Player\jump_state.cpp">
       <Filter>ソース ファイル\Game\Actor\Player</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Actor\Common\jumper.cpp">
-      <Filter>ヘッダー ファイル\Game\Actor\Common</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\Actor\Player\player.cpp">
       <Filter>ソース ファイル\Game\Actor\Player</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\Actor\Player\shadow.cpp">
       <Filter>ソース ファイル\Game\Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Actor\Player\climb_state.cpp">
+      <Filter>ソース ファイル\Game\Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\Physics\Element\contact_listener.cpp">
+      <Filter>ソース ファイル\Base\Physics\Element</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\Actor\Player\shadow_state.cpp">
       <Filter>ソース ファイル\Game\Actor\Player</Filter>
@@ -452,9 +452,6 @@
     <ClInclude Include="src\Game\Actor\Player\walk_state.h">
       <Filter>ヘッダー ファイル\Game\Actor\Player</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Actor\Player\player_controller.h">
-      <Filter>ヘッダー ファイル\Game\Actor\Player</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game\Actor\Common\actor_state.h">
       <Filter>ヘッダー ファイル\Game\Actor\Common</Filter>
     </ClInclude>
@@ -464,14 +461,17 @@
     <ClInclude Include="src\Game\Actor\Player\jump_state.h">
       <Filter>ヘッダー ファイル\Game\Actor\Player</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Actor\Common\jumper.h">
-      <Filter>ソース ファイル\Game\Actor\Common</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game\Actor\Player\player.h">
       <Filter>ヘッダー ファイル\Game\Actor\Player</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\Actor\Player\climb_state.h">
+      <Filter>ヘッダー ファイル\Game\Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Physics\Element\contact_listener.h">
+      <Filter>ヘッダー ファイル\Base\Physics\Element</Filter>
+    </ClInclude>
     <ClInclude Include="src\Game\Actor\Player\shadow.h">
-      <Filter>ソース ファイル\Game\Actor\Player</Filter>
+      <Filter>ヘッダー ファイル\Game\Actor\Player</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\Actor\Player\shadow_state.h">
       <Filter>ヘッダー ファイル\Game\Actor\Player</Filter>

@@ -171,6 +171,7 @@
     <ClCompile Include="src\Base\Physics\Element\box_collider.cpp" />
     <ClCompile Include="src\Base\Physics\Element\circle_collider.cpp" />
     <ClCompile Include="src\Base\Physics\Element\collider.cpp" />
+    <ClCompile Include="src\Base\Physics\Element\contact_listener.cpp" />
     <ClCompile Include="src\Base\Physics\Element\polygon_collider.cpp" />
     <ClCompile Include="src\Base\Physics\Func\physics_func.cpp" />
     <ClCompile Include="src\Base\Physics\World\physics_world.cpp" />
@@ -179,11 +180,10 @@
     <ClCompile Include="src\Base\Time\time.cpp" />
     <ClCompile Include="src\Game\Actor\Common\actor.cpp" />
     <ClCompile Include="src\Game\Actor\Common\actor_state.cpp" />
-    <ClCompile Include="src\Game\Actor\Common\jumper.cpp" />
+    <ClCompile Include="src\Game\Actor\Player\climb_state.cpp" />
     <ClCompile Include="src\Game\Actor\Player\idle_state.cpp" />
     <ClCompile Include="src\Game\Actor\Player\jump_state.cpp" />
     <ClCompile Include="src\Game\Actor\Player\player.cpp" />
-    <ClCompile Include="src\Game\Actor\Player\player_controller.cpp" />
     <ClCompile Include="src\Game\Actor\Player\shadow.cpp" />
     <ClCompile Include="src\Game\Actor\Player\shadow_state.cpp" />
     <ClCompile Include="src\Game\Actor\Player\walk_state.cpp" />
@@ -223,6 +223,7 @@
     <ClInclude Include="src\Base\Physics\Element\box_collider.h" />
     <ClInclude Include="src\Base\Physics\Element\circle_collider.h" />
     <ClInclude Include="src\Base\Physics\Element\collider.h" />
+    <ClInclude Include="src\Base\Physics\Element\contact_listener.h" />
     <ClInclude Include="src\Base\Physics\Element\polygon_collider.h" />
     <ClInclude Include="src\Base\Physics\Func\physics_func.h" />
     <ClInclude Include="src\Base\Physics\physics.h" />
@@ -232,11 +233,10 @@
     <ClInclude Include="src\Base\Time\time.h" />
     <ClInclude Include="src\Game\Actor\Common\actor.h" />
     <ClInclude Include="src\Game\Actor\Common\actor_state.h" />
-    <ClInclude Include="src\Game\Actor\Common\jumper.h" />
+    <ClInclude Include="src\Game\Actor\Player\climb_state.h" />
     <ClInclude Include="src\Game\Actor\Player\idle_state.h" />
     <ClInclude Include="src\Game\Actor\Player\jump_state.h" />
     <ClInclude Include="src\Game\Actor\Player\player.h" />
-    <ClInclude Include="src\Game\Actor\Player\player_controller.h" />
     <ClInclude Include="src\Game\Actor\Player\shadow.h" />
     <ClInclude Include="src\Game\Actor\Player\shadow_state.h" />
     <ClInclude Include="src\Game\Actor\Player\walk_state.h" />

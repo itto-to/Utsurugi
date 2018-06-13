@@ -8,7 +8,13 @@ namespace shadowpartner {
 	class PlayerController : public Component
 	{
 	public:
+		PlayerController();
+		~PlayerController();
+		void SetPlayer(GameObject *player);
+		void Update() override;
 
+	private:
+		GameObject *player_;
 	};
 
 }

@@ -9,17 +9,19 @@
 #include "../../Game/Actor/Player/shadow.h"
 #include "../../Game/Actor/Player/jump_state.h"
 #include "../../Game/Actor/Player/shadow_state.h"
+#include "../../Base/Physics/Element/light_collider.h"
 #include "../../Base/Debug/debugger.h"
 #include "../../Base/2D/sprite.h"
 #include "../../Base/Light/light.h"
 #include "../../Base/Physics/physics.h"
+#include "../../Base/Physics/Element/polygon_collider.h"
 #include "../../Base/Input/input.h"
 #include "../../Base/System/scene_manager.h"
 #include "draw_test_scene.h"
 
 #define PLAYER_TEXTURE_NAME "Resources/Texture/Fox1.png"
-#define BOX_TEXTURE_NAME "Resources/Texture/white.png"
-#define LIGHT_TEXTURE_NAME "Resources/Texture/LightBulb.png"
+#define BOX_TEXTURE_NAME    "Resources/Texture/white.png"
+#define LIGHT_TEXTURE_NAME  "Resources/Texture/LightBulb.png"
 
 using namespace physics;
 
@@ -46,34 +48,185 @@ namespace shadowpartner {
 			gameObjects_.push_back(camera_object_);
 		}
 
-		// 足場
+
+		// 大ライト生成
 		{
-			platform_ = new GameObject();
-			platform_->transform_->position_ = Vector2(0.0f, -215.0f);
+			large_light_ = new GameObject();
+			large_light_->transform_->position_ = Vector2(0.0f, 0.0f);
+			large_light_->tag_ = Tag::kLargeLight;
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
-			sprite->SetSize(Vector2(1120, 200));
-			sprite->SetColor(D3DCOLOR_RGBA(0, 255, 0, 255));
-			platform_->AddComponent(sprite);
+			sprite->SetSize(Vector2(1000, 800));
+			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0x99, 0xff));
+			large_light_->AddComponent(sprite);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-			box_init.width_ = 1120.0f;
-			box_init.height_ = 200.0f;
-			box_init.pos_ = platform_->transform_->position_;
+			box_init.width_ = 1000.0f;
+			box_init.height_ = 800.0f;
+			box_init.is_trigger_ = true;
+			box_init.pos_ = large_light_->transform_->position_;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
-			platform_->AddComponent(box_collider);
+			large_light_->AddComponent(box_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(platform_);
+			gameObjects_.push_back(large_light_);
+		}
+
+		// 足場
+		{
+			platform_[0] = new GameObject();
+			platform_[0]->transform_->position_ = Vector2(-400.0f, -350.0f);
+
+			// スプライトの設定
+			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
+			sprite->SetSize(Vector2(600, 200));
+			sprite->SetColor(D3DCOLOR_RGBA(0, 255, 0, 255));
+			platform_[0]->AddComponent(sprite);
+
+			// 矩形の当たり判定の設定
+			BoxInitializer box_init;
+			box_init.width_ = 600.0f;
+			box_init.height_ = 200.0f;
+			box_init.pos_ = platform_[0]->transform_->position_;
+
+			BoxCollider *box_collider = new BoxCollider(box_init);
+			platform_[0]->AddComponent(box_collider);
+
+			// シーンにゲームオブジェクトを登録
+			gameObjects_.push_back(platform_[0]);
+		}
+
+		// 足場
+		{
+			platform_[1] = new GameObject();
+			platform_[1]->transform_->position_ = Vector2(600.0f, -350.0f);
+
+			// スプライトの設定
+			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
+			sprite->SetSize(Vector2(600, 200));
+			sprite->SetColor(D3DCOLOR_RGBA(0, 255, 0, 255));
+			platform_[1]->AddComponent(sprite);
+
+			// 矩形の当たり判定の設定
+			BoxInitializer box_init;
+			box_init.width_ = 600.0f;
+			box_init.height_ = 200.0f;
+			box_init.pos_ = platform_[1]->transform_->position_;
+
+			BoxCollider *box_collider = new BoxCollider(box_init);
+			platform_[1]->AddComponent(box_collider);
+
+			// シーンにゲームオブジェクトを登録
+			gameObjects_.push_back(platform_[1]);
+		}
+
+		// 足場
+		{
+			platform_[2] = new GameObject();
+			platform_[2]->transform_->position_ = Vector2(-200.0f, 200.0f);
+
+			// スプライトの設定
+			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
+			sprite->SetSize(Vector2(200, 100));
+			sprite->SetColor(D3DCOLOR_RGBA(0, 255, 0, 255));
+			platform_[2]->AddComponent(sprite);
+
+			// 矩形の当たり判定の設定
+			BoxInitializer box_init;
+			box_init.width_ = 200.0f;
+			box_init.height_ = 100.0f;
+			box_init.pos_ = platform_[2]->transform_->position_;
+
+			BoxCollider *box_collider = new BoxCollider(box_init);
+			platform_[2]->AddComponent(box_collider);
+
+			// シーンにゲームオブジェクトを登録
+			gameObjects_.push_back(platform_[2]);
+		}
+
+		// 足場
+		{
+			platform_[3] = new GameObject();
+			platform_[3]->transform_->position_ = Vector2(0.0f, 300.0f);
+
+			// スプライトの設定
+			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
+			sprite->SetSize(Vector2(200, 100));
+			sprite->SetColor(D3DCOLOR_RGBA(0, 255, 0, 255));
+			platform_[3]->AddComponent(sprite);
+
+			// 矩形の当たり判定の設定
+			BoxInitializer box_init;
+			box_init.width_ = 200.0f;
+			box_init.height_ = 100.0f;
+			box_init.pos_ = platform_[3]->transform_->position_;
+
+			BoxCollider *box_collider = new BoxCollider(box_init);
+			platform_[3]->AddComponent(box_collider);
+
+			// シーンにゲームオブジェクトを登録
+			gameObjects_.push_back(platform_[3]);
+		}
+
+		// 中ライト生成
+		{
+			middle_light_ = new GameObject();
+			middle_light_->transform_->position_ = Vector2(-200.0f, -100.0f);
+			middle_light_->tag_ = Tag::kLargeLight;
+
+			// スプライトの設定
+			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
+			sprite->SetSize(Vector2(600, 600));
+			sprite->SetColor(D3DCOLOR_RGBA(0x00, 0x00, 0xff, 0x80));
+			middle_light_->AddComponent(sprite);
+
+			// 矩形の当たり判定の設定
+			BoxInitializer box_init;
+			box_init.width_ = 600.0f;
+			box_init.height_ = 600.0f;
+			box_init.is_trigger_ = true;
+			box_init.pos_ = middle_light_->transform_->position_;
+
+			BoxCollider *box_collider = new BoxCollider(box_init);
+			middle_light_->AddComponent(box_collider);
+
+			// シーンにゲームオブジェクトを登録
+			gameObjects_.push_back(middle_light_);
+		}
+
+		// 小ライト生成
+		{
+			small_light_ = new GameObject();
+			small_light_->transform_->position_ = Vector2(0.0f, 0.0f);
+			small_light_->tag_ = Tag::kLargeLight;
+
+			// スプライトの設定
+			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
+			sprite->SetSize(Vector2(200, 400));
+			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0x00, 0x00, 0x80));
+			small_light_->AddComponent(sprite);
+
+			// 矩形の当たり判定の設定
+			BoxInitializer box_init;
+			box_init.width_ = 20.0f;
+			box_init.height_ = 400.0f;
+			box_init.is_trigger_ = true;
+			box_init.pos_ = small_light_->transform_->position_;
+
+			BoxCollider *box_collider = new BoxCollider(box_init);
+			small_light_->AddComponent(box_collider);
+
+			// シーンにゲームオブジェクトを登録
+			gameObjects_.push_back(small_light_);
 		}
 
 		// プレイヤーを生成
 		{
 			player_ = new GameObject();
-			player_->transform_->position_ = Vector2(0.0f, 100.0f);
+			player_->transform_->position_ = Vector2(-400.0f, -100.0f);
 			Sprite *sprite = new Sprite(PLAYER_TEXTURE_NAME);
 			sprite->SetSize(Vector2(100, 100));
 			player_->AddComponent(sprite);
@@ -85,15 +238,43 @@ namespace shadowpartner {
 			BoxInitializer box_init;
 			box_init.width_ = 100.0f;
 			box_init.height_ = 100.0f;
+			box_init.density_ = 0.00001f;
 			box_init.is_static_ = false;
+			box_init.is_trigger_ = false;
 			box_init.pos_ = player_->transform_->position_;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
-			box_collider->is_active_ = false;
 			player_->AddComponent(box_collider);
 
 			// シーンにゲームオブジェクトを登録
 			gameObjects_.push_back(player_);
+		}
+
+		// TEST: 凸ポリゴン生成
+		{
+			//player_ = new GameObject();
+			//player_->transform_->position_ = Vector2(0.0f, 100.0f);
+			//Sprite *sprite = new Sprite(PLAYER_TEXTURE_NAME);
+			//sprite->SetSize(Vector2(100, 100));
+			//player_->AddComponent(sprite);
+			////Player *actor = new Player();
+			////actor->SetState(new JumpState(actor));
+			////player_->AddComponent(actor);
+
+			//// ポリゴンの当たり判定の設定
+			//PolygonInitializer poly_init;
+			//poly_init.vertices_.push_back(Vector2(90.0f, 100.0f));
+			//poly_init.vertices_.push_back(Vector2(-100.0f, 100.0f));
+			//poly_init.vertices_.push_back(Vector2(0.0f, -100.0f));
+			//poly_init.is_static_ = false;
+			//poly_init.pos_ = player_->transform_->position_;
+
+			//PolygonCollider *poly_collider = new PolygonCollider(poly_init);
+			//player_->AddComponent(poly_collider);
+
+			//// シーンにゲームオブジェクトを登録
+			//gameObjects_.push_back(player_);
+
 		}
 
 		// 影を生成
@@ -124,28 +305,27 @@ namespace shadowpartner {
 			gameObjects_.push_back(shadow_);
 		}
 
+		//// ライト生成
+		//{
+		//	light_ = new GameObject();
+		//	light_->transform_->position_ = Vector2(0.0f, 270.0f);
 
-		// ライト生成
-		{
-			light_ = new GameObject();
-			light_->transform_->position_ = Vector2(0.0f, 270.0f);
+		//	// ライトの設定
+		//	LightInitializer light_init;
+		//	light_init.radius_ = 100.0f;
+		//	light_init.color_ = D3DCOLOR_RGBA(0xff, 0xff, 0x99, 0x77);
+		//	Light *light = new Light(light_init);
+		//	light_->AddComponent(light);
 
-			// ライトの設定
-			LightInitializer light_init;
-			light_init.radius_ = 500.0f;
-			light_init.color_ = D3DCOLOR_RGBA(0xff, 0xff, 0x99, 0x77);
-			Light *light = new Light(light_init);
-			light_->AddComponent(light);
+		//	// スプライトの設定
+		//	Sprite *sprite = new Sprite(LIGHT_TEXTURE_NAME);
+		//	sprite->SetSize(Vector2(100, 100));
+		//	sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0x99, 0xff));
+		//	light_->AddComponent(sprite);
 
-			// スプライトの設定
-			Sprite *sprite = new Sprite(LIGHT_TEXTURE_NAME);
-			sprite->SetSize(Vector2(100, 100));
-			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0x99, 0xff));
-			light_->AddComponent(sprite);
-
-			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(light_);
-		}
+		//	// シーンにゲームオブジェクトを登録
+		//	gameObjects_.push_back(light_);
+		//}
 
 		return S_OK;
 	}

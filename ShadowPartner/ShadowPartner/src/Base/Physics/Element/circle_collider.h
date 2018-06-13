@@ -22,6 +22,7 @@ namespace physics
 		Vector2 pos_;		// 位置
 		float radius_;
 		bool is_static_;	// 静止オブジェクトかどうか
+		bool is_trigger_;	// トリガーかどうか
 		float density_;		// 密度
 		float friction_;	// 摩擦係数
 		float bounciness_;	// 反発係数
@@ -30,6 +31,7 @@ namespace physics
 			:pos_(Vector2::zero())
 			, radius_(1.0f)
 			, is_static_(true)
+			, is_trigger_(false)
 			, density_(1.0f)
 			, friction_(0.6f)
 			, bounciness_(0.0f)

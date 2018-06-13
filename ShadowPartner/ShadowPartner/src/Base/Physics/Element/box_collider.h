@@ -23,6 +23,8 @@ namespace physics
 		float width_;		// ‰¡•
 		float height_;		// c•
 		bool is_static_;	// Ã~ƒIƒuƒWƒFƒNƒg‚©‚Ç‚¤‚©
+		bool is_trigger_;	// ƒgƒŠƒK[‚©‚Ç‚¤‚©
+		bool fixed_rotation_;	// true‚Å‰ñ“]‚ğ‹–‰Â‚µ‚È‚¢
 		float density_;		// –§“x
 		float friction_;	// –€CŒW”
 		float bounciness_;	// ”½”­ŒW”
@@ -32,6 +34,8 @@ namespace physics
 			, width_(1.0f)
 			, height_(1.0f)
 			, is_static_(true)
+			, is_trigger_(false)
+			, fixed_rotation_(true)
 			, density_(1.0f)
 			, friction_(0.6f)
 			, bounciness_(0.0f)

@@ -35,8 +35,10 @@ namespace shadowpartner
 		GameObject *player_;
 		GameObject *shadow_;
 		GameObject *camera_object_;
-		GameObject *platform_;
-		GameObject *light_;
+		GameObject *platform_[4];
+		GameObject *large_light_;
+		GameObject *middle_light_;
+		GameObject *small_light_;
 	};
 
 }	// namespace shadowpartner

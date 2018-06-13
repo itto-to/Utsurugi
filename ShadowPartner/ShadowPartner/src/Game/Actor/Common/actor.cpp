@@ -3,6 +3,7 @@
 // Author:Ittoto
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
+
 #include "actor.h"
 
 namespace shadowpartner {

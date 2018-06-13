@@ -1,8 +1,9 @@
 //==========================================================
-// 概要  :ウォークステート
+// 概要  :歩行ステート
 // Author:Ittoto
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
+
 #ifndef _GAME_ACTOR_PLAYER_WALKSTATE_H_
 #define _GAME_ACTOR_PLAYER_WALKSTATE_H_
 
