@@ -9,6 +9,7 @@
 #include "../../Base/2D/sprite.h"
 #include "../Application/application.h"
 #include "../../Base/Element/component.h"
+#include "../../Base/Debug/debugger.h"
 
 
 

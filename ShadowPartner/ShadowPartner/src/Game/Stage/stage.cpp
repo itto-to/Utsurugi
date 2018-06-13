@@ -17,6 +17,7 @@ namespace shadowpartner
 		err_no = fopen_s(&fp_no, datatileno, "r");	// ファイルを開く
 		err_pass = fopen_s(&fp_pass, datatilepass, "r");	// ファイルを開く
 
+
 		if (err_no == 0)
 		{
 			printf("The file 'test_no.csv' was opened\n");
@@ -97,6 +98,10 @@ namespace shadowpartner
 		{
 			for (int x = 0; x < cell_horizontal; x++)
 			{
+				// tile置かない場合
+				if (!tiles_[y * cell_horizontal + x]->texture_)
+					continue;
+
 				Vector2 uv_offset = tiles_[y * cell_horizontal + x]->uv_offset_;
 				Vector2 uv_size = tiles_[y * cell_horizontal + x]->uv_size_;
 
@@ -135,15 +140,17 @@ namespace shadowpartner
 		FILE *fp;
 		err = fopen_s(&fp,STAGE_DATA, "r");	// ファイルを開く
 
+#ifdef _DEBUG
 		if (err == 0)
 		{
-			printf("The file 'stage_file.dat' was opened\n");
+			debug::Debug::Log("The file 'stage_file.dat' was opened\n");
 		}
 		else
 		{
-			printf("The file 'stage_file.dat' was not opened\n");
+			debug::Debug::Log("The file 'stage_file.dat' was not opened\n");
 		}
-		
+#endif
+
 		fseek(fp, 0, SEEK_SET);	//	ファイルの始まりからシーク
 		do
 		{
