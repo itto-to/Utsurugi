@@ -502,5 +502,4 @@ namespace shadowpartner
 	{
 		return screen_height_;
 	}
-
 }

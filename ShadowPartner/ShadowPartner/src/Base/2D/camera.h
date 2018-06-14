@@ -35,7 +35,9 @@ namespace shadowpartner
 		float GetZoom();
 		float GetTargetZoom();
 		void SetZoom(const float &zoom);
-		void SetSmoothness(const float &smoothness);
+		void SetZoomSmoothness(const float &zoom_smoothness);
+		void SetPositionSmoothness(const float &position_smoothness);
+		void SetPosition(const Vector2 &pos);
 	protected:
 		void Update();
 
@@ -43,8 +45,9 @@ namespace shadowpartner
 		// variables
 		float current_zoom_;
 		float target_zoom_;
-		float smoothness_;
-
+		float zoom_smoothness_;
+		Vector2 target_position_;
+		float position_smoothness_;
 		// methods
 	};
 }

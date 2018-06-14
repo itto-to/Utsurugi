@@ -16,7 +16,12 @@
 
 #include "../../Base/Time/time.h"
 
-#define TITLE_LOGO_TEXTURE_NAME "Resources/Texture/Title/TitleLogo.png"
+#define TITLE_BACKGROUND_TEXTURE_NAME "Resources/Texture/Title/TitleBackGround.png"
+#define TITLE_COMMANDS_TEXTURE_NAME "Resources/Texture/Title/TitleCommands.png"
+
+
+#define TITLE_POINTED_COLOR			D3DCOLOR_RGBA(0xfe,0xf2,0x63,0xff)
+#define TITLE_NOT_POINTED_COLOR		D3DCOLOR_RGBA(0x70,0x58,0xa3,0xff)
 
 namespace shadowpartner
 {
@@ -50,17 +55,45 @@ namespace shadowpartner
 
 		// タイトルロゴのオブジェクト
 		{
-			title_logo_ = new GameObject();
-			title_logo_->transform_->position_ = Vector2(-200.0f, 200.0f);
+			title_background_ = new GameObject();
+			title_background_->transform_->position_ = Vector2(0.0f, 0.0f);
 
 			// スプライトの設定
-			Sprite *sprite = new Sprite(TITLE_LOGO_TEXTURE_NAME);
-			sprite->SetSize(Vector2(500, 150));
+			Sprite *sprite = new Sprite(TITLE_BACKGROUND_TEXTURE_NAME);
+			sprite->SetSize(Vector2(1120, 630));
 			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0x99, 0xff));
-			title_logo_->AddComponent(sprite);
+			title_background_->AddComponent(sprite);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(title_logo_);
+			gameObjects_.push_back(title_background_);
+		}
+
+		current_button_index_ = 0;
+		Vector2 next_button_pos_ = Vector2(400.0f, 00.0f);
+		Vector2 button_pos_diff_ = Vector2(0.0f, -80.0f);
+
+		// タイトルのコマンドボタン
+		{
+			for (int i = 0;i < TitleButton::kTitleButtonCount;++i)
+			{
+				title_command_buttons_[i] = new GameObject();
+				title_command_buttons_[i]->transform_->position_ = next_button_pos_;
+
+				// スプライトの設定
+				Sprite *sprite = new Sprite(TITLE_COMMANDS_TEXTURE_NAME);
+				sprite->SetSize(Vector2(160, 80));
+				sprite->SetUvOffset(Vector2(0.5f * (i / 2),0.5f * (i % 2)));
+				sprite->SetUvSize(Vector2::one() * 0.5f);
+				sprite->SetColor(TITLE_NOT_POINTED_COLOR);
+				title_command_buttons_[i]->AddComponent(sprite);
+
+				// シーンにゲームオブジェクトを登録
+				gameObjects_.push_back(title_command_buttons_[i]);
+
+				next_button_pos_ += button_pos_diff_;
+			}
+
+			title_command_buttons_[0]->GetComponent<Sprite>()->SetColor(TITLE_POINTED_COLOR);
 		}
 
 
@@ -72,10 +105,40 @@ namespace shadowpartner
 	void TitleScene::Update()
 	{
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Start))
-			SceneManager::LoadScene(new FirstStageScene(3));
+		{
+			switch (current_button_index_)
+			{
+			case TitleButton::kNewGame:
+			{
+				SceneManager::LoadScene(new FirstStageScene(3));
+			}
+			break;
+			case TitleButton::kExit:
+			{
+				SceneManager::ExitGame();
+			}
+			break;
 
-		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
-			debug::Debug::Log("Push Action Button");
+			default:
+				break;
+			}
+		}
+			
+		// 選択コマンドの上下への移動
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Up))
+		{
+
+			title_command_buttons_[current_button_index_]->GetComponent<Sprite>()->SetColor(TITLE_NOT_POINTED_COLOR);
+			current_button_index_ = (current_button_index_ + (TitleButton::kTitleButtonCount - 1)) % TitleButton::kTitleButtonCount;
+			title_command_buttons_[current_button_index_]->GetComponent<Sprite>()->SetColor(TITLE_POINTED_COLOR);
+		}
+
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Down))
+		{
+			title_command_buttons_[current_button_index_]->GetComponent<Sprite>()->SetColor(TITLE_NOT_POINTED_COLOR);
+			current_button_index_ = (current_button_index_ + 1) % TitleButton::kTitleButtonCount;
+			title_command_buttons_[current_button_index_]->GetComponent<Sprite>()->SetColor(TITLE_POINTED_COLOR);
+		}
 	}
 
 	void TitleScene::Uninit()

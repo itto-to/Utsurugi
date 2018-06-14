@@ -49,6 +49,8 @@ namespace shadowpartner
 
 		static void LoadScene(Scene *new_scene);
 
+		static void ExitGame();
+
 	protected:
 		SceneManager();
 		~SceneManager();

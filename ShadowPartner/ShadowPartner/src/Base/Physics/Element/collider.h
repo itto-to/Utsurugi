@@ -23,6 +23,11 @@
 
 using namespace shadowpartner;
 
+namespace shadowpartner
+{
+	class CornerCandidates;
+}
+
 namespace physics
 {
 	enum PhysicsShape
@@ -63,11 +68,13 @@ namespace physics
 
 		void Stop();
 
+		friend class PhysicsWorld;
 		friend class PhysicsFunc;
-
+		friend class shadowpartner::CornerCandidates;
 	protected:
 		// variables
 		b2Body *body_;
+		Vector2 offset_;
 
 		// methods
 		void FixedUpdate();

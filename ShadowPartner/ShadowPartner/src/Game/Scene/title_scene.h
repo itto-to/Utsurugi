@@ -25,6 +25,7 @@ namespace shadowpartner
 		
 		// variables
 
+
 		// methods
 
 	protected:
@@ -37,7 +38,21 @@ namespace shadowpartner
 	private:
 		// variables
 		GameObject *camera_object_;
-		GameObject *title_logo_;
+		GameObject *title_background_;
+
+		enum TitleButton
+		{
+			kNewGame,
+			//kContinue,
+			//kConfig,
+			kExit,
+			kTitleButtonCount
+		};
+
+		int current_button_index_;
+		GameObject *title_command_buttons_[TitleButton::kTitleButtonCount];
+
+		//GameObject 
 
 		// methods
 

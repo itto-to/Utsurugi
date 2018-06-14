@@ -166,4 +166,9 @@ namespace shadowpartner
 
 		instance_->scenes_.push_back(new_scene);
 	}
+
+	void SceneManager::ExitGame()
+	{
+		PostQuitMessage(0);
+	}
 }
