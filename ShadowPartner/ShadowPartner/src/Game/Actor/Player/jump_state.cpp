@@ -35,7 +35,7 @@ void JumpState::Execute()
 
 	if (hit_info.collider != nullptr)
 	{
-		owner_->transform_->position_ = hit_info.hit_point + Vector2::up() * 50.0f;
+		//owner_->transform_->position_ = hit_info.hit_point + Vector2::up() * 50.0f;
 		owner_->ChangeState(new IdleState(owner_));
 	}
 }

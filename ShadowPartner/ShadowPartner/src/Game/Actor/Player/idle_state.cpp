@@ -12,11 +12,16 @@
 #include "../Common/actor.h"
 #include "../../../Base/Input/input.h"
 #include "../../../Base/Physics/physics.h"
+#include "player.h"
 
 using namespace physics;
 
 namespace shadowpartner
 {
+	IdleState::IdleState(Actor *owner) : ActorState(owner)
+	{
+		player = dynamic_cast<Player*>(owner_);
+	}
 
 	void IdleState::Execute()
 	{
@@ -35,7 +40,7 @@ namespace shadowpartner
 		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Skill))
 		{
 			// ‰e‚ðì‚é
-			
+			player->CreateShadow();
 		}
 		else if (input::Input::Instance()->GetAxis(input::InputAxis::Vertical) != 0.0f)
 		{

@@ -321,6 +321,9 @@
     <ClCompile Include="src\Game\Actor\Player\walk_state.cpp">
       <Filter>ソース ファイル\Game\Actor\Player</Filter>
     </ClCompile>
+    <ClCompile Include="src\Base\Physics\Element\light_collider.cpp">
+      <Filter>ソース ファイル\Base\Physics\Element</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base\System\scene.h">
@@ -481,6 +484,9 @@
     </ClInclude>
     <ClInclude Include="src\Test\Scene\player_test_scene.h">
       <Filter>ヘッダー ファイル\Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Physics\Element\light_collider.h">
+      <Filter>ヘッダー ファイル\Base\Physics\Element</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

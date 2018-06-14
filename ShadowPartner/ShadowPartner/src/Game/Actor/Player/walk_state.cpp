@@ -23,7 +23,9 @@ namespace shadowpartner
 	void WalkState::Execute()
 	{
 		float move = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
-		owner_->game_object_->transform_->position_.x += move * kMoveSpeed;
+		BoxCollider *box_collider = owner_->GetComponent<BoxCollider>();
+		box_collider->AddForce(Vector2::right() * move * 700000000.0f);
+		//owner_->game_object_->transform_->position_.x += move * kMoveSpeed;
 
 		if (move == 0.0f) {
 			// ’âŽ~
@@ -31,7 +33,6 @@ namespace shadowpartner
 		}
 		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump)) {
 			// ƒWƒƒƒ“ƒv“ü—Í
-			BoxCollider *box_collider = owner_->GetComponent<BoxCollider>();
 			box_collider->AddForce(Vector2::up() * 700000000.0f);
 			owner_->ChangeState(new JumpState(owner_));
 		}

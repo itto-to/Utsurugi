@@ -59,7 +59,6 @@ namespace physics
 
 	void BoxCollider::Start()
 	{
-
 	}
 
 	//==========================================================
