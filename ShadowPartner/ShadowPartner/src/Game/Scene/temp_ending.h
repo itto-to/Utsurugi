@@ -1,29 +1,30 @@
 //==========================================================
-// 概要  :最初のステージクラス
+// 概要  :タイトルシーン
 // Author:Itsuki Namito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 
-#ifndef _GAME_SCENE_FIRST_STAGE_SCENE_H_
-#define _GAME_SCENE_FIRST_STAHE_SCENE_H_
+#ifndef _GAME_SCENE_TEMP_ENDING_SCENE_H_
+#define _GAME_SCENE_TEMP_ENDING_SCENE_H_
 
 //**********************************************************
 // インクルードファイル
 //**********************************************************
-#include "stage_scene.h"
+#include "../../Base/System/scene.h"
 
 namespace shadowpartner
 {
 	//==========================================================
-	// 概要  :ステージシーンの基底クラス
+	// 概要  :タイトルシーン
 	//==========================================================
-	class FirstStageScene:public StageScene
+	class TempEndingScene:public Scene
 	{
 	public:
-		FirstStageScene(int phase_num);
-		virtual ~FirstStageScene();
+		TempEndingScene();
+		virtual ~TempEndingScene();
 		
 		// variables
+
 
 		// methods
 
@@ -36,9 +37,11 @@ namespace shadowpartner
 
 	private:
 		// variables
-		GameObject *clear_gate_;
+		GameObject *camera_object_;
+		GameObject *ending_image_;
 
-		GameObject *test;
+		//GameObject 
+
 		// methods
 
 

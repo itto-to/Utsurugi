@@ -54,7 +54,7 @@ namespace shadowpartner
 			moon_light_->transform_->position_ = Vector2(0.0f, 0.0f);
 
 			LightInitializer light_init;
-			light_init.radius_ = 200.0f;
+			light_init.radius_ = 100.0f;
 			light_init.color_ = D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x30);
 			Light *light = new Light(light_init);
 			moon_light_->AddComponent(light);

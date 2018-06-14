@@ -143,10 +143,11 @@ namespace shadowpartner
 				Time::Instance()->Update();	// タイマーだけ更新
 				if (Time::Instance()->CheckUpdate())
 				{
+#ifdef _DEBUG
 					debug::Debug::StopWatchStart(3);
 					Update();
 					debug::Debug::StopWatchFinish(3);
-
+#endif
 					Draw();
 				}
 			}
@@ -456,7 +457,6 @@ namespace shadowpartner
 		SceneManager::Instance()->Update();
 
 		physics::PhysicsWorld::Step();
-
 	}
 
 	//==========================================================
@@ -473,7 +473,7 @@ namespace shadowpartner
 			SceneManager::Instance()->Draw();
 
 #ifdef _DEBUG
-			physics::PhysicsWorld::Draw();
+			//physics::PhysicsWorld::Draw();
 			debug::Debug::Draw();
 #endif
 

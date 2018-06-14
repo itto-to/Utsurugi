@@ -321,6 +321,9 @@
     <ClCompile Include="src\Game\Actor\Player\walk_state.cpp">
       <Filter>ソース ファイル\Game\Actor\Player</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Scene\temp_ending.cpp">
+      <Filter>ソース ファイル\Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base\System\scene.h">
@@ -480,6 +483,9 @@
       <Filter>ヘッダー ファイル\Game\Actor\Player</Filter>
     </ClInclude>
     <ClInclude Include="src\Test\Scene\player_test_scene.h">
+      <Filter>ヘッダー ファイル\Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Scene\temp_ending.h">
       <Filter>ヘッダー ファイル\Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>

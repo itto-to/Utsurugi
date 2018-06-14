@@ -11,6 +11,8 @@
 #include "../Stage/stage.h"
 #include "../../Base/System/scene_manager.h"
 
+#include "temp_ending.h"
+
 #ifdef _DEBUG
 #include "../../Base/Debug/debugger.h"
 #endif
@@ -20,6 +22,7 @@
 
 #define LIGHT_TEXTURE_NAME "Resources/Texture/LightBulb.png"
 #define BACK_GROUND_TEXTURE_NAME "Resources/Texture/Stage/ForestBackGround.png"
+#define CLEAR_GATE_TEXTURE_NAME "Resources/Texture/Stage/Gate.png"
 
 using namespace physics;
 
@@ -56,6 +59,19 @@ namespace shadowpartner
 			AddGameObject(back_ground_);
 		}
 
+		// ゲート
+		{
+			back_ground_ = new GameObject();
+			back_ground_->transform_->position_ = Vector2(400, -160);
+
+			Sprite *sprite = new Sprite(CLEAR_GATE_TEXTURE_NAME);
+			sprite->SetSize(Vector2(100.0f, 150.0f));
+			back_ground_->AddComponent(sprite);
+
+			AddGameObject(back_ground_);
+
+		}
+
 		// Stage Fase1
 		{
 			stages_[0] = new GameObject();
@@ -67,6 +83,31 @@ namespace shadowpartner
 			AddGameObject(stages_[0]);
 		}
 
+		// 
+		//{
+		//	test = new GameObject();
+		//	test->transform_->position_ = Vector2(100.0f, 150.0f);
+
+		//	// スプライトの設定
+		//	Sprite *sprite = new Sprite("Resources/Texture/WhiteCircle.png");
+		//	sprite->SetSize(Vector2(30, 30));
+		//	sprite->SetColor(D3DCOLOR_RGBA(255, 0, 0, 255));
+		//	sprite->SetOrderInLayer(1);
+		//	test->AddComponent(sprite);
+
+		//	// 円形の当たり判定の設定
+		//	CircleInitializer circle_init;
+		//	circle_init.radius_ = 10.0f;
+		//	circle_init.pos_ = test->transform_->position_;
+		//	circle_init.is_static_ = false;
+
+		//	CircleCollider *circle_collider = new CircleCollider(circle_init);
+		//	test->AddComponent(circle_collider);
+
+		//	// シーンにゲームオブジェクトを登録
+		//	AddGameObject(test);
+		//}
+
 		StageScene::Init();
 
 		return S_OK;
@@ -75,6 +116,9 @@ namespace shadowpartner
 	void FirstStageScene::Update()
 	{
 		StageScene::Update();
+
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Start))
+			SceneManager::LoadScene(new TempEndingScene());
 
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Skill))
 		{
@@ -89,7 +133,6 @@ namespace shadowpartner
 			static int z = 0;
 			z = (z + 1) % 3;
 			Camera::main_->SetZoom(0.5f + 0.33f * (z + 1));
-			debug::Debug::Log("set target_zoom_:%f", 0.5f + 0.33f * (z + 1));
 		}
 
 	}

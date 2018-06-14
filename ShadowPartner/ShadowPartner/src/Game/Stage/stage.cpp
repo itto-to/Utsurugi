@@ -55,14 +55,14 @@ namespace shadowpartner
 				if (tilepass)
 				{
 					BoxInitializer box_init;
-					box_init.width_ = DEFAULT_SCREEN_WIDTH / cell_horizontal /2.0f;
+					box_init.width_ = DEFAULT_SCREEN_WIDTH / cell_horizontal / 2.0f;
 					box_init.height_ = DEFAULT_SCREEN_HEIGHT / cell_vertical / 2.0f;
 
 					//PosCollider
-					box_init.pos_= Vector2((x+0.5f)*box_init.width_, (y + 0.5f)*box_init.height_);					// BoxColliderÀ•W
+					box_init.pos_= Vector2((x+0.5f)*box_init.width_ - DEFAULT_SCREEN_WIDTH / 2.0f, (-y + 0.5f)*box_init.height_ + DEFAULT_SCREEN_HEIGHT / 2.0f);					// BoxColliderÀ•W
 
 					tiles_[y * cell_horizontal + x]->box_collider_ = new BoxCollider(box_init);
-					tiles_[y * cell_horizontal + x]->box_collider_->SetOffset(Vector2((x + 0.5f)*box_init.width_, (y + 0.5f)*box_init.height_));
+					tiles_[y * cell_horizontal + x]->box_collider_->SetOffset(box_init.pos_);
 					game_object.AddComponent(tiles_[y * cell_horizontal + x]->box_collider_);
 				}
 				else

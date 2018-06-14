@@ -17,6 +17,7 @@
 #include "../../Base/Time/time.h"
 
 #define TITLE_BACKGROUND_TEXTURE_NAME "Resources/Texture/Title/TitleBackGround.png"
+#define TITLE_LIGHT_FOG_TEXTURE_NAME "Resources/Texture/Title/LightFog.png"
 #define TITLE_COMMANDS_TEXTURE_NAME "Resources/Texture/Title/TitleCommands.png"
 
 
@@ -53,7 +54,7 @@ namespace shadowpartner
 			AddGameObject(camera_object_);
 		}
 
-		// タイトルロゴのオブジェクト
+		// タイトル背景のオブジェクト
 		{
 			title_background_ = new GameObject();
 			title_background_->transform_->position_ = Vector2(0.0f, 0.0f);
@@ -61,7 +62,7 @@ namespace shadowpartner
 			// スプライトの設定
 			Sprite *sprite = new Sprite(TITLE_BACKGROUND_TEXTURE_NAME);
 			sprite->SetSize(Vector2(1120, 630));
-			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0x99, 0xff));
+			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0xff));
 			title_background_->AddComponent(sprite);
 
 			// シーンにゲームオブジェクトを登録
@@ -69,8 +70,23 @@ namespace shadowpartner
 		}
 
 		current_button_index_ = 0;
-		Vector2 next_button_pos_ = Vector2(400.0f, 00.0f);
+		Vector2 next_button_pos_ = Vector2(400.0f, 0.0f);
 		Vector2 button_pos_diff_ = Vector2(0.0f, -80.0f);
+
+		// 選択中のコマンドの光のオブジェクト
+		{
+			title_light_fog_ = new GameObject();
+			title_light_fog_->transform_->position_ = Vector2(400.0f, 0.0f);
+
+			// スプライトの設定
+			Sprite *sprite = new Sprite(TITLE_LIGHT_FOG_TEXTURE_NAME);
+			sprite->SetSize(Vector2(160, 80));
+			sprite->SetColor(TITLE_POINTED_COLOR);
+			title_light_fog_->AddComponent(sprite);
+
+			// シーンにゲームオブジェクトを登録
+			AddGameObject(title_light_fog_);
+		}
 
 		// タイトルのコマンドボタン
 		{
@@ -130,6 +146,7 @@ namespace shadowpartner
 
 			title_command_buttons_[current_button_index_]->GetComponent<Sprite>()->SetColor(TITLE_NOT_POINTED_COLOR);
 			current_button_index_ = (current_button_index_ + (TitleButton::kTitleButtonCount - 1)) % TitleButton::kTitleButtonCount;
+			title_light_fog_->transform_->position_ = title_command_buttons_[current_button_index_]->transform_->position_;
 			title_command_buttons_[current_button_index_]->GetComponent<Sprite>()->SetColor(TITLE_POINTED_COLOR);
 		}
 
@@ -137,6 +154,7 @@ namespace shadowpartner
 		{
 			title_command_buttons_[current_button_index_]->GetComponent<Sprite>()->SetColor(TITLE_NOT_POINTED_COLOR);
 			current_button_index_ = (current_button_index_ + 1) % TitleButton::kTitleButtonCount;
+			title_light_fog_->transform_->position_ = title_command_buttons_[current_button_index_]->transform_->position_;
 			title_command_buttons_[current_button_index_]->GetComponent<Sprite>()->SetColor(TITLE_POINTED_COLOR);
 		}
 	}
