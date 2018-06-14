@@ -60,7 +60,7 @@ namespace shadowpartner
 			Camera *camera = new Camera();
 			camera_object->AddComponent(camera);
 
-			gameObjects_.push_back(camera_object);
+			AddGameObject(camera_object);
 		}
 
 		// 動く円形のオブジェクト
@@ -85,7 +85,7 @@ namespace shadowpartner
 			dynamic_circle->AddComponent(circle_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(dynamic_circle);
+			AddGameObject(dynamic_circle);
 		}
 
 		// 静止したボックス
@@ -109,7 +109,7 @@ namespace shadowpartner
 			static_box->AddComponent(box_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(static_box);
+			AddGameObject(static_box);
 		}
 
 		// 動かせるボックス
@@ -134,7 +134,7 @@ namespace shadowpartner
 			dynamic_box->AddComponent(box_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(dynamic_box);
+			AddGameObject(dynamic_box);
 		}
 
 		// 動かない円形のオブジェクト
@@ -157,7 +157,7 @@ namespace shadowpartner
 			static_circle->AddComponent(circle_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(static_circle);
+			AddGameObject(static_circle);
 		}
 
 		// ピラミッド作る
@@ -184,7 +184,7 @@ namespace shadowpartner
 				pyramids_[i]->AddComponent(box_collider);
 
 				// シーンにゲームオブジェクトを登録
-				gameObjects_.push_back(pyramids_[i]);
+				AddGameObject(pyramids_[i]);
 			}
 		}
 

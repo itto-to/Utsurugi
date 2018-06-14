@@ -26,11 +26,11 @@ namespace shadowpartner
 		if (!is_active_)
 			return;
 
-		for (int i = 0; i < gameObjects_.size(); ++i)
+		for (int i = 0; i < game_objects_.size(); ++i)
 		{
-			if (gameObjects_[i]->is_active_)
+			if (game_objects_[i]->is_active_)
 			{
-				gameObjects_[i]->Update();
+				game_objects_[i]->Update();
 			}
 		}
 
@@ -43,15 +43,21 @@ namespace shadowpartner
 		if (!is_active_)
 			return;
 
-		for (int i = 0; i < gameObjects_.size(); ++i)
+		for (int i = 0; i < game_objects_.size(); ++i)
 		{
-			if (gameObjects_[i]->is_active_)
+			if (game_objects_[i]->is_active_)
 			{
-				gameObjects_[i]->Draw();
+				game_objects_[i]->Draw();
 			}
 		}
 
 		Draw();
+	}
+
+	//シーンにゲームオブジェクトを追加します。
+	void Scene::AddGameObject(GameObject *game_object)
+	{
+		game_objects_.push_back(game_object);
 	}
 
 	// 初期化処理
@@ -65,12 +71,12 @@ namespace shadowpartner
 	//==========================================================
 	void Scene::Uninit()
 	{
-		for (int i = 0; i < gameObjects_.size(); ++i)
+		for (int i = 0; i < game_objects_.size(); ++i)
 		{
-			if (gameObjects_[i] != nullptr)
+			if (game_objects_[i] != nullptr)
 			{
-				delete gameObjects_[i];
-				gameObjects_[i] = nullptr;
+				delete game_objects_[i];
+				game_objects_[i] = nullptr;
 			}
 		}
 	}

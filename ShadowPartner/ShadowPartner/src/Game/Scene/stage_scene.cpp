@@ -45,7 +45,7 @@ namespace shadowpartner
 			Camera *camera = new Camera();
 			camera_object_->AddComponent(camera);
 
-			gameObjects_.push_back(camera_object_);
+			AddGameObject(camera_object_);
 		}
 
 		// ŒŽ‚ÌŒõ‚ð¶¬
@@ -59,7 +59,7 @@ namespace shadowpartner
 			Light *light = new Light(light_init);
 			moon_light_->AddComponent(light);
 
-			gameObjects_.push_back(moon_light_);
+			AddGameObject(moon_light_);
 		}
 
 		current_phase_ = 0;

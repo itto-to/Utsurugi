@@ -9,7 +9,7 @@
 #include "../../Game/Actor/Player/shadow.h"
 #include "../../Game/Actor/Player/jump_state.h"
 #include "../../Game/Actor/Player/shadow_state.h"
-#include "../../Base/Physics/Element/light_collider.h"
+//#include "../../Base/Physics/Element/light_collider.h"
 #include "../../Base/Debug/debugger.h"
 #include "../../Base/2D/sprite.h"
 #include "../../Base/Light/light.h"
@@ -45,7 +45,7 @@ namespace shadowpartner {
 			Camera *camera = new Camera();
 			camera_object_->AddComponent(camera);
 
-			gameObjects_.push_back(camera_object_);
+			AddGameObject(camera_object_);
 		}
 
 
@@ -72,7 +72,7 @@ namespace shadowpartner {
 			large_light_->AddComponent(box_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(large_light_);
+			AddGameObject(large_light_);
 		}
 
 		// 足場
@@ -96,7 +96,7 @@ namespace shadowpartner {
 			platform_[0]->AddComponent(box_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(platform_[0]);
+			AddGameObject(platform_[0]);
 		}
 
 		// 足場
@@ -120,7 +120,7 @@ namespace shadowpartner {
 			platform_[1]->AddComponent(box_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(platform_[1]);
+			AddGameObject(platform_[1]);
 		}
 
 		// 足場
@@ -144,7 +144,7 @@ namespace shadowpartner {
 			platform_[2]->AddComponent(box_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(platform_[2]);
+			AddGameObject(platform_[2]);
 		}
 
 		// 足場
@@ -168,7 +168,7 @@ namespace shadowpartner {
 			platform_[3]->AddComponent(box_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(platform_[3]);
+			AddGameObject(platform_[3]);
 		}
 
 		// 中ライト生成
@@ -194,7 +194,7 @@ namespace shadowpartner {
 			middle_light_->AddComponent(box_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(middle_light_);
+			AddGameObject(middle_light_);
 		}
 
 		// 小ライト生成
@@ -220,7 +220,7 @@ namespace shadowpartner {
 			small_light_->AddComponent(box_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(small_light_);
+			AddGameObject(small_light_);
 		}
 
 		// プレイヤーを生成
@@ -247,7 +247,7 @@ namespace shadowpartner {
 			player_->AddComponent(box_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(player_);
+			AddGameObject(player_);
 		}
 
 		// TEST: 凸ポリゴン生成
@@ -302,7 +302,7 @@ namespace shadowpartner {
 			//shadow_->AddComponent(box_collider);
 			//shadow_->GetComponent<BoxCollider>()->is_active_ = false;
 
-			gameObjects_.push_back(shadow_);
+			AddGameObject(shadow_);
 		}
 
 		//// ライト生成

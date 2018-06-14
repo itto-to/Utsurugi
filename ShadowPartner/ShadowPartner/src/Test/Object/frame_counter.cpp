@@ -44,7 +44,7 @@ namespace shadowpartner
 			frame_digits_[i] = new DrawNumber();
 			digit->AddComponent(frame_digits_[i]);
 
-			SceneManager::Instance()->GetCurrentScene()->gameObjects_.push_back(digit);
+			SceneManager::Instance()->GetCurrentScene()->AddGameObject(digit);
 		}
 	}
 

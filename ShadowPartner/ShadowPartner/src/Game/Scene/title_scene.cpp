@@ -50,7 +50,7 @@ namespace shadowpartner
 			Camera *camera = new Camera();
 			camera_object_->AddComponent(camera);
 
-			gameObjects_.push_back(camera_object_);
+			AddGameObject(camera_object_);
 		}
 
 		// タイトルロゴのオブジェクト
@@ -65,7 +65,7 @@ namespace shadowpartner
 			title_background_->AddComponent(sprite);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(title_background_);
+			AddGameObject(title_background_);
 		}
 
 		current_button_index_ = 0;
@@ -88,7 +88,7 @@ namespace shadowpartner
 				title_command_buttons_[i]->AddComponent(sprite);
 
 				// シーンにゲームオブジェクトを登録
-				gameObjects_.push_back(title_command_buttons_[i]);
+				AddGameObject(title_command_buttons_[i]);
 
 				next_button_pos_ += button_pos_diff_;
 			}
