@@ -28,12 +28,14 @@ namespace shadowpartner
 		
 		// variables
 		bool is_active_;
-		std::vector<GameObject *> gameObjects_;
+		std::vector<GameObject *> game_objects_;
 
 		// methods
 		virtual HRESULT Init();
 		void UpdateScene();
 		void DrawScene();
+
+		void AddGameObject(GameObject *game_object);
 
 	protected:
 
@@ -41,6 +43,8 @@ namespace shadowpartner
 		virtual void Uninit();
 		virtual void Update();
 		virtual void Draw();
+
+
 
 	private:
 		// variables
