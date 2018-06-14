@@ -67,7 +67,7 @@ namespace shadowpartner
 			Camera *camera = new Camera();
 			camera_object_->AddComponent(camera);
 
-			gameObjects_.push_back(camera_object_);
+			AddGameObject(camera_object_);
 		}
 
 		// ライトのオブジェクト
@@ -89,7 +89,7 @@ namespace shadowpartner
 			light_object_->AddComponent(sprite);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(light_object_);
+			AddGameObject(light_object_);
 		}
 
 
@@ -114,7 +114,7 @@ namespace shadowpartner
 			player_->AddComponent(circle_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(player_);
+			AddGameObject(player_);
 		}
 
 		// 天井
@@ -138,7 +138,7 @@ namespace shadowpartner
 			ceiling_->AddComponent(box_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(ceiling_);
+			AddGameObject(ceiling_);
 		}
 
 		// 左側の壁
@@ -162,7 +162,7 @@ namespace shadowpartner
 			left_wall_->AddComponent(box_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(left_wall_);
+			AddGameObject(left_wall_);
 		}
 
 		// 右側の壁
@@ -186,7 +186,7 @@ namespace shadowpartner
 			right_wall_->AddComponent(box_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(right_wall_);
+			AddGameObject(right_wall_);
 		}
 
 		// 床
@@ -210,7 +210,7 @@ namespace shadowpartner
 			floor_->AddComponent(box_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(floor_);
+			AddGameObject(floor_);
 		}
 
 		// 適当なブロック
@@ -234,7 +234,7 @@ namespace shadowpartner
 			block1_->AddComponent(box_collider);
 
 			// シーンにゲームオブジェクトを登録
-			gameObjects_.push_back(block1_);
+			AddGameObject(block1_);
 		}
 
 		// 適当な円を作る
@@ -259,7 +259,7 @@ namespace shadowpartner
 				circles_[i]->AddComponent(circle_collider);
 
 				// シーンにゲームオブジェクトを登録
-				gameObjects_.push_back(circles_[i]);
+				AddGameObject(circles_[i]);
 			}
 		}
 
@@ -287,7 +287,7 @@ namespace shadowpartner
 				pyramids_[i]->AddComponent(box_collider);
 
 				// シーンにゲームオブジェクトを登録
-				gameObjects_.push_back(pyramids_[i]);
+				AddGameObject(pyramids_[i]);
 			}
 		}
 

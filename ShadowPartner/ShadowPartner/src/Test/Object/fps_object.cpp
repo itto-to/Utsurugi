@@ -46,7 +46,7 @@ namespace shadowpartner
 			fps_digits_[i] = new DrawNumber();
 			digit->AddComponent(fps_digits_[i]);
 
-			SceneManager::Instance()->GetCurrentScene()->gameObjects_.push_back(digit);
+			SceneManager::Instance()->GetCurrentScene()->AddGameObject(digit);
 		}
 	}
 

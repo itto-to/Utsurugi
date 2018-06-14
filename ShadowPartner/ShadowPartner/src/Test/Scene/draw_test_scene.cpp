@@ -33,7 +33,7 @@ namespace shadowpartner
 	{
 
 	}
-	
+
 	// デストラクタ
 	DrawTestScene::~DrawTestScene()
 	{
@@ -53,20 +53,19 @@ namespace shadowpartner
 			Camera *camera = new Camera();
 			camera_object->AddComponent(camera);
 
-			gameObjects_.push_back(camera_object);
+			AddGameObject(camera_object);
 		}
 
 		// 描画オブジェクトを生成
 		{
 
 
-			 draw_stage=new GameObject();
-			 draw_stage->transform_->position_ = Vector2(0.0f, 0.0f);
-			 Stage *stage = new Stage(kTest,*draw_stage, TILE_DATA, STAGE_PASS);
-			 draw_stage->AddComponent(stage);
+			draw_stage = new GameObject();
+			draw_stage->transform_->position_ = Vector2(0.0f, 0.0f);
+			Stage *stage = new Stage(kTest, *draw_stage, TILE_DATA, STAGE_PASS);
+			draw_stage->AddComponent(stage);
 
-			gameObjects_.push_back(draw_stage);
-
+			AddGameObject(draw_stage);
 
 			draw_object = new GameObject();
 			draw_object->transform_->position_ = Vector2(0.0f, -200.0f);
@@ -77,7 +76,7 @@ namespace shadowpartner
 			actor->SetState(new IdleState(actor));
 			draw_object->AddComponent(actor);
 
-			gameObjects_.push_back(draw_object);
+			AddGameObject(draw_object);
 		}
 
 		// ゲーム開始時からのカウントオブジェクトを生成
@@ -88,7 +87,7 @@ namespace shadowpartner
 			FrameCounter *frame_counter = new FrameCounter();
 			draw_count_object->AddComponent(frame_counter);
 
-			gameObjects_.push_back(draw_count_object);
+			AddGameObject(draw_count_object);
 		}
 
 		// FPS表示オブジェクトを生成
@@ -98,7 +97,7 @@ namespace shadowpartner
 			FpsObject *fps_object = new FpsObject();
 			draw_fps_object->AddComponent(fps_object);
 
-			gameObjects_.push_back(draw_fps_object);
+			AddGameObject(draw_fps_object);
 		}
 
 		return S_OK;

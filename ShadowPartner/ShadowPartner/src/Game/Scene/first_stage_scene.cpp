@@ -46,14 +46,14 @@ namespace shadowpartner
 #endif
 		// ”wŒi
 		{
-			back_ground = new GameObject();
-			back_ground->transform_->position_ = Vector2(1120, 0);
+			back_ground_ = new GameObject();
+			back_ground_->transform_->position_ = Vector2(1120, 0);
 
 			Sprite *sprite = new Sprite(BACK_GROUND_TEXTURE_NAME);
 			sprite->SetSize(Vector2(3360.0f, 630.0f));
-			back_ground->AddComponent(sprite);
+			back_ground_->AddComponent(sprite);
 
-			gameObjects_.push_back(back_ground);
+			AddGameObject(back_ground_);
 		}
 
 		// Stage Fase1
@@ -64,7 +64,7 @@ namespace shadowpartner
 			Stage *stage = new Stage(StageNumber::kTest, *stages_[0], TILE_DATA, STAGE_PASS);
 			stages_[0]->AddComponent(stage);
 
-			gameObjects_.push_back(stages_[0]);
+			AddGameObject(stages_[0]);
 		}
 
 		StageScene::Init();

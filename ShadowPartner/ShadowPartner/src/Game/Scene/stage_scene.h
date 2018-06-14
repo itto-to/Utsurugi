@@ -33,7 +33,7 @@ namespace shadowpartner
 
 		// variables
 		GameObject *camera_object_;
-		GameObject *back_ground;
+		GameObject *back_ground_;
 		GameObject *stages_[STAGE_FASE_MAX];
 		GameObject *moon_light_;
 		GameObject *player_;
