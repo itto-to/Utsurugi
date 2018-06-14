@@ -10,6 +10,7 @@
 #include "../../Base/Input/input.h"
 #include "../../Base/System/scene_manager.h"
 #include "light_test_scene.h"
+#include "player_test_scene.h"
 
 #ifdef _DEBUG
 #include "../../Base/Debug/debugger.h"

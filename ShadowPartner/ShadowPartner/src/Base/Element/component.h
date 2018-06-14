@@ -23,7 +23,10 @@ namespace shadowpartner
 		kUntagged = 0,
 		kPlayer,
 		kEnemy,
-		
+		kLargeLight,
+		kMiddleLight,
+		kSmallLight,
+		kClimb,
 	};
 
 	//==========================================================

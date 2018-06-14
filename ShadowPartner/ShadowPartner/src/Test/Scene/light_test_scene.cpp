@@ -11,6 +11,7 @@
 #include "../../Base/System/scene_manager.h"
 #include "draw_test_scene.h"
 
+
 #ifdef _DEBUG
 #include "../../Base/Debug/debugger.h"
 #endif
@@ -330,7 +331,6 @@ namespace shadowpartner
 			light_object_->transform_->position_.x = 350.0f;
 		if (light_object_->transform_->position_.x > 350.0f)
 			light_object_->transform_->position_.x = -350.0f;
-
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Cancel))
 			SceneManager::LoadScene(new DrawTestScene());
 	}

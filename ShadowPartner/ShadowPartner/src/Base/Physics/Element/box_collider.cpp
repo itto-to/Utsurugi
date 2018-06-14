@@ -28,25 +28,31 @@ namespace physics
 			box_body_def.type = b2_dynamicBody;
 
 		box_body_def.position.Set(ini.pos_.x, ini.pos_.y);
+		box_body_def.fixedRotation = ini.fixed_rotation_;
 
 		body_ = PhysicsWorld::CreateBody(this,&box_body_def);
+		body_->SetUserData(this);
 
 		b2PolygonShape box;
 		box.SetAsBox(ini.width_ / 2.0f, ini.height_ / 2.0f,b2Vec2(ini.offset_.x,ini.offset_.y),0.0f);
 
+
+		b2FixtureDef box_fixture_def;
+		box_fixture_def.isSensor = ini.is_trigger_;
+		box_fixture_def.shape = &box;
+
 		if (ini.is_static_)
 		{
-			body_->CreateFixture(&box, 0.0f);
+			box_fixture_def.density = 0.0f;
+			box_fixture_def.friction = 0.0f;
 		}
 		else
 		{
-			b2FixtureDef box_fixture_def;
-			box_fixture_def.shape = &box;
 			box_fixture_def.density = ini.density_;
 			box_fixture_def.friction = ini.friction_;
-
-			body_->CreateFixture(&box_fixture_def);
 		}
+		
+		body_->CreateFixture(&box_fixture_def);
 
 		size_ = Vector2(ini.width_, ini.height_);
 	}
