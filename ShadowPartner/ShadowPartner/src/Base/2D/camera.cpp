@@ -17,9 +17,12 @@ namespace shadowpartner
 	const float ZOOM_MIN = 0.5f;
 	const float ZOOM_MAX = 1.5f;
 
-	const float SMOOTHNESS_MIN = 0.0f;
-	const float SMOOTHNESS_MAX = 0.99f;
+	const float ZOOM_SMOOTHNESS_MIN = 0.0f;
+	const float ZOOM_SMOOTHNESS_MAX = 0.99f;
 	
+	const float POSITION_SMOOTHNESS_MIN = 0.0f;
+	const float POSITION_SMOOTHNESS_MAX = 0.99f;
+
 	//**********************************************************
 	// static
 	//**********************************************************
@@ -29,7 +32,9 @@ namespace shadowpartner
 	Camera::Camera()
 		:current_zoom_(1.0f)
 		, target_zoom_(1.0f)
-		, smoothness_(0.97f)
+		, zoom_smoothness_(0.97f)
+		, target_position_(Vector2::zero())
+		, position_smoothness_(0.97f)
 	{
 		if (main_ == nullptr)
 		{
@@ -49,7 +54,8 @@ namespace shadowpartner
 	// XVˆ—
 	void Camera::Update()
 	{
-		current_zoom_ = current_zoom_ * smoothness_ + target_zoom_ * (1.0f - smoothness_);
+		current_zoom_ = current_zoom_ * zoom_smoothness_ + target_zoom_ * (1.0f - zoom_smoothness_);
+		transform_->position_ = transform_->position_ * position_smoothness_ + target_position_ * (1.0f - position_smoothness_);
 	}
 
 	//==========================================================
@@ -84,9 +90,28 @@ namespace shadowpartner
 	// ŠT—v  :
 	// ˆø”  :Lk‚ÌŠ„‡
 	//==========================================================
-	void Camera::SetSmoothness(const float &smoothness)
+	void Camera::SetZoomSmoothness(const float &smoothness)
 	{
-		smoothness_ = (smoothness > SMOOTHNESS_MAX) ? SMOOTHNESS_MAX :
-			          (smoothness < SMOOTHNESS_MIN) ? SMOOTHNESS_MIN : smoothness;
+		zoom_smoothness_ = (smoothness > ZOOM_SMOOTHNESS_MAX) ? ZOOM_SMOOTHNESS_MAX :
+			          (smoothness < ZOOM_SMOOTHNESS_MIN) ? ZOOM_SMOOTHNESS_MIN : smoothness;
+	}
+
+	//==========================================================
+	// ŠT—v  :
+	// ˆø”  :Lk‚ÌŠ„‡
+	//==========================================================
+	void Camera::SetPositionSmoothness(const float &position_smoothness)
+	{
+		position_smoothness_ = (position_smoothness > POSITION_SMOOTHNESS_MAX) ? POSITION_SMOOTHNESS_MAX :
+			(position_smoothness < POSITION_SMOOTHNESS_MIN) ? POSITION_SMOOTHNESS_MIN : position_smoothness;
+	}
+
+	//==========================================================
+	// ŠT—v  :ƒJƒƒ‰‚ÌˆÊ’u‚ðÝ’è‚µ‚Ü‚·B
+	// ˆø”  :ƒJƒƒ‰‚ÌˆÊ’u
+	//==========================================================
+	void Camera::SetPosition(const Vector2 &pos)
+	{
+		target_position_ = pos;
 	}
 }

@@ -19,7 +19,7 @@
 #define STAGE_DATA "stage_file.dat"
 #define STAGE_PASS "test_pass.csv"
 #define TILE_DATA "test_no.csv"
-#define TILE_PICTURE "Resources/Tiles/test.png"
+#define TILE_PICTURE "Resources/Texture/Tile/GroundTiles.png"
 #define CELL_VERTICAL (20)	//（仮）
 #define CELL_HORIZONTAL (15)//（仮）
 #define FILE_CHAR_BUFFER (32)//（仮）

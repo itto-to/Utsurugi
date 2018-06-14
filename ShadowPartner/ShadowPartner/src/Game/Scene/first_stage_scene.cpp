@@ -50,6 +50,7 @@ namespace shadowpartner
 			back_ground->transform_->position_ = Vector2(1120, 0);
 
 			Sprite *sprite = new Sprite(BACK_GROUND_TEXTURE_NAME);
+			sprite->SetSize(Vector2(3360.0f, 630.0f));
 			back_ground->AddComponent(sprite);
 
 			gameObjects_.push_back(back_ground);
@@ -74,6 +75,22 @@ namespace shadowpartner
 	void FirstStageScene::Update()
 	{
 		StageScene::Update();
+
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Skill))
+		{
+			NextPhase();
+		}
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Cancel))
+		{
+			PrevPhase();
+		}
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
+		{
+			static int z = 0;
+			z = (z + 1) % 3;
+			Camera::main_->SetZoom(0.5f + 0.33f * (z + 1));
+			debug::Debug::Log("set target_zoom_:%f", 0.5f + 0.33f * (z + 1));
+		}
 
 	}
 

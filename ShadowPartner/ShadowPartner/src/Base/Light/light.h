@@ -63,6 +63,7 @@ namespace shadowpartner
 	private:
 		// variables
 		Texture texture_;
+		Vector2 *light_world_vertices_;
 		Vertex2D *light_vertices_;
 		int vertex_count_;	
 		math::Vector2 direction_;	// Œõ‚ÌŒü‚«

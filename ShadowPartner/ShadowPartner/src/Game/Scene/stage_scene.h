@@ -53,7 +53,7 @@ namespace shadowpartner
 		// variables
 
 		// methods
-
+		void CameraAdjustToCurrentPhase();
 
 
 		// —˜—p‹ÖŽ~

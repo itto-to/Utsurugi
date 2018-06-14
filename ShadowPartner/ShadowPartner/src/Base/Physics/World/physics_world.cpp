@@ -78,7 +78,7 @@ namespace physics
 		{
 			instance_->colliders_[i]->SetTransform
 				(
-					instance_->colliders_[i]->transform_->position_,
+					instance_->colliders_[i]->transform_->position_ + instance_->colliders_[i]->offset_,
 					instance_->colliders_[i]->transform_->rotation_
 					);
 		}
@@ -92,7 +92,7 @@ namespace physics
 
 		for (int i = 0;i < instance_->colliders_.size();++i)
 		{
-			instance_->colliders_[i]->transform_->position_ =
+			instance_->colliders_[i]->transform_->position_ - instance_->colliders_[i]->offset_ ,
 				instance_->colliders_[i]->GetPosition();
 
 			instance_->colliders_[i]->transform_->rotation_ =

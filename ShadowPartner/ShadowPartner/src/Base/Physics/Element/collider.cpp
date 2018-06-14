@@ -23,6 +23,7 @@ namespace physics
 		,friction_(0.6f)
 		,bounciness_(0.0f)
 		,index_(0)
+		,offset_(Vector2::zero())
 	{
 
 	}

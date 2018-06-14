@@ -125,13 +125,9 @@ namespace shadowpartner
 		}
 
 		vector<Vector2> additional;	// 追加する候補点の集合
-
 		// 一つ一つのコライダーの種類ごとに候補点の取得を行う。
 		for (int i = 0;i < colliders.size();++i)
 		{
-			if (LengthSq(light_center - colliders[i]->transform_->position_) < REGARD_AS_SAME_OBJECT)
-				continue;
-
 			if (colliders[i]->Is<BoxCollider>())
 			{
 				// BoxColliderの場合
@@ -170,7 +166,8 @@ namespace shadowpartner
 	{
 		BoxCollider *box = (BoxCollider *)collider;
 
-		Vector2 box_center = box->transform_->position_;
+		b2Vec2 p = box->body_->GetTransform().p;
+		Vector2 box_center = Vector2(p.x,p.y);
 		Vector2 size = box->GetSize();
 
 		Vector2 point;
@@ -206,7 +203,8 @@ namespace shadowpartner
 	{
 		CircleCollider *circle = (CircleCollider *)collider;
 
-		Vector2 circle_center = circle->transform_->position_;
+		b2Vec2 p = circle->body_->GetTransform().p;
+		Vector2 circle_center = Vector2(p.x,p.y);
 		float radius = circle->GetRadius();
 
 		Vector2 light_to_cirlce = circle_center - light_center;	// 光源からCircleColliderまでのベクトル
