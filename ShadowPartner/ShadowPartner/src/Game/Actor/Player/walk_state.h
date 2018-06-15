@@ -9,13 +9,24 @@
 
 #include "../Common/actor_state.h"
 
+namespace physics
+{
+	class BoxCollider;
+}
+
 namespace shadowpartner
 {
 
 class WalkState : public ActorState {
 public:
-	WalkState(Actor *owner) : ActorState(owner) {}
+	WalkState(Actor *owner);
+	void Enter() override;
 	void Execute() override;
+
+private:
+	physics::BoxCollider *collider;
+
+	void Move(float delta);
 };
 
 }

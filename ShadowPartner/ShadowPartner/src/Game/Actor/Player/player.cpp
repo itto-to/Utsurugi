@@ -5,7 +5,7 @@
 //==========================================================
 
 #include "player.h"
-
+#include "idle_state.h"
 #include "../../../Base/2D/sprite.h"
 
 #ifdef _DEBUG
@@ -20,6 +20,7 @@ namespace shadowpartner
 		hit_middle_light(0),
 		hit_small_light(0)
 	{
+		state_ = new IdleState(this);
 	}
 
 	Player::Player(ActorState* state) : 

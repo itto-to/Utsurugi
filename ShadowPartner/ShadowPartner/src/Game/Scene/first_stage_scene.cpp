@@ -10,6 +10,7 @@
 #include "../../Base/Input/input.h"
 #include "../Stage/stage.h"
 #include "../../Base/System/scene_manager.h"
+#include "../Actor/Player/player.h"
 
 #ifdef _DEBUG
 #include "../../Base/Debug/debugger.h"
@@ -20,8 +21,14 @@
 
 #define LIGHT_TEXTURE_NAME "Resources/Texture/LightBulb.png"
 #define BACK_GROUND_TEXTURE_NAME "Resources/Texture/Stage/ForestBackGround.png"
+#define PLAYER_TEXTURE_NAME "Resources/Texture/Character/newfox.png"
 
 using namespace physics;
+
+namespace
+{
+	const Vector2 kInitPlayerPos = Vector2(-200.0f, 0.0f);
+}
 
 namespace shadowpartner
 {
@@ -65,6 +72,34 @@ namespace shadowpartner
 			stages_[0]->AddComponent(stage);
 
 			AddGameObject(stages_[0]);
+		}
+
+		// プレイヤー
+		{
+			player_ = new GameObject();
+			player_->transform_->position_ = kInitPlayerPos;
+
+			Sprite *sprite = new Sprite(PLAYER_TEXTURE_NAME);
+			sprite->SetSize(Vector2(100, 100));
+			player_->AddComponent(sprite);
+			Player *actor = new Player();
+			player_->AddComponent(actor);
+
+			// 矩形の当たり判定の設定
+			BoxInitializer box_init;
+			box_init.width_ = 100.0f;
+			box_init.height_ = 100.0f;
+			box_init.density_ = 0.00001f;
+			box_init.is_static_ = false;
+			box_init.is_trigger_ = false;
+			box_init.pos_ = player_->transform_->position_;
+
+			BoxCollider *box_collider = new BoxCollider(box_init);
+			player_->AddComponent(box_collider);
+
+			// シーンにゲームオブジェクトを登録
+			AddGameObject(player_);
+
 		}
 
 		StageScene::Init();

@@ -238,7 +238,7 @@ namespace shadowpartner {
 			BoxInitializer box_init;
 			box_init.width_ = 100.0f;
 			box_init.height_ = 100.0f;
-			box_init.density_ = 0.00001f;
+			box_init.density_ = 1.0f;
 			box_init.is_static_ = false;
 			box_init.is_trigger_ = false;
 			box_init.pos_ = player_->transform_->position_;
