@@ -22,10 +22,19 @@ namespace physics
 		shape_ = PhysicsShape::kBox;
 
 		b2BodyDef box_body_def;
-		if (ini.is_static_)
-			box_body_def.type = b2_staticBody;
-		else
+
+		switch (ini.body_type_)
+		{
+		case kDynamicBody:
 			box_body_def.type = b2_dynamicBody;
+			break;
+		case kKinematicBody:
+			box_body_def.type = b2_kinematicBody;
+			break;
+		case kStaticBody:
+			box_body_def.type = b2_staticBody;
+			break;
+		}
 
 		box_body_def.position.Set(ini.pos_.x, ini.pos_.y);
 		box_body_def.fixedRotation = ini.fixed_rotation_;
@@ -41,16 +50,15 @@ namespace physics
 		box_fixture_def.isSensor = ini.is_trigger_;
 		box_fixture_def.shape = &box;
 
-		if (ini.is_static_)
+		if (ini.body_type_ == kStaticBody)
 		{
 			box_fixture_def.density = 0.0f;
-			box_fixture_def.friction = 0.0f;
 		}
 		else
 		{
 			box_fixture_def.density = ini.density_;
-			box_fixture_def.friction = ini.friction_;
 		}
+		box_fixture_def.friction = ini.friction_;
 		
 		body_->CreateFixture(&box_fixture_def);
 

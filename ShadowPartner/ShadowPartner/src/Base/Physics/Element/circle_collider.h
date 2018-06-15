@@ -22,7 +22,7 @@ namespace physics
 		Vector2 pos_;		// 位置
 		Vector2 offset_;
 		float radius_;
-		bool is_static_;	// 静止オブジェクトかどうか
+		BodyType body_type_;// ボディーのタイプ
 		bool is_trigger_;	// トリガーかどうか
 		float density_;		// 密度
 		float friction_;	// 摩擦係数
@@ -32,7 +32,7 @@ namespace physics
 			:pos_(Vector2::zero())
 			, offset_(Vector2::zero())
 			, radius_(1.0f)
-			, is_static_(true)
+			, body_type_(kDynamicBody)
 			, is_trigger_(false)
 			, density_(1.0f)
 			, friction_(0.6f)

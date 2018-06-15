@@ -16,26 +16,26 @@ using namespace shadowpartner;
 
 namespace physics
 {
-	//
+
 	struct BoxInitializer
 	{
-		Vector2 pos_;		// 位置
+		Vector2 pos_;			// 位置
 		Vector2 offset_;
-		float width_;		// 横幅
-		float height_;		// 縦幅
-		bool is_static_;	// 静止オブジェクトかどうか
-		bool is_trigger_;	// トリガーかどうか
+		float width_;			// 横幅
+		float height_;			// 縦幅
+		BodyType body_type_;	// ボディーのタイプ
+		bool is_trigger_;		// トリガーかどうか
 		bool fixed_rotation_;	// trueで回転を許可しない
-		float density_;		// 密度
-		float friction_;	// 摩擦係数
-		float bounciness_;	// 反発係数
+		float density_;			// 密度
+		float friction_;		// 摩擦係数
+		float bounciness_;		// 反発係数
 
 		BoxInitializer()
 			:pos_(Vector2::zero())
 			, offset_(Vector2::zero())
 			, width_(1.0f)
 			, height_(1.0f)
-			, is_static_(true)
+			, body_type_(kDynamicBody)
 			, is_trigger_(false)
 			, fixed_rotation_(true)
 			, density_(1.0f)

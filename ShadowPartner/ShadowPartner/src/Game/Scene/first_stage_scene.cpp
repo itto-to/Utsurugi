@@ -53,6 +53,18 @@ namespace shadowpartner
 #ifdef _DEBUG
 		debug::Debug::Log("シーンの切り替え：物理テスト");
 #endif
+
+		//カメラ
+		{
+			camera_object_ = new GameObject();
+			camera_object_->transform_->position_ = Vector2::zero();
+
+			Camera *camera = new Camera();
+			camera_object_->AddComponent(camera);
+
+			AddGameObject(camera_object_);
+		}
+
 		// 背景
 		{
 			back_ground_ = new GameObject();
@@ -105,7 +117,7 @@ namespace shadowpartner
 			box_init.width_ = 100.0f;
 			box_init.height_ = 100.0f;
 			box_init.density_ = 0.00001f;
-			box_init.is_static_ = false;
+			box_init.body_type_ = kDynamicBody;
 			box_init.is_trigger_ = false;
 			box_init.pos_ = player_->transform_->position_;
 
@@ -132,7 +144,7 @@ namespace shadowpartner
 		//	CircleInitializer circle_init;
 		//	circle_init.radius_ = 10.0f;
 		//	circle_init.pos_ = test->transform_->position_;
-		//	circle_init.is_static_ = false;
+		//	circle_init.body_type_ = kDynamicBody;
 
 		//	CircleCollider *circle_collider = new CircleCollider(circle_init);
 		//	test->AddComponent(circle_collider);

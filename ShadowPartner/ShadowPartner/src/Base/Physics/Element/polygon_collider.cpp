@@ -1,5 +1,5 @@
 //==========================================================
-// ŠT—v  :ƒ|ƒŠƒSƒ“‚Ì“–‚½‚è”»’è
+// ŠT—v  :“Êƒ|ƒŠƒSƒ“‚Ì“–‚½‚è”»’è
 // Author:Itsuki Namito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
@@ -26,10 +26,18 @@ namespace physics
 		shape_ = PhysicsShape::kPolygon;
 
 		b2BodyDef poly_body_def;
-		if (ini.is_static_)
-			poly_body_def.type = b2_staticBody;
-		else
+		switch (ini.body_type_)
+		{
+		case kDynamicBody:
 			poly_body_def.type = b2_dynamicBody;
+			break;
+		case kKinematicBody:
+			poly_body_def.type = b2_kinematicBody;
+			break;
+		case kStaticBody:
+			poly_body_def.type = b2_staticBody;
+			break;
+		}
 
 		poly_body_def.position.Set(ini.pos_.x, ini.pos_.y);
 
@@ -49,19 +57,19 @@ namespace physics
 		}
 		poly.Set(b2_vertices, poly_count);
 
-		if (ini.is_static_)
+		b2FixtureDef box_fixture_def;
+		box_fixture_def.shape = &poly;
+		box_fixture_def.friction = ini.friction_;
+
+		if (ini.body_type_ == kStaticBody)
 		{
-			body_->CreateFixture(&poly, 0.0f);
+			box_fixture_def.density = ini.density_;
 		}
 		else
 		{
-			b2FixtureDef box_fixture_def;
-			box_fixture_def.shape = &poly;
-			box_fixture_def.density = ini.density_;
-			box_fixture_def.friction = ini.friction_;
-
-			body_->CreateFixture(&box_fixture_def);
+			box_fixture_def.density = 0.0f;
 		}
+		body_->CreateFixture(&box_fixture_def);
 
 		delete[] b2_vertices;
 		b2_vertices = nullptr;

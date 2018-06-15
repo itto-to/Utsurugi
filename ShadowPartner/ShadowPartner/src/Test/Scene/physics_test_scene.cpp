@@ -79,7 +79,7 @@ namespace shadowpartner
 			CircleInitializer circle_init;
 			circle_init.radius_ = 10.0f;
 			circle_init.pos_ = dynamic_circle->transform_->position_;
-			circle_init.is_static_ = false;
+			circle_init.body_type_ = kStaticBody;
 
 			CircleCollider *circle_collider = new CircleCollider(circle_init);
 			dynamic_circle->AddComponent(circle_collider);
@@ -127,7 +127,7 @@ namespace shadowpartner
 			BoxInitializer box_init;
 			box_init.width_ = 10.0f;
 			box_init.height_ = 10.0f;
-			box_init.is_static_ = false;
+			box_init.body_type_ = kDynamicBody;
 			box_init.pos_ = dynamic_box->transform_->position_;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
@@ -177,7 +177,7 @@ namespace shadowpartner
 				BoxInitializer box_init;
 				box_init.width_ = 20.0f;
 				box_init.height_ = 20.0f;
-				box_init.is_static_ = false;
+				box_init.body_type_ = kDynamicBody;
 				box_init.pos_ = pyramids_[i]->transform_->position_;
 
 				BoxCollider *box_collider = new BoxCollider(box_init);

@@ -239,7 +239,7 @@ namespace shadowpartner {
 			box_init.width_ = 100.0f;
 			box_init.height_ = 100.0f;
 			box_init.density_ = 1.0f;
-			box_init.is_static_ = false;
+			box_init.body_type_ = kDynamicBody;
 			box_init.is_trigger_ = false;
 			box_init.pos_ = player_->transform_->position_;
 
@@ -266,7 +266,7 @@ namespace shadowpartner {
 			//poly_init.vertices_.push_back(Vector2(90.0f, 100.0f));
 			//poly_init.vertices_.push_back(Vector2(-100.0f, 100.0f));
 			//poly_init.vertices_.push_back(Vector2(0.0f, -100.0f));
-			//poly_init.is_static_ = false;
+			//poly_init.body_type_ = kDynamicBody;
 			//poly_init.pos_ = player_->transform_->position_;
 
 			//PolygonCollider *poly_collider = new PolygonCollider(poly_init);
@@ -295,7 +295,7 @@ namespace shadowpartner {
 			//BoxInitializer box_init;
 			//box_init.width_ = 200.0f;
 			//box_init.height_ = 100.0f;
-			//box_init.is_static_ = false;
+			//box_init.body_type_ = kDynamicBody;
 			//box_init.pos_ = shadow_->transform_->position_;
 
 			//BoxCollider *box_collider = new BoxCollider(box_init);
