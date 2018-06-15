@@ -22,6 +22,9 @@
 #define DEBUG_LOG_LINE_MAX (5)			// ìØéûÇ…ï\é¶Ç≈Ç´ÇÈÉçÉOÇÃêî
 
 #define DEBUG_HEADEER_LINE_COUNT (3)
+
+#ifdef _DEBUG
+
 const char CONSOLE_HEADER[DEBUG_HEADEER_LINE_COUNT][DEBUG_LOG_STRING_LENGTH] =
 {
 	"=========================\n",
@@ -317,3 +320,5 @@ namespace debug
 	}
 
 }
+
+#endif

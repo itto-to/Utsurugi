@@ -315,8 +315,6 @@ namespace shadowpartner
 			static int z = 0;
 			z = (z + 1) % 3;
 			Camera::main_->SetZoom(0.5f + 0.33f * (z + 1));
-
-			debug::Debug::Log("set target_zoom_:%f", 0.5f + 0.33f * (z + 1));
 		}
 
 		Vector2 move = Vector2::zero();

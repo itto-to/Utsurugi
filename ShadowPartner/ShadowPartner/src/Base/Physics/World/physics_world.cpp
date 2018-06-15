@@ -29,7 +29,9 @@ namespace physics
 		, time_step_(1.0f / 60.0f)
 		, velocity_iteration_(10)
 		, position_iteration_(10)
+#ifdef _DEBUG
 		,debug_draw_(nullptr)
+#endif
 	{
 		world_.SetAllowSleeping(true);
 		world_.SetWarmStarting(true);
@@ -43,7 +45,9 @@ namespace physics
 		if (instance_ == nullptr)
 		{
 			instance_ = new PhysicsWorld();
+#ifdef _DEBUG
 			instance_->debug_draw_ = new DebugDraw();
+#endif
 		}
 #ifdef _DEBUG
 		instance_->debug_draw_->Init();
@@ -60,12 +64,13 @@ namespace physics
 
 		if (instance_ != nullptr)
 		{
+#ifdef _DEBUG
 			if (instance_->debug_draw_ != nullptr)
 			{
 				delete instance_->debug_draw_;
 				instance_->debug_draw_ = nullptr;
 			}
-
+#endif
 			delete instance_;
 			instance_ = nullptr;
 		}
@@ -78,7 +83,7 @@ namespace physics
 		{
 			instance_->colliders_[i]->SetTransform
 				(
-					instance_->colliders_[i]->transform_->position_ + instance_->colliders_[i]->offset_,
+					instance_->colliders_[i]->transform_->position_ ,//+ instance_->colliders_[i]->offset_,
 					instance_->colliders_[i]->transform_->rotation_
 					);
 		}
@@ -92,7 +97,7 @@ namespace physics
 
 		for (int i = 0;i < instance_->colliders_.size();++i)
 		{
-			instance_->colliders_[i]->transform_->position_ - instance_->colliders_[i]->offset_ ,
+			instance_->colliders_[i]->transform_->position_ = //instance_->colliders_[i]->offset_ -
 				instance_->colliders_[i]->GetPosition();
 
 			instance_->colliders_[i]->transform_->rotation_ =
@@ -102,10 +107,11 @@ namespace physics
 	}
 
 #ifdef _DEBUG
+
 	void PhysicsWorld::Draw()
 	{
-		//instance_->world_.DrawDebugData();
-		//instance_->debug_draw_.Draw();
+		instance_->world_.DrawDebugData();
+		instance_->debug_draw_->Draw();
 	}
 
 #endif

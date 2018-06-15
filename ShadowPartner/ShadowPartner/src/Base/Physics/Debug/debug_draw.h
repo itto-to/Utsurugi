@@ -44,6 +44,15 @@ namespace physics
 			rhw_ = 1.0f;
 			color_ = c;
 		}
+		inline DebugVertex(const float32 &x,const float32 &y, const D3DCOLOR &c)
+		{
+			pos_[0] = x;
+			pos_[1] = y;
+			pos_[2] = 0.0f;
+			rhw_ = 1.0f;
+			color_ = c;
+		}
+
 		float pos_[3];
 		float rhw_;
 		D3DCOLOR color_;

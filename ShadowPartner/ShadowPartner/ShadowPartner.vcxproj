@@ -36,7 +36,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -81,8 +81,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(SolutionDir)ShadowPartner\liquidfun_include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(SolutionDir)ShadowPartner\liquidfun_lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -127,6 +127,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -191,6 +192,7 @@
     <ClCompile Include="src\Game\Application\application.cpp" />
     <ClCompile Include="src\Game\Scene\first_stage_scene.cpp" />
     <ClCompile Include="src\Game\Scene\stage_scene.cpp" />
+    <ClCompile Include="src\Game\Scene\temp_ending.cpp" />
     <ClCompile Include="src\Game\Scene\title_scene.cpp" />
     <ClCompile Include="src\Game\Stage\stage.cpp" />
     <ClCompile Include="src\Game\Stage\tile.cpp" />
@@ -248,6 +250,7 @@
     <ClInclude Include="src\Game\Application\application.h" />
     <ClInclude Include="src\Game\Scene\first_stage_scene.h" />
     <ClInclude Include="src\Game\Scene\stage_scene.h" />
+    <ClInclude Include="src\Game\Scene\temp_ending.h" />
     <ClInclude Include="src\Game\Scene\title_scene.h" />
     <ClInclude Include="src\Game\Stage\stage.h" />
     <ClInclude Include="src\Game\Stage\tile.h" />

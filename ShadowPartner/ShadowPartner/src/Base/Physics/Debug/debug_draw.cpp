@@ -150,6 +150,8 @@ namespace physics
 		{
 			line.p1 = DebugVertex(vertices[i], c);
 			line.p2 = DebugVertex(vertices[i + 1], c);
+			//line.p1 = DebugVertex(vertices[i].x,-vertices[i].y, c);
+			//line.p2 = DebugVertex(vertices[i + 1].x, -vertices[i + 1].y, c);
 
 			lines_[line_count_++] = line;
 		}
