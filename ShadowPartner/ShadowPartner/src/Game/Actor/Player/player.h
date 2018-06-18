@@ -32,6 +32,9 @@ namespace shadowpartner
 		// methods
 		void CreateShadow();
 
+		// variables
+		GameObject *shadow_;
+
 	protected:
 
 		// variables
@@ -41,7 +44,9 @@ namespace shadowpartner
 		LightSize light_;
 
 		// methods
+		void Start() override;
 		void Update() override;
+		void SetShadowSize();
 
 		void BeginContact(b2Contact *contact) override;
 		void EndContact(b2Contact *contact) override;

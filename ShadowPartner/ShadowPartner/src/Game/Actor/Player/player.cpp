@@ -7,6 +7,7 @@
 #include "player.h"
 #include "idle_state.h"
 #include "../../../Base/2D/sprite.h"
+#include "shadow.h"
 
 #ifdef _DEBUG
 #include "../../../Base/Physics/Debug/debug_draw.h"
@@ -49,12 +50,19 @@ namespace shadowpartner
 		if (comp_a->game_object_ == this->game_object_)
 		{
 			other = comp_b->game_object_;
+			
 		}
 		else if (comp_b->game_object_ == this->game_object_)
 		{
 			other = comp_a->game_object_;
 		}
-		
+		else {
+			return;
+		}
+
+		b2WorldManifold manifold;
+		contact->GetWorldManifold(&manifold);
+		manifold.normal;
 
 		// 範囲内になったライトの数をプラス
 		if (other->tag_ == kLargeLight)
@@ -88,6 +96,10 @@ namespace shadowpartner
 		{
 			other = comp_a->game_object_;
 		}
+		else
+		{
+			return;
+		}
 
 		// 範囲外になったライトの数をマイナス
 		if (other->tag_ == kLargeLight)
@@ -104,24 +116,52 @@ namespace shadowpartner
 		}
 	}
 
+	void Player::Start()
+	{
+		state_->Enter();
+	}
+
 	void Player::Update()
 	{
 		state_->Execute();
+
+		SetShadowSize();
+	}
+
+	void Player::SetShadowSize()
+	{
+		Shadow *shadow = shadow_->GetComponent<Shadow>();
+		if (hit_small_light > 0)
+		{
+			shadow->SetShadowSize(Shadow::ShadowSize::kSmallShadow);
+		}
+		else if (hit_middle_light > 0) 
+		{
+			shadow->SetShadowSize(Shadow::ShadowSize::kMiddleShadow);
+		}
+		else if (hit_large_light > 0)
+		{
+			shadow->SetShadowSize(Shadow::ShadowSize::kLargeShadow);
+		}
+		else
+		{
+			shadow->SetShadowSize(Shadow::ShadowSize::kMiddleShadow);
+		}
 	}
 
 	void Player::CreateShadow()
 	{
 		if (hit_small_light > 0)
 		{
-
+			shadow_->GetComponent<Shadow>()->CreateSmallShadow();
 		}
 		else if (hit_middle_light > 0)
 		{
-
+			shadow_->GetComponent<Shadow>()->CreateMiddleShadow();
 		}
 		else if (hit_large_light > 0)
 		{
-
+			shadow_->GetComponent<Shadow>()->CreateLargeShadow();
 		}
 	}
 }

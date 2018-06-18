@@ -32,8 +32,15 @@ namespace shadowpartner
 		Shadow();
 		Shadow(ActorState* state);
 		virtual ~Shadow();
+
+		// methods
 		void Start() override;
-		void CreateShadow(ShadowSize size);
+		void SetShadowSize(ShadowSize shadow_size);
+		void CreateSmallShadow();
+		void CreateMiddleShadow();
+		void CreateLargeShadow();
+	public:
+		GameObject *player_object_;
 
 	protected:
 		Sprite *sprite;

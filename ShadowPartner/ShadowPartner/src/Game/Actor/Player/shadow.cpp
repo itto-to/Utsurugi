@@ -9,6 +9,8 @@
 #include "../../../Base/2D/sprite.h"
 #include "../../../Base/Physics/Element/box_collider.h"
 
+using namespace physics;
+
 namespace shadowpartner
 {
 
@@ -34,20 +36,74 @@ namespace shadowpartner
 		collider = game_object_->GetComponent<physics::BoxCollider>();
 	}
 
-	void Shadow::CreateShadow(ShadowSize size)
+	void Shadow::SetShadowSize(ShadowSize shadow_size)
 	{
-		switch (size)
-		{
-		case kLargeShadow:
+		Sprite *sprite = game_object_->GetComponent<Sprite>();
+		switch (shadow_size) {
+		case kSmallShadow:
+			sprite->SetSize(Vector2(50, 50));
+			break;
+
+		case kMiddleShadow:
 			sprite->SetSize(Vector2(100, 100));
 			break;
-		case kMiddleShadow:
+
+		case kLargeShadow:
 			sprite->SetSize(Vector2(200, 200));
 			break;
-		case kSmallShadow:
-			sprite->SetSize(Vector2(300, 300));
-			break;
 		}
+
+	}
+
+	void Shadow::CreateSmallShadow()
+	{
+		sprite->SetSize(Vector2(50, 50));
+		this->game_object_->transform_ = player_object_->transform_;
+
+		// ‹éŒ`‚Ì“–‚½‚è”»’è‚ÌÝ’è
+		BoxCollider *collider = game_object_->GetComponent<BoxCollider>();
+
+		BoxInitializer box_init;
+		box_init.width_ = 50.0f;
+		box_init.height_ = 50.0f;
+		box_init.body_type_ = kDynamicBody;
+		box_init.pos_ = game_object_->transform_->position_;
+
+		collider->ReSet(box_init);
+	}
+
+	void Shadow::CreateMiddleShadow()
+	{
+		sprite->SetSize(Vector2(100, 100));
+		this->game_object_->transform_ = player_object_->transform_;
+
+		// ‹éŒ`‚Ì“–‚½‚è”»’è‚ÌÝ’è
+		BoxCollider *collider = game_object_->GetComponent<BoxCollider>();
+
+		BoxInitializer box_init;
+		box_init.width_ = 100.0f;
+		box_init.height_ = 100.0f;
+		box_init.body_type_ = kDynamicBody;
+		box_init.pos_ = game_object_->transform_->position_;
+
+		collider->ReSet(box_init);
+	}
+
+	void Shadow::CreateLargeShadow()
+	{
+		sprite->SetSize(Vector2(200, 200));
+		this->game_object_->transform_ = player_object_->transform_;
+
+		// ‹éŒ`‚Ì“–‚½‚è”»’è‚ÌÝ’è
+		BoxCollider *collider = game_object_->GetComponent<BoxCollider>();
+
+		BoxInitializer box_init;
+		box_init.width_ = 200.0f;
+		box_init.height_ = 200.0f;
+		box_init.body_type_ = kDynamicBody;
+		box_init.pos_ = game_object_->transform_->position_;
+
+		collider->ReSet(box_init);
 	}
 
 }	// namespace shadowpartner

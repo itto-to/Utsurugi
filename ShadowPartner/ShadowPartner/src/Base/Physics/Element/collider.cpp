@@ -38,6 +38,28 @@ namespace physics
 		PhysicsWorld::DestroyBody(index_,body_);
 	}
 
+	void Collider::SetActive(bool is_active)
+	{
+		// GameObjectにアタッチされていなければ非活性
+		if (game_object_ == nullptr || !is_active)
+		{
+			is_active_ = false;
+			body_->SetActive(false);
+		}
+		else if (!is_active_ && is_active)
+		{
+			is_active_ = true;
+			body_->SetActive(true);
+			Start();
+		}
+	}
+
+	// 衝突判定高速化のためのSleepを許すか
+	void Collider::SetSleepingAllowed(bool flag)
+	{
+		body_->SetSleepingAllowed(flag);
+	}
+
 	void Collider::SetTransform(const Vector2 &pos, const float &ori)
 	{
 		body_->SetTransform(b2Vec2(pos.x, pos.y), ori);
@@ -73,5 +95,10 @@ namespace physics
 	void Collider::Stop()
 	{
 		body_->SetLinearVelocity(b2Vec2_zero);
+	}
+
+	void Collider::SetAwake(bool flag)
+	{
+		body_->SetAwake(flag);
 	}
 }

@@ -19,6 +19,23 @@ namespace physics
 	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 	BoxCollider::BoxCollider(const BoxInitializer &ini)
 	{
+		SetCollider(ini);
+	}
+
+	void BoxCollider::Start()
+	{
+	}
+
+	//==========================================================
+	// ŠT—v  :BoxCollider‚Ìc‰¡‚Ì‘å‚«‚³‚ð‹L˜^‚µ‚½size_‚ð•Ô‚µ‚Ü‚·B
+	// –ß‚è’l:c‰¡‚Ì‘å‚«‚³
+	//==========================================================
+	Vector2 BoxCollider::GetSize()
+	{
+		return size_;
+	}
+
+	void BoxCollider::SetCollider(const BoxInitializer &ini) {
 		shape_ = PhysicsShape::kBox;
 
 		b2BodyDef box_body_def;
@@ -39,11 +56,11 @@ namespace physics
 		box_body_def.position.Set(ini.pos_.x, ini.pos_.y);
 		box_body_def.fixedRotation = ini.fixed_rotation_;
 
-		body_ = PhysicsWorld::CreateBody(this,&box_body_def);
+		body_ = PhysicsWorld::CreateBody(this, &box_body_def);
 		body_->SetUserData(this);
 
 		b2PolygonShape box;
-		box.SetAsBox(ini.width_ / 2.0f, ini.height_ / 2.0f,b2Vec2(ini.offset_.x,ini.offset_.y),0.0f);
+		box.SetAsBox(ini.width_ / 2.0f, ini.height_ / 2.0f, b2Vec2(ini.offset_.x, ini.offset_.y), 0.0f);
 
 
 		b2FixtureDef box_fixture_def;
@@ -59,23 +76,14 @@ namespace physics
 			box_fixture_def.density = ini.density_;
 		}
 		box_fixture_def.friction = ini.friction_;
-		
+
+		// ƒtƒBƒ‹ƒ^Ý’è
+		box_fixture_def.filter.categoryBits = ini.category_bits_;
+		box_fixture_def.filter.maskBits = ini.mask_bits_;
+
 		body_->CreateFixture(&box_fixture_def);
 
 		size_ = Vector2(ini.width_, ini.height_);
-	}
-
-	void BoxCollider::Start()
-	{
-	}
-
-	//==========================================================
-	// ŠT—v  :BoxCollider‚Ìc‰¡‚Ì‘å‚«‚³‚ð‹L˜^‚µ‚½size_‚ð•Ô‚µ‚Ü‚·B
-	// –ß‚è’l:c‰¡‚Ì‘å‚«‚³
-	//==========================================================
-	Vector2 BoxCollider::GetSize()
-	{
-		return size_;
 	}
 
 	//==========================================================
@@ -84,6 +92,9 @@ namespace physics
 	//==========================================================
 	void BoxCollider::ReSet(const BoxInitializer &ini)
 	{
+		PhysicsWorld::DestroyBody(index_, body_);
+		SetCollider(ini);
+
 		//body_->
 
 		//	b2PolygonShape box;
@@ -102,7 +113,6 @@ namespace physics
 
 		//	body_->CreateFixture(&box_fixture_def);
 		//}
-
 	}
 
 

@@ -9,6 +9,11 @@
 
 #include "../Common/actor_state.h"
 
+namespace physics
+{
+	class BoxCollider;
+}
+
 namespace shadowpartner
 {
 	class Player;
@@ -16,10 +21,12 @@ namespace shadowpartner
 	class IdleState : public ActorState {
 	public:
 		IdleState(Actor *owner);
+		void Enter() override;
 		void Execute() override;
 
 	protected:
-		Player *player;
+		Player *player_;
+		physics::BoxCollider *box_collider_;
 
 	private:
 	};

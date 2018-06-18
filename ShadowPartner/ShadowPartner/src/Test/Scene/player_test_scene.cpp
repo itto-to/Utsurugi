@@ -65,6 +65,7 @@ namespace shadowpartner {
 			BoxInitializer box_init;
 			box_init.width_ = 1000.0f;
 			box_init.height_ = 800.0f;
+			box_init.body_type_ = kStaticBody;
 			box_init.is_trigger_ = true;
 			box_init.pos_ = large_light_->transform_->position_;
 
@@ -90,6 +91,7 @@ namespace shadowpartner {
 			BoxInitializer box_init;
 			box_init.width_ = 900.0f;
 			box_init.height_ = 200.0f;
+			box_init.body_type_ = kStaticBody;
 			box_init.pos_ = platform_[0]->transform_->position_;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
@@ -114,6 +116,7 @@ namespace shadowpartner {
 			BoxInitializer box_init;
 			box_init.width_ = 600.0f;
 			box_init.height_ = 200.0f;
+			box_init.body_type_ = kStaticBody;
 			box_init.pos_ = platform_[1]->transform_->position_;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
@@ -138,6 +141,7 @@ namespace shadowpartner {
 			BoxInitializer box_init;
 			box_init.width_ = 200.0f;
 			box_init.height_ = 100.0f;
+			box_init.body_type_ = kStaticBody;
 			box_init.pos_ = platform_[2]->transform_->position_;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
@@ -162,6 +166,7 @@ namespace shadowpartner {
 			BoxInitializer box_init;
 			box_init.width_ = 200.0f;
 			box_init.height_ = 100.0f;
+			box_init.body_type_ = kStaticBody;
 			box_init.pos_ = platform_[3]->transform_->position_;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
@@ -187,6 +192,7 @@ namespace shadowpartner {
 			BoxInitializer box_init;
 			box_init.width_ = 300.0f;
 			box_init.height_ = 300.0f;
+			box_init.body_type_ = kStaticBody;
 			box_init.is_trigger_ = true;
 			box_init.pos_ = middle_light_->transform_->position_;
 
@@ -213,6 +219,7 @@ namespace shadowpartner {
 			BoxInitializer box_init;
 			box_init.width_ = 200.0f;
 			box_init.height_ = 200.0f;
+			box_init.body_type_ = kStaticBody;
 			box_init.is_trigger_ = true;
 			box_init.pos_ = small_light_->transform_->position_;
 
@@ -230,9 +237,6 @@ namespace shadowpartner {
 			Sprite *sprite = new Sprite(PLAYER_TEXTURE_NAME);
 			sprite->SetSize(Vector2(100, 100));
 			player_->AddComponent(sprite);
-			Player *actor = new Player();
-			actor->SetState(new JumpState(actor));
-			player_->AddComponent(actor);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
@@ -244,7 +248,11 @@ namespace shadowpartner {
 			box_init.pos_ = player_->transform_->position_;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
+			box_collider->SetSleepingAllowed(false);	// Sleepを許可しない
 			player_->AddComponent(box_collider);
+
+			Player *actor = new Player();
+			player_->AddComponent(actor);
 
 			// シーンにゲームオブジェクトを登録
 			AddGameObject(player_);
@@ -291,16 +299,20 @@ namespace shadowpartner {
 			shadow->SetState(shadow_state);
 			shadow_->AddComponent(shadow);
 
-			// 矩形の当たり判定の設定
-			//BoxInitializer box_init;
-			//box_init.width_ = 200.0f;
-			//box_init.height_ = 100.0f;
-			//box_init.body_type_ = kDynamicBody;
-			//box_init.pos_ = shadow_->transform_->position_;
+			// プレイヤーのシャドウに登録
+			shadow->player_object_ = player_;
+			player_->GetComponent<Player>()->shadow_ = shadow_;
 
-			//BoxCollider *box_collider = new BoxCollider(box_init);
-			//shadow_->AddComponent(box_collider);
-			//shadow_->GetComponent<BoxCollider>()->is_active_ = false;
+			// 矩形の当たり判定の設定
+			BoxInitializer box_init;
+			box_init.width_ = 100.0f;
+			box_init.height_ = 100.0f;
+			box_init.body_type_ = kDynamicBody;
+			box_init.is_trigger_ = true;
+			box_init.pos_ = shadow_->transform_->position_;
+
+			BoxCollider *box_collider = new BoxCollider(box_init);
+			shadow_->AddComponent(box_collider);
 
 			AddGameObject(shadow_);
 		}

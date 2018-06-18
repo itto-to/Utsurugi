@@ -20,7 +20,12 @@ namespace shadowpartner
 {
 	IdleState::IdleState(Actor *owner) : ActorState(owner)
 	{
-		player = dynamic_cast<Player*>(owner_);
+	}
+
+	void IdleState::Enter()
+	{
+		player_ = dynamic_cast<Player*>(owner_);
+		box_collider_ = owner_->game_object_->GetComponent<BoxCollider>();
 	}
 
 	void IdleState::Execute()
@@ -33,14 +38,13 @@ namespace shadowpartner
 		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump))
 		{
 			// ƒWƒƒƒ“ƒv“ü—Í
-			BoxCollider *box_collider = owner_->GetComponent<BoxCollider>();
-			box_collider->AddForce(Vector2::up() * 700000000.0f);
+			box_collider_->AddForce(Vector2::up() * 700000000.0f);
 			owner_->ChangeState(new JumpState(owner_));
 		}
 		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Skill))
 		{
 			// ‰e‚ðì‚é
-			player->CreateShadow();
+			player_->CreateShadow();
 		}
 		else if (input::Input::Instance()->GetAxis(input::InputAxis::Vertical) != 0.0f)
 		{

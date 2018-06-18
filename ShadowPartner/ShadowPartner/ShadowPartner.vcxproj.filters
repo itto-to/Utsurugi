@@ -323,7 +323,11 @@
     </ClCompile>
     <ClCompile Include="src\Game\Scene\temp_ending.cpp">
       <Filter>ソース ファイル\Game\Scene</Filter>
-    </ClCompile>  </ItemGroup>
+    </ClCompile>
+    <ClCompile Include="src\Base\Physics\Element\light_collider.cpp">
+      <Filter>ソース ファイル\Base\Physics\Element</Filter>
+    </ClCompile>
+  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base\System\scene.h">
       <Filter>ヘッダー ファイル\Base\System</Filter>
@@ -486,5 +490,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\Scene\temp_ending.h">
       <Filter>ヘッダー ファイル\Game\Scene</Filter>
-    </ClInclude>  </ItemGroup>
+    </ClInclude>
+    <ClInclude Include="src\Base\Physics\Element\light_collider.h">
+      <Filter>ヘッダー ファイル\Base\Physics\Element</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

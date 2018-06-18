@@ -49,7 +49,7 @@ namespace shadowpartner
 		void UpdateComponent();
 		void DrawComponent();
 
-		void SetActive(bool is_active);
+		virtual void SetActive(bool is_active);
 
 		void Attached(GameObject *game_object, Transform *transform, Tag tag);
 

@@ -12,7 +12,6 @@ namespace shadowpartner {
 
 	ActorState::ActorState(Actor *owner) : owner_(owner)
 	{
-		Enter();
 	}
 
 	ActorState::~ActorState()

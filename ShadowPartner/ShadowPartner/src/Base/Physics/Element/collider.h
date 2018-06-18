@@ -65,7 +65,15 @@ namespace physics
 		float bounciness_;	// 反発係数
 
 		int index_;	// ワールドに紐づけられたインデックス
+
+		unsigned short category_bits_;
+		unsigned short mask_bits_;
+		
+
 		// methods
+		virtual void SetActive(bool is_active) override;
+		void SetSleepingAllowed(bool flag);
+
 		virtual void SetTransform(const Vector2 &pos, const float &ori);
 
 		virtual Vector2 GetPosition();
@@ -73,6 +81,7 @@ namespace physics
 
 		void AddForce(const Vector2 &force);
 		void SetVelocity(const Vector2 &velo);
+		void SetAwake(bool flag);
 
 		void Stop();
 

@@ -24,7 +24,7 @@ public:
 	void Execute() override;
 
 private:
-	physics::BoxCollider *collider;
+	physics::BoxCollider *collider_;
 
 	void Move(float delta);
 };

@@ -24,12 +24,11 @@ namespace {
 
 JumpState::JumpState(Actor *owner) : ActorState(owner)
 {
-	Enter();
 }
 
 void JumpState::Enter()
 {
-	collider = owner_->game_object_->GetComponent<BoxCollider>();
+	collider_ = owner_->game_object_->GetComponent<BoxCollider>();
 }
 
 
@@ -54,7 +53,7 @@ void JumpState::Execute()
 void JumpState::Move(float move)
 {
 	owner_->transform_->position_.x += move * kMoveSpeed;
-	collider->SetTransform(owner_->transform_->position_, owner_->transform_->rotation_);
+	collider_->SetTransform(owner_->transform_->position_, owner_->transform_->rotation_);
 }
 
 }

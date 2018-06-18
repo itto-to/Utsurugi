@@ -25,11 +25,13 @@ namespace shadowpartner {
 
 	void Actor::ChangeState(ActorState *state)
 	{
+		state_->Exit();
 		// 現在のステートをdelete
 		delete state_;
 		state_ = nullptr;
 
 		state_ = state;
+		state_->Enter();
 	}
 
 	bool Actor::IsControllable()
