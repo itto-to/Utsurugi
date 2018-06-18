@@ -182,6 +182,7 @@
     <ClCompile Include="src\Base\Time\time.cpp" />
     <ClCompile Include="src\Game\Actor\Common\actor.cpp" />
     <ClCompile Include="src\Game\Actor\Common\actor_state.cpp" />
+    <ClCompile Include="src\Game\Actor\Common\jumper.cpp" />
     <ClCompile Include="src\Game\Actor\Player\climb_state.cpp" />
     <ClCompile Include="src\Game\Actor\Player\idle_state.cpp" />
     <ClCompile Include="src\Game\Actor\Player\jump_state.cpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="src\Base\Physics\Element\contact_listener.h" />
     <ClInclude Include="src\Base\Physics\Element\light_collider.h" />
     <ClInclude Include="src\Base\Physics\Element\polygon_collider.h" />
+    <ClInclude Include="src\Base\Physics\Filter\collision_filter.h" />
     <ClInclude Include="src\Base\Physics\Func\physics_func.h" />
     <ClInclude Include="src\Base\Physics\physics.h" />
     <ClInclude Include="src\Base\Physics\World\physics_world.h" />
@@ -240,6 +242,7 @@
     <ClInclude Include="src\Base\Time\time.h" />
     <ClInclude Include="src\Game\Actor\Common\actor.h" />
     <ClInclude Include="src\Game\Actor\Common\actor_state.h" />
+    <ClInclude Include="src\Game\Actor\Common\jumper.h" />
     <ClInclude Include="src\Game\Actor\Player\climb_state.h" />
     <ClInclude Include="src\Game\Actor\Player\idle_state.h" />
     <ClInclude Include="src\Game\Actor\Player\jump_state.h" />

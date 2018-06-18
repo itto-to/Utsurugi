@@ -18,6 +18,7 @@
 #include "../../Base/Input/input.h"
 #include "../../Base/System/scene_manager.h"
 #include "draw_test_scene.h"
+#include "../../Base/Physics/Filter/collision_filter.h"
 
 #define PLAYER_TEXTURE_NAME "Resources/Texture/Fox1.png"
 #define BOX_TEXTURE_NAME    "Resources/Texture/white.png"
