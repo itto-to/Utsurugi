@@ -5,8 +5,12 @@
 //==========================================================
 
 #include "player.h"
-
+#include "idle_state.h"
 #include "../../../Base/2D/sprite.h"
+
+#ifdef _DEBUG
+#include "../../../Base/Physics/Debug/debug_draw.h"
+#endif
 
 namespace shadowpartner
 {
@@ -16,6 +20,7 @@ namespace shadowpartner
 		hit_middle_light(0),
 		hit_small_light(0)
 	{
+		state_ = new IdleState(this);
 	}
 
 	Player::Player(ActorState* state) : 
@@ -49,6 +54,7 @@ namespace shadowpartner
 		{
 			other = comp_a->game_object_;
 		}
+		
 
 		// 範囲内になったライトの数をプラス
 		if (other->tag_ == kLargeLight)
@@ -101,5 +107,21 @@ namespace shadowpartner
 	void Player::Update()
 	{
 		state_->Execute();
+	}
+
+	void Player::CreateShadow()
+	{
+		if (hit_small_light > 0)
+		{
+
+		}
+		else if (hit_middle_light > 0)
+		{
+
+		}
+		else if (hit_large_light > 0)
+		{
+
+		}
 	}
 }

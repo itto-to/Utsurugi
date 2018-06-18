@@ -78,17 +78,17 @@ namespace shadowpartner {
 		// 足場
 		{
 			platform_[0] = new GameObject();
-			platform_[0]->transform_->position_ = Vector2(-400.0f, -350.0f);
+			platform_[0]->transform_->position_ = Vector2(-300.0f, -350.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
-			sprite->SetSize(Vector2(600, 200));
+			sprite->SetSize(Vector2(900, 200));
 			sprite->SetColor(D3DCOLOR_RGBA(0, 255, 0, 255));
 			platform_[0]->AddComponent(sprite);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-			box_init.width_ = 600.0f;
+			box_init.width_ = 900.0f;
 			box_init.height_ = 200.0f;
 			box_init.pos_ = platform_[0]->transform_->position_;
 
@@ -175,18 +175,18 @@ namespace shadowpartner {
 		{
 			middle_light_ = new GameObject();
 			middle_light_->transform_->position_ = Vector2(-200.0f, -100.0f);
-			middle_light_->tag_ = Tag::kLargeLight;
+			middle_light_->tag_ = Tag::kMiddleLight;
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
-			sprite->SetSize(Vector2(600, 600));
+			sprite->SetSize(Vector2(300, 300));
 			sprite->SetColor(D3DCOLOR_RGBA(0x00, 0x00, 0xff, 0x80));
 			middle_light_->AddComponent(sprite);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-			box_init.width_ = 600.0f;
-			box_init.height_ = 600.0f;
+			box_init.width_ = 300.0f;
+			box_init.height_ = 300.0f;
 			box_init.is_trigger_ = true;
 			box_init.pos_ = middle_light_->transform_->position_;
 
@@ -200,19 +200,19 @@ namespace shadowpartner {
 		// 小ライト生成
 		{
 			small_light_ = new GameObject();
-			small_light_->transform_->position_ = Vector2(0.0f, 0.0f);
-			small_light_->tag_ = Tag::kLargeLight;
+			small_light_->transform_->position_ = Vector2(100.0f, -150.0f);
+			small_light_->tag_ = Tag::kSmallLight;
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
-			sprite->SetSize(Vector2(200, 400));
+			sprite->SetSize(Vector2(200, 200));
 			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0x00, 0x00, 0x80));
 			small_light_->AddComponent(sprite);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-			box_init.width_ = 20.0f;
-			box_init.height_ = 400.0f;
+			box_init.width_ = 200.0f;
+			box_init.height_ = 200.0f;
 			box_init.is_trigger_ = true;
 			box_init.pos_ = small_light_->transform_->position_;
 
@@ -238,8 +238,8 @@ namespace shadowpartner {
 			BoxInitializer box_init;
 			box_init.width_ = 100.0f;
 			box_init.height_ = 100.0f;
-			box_init.density_ = 0.00001f;
-			box_init.is_static_ = false;
+			box_init.density_ = 1.0f;
+			box_init.body_type_ = kDynamicBody;
 			box_init.is_trigger_ = false;
 			box_init.pos_ = player_->transform_->position_;
 
@@ -266,7 +266,7 @@ namespace shadowpartner {
 			//poly_init.vertices_.push_back(Vector2(90.0f, 100.0f));
 			//poly_init.vertices_.push_back(Vector2(-100.0f, 100.0f));
 			//poly_init.vertices_.push_back(Vector2(0.0f, -100.0f));
-			//poly_init.is_static_ = false;
+			//poly_init.body_type_ = kDynamicBody;
 			//poly_init.pos_ = player_->transform_->position_;
 
 			//PolygonCollider *poly_collider = new PolygonCollider(poly_init);
@@ -295,7 +295,7 @@ namespace shadowpartner {
 			//BoxInitializer box_init;
 			//box_init.width_ = 200.0f;
 			//box_init.height_ = 100.0f;
-			//box_init.is_static_ = false;
+			//box_init.body_type_ = kDynamicBody;
 			//box_init.pos_ = shadow_->transform_->position_;
 
 			//BoxCollider *box_collider = new BoxCollider(box_init);

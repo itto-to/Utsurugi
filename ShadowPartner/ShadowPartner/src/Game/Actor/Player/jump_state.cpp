@@ -22,6 +22,17 @@ namespace {
 }
 
 
+JumpState::JumpState(Actor *owner) : ActorState(owner)
+{
+	Enter();
+}
+
+void JumpState::Enter()
+{
+	collider = owner_->game_object_->GetComponent<BoxCollider>();
+}
+
+
 void JumpState::Execute()
 {
 	// ˆÚ“®
@@ -35,9 +46,15 @@ void JumpState::Execute()
 
 	if (hit_info.collider != nullptr)
 	{
-		owner_->transform_->position_ = hit_info.hit_point + Vector2::up() * 50.0f;
+		//owner_->transform_->position_ = hit_info.hit_point + Vector2::up() * 50.0f;
 		owner_->ChangeState(new IdleState(owner_));
 	}
+}
+
+void JumpState::Move(float move)
+{
+	owner_->transform_->position_.x += move * kMoveSpeed;
+	collider->SetTransform(owner_->transform_->position_, owner_->transform_->rotation_);
 }
 
 }

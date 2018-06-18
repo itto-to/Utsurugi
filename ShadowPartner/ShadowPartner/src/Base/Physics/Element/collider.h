@@ -39,12 +39,20 @@ namespace physics
 		kShapeCount
 	};
 
+	enum BodyType
+	{
+		kDynamicBody,
+		kKinematicBody,
+		kStaticBody,
+	};
+
 	//==========================================================
 	// 概要  :全コライダーの基底クラス
 	//==========================================================
 	class Collider : public Component
 	{
 	public:
+
 		Collider();
 		Collider(Collider &copy);
 		virtual ~Collider();

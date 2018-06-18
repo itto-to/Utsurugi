@@ -7,6 +7,7 @@
 
 #include "jump_state.h"
 #include "idle_state.h"
+#include "../../../Base/Physics/Element/box_collider.h"
 #include "../../../Base/Element/gameobject.h"
 #include "../Common/actor.h"
 #include "../../../Base/Input/input.h"
@@ -17,13 +18,24 @@ using namespace physics;
 namespace shadowpartner
 {
 	namespace{
-		float kMoveSpeed = 10.0f;
+		float kMoveSpeed = 2.0f;
+	}
+
+	WalkState::WalkState(Actor * owner) : ActorState(owner)
+	{
+		Enter();
+	}
+
+	void WalkState::Enter()
+	{
+		collider = owner_->game_object_->GetComponent<BoxCollider>();
 	}
 
 	void WalkState::Execute()
 	{
 		float move = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
-		owner_->game_object_->transform_->position_.x += move * kMoveSpeed;
+		//BoxCollider *box_collider = owner_->GetComponent<BoxCollider>();
+		Move(move * kMoveSpeed);
 
 		if (move == 0.0f) {
 			// ’âŽ~
@@ -31,9 +43,14 @@ namespace shadowpartner
 		}
 		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump)) {
 			// ƒWƒƒƒ“ƒv“ü—Í
-			BoxCollider *box_collider = owner_->GetComponent<BoxCollider>();
-			box_collider->AddForce(Vector2::up() * 700000000.0f);
+			collider->AddForce(Vector2::up() * 700000000.0f);
 			owner_->ChangeState(new JumpState(owner_));
 		}
+	}
+
+	void WalkState::Move(float move)
+	{
+		owner_->transform_->position_.x += move * kMoveSpeed;
+		collider->SetTransform(owner_->transform_->position_, owner_->transform_->rotation_);
 	}
 }

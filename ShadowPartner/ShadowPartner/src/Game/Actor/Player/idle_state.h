@@ -11,10 +11,17 @@
 
 namespace shadowpartner
 {
+	class Player;
+	
 	class IdleState : public ActorState {
 	public:
-		IdleState(Actor *owner) : ActorState(owner){};
+		IdleState(Actor *owner);
 		void Execute() override;
+
+	protected:
+		Player *player;
+
+	private:
 	};
 }
 

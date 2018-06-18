@@ -22,10 +22,19 @@ namespace physics
 		shape_ = PhysicsShape::kCircle;
 
 		b2BodyDef circle_body_def;
-		if (ini.is_static_)
-			circle_body_def.type = b2_staticBody;
-		else
+
+		switch (ini.body_type_)
+		{
+		case kDynamicBody:
 			circle_body_def.type = b2_dynamicBody;
+			break;
+		case kKinematicBody:
+			circle_body_def.type = b2_kinematicBody;
+			break;
+		case kStaticBody:
+			circle_body_def.type = b2_staticBody;
+			break;
+		}
 
 		circle_body_def.position.Set(ini.pos_.x, ini.pos_.y);
 
@@ -39,16 +48,17 @@ namespace physics
 		b2FixtureDef circle_fixture_def;
 		circle_fixture_def.isSensor = ini.is_trigger_;
 		circle_fixture_def.shape = &circle;
-		if (ini.is_static_)
+
+		if (ini.body_type_ == kStaticBody)
 		{
 			circle_fixture_def.density = 0.0f;
-			circle_fixture_def.friction = 0.0f;
 		}
 		else
 		{
 			circle_fixture_def.density = ini.density_;
-			circle_fixture_def.friction = ini.friction_;
 		}
+		circle_fixture_def.friction = ini.friction_;
+
 		body_->CreateFixture(&circle_fixture_def);
 
 		radius_ = ini.radius_;

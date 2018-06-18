@@ -9,13 +9,24 @@
 
 #include "../Common/actor_state.h"
 
+namespace physics
+{
+	class BoxCollider;
+}
+
 namespace shadowpartner
 {
 
 class JumpState : public ActorState {
 public:
-	JumpState(Actor *owner) : ActorState(owner) {}
+	JumpState(Actor *owner);
+	void Enter() override;
 	void Execute() override;
+
+private:
+	physics::BoxCollider *collider;
+
+	void Move(float delta);
 };
 
 }
