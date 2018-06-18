@@ -101,6 +101,8 @@ namespace math
 
 	D3DXINLINE const Vector2 Rotate(const Vector2 &vec,const float &degree);
 
+	D3DXINLINE const bool InFan(const Vector2 &checked, float min, float max);	// checkedのAngleがminとmax（共に度数）の間にあるか
+
 	//*****************************************************************************
 	//*****************************************************************************
 	// Vector3クラスの宣言

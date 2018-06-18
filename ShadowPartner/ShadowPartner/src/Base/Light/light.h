@@ -24,13 +24,13 @@ namespace shadowpartner
 	//==========================================================
 	struct LightInitializer
 	{
-		Vector2 direction_;
+		float direction_;
 		float angle_;
 		float radius_;
 		D3DCOLOR color_;
 
 		LightInitializer()
-			:direction_(Vector2::down())
+			:direction_(D3DX_PI * 3.0f / 4.0f)
 			, angle_(360.0f)
 			, radius_(FLT_MAX)
 			, color_(LIGHT_DEFAULT_COLOR)
@@ -66,7 +66,7 @@ namespace shadowpartner
 		Vector2 *light_world_vertices_;
 		Vertex2D *light_vertices_;
 		int vertex_count_;	
-		math::Vector2 direction_;	// Œõ‚ÌŒü‚«
+		float direction_;	// Œõ‚ÌŒü‚«
 		float angle_;		// Œõ‚ÌŒÊ‚ÌL‚³(“x”–@)
 		float radius_;		// Œõ‚Ì“Í‚­’·‚³
 

@@ -324,6 +324,9 @@
     <ClCompile Include="src\Game\Scene\temp_ending.cpp">
       <Filter>ソース ファイル\Game\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Base\Physics\Element\tilemap_collider.cpp">
+      <Filter>ソース ファイル\Base\Physics\Element</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base\System\scene.h">
@@ -487,6 +490,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\Scene\temp_ending.h">
       <Filter>ヘッダー ファイル\Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Physics\Element\tilemap_collider.h">
+      <Filter>ヘッダー ファイル\Base\Physics\Element</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

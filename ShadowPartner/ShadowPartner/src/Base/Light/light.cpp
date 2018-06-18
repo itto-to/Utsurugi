@@ -47,13 +47,13 @@ namespace shadowpartner
 		Vector3 world_pos = Vector3(transform_->GetWorldPosition(), 0.0f);
 		Vector3 draw_pos = Vector3(world_pos.x, -world_pos.y, 0.0f) / Camera::main_->GetZoom();	// スクリーン上の描画位置.まずy軸の方向を変える
 		Vector3 screen_center = Vector3(Application::Instance()->GetScreenWidth() / 2, Application::Instance()->GetScreenHeight() / 2, 0.0f);
-		draw_pos += screen_center - Vector3(Camera::main_->transform_->position_, 0.0f);
+		draw_pos += screen_center - Vector3(Camera::main_->transform_->position_, 0.0f) * PIXEL_PER_UNIT;
 
-		float zoom = Camera::main_->GetZoom();
-		Vector2 world_scale = transform_->GetWorldScale();
-		float width, height;
-		width = texture_.GetWidth() * world_scale.x / zoom;
-		height = texture_.GetHeight() * world_scale.y / zoom;
+		//float zoom = Camera::main_->GetZoom();
+		//Vector2 world_scale = transform_->GetWorldScale();
+		//float width, height;
+		//width = texture_.GetWidth() * world_scale.x / zoom;
+		//height = texture_.GetHeight() * world_scale.y / zoom;
 
 		ReMesh();		// 光の形を再計算する
 
@@ -93,7 +93,7 @@ namespace shadowpartner
 	//==========================================================
 	void Light::SetDirection(const Vector2 &direction)
 	{
-		direction_ = direction;
+		direction_ = Angle(direction);
 	}
 
 	//==========================================================
@@ -102,7 +102,7 @@ namespace shadowpartner
 	//==========================================================
 	void Light::SetAngle(const float &angle)
 	{
-		angle_ = angle;
+		angle_ = D3DXToRadian(angle);
 	}
 
 	//==========================================================
@@ -160,6 +160,10 @@ namespace shadowpartner
 		for (int i = 0;i < LIGHT_VERTEX_MIN;++i)
 		{
 			Vector2 direction = Vector2(cosf(angle_unit * i), sinf(angle_unit * i));
+
+			if (!InFan(direction, direction_ - angle_ / 2.0f, direction_ + angle_ / 2.0f))
+				continue;
+
 			hit_info = physics::PhysicsFunc::Raycast(transform_->position_, direction, radius_);
 			if (hit_info.collider != nullptr)
 				new_light_vertices.push_back(hit_info.hit_point);
@@ -287,10 +291,10 @@ namespace shadowpartner
 		// ソート通りに頂点を格納していく
 		for (int i = 0;i < vertex_count_ - 1;++i)
 		{
-			light_world_vertices_[i] = points[sort_buffer_[i].index_];
+			light_world_vertices_[i] = points[sort_buffer_[i].index_] * PIXEL_PER_UNIT;
 		}
 
-		light_world_vertices_[vertex_count_ - 1] = points[sort_buffer_[1].index_];
+		light_world_vertices_[vertex_count_ - 1] = points[sort_buffer_[1].index_] * PIXEL_PER_UNIT;
 	}
 
 	//==========================================================

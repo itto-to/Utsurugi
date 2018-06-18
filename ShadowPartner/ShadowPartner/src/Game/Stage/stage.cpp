@@ -1,16 +1,18 @@
 #include "stage.h"
 #include <stdio.h>
 
+using namespace physics;
+
 namespace shadowpartner
 {
-	Stage::Stage(StageNumber stageno,GameObject &game_object, char datatileno[], char datatilepass[])
+	Stage::Stage(StageNumber stageno, GameObject &game_object, char datatileno[], char datatilepass[])
 	{
 
 		LoadStageData(stageno);
 
 		tiles_ = new Tile *[cell_vertical * cell_horizontal];
 
-		errno_t err_no,err_pass;
+		errno_t err_no, err_pass;
 		FILE *fp_no;
 		FILE *fp_pass;
 
@@ -36,6 +38,14 @@ namespace shadowpartner
 			printf("The file 'test_no.csv' was not opened\n");
 		}
 
+		// TileMapColliderの設定
+		TileMapInitializer tile_init;
+		tile_init.pos_ = game_object.transform_->position_;
+		tile_init.x_lenght_ = cell_horizontal;
+		tile_init.y_lenght_ = cell_vertical;
+		tile_init.width_ = DEFAULT_SCREEN_WIDTH / cell_horizontal;
+		tile_init.height_ = DEFAULT_SCREEN_HEIGHT / cell_vertical;
+		bool *collision_exist = new bool[cell_horizontal * cell_vertical];
 
 		for (int y = 0; y < cell_vertical; y++)
 		{
@@ -49,33 +59,24 @@ namespace shadowpartner
 				fscanf_s(fp_pass, "%d,", &tilepass);
 
 				//　MakeVertex
-				tiles_[y * cell_horizontal + x] =new Tile(TILE_PICTURE, tileno, devide_horizontal, devide_vertical, cell_horizontal, cell_vertical,game_object);
+				tiles_[y * cell_horizontal + x] = new Tile(TILE_PICTURE, tileno, devide_horizontal, devide_vertical, cell_horizontal, cell_vertical, game_object);
 
 				// 通過不可のタイルだけコライダーを作る
 				if (tilepass)
 				{
-					BoxInitializer box_init;
-					box_init.width_ = DEFAULT_SCREEN_WIDTH / cell_horizontal / 2.0f;
-					box_init.height_ = DEFAULT_SCREEN_HEIGHT / cell_vertical / 2.0f;
-
-					//PosCollider
-					box_init.pos_= Vector2((x+0.5f)*box_init.width_ - DEFAULT_SCREEN_WIDTH / 2.0f, (-y + 0.5f)*box_init.height_ + DEFAULT_SCREEN_HEIGHT / 2.0f);					// BoxCollider座標
-
-					tiles_[y * cell_horizontal + x]->box_collider_ = new BoxCollider(box_init);
-					tiles_[y * cell_horizontal + x]->box_collider_->SetOffset(box_init.pos_);
-					game_object.AddComponent(tiles_[y * cell_horizontal + x]->box_collider_);
+					collision_exist[y * cell_horizontal + x] = true;
 				}
 				else
 				{
-					tiles_[y * cell_horizontal + x]->box_collider_ = NULL;
+					collision_exist[y * cell_horizontal + x] = false;
 				}
-
 			}
 		}
 
 		fclose(fp_no);							// ファイル操作終了
 		fclose(fp_pass);							// ファイル操作終了
 
+		tilemap_collider = new TileMapCollider(tile_init);
 	}
 
 	void Stage::Draw()
@@ -103,10 +104,10 @@ namespace shadowpartner
 				Vector2 uv_size = tiles_[y * cell_horizontal + x]->uv_size_;
 
 				//SetVertex
-				float vertex_left=  (x - cell_horizontal / 2.0f)*x_size;
-				float vertex_right= vertex_left+ x_size;
-				float vertex_up= (y - cell_vertical / 2.0f)*y_size;
-				float vertex_down= vertex_up+ y_size;
+				float vertex_left = (x - cell_horizontal / 2.0f)*x_size;
+				float vertex_right = vertex_left + x_size;
+				float vertex_up = (y - cell_vertical / 2.0f)*y_size;
+				float vertex_down = vertex_up + y_size;
 
 				// テクスチャ座標
 				tiles_[y * cell_horizontal + x]->vertices_[0].tex_coor_ = uv_offset;
@@ -115,14 +116,14 @@ namespace shadowpartner
 				tiles_[y * cell_horizontal + x]->vertices_[3].tex_coor_ = uv_offset + uv_size;
 
 				// vertex座標
-				tiles_[y * cell_horizontal + x]->vertices_[0].vertex_ = draw_pos+Vector3(vertex_left, vertex_up, 0.0f);
-				tiles_[y * cell_horizontal + x]->vertices_[1].vertex_ = draw_pos+Vector3(vertex_right, vertex_up, 0.0f);
-				tiles_[y * cell_horizontal + x]->vertices_[2].vertex_ = draw_pos+Vector3(vertex_left, vertex_down, 0.0f);
-				tiles_[y * cell_horizontal + x]->vertices_[3].vertex_ = draw_pos+Vector3(vertex_right, vertex_down, 0.0f);
+				tiles_[y * cell_horizontal + x]->vertices_[0].vertex_ = draw_pos + Vector3(vertex_left, vertex_up, 0.0f);
+				tiles_[y * cell_horizontal + x]->vertices_[1].vertex_ = draw_pos + Vector3(vertex_right, vertex_up, 0.0f);
+				tiles_[y * cell_horizontal + x]->vertices_[2].vertex_ = draw_pos + Vector3(vertex_left, vertex_down, 0.0f);
+				tiles_[y * cell_horizontal + x]->vertices_[3].vertex_ = draw_pos + Vector3(vertex_right, vertex_down, 0.0f);
 
-				
+
 				tiles_[y * cell_horizontal + x]->texture_->DrawTriangleStrip(&(tiles_[y * cell_horizontal + x]->vertices_[0]));
-				
+
 
 			}
 		}
@@ -135,7 +136,7 @@ namespace shadowpartner
 		errno_t err;
 
 		FILE *fp;
-		err = fopen_s(&fp,STAGE_DATA, "r");	// ファイルを開く
+		err = fopen_s(&fp, STAGE_DATA, "r");	// ファイルを開く
 
 #ifdef _DEBUG
 		if (err == 0)

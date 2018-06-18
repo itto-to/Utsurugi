@@ -14,6 +14,7 @@
 
 #include "Element\box_collider.h"
 #include "Element\circle_collider.h"
+#include "Element\tilemap_collider.h"
 
 #include "Func\physics_func.h"
 

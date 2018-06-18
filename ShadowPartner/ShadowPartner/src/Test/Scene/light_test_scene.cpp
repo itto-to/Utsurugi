@@ -29,17 +29,17 @@ namespace shadowpartner
 {
 	const Vector2 pyramid_points[15] =
 	{
-		{100,0},{120,0},{140,0},{160,0},{180,0},
-		{110,20},{130,20},{150,20},{170,20},
-		{120,40},{140,40},{160,40},
-		{130,60},{150,60},
-		{140,80}
+		{1.0f,0.0f},{1.2f,0.0f},{1.4f,0.0f},{1.6f,0.0f},{1.8f,0.0f},
+		{1.1f,0.2f},{1.3f,0.2f},{1.5f,0.2f},{1.7f,0.2f},
+		{1.2f,0.4f},{1.4f,0.4f},{1.6f,0.4f},
+		{1.3f,0.6f},{1.5f,0.6f},
+		{1.4f,0.8f}
 	};
 
 	const Vector2 circle_points[11] =
 	{
-		{ -360,180 },{ -280,220 },{ -210,190 },{ -140,220 },{ -70,200 },
-		{ 0,210 },{ 70,230 },{ 140,210 },{ 210,170 },{ 280,180 },{360,230}
+		{ -3.6f,1.8f },{ -2.8f,2.2f },{ -2.1f,1.9f },{ -1.4f,2.2f },{ -0.7f,2.0f },
+		{ 0.0f,2.1f },{ 0.7f,2.3f },{ 1.4f,2.1f },{ 2.1f,1.7f },{ 2.8f,1.8f },{3.6f,2.3f}
 	};
 
 	// コンストラクタ
@@ -73,18 +73,18 @@ namespace shadowpartner
 		// ライトのオブジェクト
 		{
 			light_object_ = new GameObject();
-			light_object_->transform_->position_ = Vector2(0.0f, 270.0f);
+			light_object_->transform_->position_ = Vector2(0.0f, 2.7f);
 
 			// ライトの設定
 			LightInitializer light_init;
-			light_init.radius_ = 100.0f;
+			light_init.radius_ = 1.0f;
 			light_init.color_ = D3DCOLOR_RGBA(0xff, 0xff, 0x99, 0x77);
 			Light *light = new Light(light_init);
 			light_object_->AddComponent(light);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(LIGHT_TEXTURE_NAME);
-			sprite->SetSize(Vector2(100, 100));
+			sprite->SetSize(Vector2(1.0f, 1.0f));
 			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0x99, 0xff));
 			light_object_->AddComponent(sprite);
 
@@ -96,17 +96,17 @@ namespace shadowpartner
 		// 動く円形のオブジェクト
 		{
 			player_ = new GameObject();
-			player_->transform_->position_ = Vector2(-100.0f, 50.0f);
+			player_->transform_->position_ = Vector2(-1.0f, 0.5f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(100, 100));
+			sprite->SetSize(Vector2(1.0f, 1.0f));
 			sprite->SetColor(D3DCOLOR_RGBA(255, 0, 0, 255));
 			player_->AddComponent(sprite);
 
 			// 円形の当たり判定の設定
 			CircleInitializer circle_init;
-			circle_init.radius_ = 50.0f;
+			circle_init.radius_ = 0.5f;
 			circle_init.pos_ = player_->transform_->position_;
 			circle_init.is_static_ = false;
 
@@ -120,18 +120,18 @@ namespace shadowpartner
 		// 天井
 		{
 			ceiling_ = new GameObject();
-			ceiling_->transform_->position_ = Vector2(0.0f, 400.0f);
+			ceiling_->transform_->position_ = Vector2(0.0f, 4.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
-			sprite->SetSize(Vector2(800, 200));
+			sprite->SetSize(Vector2(8.0f, 2.0f));
 			sprite->SetColor(D3DCOLOR_RGBA(150, 150, 150, 255));
 			ceiling_->AddComponent(sprite);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-			box_init.width_ = 800.0f;
-			box_init.height_ = 200.0f;
+			box_init.width_ = 8.0f;
+			box_init.height_ = 2.0f;
 			box_init.pos_ = ceiling_->transform_->position_;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
@@ -144,18 +144,18 @@ namespace shadowpartner
 		// 左側の壁
 		{
 			left_wall_ = new GameObject();
-			left_wall_->transform_->position_ = Vector2(-500.0f, 0.0f);
+			left_wall_->transform_->position_ = Vector2(-5.0f, 0.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
-			sprite->SetSize(Vector2(200, 600));
+			sprite->SetSize(Vector2(2.0f, 6.0f));
 			sprite->SetColor(D3DCOLOR_RGBA(150, 150, 150, 255));
 			left_wall_->AddComponent(sprite);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-			box_init.width_ = 200.0f;
-			box_init.height_ = 600.0f;
+			box_init.width_ = 2.0f;
+			box_init.height_ = 6.0f;
 			box_init.pos_ = left_wall_->transform_->position_;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
@@ -168,18 +168,18 @@ namespace shadowpartner
 		// 右側の壁
 		{
 			right_wall_ = new GameObject();
-			right_wall_->transform_->position_ = Vector2(500.0f, 0.0f);
+			right_wall_->transform_->position_ = Vector2(5.0f, 0.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
-			sprite->SetSize(Vector2(200, 600));
+			sprite->SetSize(Vector2(2.0f, 6.0f));
 			sprite->SetColor(D3DCOLOR_RGBA(150, 150, 150, 255));
 			right_wall_->AddComponent(sprite);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-			box_init.width_ = 200.0f;
-			box_init.height_ = 600.0f;
+			box_init.width_ = 2.0f;
+			box_init.height_ = 6.0f;
 			box_init.pos_ = right_wall_->transform_->position_;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
@@ -192,18 +192,18 @@ namespace shadowpartner
 		// 床
 		{
 			floor_ = new GameObject();
-			floor_->transform_->position_ = Vector2(0.0f, -400.0f);
+			floor_->transform_->position_ = Vector2(0.0f, -4.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
-			sprite->SetSize(Vector2(800, 200));
+			sprite->SetSize(Vector2(8.0f, 2.0f));
 			sprite->SetColor(D3DCOLOR_RGBA(150, 150, 150, 255));
 			floor_->AddComponent(sprite);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-			box_init.width_ = 800.0f;
-			box_init.height_ = 200.0f;
+			box_init.width_ = 8.0f;
+			box_init.height_ = 2.0f;
 			box_init.pos_ = floor_->transform_->position_;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
@@ -216,18 +216,18 @@ namespace shadowpartner
 		// 適当なブロック
 		{
 			block1_ = new GameObject();
-			block1_->transform_->position_ = Vector2(150.0f, -100.0f);
+			block1_->transform_->position_ = Vector2(1.5f, -1.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
-			sprite->SetSize(Vector2(300, 50));
+			sprite->SetSize(Vector2(3.0f, 0.5f));
 			sprite->SetColor(D3DCOLOR_RGBA(100, 100, 100, 255));
 			block1_->AddComponent(sprite);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-			box_init.width_ = 300.0f;
-			box_init.height_ = 50.0f;
+			box_init.width_ = 3.0f;
+			box_init.height_ = 0.5f;
 			box_init.pos_ = block1_->transform_->position_;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
@@ -246,13 +246,13 @@ namespace shadowpartner
 				circles_[i]->transform_->position_ = circle_points[i];
 
 				Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
-				sprite->SetSize(Vector2(30, 30));
+				sprite->SetSize(Vector2(0.3f, 0.3f));
 				sprite->SetColor(D3DCOLOR_RGBA(50, 153, 200, 255));
 				circles_[i]->AddComponent(sprite);
 
 				// 矩形の当たり判定の設定
 				CircleInitializer circle_init;
-				circle_init.radius_ = 15.0f;
+				circle_init.radius_ = 0.15f;
 				circle_init.pos_ = circles_[i]->transform_->position_;
 
 				CircleCollider *circle_collider = new CircleCollider(circle_init);
@@ -272,14 +272,14 @@ namespace shadowpartner
 				pyramids_[i]->transform_->position_ = pyramid_points[i];
 
 				Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
-				sprite->SetSize(Vector2(20, 20));
+				sprite->SetSize(Vector2(0.2f, 0.2f));
 				sprite->SetColor(D3DCOLOR_RGBA(200, 153, 50, 255));
 				pyramids_[i]->AddComponent(sprite);
 
 				// 矩形の当たり判定の設定
 				BoxInitializer box_init;
-				box_init.width_ = 20.0f;
-				box_init.height_ = 20.0f;
+				box_init.width_ = 0.2f;
+				box_init.height_ = 0.2f;
 				box_init.is_static_ = false;
 				box_init.pos_ = pyramids_[i]->transform_->position_;
 
@@ -301,34 +301,34 @@ namespace shadowpartner
 		CircleCollider *circle_collider = player_->GetComponent<CircleCollider>();
 
 		RaycastHit hit_info = physics::PhysicsFunc::Raycast(
-			player_->transform_->position_ + Vector2::down() * 9.9f,
+			player_->transform_->position_ + Vector2::down() * 0.01f,
 			Vector2::down(), 0.15f);
 
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump))
 		{
 			light_radius_scale = light_radius_scale % 5 + 1;
-			light_object_->GetComponent<Light>()->SetRadius(100.0f * light_radius_scale);
+			light_object_->GetComponent<Light>()->SetRadius(1.0f * light_radius_scale);
 		}
 
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
 		{
 			static int z = 0;
-			z = (z + 1) % 3;
-			Camera::main_->SetZoom(0.5f + 0.33f * (z + 1));
+			z = (z + 1) % 4;
+			Camera::main_->SetZoom(0.5f + 0.5f * (z + 1));
 		}
 
 		Vector2 move = Vector2::zero();
 		move.x = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
-		move.y = input::Input::Instance()->GetAxis(input::InputAxis::Vertical);
+		move.y = input::Input::Instance()->GetAxis(input::InputAxis::Vertical) * 10.0f;
 
-		player_->GetComponent<CircleCollider>()->AddForce(move * 10000000.0f);
+		player_->GetComponent<CircleCollider>()->AddForce(move * 5.0f);
 
-		float shift = 0.01f;
-		light_object_->transform_->position_.x += shift * 10 * Time::Instance()->delta_time_;
-		if (light_object_->transform_->position_.x < -350.0f)
-			light_object_->transform_->position_.x = 350.0f;
-		if (light_object_->transform_->position_.x > 350.0f)
-			light_object_->transform_->position_.x = -350.0f;
+		float shift = 0.001f;
+		light_object_->transform_->position_.x += shift * Time::Instance()->delta_time_;
+		if (light_object_->transform_->position_.x < -3.5f)
+			light_object_->transform_->position_.x = 3.5f;
+		if (light_object_->transform_->position_.x > 3.5f)
+			light_object_->transform_->position_.x = -3.5f;
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Cancel))
 			SceneManager::LoadScene(new DrawTestScene());
 	}

@@ -358,18 +358,15 @@ namespace math
 		double rad = acos(Dot(vec0, vec1) / (Length(vec0) * Length(vec1)));
 		float degree = (float)(rad * 180.0f / (double)D3DX_PI);
 		return degree;
-		D3DXToDegree(0);
 		//return acosf(Dot(vec0, vec1) / (Length(vec0) * Length(vec1)));
 	}
 
 	// xé≤ê≥ï˚å¸Ç∆ÇÃÇ»Ç∑äpìxÇìxêîÇ≈ï‘ÇµÇ‹Ç∑ÅB
 	D3DXINLINE const float Angle(const Vector2 &vec)
 	{
-		double len = LengthD(vec);
-		double cos = ((double)vec.x / len);
-		double rad = acos((double)vec.x / LengthD(vec));
-		double degree = (rad * 180.0f / (double)D3DX_PI);
-		return (float)degree;
+		float rad = acosf(vec.x / LengthD(vec));
+		float degree = (rad * 180.0f / D3DX_PI);
+		return degree;
 		//return acosf(Dot(vec0, vec1) / (Length(vec0) * Length(vec1)));
 	}
 
@@ -380,6 +377,14 @@ namespace math
 		float cos = cosf(rad), sin = sinf(rad);
 
 		return Vector2(vec.x * cos - vec.y * sin, vec.x * sin + vec.y * cos);
+	}
+
+	D3DXINLINE const bool InFan(const Vector2 &checked, float min, float max)
+	{
+		float angle = Angle(checked);
+
+		return (angle < min) ? false :
+			(angle > max) ? false : true;
 	}
 }
 

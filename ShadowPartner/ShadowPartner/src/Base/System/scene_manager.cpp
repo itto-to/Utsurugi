@@ -6,7 +6,6 @@
 #include "scene_manager.h"
 
 // Å‰‚É“Ç‚Ýž‚ÞƒV[ƒ“
-#include "../../Test/Scene/draw_test_scene.h"
 #include "../../Test/Scene/physics_test_scene.h"
 #include "../../Game/Scene/title_scene.h"
 
@@ -60,19 +59,19 @@ namespace shadowpartner
 
 	HRESULT SceneManager::Init()
 	{
-		TitleScene *title_scene = new TitleScene();
-		current_scene_ = title_scene;
-
-		current_scene_->Init();
-
-		scenes_.push_back(title_scene);
-
-		//DrawTestScene *title_scene = new DrawTestScene();
+		//TitleScene *title_scene = new TitleScene();
 		//current_scene_ = title_scene;
 
 		//current_scene_->Init();
 
 		//scenes_.push_back(title_scene);
+
+		PhysicsTestScene *physics_test_scene = new PhysicsTestScene();
+		current_scene_ = physics_test_scene;
+
+		current_scene_->Init();
+
+		scenes_.push_back(physics_test_scene);
 
 		return S_OK;
 	}
