@@ -8,6 +8,7 @@
 // 最初に読み込むシーン
 #include "../../Test/Scene/physics_test_scene.h"
 #include "../../Game/Scene/title_scene.h"
+#include "../Physics/physics.h"
 
 namespace shadowpartner
 {
@@ -59,19 +60,19 @@ namespace shadowpartner
 
 	HRESULT SceneManager::Init()
 	{
-		//TitleScene *title_scene = new TitleScene();
-		//current_scene_ = title_scene;
-
-		//current_scene_->Init();
-
-		//scenes_.push_back(title_scene);
-
-		PhysicsTestScene *physics_test_scene = new PhysicsTestScene();
-		current_scene_ = physics_test_scene;
+		TitleScene *title_scene = new TitleScene();
+		current_scene_ = title_scene;
 
 		current_scene_->Init();
 
-		scenes_.push_back(physics_test_scene);
+		scenes_.push_back(title_scene);
+
+		//PhysicsTestScene *physics_test_scene = new PhysicsTestScene();
+		//current_scene_ = physics_test_scene;
+
+		//current_scene_->Init();
+
+		//scenes_.push_back(physics_test_scene);
 
 		return S_OK;
 	}
@@ -157,6 +158,7 @@ namespace shadowpartner
 			instance_->scenes_[i] = nullptr;
 		}
 
+		//physics::PhysicsWorld::ClearBody();
 		instance_->scenes_.clear();
 
 		// 新しいシーンの作成

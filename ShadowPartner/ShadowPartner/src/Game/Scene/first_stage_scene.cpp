@@ -29,7 +29,7 @@ using namespace physics;
 
 namespace
 {
-	const Vector2 kInitPlayerPos = Vector2(-200.0f, 0.0f);
+	const Vector2 kInitPlayerPos = Vector2(-2.0f, 0.0f);
 }
 
 namespace shadowpartner
@@ -68,10 +68,10 @@ namespace shadowpartner
 		// ”wŒi
 		{
 			back_ground_ = new GameObject();
-			back_ground_->transform_->position_ = Vector2(1120, 0);
+			back_ground_->transform_->position_ = Vector2(11.2f, 0.0f);
 
 			Sprite *sprite = new Sprite(BACK_GROUND_TEXTURE_NAME);
-			sprite->SetSize(Vector2(3360.0f, 630.0f));
+			sprite->SetSize(Vector2(33.6f, 6.3f));
 			back_ground_->AddComponent(sprite);
 
 			AddGameObject(back_ground_);
@@ -80,10 +80,10 @@ namespace shadowpartner
 		// ƒQ[ƒg
 		{
 			back_ground_ = new GameObject();
-			back_ground_->transform_->position_ = Vector2(400, -160);
+			back_ground_->transform_->position_ = Vector2(4.0f, -1.6f);
 
 			Sprite *sprite = new Sprite(CLEAR_GATE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(100.0f, 150.0f));
+			sprite->SetSize(Vector2(1.0f, 1.5f));
 			back_ground_->AddComponent(sprite);
 
 			AddGameObject(back_ground_);
@@ -107,16 +107,16 @@ namespace shadowpartner
 			player_->transform_->position_ = kInitPlayerPos;
 
 			Sprite *sprite = new Sprite(PLAYER_TEXTURE_NAME);
-			sprite->SetSize(Vector2(100, 100));
+			sprite->SetSize(Vector2(1.0f, 1.0f));
 			player_->AddComponent(sprite);
 			Player *actor = new Player();
 			player_->AddComponent(actor);
 
 			// ‹éŒ`‚Ì“–‚½‚è”»’è‚ÌÝ’è
 			BoxInitializer box_init;
-			box_init.width_ = 100.0f;
-			box_init.height_ = 100.0f;
-			box_init.density_ = 0.00001f;
+			box_init.width_ = 1.0f;
+			box_init.height_ = 1.0f;
+			box_init.density_ = 0.1f;
 			box_init.body_type_ = kDynamicBody;
 			box_init.is_trigger_ = false;
 			box_init.pos_ = player_->transform_->position_;
