@@ -1,11 +1,13 @@
+#define _CRT_SECURE_NO_WARNINGS			// scanf のwarning防止
 #include "stage.h"
 #include <stdio.h>
+
 
 using namespace physics;
 
 namespace shadowpartner
 {
-	Stage::Stage(StageNumber stageno, GameObject &game_object, char datatileno[], char datatilepass[])
+	Stage::Stage(StageNumber stageno, GameObject &game_object)
 	{
 
 		LoadStageData(stageno);
@@ -16,8 +18,8 @@ namespace shadowpartner
 		FILE *fp_no;
 		FILE *fp_pass;
 
-		err_no = fopen_s(&fp_no, datatileno, "r");	// ファイルを開く
-		err_pass = fopen_s(&fp_pass, datatilepass, "r");	// ファイルを開く
+		err_no = fopen_s(&fp_no, file_tileno, "r");	// ファイルを開く
+		err_pass = fopen_s(&fp_pass, file_tilepass, "r");	// ファイルを開く
 
 
 		if (err_no == 0)
@@ -157,13 +159,13 @@ namespace shadowpartner
 			fscanf_s(fp, "Stage%d", &compare);
 
 		} while (stageno != compare);
-		fscanf_s(fp, "%d\n", &devide_horizontal);
-		fscanf_s(fp, "%d\n", &devide_vertical);
-		fscanf_s(fp, "%d\n", &cell_horizontal);
-		fscanf_s(fp, "%d\n", &cell_vertical);
+		fscanf_s(fp, "%d", &devide_horizontal);
+		fscanf_s(fp, "%d", &devide_vertical);
+		fscanf_s(fp, "%d", &cell_horizontal);
+		fscanf_s(fp, "%d", &cell_vertical);
 
-		//fscanf_s(fp, "%s", file_tileno);
-		//fscanf_s(fp, "%s", file_tilepass);
+		fscanf(fp, "%s", file_tileno);
+		fscanf(fp, "%s", file_tilepass);
 
 
 		fclose(fp);							// ファイル操作終了
