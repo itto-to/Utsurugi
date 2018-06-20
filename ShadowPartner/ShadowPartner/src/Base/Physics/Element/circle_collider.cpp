@@ -39,7 +39,7 @@ namespace physics
 		circle_body_def.position.Set(ini.pos_.x, ini.pos_.y);
 
 		body_ = PhysicsWorld::CreateBody(this, &circle_body_def);
-		body_->SetUserData(this);
+		body_->SetUserData((void *)this);
 
 		b2CircleShape circle;
 		circle.m_p.Set(ini.offset_.x,ini.offset_.y);

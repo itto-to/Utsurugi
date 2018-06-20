@@ -38,7 +38,6 @@ namespace shadowpartner
 		// variables
 		GameObject *clear_gate_;
 
-		GameObject *test;
 		// methods
 
 

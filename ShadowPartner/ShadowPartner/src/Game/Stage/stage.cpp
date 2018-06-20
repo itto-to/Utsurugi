@@ -43,8 +43,8 @@ namespace shadowpartner
 		tile_init.pos_ = game_object.transform_->position_;
 		tile_init.x_lenght_ = cell_horizontal;
 		tile_init.y_lenght_ = cell_vertical;
-		tile_init.width_ = DEFAULT_SCREEN_WIDTH / cell_horizontal;
-		tile_init.height_ = DEFAULT_SCREEN_HEIGHT / cell_vertical;
+		tile_init.width_ = (float)DEFAULT_SCREEN_WIDTH / cell_horizontal / (float)PIXEL_PER_UNIT;
+		tile_init.height_ = (float)DEFAULT_SCREEN_HEIGHT / cell_vertical / (float)PIXEL_PER_UNIT;
 		bool *collision_exist = new bool[cell_horizontal * cell_vertical];
 
 		for (int y = 0; y < cell_vertical; y++)
@@ -76,6 +76,7 @@ namespace shadowpartner
 		fclose(fp_no);							// ファイル操作終了
 		fclose(fp_pass);							// ファイル操作終了
 
+		tile_init.collision_exist = collision_exist;
 		tilemap_collider = new TileMapCollider(tile_init);
 		game_object.AddComponent(tilemap_collider);
 	}

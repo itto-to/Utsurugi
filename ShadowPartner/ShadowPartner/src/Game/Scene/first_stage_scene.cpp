@@ -29,7 +29,7 @@ using namespace physics;
 
 namespace
 {
-	const Vector2 kInitPlayerPos = Vector2(-2.0f, 0.0f);
+	const Vector2 kInitPlayerPos = Vector2(0.0f, 3.0f);
 }
 
 namespace shadowpartner
@@ -128,30 +128,8 @@ namespace shadowpartner
 			AddGameObject(player_);
 
 		}
-
-		//{
-		//	test = new GameObject();
-		//	test->transform_->position_ = Vector2(100.0f, 150.0f);
-
-		//	// スプライトの設定
-		//	Sprite *sprite = new Sprite("Resources/Texture/WhiteCircle.png");
-		//	sprite->SetSize(Vector2(30, 30));
-		//	sprite->SetColor(D3DCOLOR_RGBA(255, 0, 0, 255));
-		//	sprite->SetOrderInLayer(1);
-		//	test->AddComponent(sprite);
-
-		//	// 円形の当たり判定の設定
-		//	CircleInitializer circle_init;
-		//	circle_init.radius_ = 10.0f;
-		//	circle_init.pos_ = test->transform_->position_;
-		//	circle_init.body_type_ = kDynamicBody;
-
-		//	CircleCollider *circle_collider = new CircleCollider(circle_init);
-		//	test->AddComponent(circle_collider);
-
-		//	// シーンにゲームオブジェクトを登録
-		//	AddGameObject(test);
-		//}		StageScene::Init();
+		
+		StageScene::Init();
 
 		return S_OK;
 	}
@@ -174,10 +152,9 @@ namespace shadowpartner
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
 		{
 			static int z = 0;
-			z = (z + 1) % 3;
-			Camera::main_->SetZoom(0.5f + 0.33f * (z + 1));
+			z = (z + 1) % 4;
+			Camera::main_->SetZoom(0.64f + 0.33f * (z + 1));
 		}
-
 	}
 
 	void FirstStageScene::Uninit()

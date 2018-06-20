@@ -143,7 +143,8 @@ namespace physics
 	//==========================================================
 	void DebugDraw::DrawPolygon(const b2Vec2 *vertices, int vertex_count, const b2Color &color)
 	{
-		D3DCOLOR c = B2_TO_D3D_COLOR(color);
+		//D3DCOLOR c = B2_TO_D3D_COLOR(color);
+		D3DCOLOR c = D3DCOLOR_RGBA(0x00, 0xff, 0x00, 0xff);
 
 		DebugLine line;
 		for (int i = 0;i < vertex_count - 1;++i)
@@ -177,7 +178,8 @@ namespace physics
 	//==========================================================
 	void DebugDraw::DrawCircle(const b2Vec2 &center, float radius, const b2Color &color)
 	{
-		D3DCOLOR c = B2_TO_D3D_COLOR(color);
+		//D3DCOLOR c = B2_TO_D3D_COLOR(color);
+		D3DCOLOR c = D3DCOLOR_RGBA(0x00, 0xff, 0x00, 0xff);
 
 		DebugLine line;
 		float theta;		// ‰~‚Ì’†S‚ÆV‹K‚É“o˜^‚·‚é’¸“_‚ª‚È‚·ü•ª‚ª‚È‚·Šp“x
@@ -223,7 +225,8 @@ namespace physics
 	{
 		for (int i = 0;i < count;++i)
 		{
-			D3DCOLOR c = B2_TO_D3D_COLOR(colors[i]);
+			//D3DCOLOR c = B2_TO_D3D_COLOR(color);
+			D3DCOLOR c = D3DCOLOR_RGBA(0x00, 0xff, 0x00, 0xff);
 
 			DebugLine line;
 			float theta;		// ‰~‚Ì’†S‚ÆV‹K‚É“o˜^‚·‚é’¸“_‚ª‚È‚·ü•ª‚ª‚È‚·Šp“x

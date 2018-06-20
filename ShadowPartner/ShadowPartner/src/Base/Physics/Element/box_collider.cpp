@@ -40,7 +40,7 @@ namespace physics
 		box_body_def.fixedRotation = ini.fixed_rotation_;
 
 		body_ = PhysicsWorld::CreateBody(this,&box_body_def);
-		body_->SetUserData(this);
+		body_->SetUserData((void *)this);
 
 		b2PolygonShape box;
 		box.SetAsBox(ini.width_ / 2.0f, ini.height_ / 2.0f,b2Vec2(ini.offset_.x,ini.offset_.y),0.0f);
