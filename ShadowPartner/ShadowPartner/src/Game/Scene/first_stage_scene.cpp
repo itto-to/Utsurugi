@@ -95,7 +95,7 @@ namespace shadowpartner
 			stages_[0] = new GameObject();
 			stages_[0]->transform_->position_ = Vector2(0.0f, 0.0f);
 
-			Stage *stage = new Stage(StageNumber::kTest, *stages_[0], TILE_DATA, STAGE_PASS);
+			Stage *stage = new Stage(StageNumber::kTest, *stages_[0]);
 			stages_[0]->AddComponent(stage);
 
 			AddGameObject(stages_[0]);
