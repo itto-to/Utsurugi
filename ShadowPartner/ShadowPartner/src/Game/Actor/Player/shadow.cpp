@@ -13,6 +13,12 @@ using namespace physics;
 
 namespace shadowpartner
 {
+	namespace
+	{
+		const Vector2 kSmallShadowSize = Vector2(0.5f, 0.5f);
+		const Vector2 kMiddleShadowSize = Vector2(1.0f, 1.0f);
+		const Vector2 kLargeShadowSize = Vector2(2.0f, 2.0f);
+	}
 
 	Shadow::Shadow()
 	{
@@ -39,33 +45,33 @@ namespace shadowpartner
 	void Shadow::SetShadowSize(ShadowSize shadow_size)
 	{
 		Sprite *sprite = game_object_->GetComponent<Sprite>();
-		switch (shadow_size) {
+		switch (shadow_size)
+		{
 		case kSmallShadow:
-			sprite->SetSize(Vector2(50, 50));
+			sprite->SetSize(kSmallShadowSize);
 			break;
 
 		case kMiddleShadow:
-			sprite->SetSize(Vector2(100, 100));
+			sprite->SetSize(kMiddleShadowSize);
 			break;
 
 		case kLargeShadow:
-			sprite->SetSize(Vector2(200, 200));
+			sprite->SetSize(kLargeShadowSize);
 			break;
 		}
-
 	}
 
 	void Shadow::CreateSmallShadow()
 	{
-		sprite->SetSize(Vector2(50, 50));
+		sprite->SetSize(kSmallShadowSize);
 		this->game_object_->transform_ = player_object_->transform_;
 
 		// ‹éŒ`‚Ì“–‚½‚è”»’è‚ÌÝ’è
 		BoxCollider *collider = game_object_->GetComponent<BoxCollider>();
 
 		BoxInitializer box_init;
-		box_init.width_ = 50.0f;
-		box_init.height_ = 50.0f;
+		box_init.width_ = kSmallShadowSize.x;
+		box_init.height_ = kSmallShadowSize.y;
 		box_init.body_type_ = kDynamicBody;
 		box_init.pos_ = game_object_->transform_->position_;
 
@@ -74,15 +80,15 @@ namespace shadowpartner
 
 	void Shadow::CreateMiddleShadow()
 	{
-		sprite->SetSize(Vector2(100, 100));
+		sprite->SetSize(kMiddleShadowSize);
 		this->game_object_->transform_ = player_object_->transform_;
 
 		// ‹éŒ`‚Ì“–‚½‚è”»’è‚ÌÝ’è
 		BoxCollider *collider = game_object_->GetComponent<BoxCollider>();
 
 		BoxInitializer box_init;
-		box_init.width_ = 100.0f;
-		box_init.height_ = 100.0f;
+		box_init.width_ = kMiddleShadowSize.x;
+		box_init.height_ = kMiddleShadowSize.y;
 		box_init.body_type_ = kDynamicBody;
 		box_init.pos_ = game_object_->transform_->position_;
 
@@ -91,15 +97,15 @@ namespace shadowpartner
 
 	void Shadow::CreateLargeShadow()
 	{
-		sprite->SetSize(Vector2(200, 200));
+		sprite->SetSize(kLargeShadowSize);
 		this->game_object_->transform_ = player_object_->transform_;
 
 		// ‹éŒ`‚Ì“–‚½‚è”»’è‚ÌÝ’è
 		BoxCollider *collider = game_object_->GetComponent<BoxCollider>();
 
 		BoxInitializer box_init;
-		box_init.width_ = 200.0f;
-		box_init.height_ = 200.0f;
+		box_init.width_ = kLargeShadowSize.x;
+		box_init.height_ = kLargeShadowSize.y;
 		box_init.body_type_ = kDynamicBody;
 		box_init.pos_ = game_object_->transform_->position_;
 

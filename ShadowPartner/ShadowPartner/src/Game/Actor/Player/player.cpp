@@ -9,6 +9,8 @@
 #include "../../../Base/2D/sprite.h"
 #include "shadow.h"
 
+#include "../../../Base/Physics/Filter/collision_filter.h"
+
 #ifdef _DEBUG
 #include "../../../Base/Physics/Debug/debug_draw.h"
 #endif
@@ -59,10 +61,6 @@ namespace shadowpartner
 		else {
 			return;
 		}
-
-		b2WorldManifold manifold;
-		contact->GetWorldManifold(&manifold);
-		manifold.normal;
 
 		// 範囲内になったライトの数をプラス
 		if (other->tag_ == kLargeLight)

@@ -17,7 +17,8 @@ namespace physics
 namespace shadowpartner
 {
 	class Player;
-	
+	class Jumper;
+
 	class IdleState : public ActorState {
 	public:
 		IdleState(Actor *owner);
@@ -26,6 +27,7 @@ namespace shadowpartner
 
 	protected:
 		Player *player_;
+		Jumper *jumper_;
 		physics::BoxCollider *box_collider_;
 
 	private:

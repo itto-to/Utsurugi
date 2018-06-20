@@ -12,13 +12,17 @@
 #include "../../../Base/Input/input.h"
 #include "../Common/actor.h"
 
+#define CLAMP(x, low, hi)	(min(max((x), (low)), (hi)))
+
 using namespace physics;
 
 namespace shadowpartner
 {
 
-namespace {
-	float kMoveSpeed = 10.0f;
+namespace
+{
+	float kMoveForce = 100.0f;
+	float kMaxSpeedX = 1.0f;
 }
 
 
@@ -36,24 +40,32 @@ void JumpState::Execute()
 {
 	// 移動
 	float move = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
-	owner_->game_object_->transform_->position_.x += move * kMoveSpeed;
+	Move(move * kMoveForce);
 
 	// 着地判定
-	RaycastHit hit_info = physics::PhysicsFunc::Raycast(
-		owner_->transform_->position_ + Vector2::down() * 50.0f,
-		Vector2::down(), 0.15f);
+	if (!IsFalling())	// 上昇中なら着地判定しない
+		return;
 
-	if (hit_info.collider != nullptr)
+	RaycastHit hit_info = physics::PhysicsFunc::Raycast(
+		owner_->transform_->position_ + Vector2::down() * 0.5f,
+		Vector2::down(), 0.05f);
+
+	// FIXME:レイキャストで返ってきたコライダーがトリガーだった場合待機状態に遷移しなくなってしまう
+	if (hit_info.collider != nullptr && !hit_info.collider->is_trigger_)
 	{
-		//owner_->transform_->position_ = hit_info.hit_point + Vector2::up() * 50.0f;
 		owner_->ChangeState(new IdleState(owner_));
 	}
 }
 
-void JumpState::Move(float move)
+void JumpState::Move(const float move)
 {
-	owner_->transform_->position_.x += move * kMoveSpeed;
-	collider_->SetTransform(owner_->transform_->position_, owner_->transform_->rotation_);
+	collider_->AddForce(Vector2::right() * move);
+	collider_->SetVelocityX(CLAMP(collider_->VelocityX(), -kMaxSpeedX, kMaxSpeedX));
+}
+
+bool JumpState::IsFalling() const
+{
+	return collider_->Velocity().y < 0.0f;
 }
 
 }

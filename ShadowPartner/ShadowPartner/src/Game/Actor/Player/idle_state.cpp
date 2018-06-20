@@ -13,6 +13,7 @@
 #include "../../../Base/Input/input.h"
 #include "../../../Base/Physics/physics.h"
 #include "player.h"
+#include "../Common/jumper.h"
 
 using namespace physics;
 
@@ -25,12 +26,22 @@ namespace shadowpartner
 	void IdleState::Enter()
 	{
 		player_ = dynamic_cast<Player*>(owner_);
+		jumper_ = owner_->GetComponent<Jumper>();
 		box_collider_ = owner_->game_object_->GetComponent<BoxCollider>();
 	}
 
 	void IdleState::Execute()
 	{
-		if (input::Input::Instance()->GetAxis(input::InputAxis::Horizontal) != 0.0f)
+		RaycastHit hit_info = physics::PhysicsFunc::Raycast(
+			owner_->transform_->position_ + Vector2::down() * 0.5f,
+			Vector2::down(), 0.05f);
+		
+		if (hit_info.collider == nullptr || hit_info.collider->is_trigger_)
+		{
+			// ‹ó’†‚È‚ç—Ž‰º
+			owner_->ChangeState(new JumpState(owner_));
+		}
+		else if (input::Input::Instance()->GetAxis(input::InputAxis::Horizontal) != 0.0f)
 		{
 			// ˆÚ“®
 			owner_->ChangeState(new WalkState(owner_));
@@ -38,7 +49,8 @@ namespace shadowpartner
 		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump))
 		{
 			// ƒWƒƒƒ“ƒv“ü—Í
-			box_collider_->AddForce(Vector2::up() * 700000000.0f);
+			jumper_->Jump();
+			//box_collider_->AddForce(Vector2::up() * 100.0f);
 			owner_->ChangeState(new JumpState(owner_));
 		}
 		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Skill))

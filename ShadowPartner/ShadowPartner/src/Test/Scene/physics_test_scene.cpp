@@ -28,11 +28,11 @@ namespace shadowpartner
 {
 	const Vector2 pyramid_points[15] =
 	{
-		{100,0},{120,0},{140,0},{160,0},{180,0},
-		{110,20},{130,20},{150,20},{170,20},
-		{120,40},{140,40},{160,40},
-		{130,60},{150,60},
-		{140,80}
+		{1.0f,0.0f},{1.2f,0.0f},{1.4f,0.0f},{1.6f,0.0f},{1.8f,0.0f},
+		{1.1f,0.2f},{1.3f,0.2f},{1.5f,0.2f},{1.7f,0.2f},
+		{1.2f,0.4f},{1.4f,0.4f},{1.6f,0.4f},
+		{1.3f,0.6f},{1.5f,0.6f},
+		{1.4f,0.8f}
 	};
 
 	// コンストラクタ
@@ -66,20 +66,19 @@ namespace shadowpartner
 		// 動く円形のオブジェクト
 		{
 			dynamic_circle = new GameObject();
-			dynamic_circle->transform_->position_ = Vector2(-100.0f, 100.0f);
+			dynamic_circle->transform_->position_ = Vector2(-1.0f, 1.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(30, 30));
+			sprite->SetSize(Vector2(0.3f, 0.3f));
 			sprite->SetColor(D3DCOLOR_RGBA(255, 0, 0, 255));
 			sprite->SetOrderInLayer(1);
 			dynamic_circle->AddComponent(sprite);
 
 			// 円形の当たり判定の設定
 			CircleInitializer circle_init;
-			circle_init.radius_ = 10.0f;
+			circle_init.radius_ = 0.1f;
 			circle_init.pos_ = dynamic_circle->transform_->position_;
-			circle_init.body_type_ = kStaticBody;
 
 			CircleCollider *circle_collider = new CircleCollider(circle_init);
 			dynamic_circle->AddComponent(circle_collider);
@@ -91,19 +90,20 @@ namespace shadowpartner
 		// 静止したボックス
 		{
 			static_box = new GameObject();
-			static_box->transform_->position_ = Vector2(0.0f, -215.0f);
+			static_box->transform_->position_ = Vector2(0.0f, -2.15f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
-			sprite->SetSize(Vector2(1120, 200));
+			sprite->SetSize(Vector2(11.2f, 2.0f));
 			sprite->SetColor(D3DCOLOR_RGBA(0, 255, 0, 255));
 			static_box->AddComponent(sprite);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-			box_init.width_ = 1120.0f;
-			box_init.height_ = 200.0f;
+			box_init.width_ = 11.2f;
+			box_init.height_ = 2.0f;
 			box_init.pos_ = static_box->transform_->position_;
+			box_init.body_type_ = BodyType::kStaticBody;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
 			static_box->AddComponent(box_collider);
@@ -119,15 +119,14 @@ namespace shadowpartner
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
-			sprite->SetSize(Vector2(10, 10));
+			sprite->SetSize(Vector2(0.1f, 0.1f));
 			sprite->SetColor(D3DCOLOR_RGBA(255, 30, 30, 255));
 			dynamic_box->AddComponent(sprite);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-			box_init.width_ = 10.0f;
-			box_init.height_ = 10.0f;
-			box_init.body_type_ = kDynamicBody;
+			box_init.width_ = 0.1f;
+			box_init.height_ = 0.1f;
 			box_init.pos_ = dynamic_box->transform_->position_;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
@@ -140,18 +139,19 @@ namespace shadowpartner
 		// 動かない円形のオブジェクト
 		{
 			static_circle = new GameObject();
-			static_circle->transform_->position_ = Vector2(400.0f, -130.0f);
+			static_circle->transform_->position_ = Vector2(4.0f, -1.3f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(200, 200));
+			sprite->SetSize(Vector2(2, 2));
 			sprite->SetColor(D3DCOLOR_RGBA(30, 200, 30, 255));
 			static_circle->AddComponent(sprite);
 
 			// 円形の当たり判定の設定
 			CircleInitializer circle_init;
-			circle_init.radius_ = 100.0f;
+			circle_init.radius_ = 1.0f;
 			circle_init.pos_ = static_circle->transform_->position_;
+			circle_init.body_type_ = BodyType::kStaticBody;
 
 			CircleCollider *circle_collider = new CircleCollider(circle_init);
 			static_circle->AddComponent(circle_collider);
@@ -169,15 +169,14 @@ namespace shadowpartner
 				pyramids_[i]->transform_->position_ = pyramid_points[i];
 
 				Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
-				sprite->SetSize(Vector2(20, 20));
+				sprite->SetSize(Vector2(0.2f, 0.2f));
 				sprite->SetColor(D3DCOLOR_RGBA(200, 153, 50, 255));
 				pyramids_[i]->AddComponent(sprite);
 
 				// 矩形の当たり判定の設定
 				BoxInitializer box_init;
-				box_init.width_ = 20.0f;
-				box_init.height_ = 20.0f;
-				box_init.body_type_ = kDynamicBody;
+				box_init.width_ = 0.2f;
+				box_init.height_ = 0.2f;
 				box_init.pos_ = pyramids_[i]->transform_->position_;
 
 				BoxCollider *box_collider = new BoxCollider(box_init);
@@ -197,13 +196,13 @@ namespace shadowpartner
 		CircleCollider *circle_collider = dynamic_circle->GetComponent<CircleCollider>();
 
 		RaycastHit hit_info = physics::PhysicsFunc::Raycast(
-			dynamic_circle->transform_->position_ + Vector2::down() * 9.9f,
+			dynamic_circle->transform_->position_ + Vector2::down() * 0.01f,
 			Vector2::down(), 0.15f);
 
 		if (hit_info.collider != nullptr)
 			if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump))
 			{
-				circle_collider->AddForce(Vector2::up() * 700000000.0f);
+				circle_collider->AddForce(Vector2::up() * 15.0f);
 			}
 
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
@@ -217,7 +216,7 @@ namespace shadowpartner
 		move.x = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
 		move.y = input::Input::Instance()->GetAxis(input::InputAxis::Vertical);
 
-		dynamic_circle->GetComponent<CircleCollider>()->AddForce(move * 10000000.0f);
+		dynamic_circle->GetComponent<CircleCollider>()->AddForce(move * 1.0f);
 
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Cancel))
 			SceneManager::LoadScene(new LightTestScene());

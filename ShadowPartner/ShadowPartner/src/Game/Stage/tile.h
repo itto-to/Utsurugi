@@ -7,10 +7,6 @@
 #include "../Application/application.h"
 #include "../../Base/2D/sprite.h"
 #include "../../Base/2D/texture.h"
-#include "../../Base/Physics/Element/circle_collider.h"
-#include "../../Base/Physics/Physics.h"
-
-using namespace physics;
 
 namespace shadowpartner
 {
@@ -31,7 +27,6 @@ namespace shadowpartner
 
 		//variables
 		//Layer tilelayer_;
-		BoxCollider *box_collider_;
 		Texture *texture_;
 		Vertex2D vertices_[NUM_TEXTURE_VERTEX];
 		Vector2 uv_offset_;		// テクスチャーのuv座標の左上

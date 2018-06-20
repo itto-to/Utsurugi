@@ -11,11 +11,13 @@
 
 namespace physics
 {
-	class BoxCollider;
+	class Collider;
 }
 
 namespace shadowpartner
 {
+
+class Jumper;
 
 class WalkState : public ActorState {
 public:
@@ -24,9 +26,10 @@ public:
 	void Execute() override;
 
 private:
-	physics::BoxCollider *collider;
+	physics::Collider *collider_;
+	Jumper *jumper_;
 
-	void Move(float delta);
+	void Move(const float move);
 };
 
 }

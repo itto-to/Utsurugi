@@ -87,9 +87,35 @@ namespace physics
 		body_->ApplyForceToCenter(b2Vec2(force.x,force.y),true);
 	}
 
+	Vector2 Collider::Velocity() const
+	{
+		b2Vec2 v = body_->GetLinearVelocity();
+		return Vector2(v.x, v.y);
+	}
+
 	void Collider::SetVelocity(const Vector2 &velo)
 	{
 		body_->SetLinearVelocity(b2Vec2(velo.x, velo.y));
+	}
+
+	float Collider::VelocityX() const
+	{
+		return body_->GetLinearVelocity().x;
+	}
+
+	void Collider::SetVelocityX(float x)
+	{
+		body_->SetLinearVelocity(b2Vec2(x, body_->GetLinearVelocity().y));
+	}
+
+	float Collider::VelocityY() const
+	{
+		return body_->GetLinearVelocity().y;
+	}
+
+	void Collider::SetVelocityY(float y)
+	{
+		body_->SetLinearVelocity(b2Vec2(body_->GetLinearVelocity().x, y));
 	}
 
 	void Collider::Stop()

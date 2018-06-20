@@ -11,7 +11,7 @@
 #include "../../Base/Element/component.h"
 #include "../../Base/Debug/debugger.h"
 
-
+#include "../../Base/Physics/physics.h"
 
 //==========================================================
 // É}ÉNÉç
@@ -56,7 +56,7 @@ namespace shadowpartner
 		Tile **tiles_;
 		friend class CornerCandidates;
 		// variables
-
+		physics::TileMapCollider *tilemap_collider;
 		// methods
 
 	};

@@ -81,6 +81,12 @@ namespace physics
 
 		void AddForce(const Vector2 &force);
 		void SetVelocity(const Vector2 &velo);
+		Vector2 Velocity() const;
+		float VelocityX() const;
+		void SetVelocityX(float x);
+		float VelocityY() const;
+		void SetVelocityY(float y);
+
 		void SetAwake(bool flag);
 
 		void Stop();

@@ -22,6 +22,7 @@ public:
 	JumpState(Actor *owner);
 	void Enter() override;
 	void Execute() override;
+	bool IsFalling() const;
 
 private:
 	physics::BoxCollider *collider_;

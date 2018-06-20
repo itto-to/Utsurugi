@@ -1,11 +1,11 @@
 //==========================================================
-// 概要  :矩形の当たり判定
+// 概要  :タイルマップの当たり判定
 // Author:Itsuki Namito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 
-#ifndef _BASE_PHYSICS_ELEMENT_BOX_COLLIDER_H_
-#define _BASE_PHYSICS_ELEMENT_BOX_COLLIDER_H_
+#ifndef _BASE_PHYSICS_ELEMENT_TILEMAP_COLLIDER_H_
+#define _BASE_PHYSICS_ELEMENT_TILEMAP_COLLIDER_H_
 
 //**********************************************************
 // インクルードファイル
@@ -16,35 +16,32 @@ using namespace shadowpartner;
 
 namespace physics
 {
-
-	struct BoxInitializer
+	//==========================================================
+	// 概要  :タイルマップの初期化情報
+	// 注意  :collision_existはnewで確保したものを渡してください。内部でdeleteするので、
+	//       :newだけしたらdeleteは意識する必要はありません。
+	//==========================================================
+	struct TileMapInitializer
 	{
-		Vector2 pos_;			// 位置
-		Vector2 offset_;
+		Vector2 pos_;			// タイルマップの中心位置
+		int x_lenght_;			// X方向のタイルの数
+		int y_lenght_;			// Y方向のタイルの数
 		float width_;			// 横幅
 		float height_;			// 縦幅
-		BodyType body_type_;	// ボディーのタイプ
-		bool is_trigger_;		// トリガーかどうか
-		bool fixed_rotation_;	// trueで回転を許可しない
+		bool *collision_exist;	// collision_exist[y * x_length_ + x]にコリジョンが存在する？
 		float density_;			// 密度
 		float friction_;		// 摩擦係数
 		float bounciness_;		// 反発係数
-		unsigned short category_bits_;	// 自分のフィルタービット列
-		unsigned short mask_bits_;		// 当たる相手のフィルタービット列
 
-		BoxInitializer()
+		TileMapInitializer()
 			:pos_(Vector2::zero())
-			, offset_(Vector2::zero())
+			,x_lenght_(0)
+			,y_lenght_(0)
 			, width_(1.0f)
 			, height_(1.0f)
-			, body_type_(kDynamicBody)
-			, is_trigger_(false)
-			, fixed_rotation_(true)
 			, density_(1.0f)
 			, friction_(0.6f)
 			, bounciness_(0.0f)
-			, category_bits_(0x0001)
-			, mask_bits_(0xffff)
 		{
 		}
 	};
@@ -52,26 +49,19 @@ namespace physics
 	//==========================================================
 	// 概要  :全コライダーの基底クラス
 	//==========================================================
-	class BoxCollider : public Collider
+	class TileMapCollider : public Collider
 	{
 	public:
-		BoxCollider(const BoxInitializer &initializer);
-		virtual ~BoxCollider() {};
+		TileMapCollider(const TileMapInitializer &initializer);
+		virtual ~TileMapCollider() {};
 
-		// variables
+		// ariables
 		// methods
 		Vector2 GetSize();
-
-		void ReSet(const BoxInitializer &initializer);
-
-		void SetOffset(const Vector2 &offset);
-
 	protected:
 
 		// methods
 		void Start();
-
-		void SetCollider(const BoxInitializer &ini);
 
 		virtual void OnCollisionEnter(Collider *hit) {};
 		virtual void OnCollisionStay(Collider *hit) {};

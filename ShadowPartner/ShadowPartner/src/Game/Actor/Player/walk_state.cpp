@@ -5,6 +5,10 @@
 //==========================================================
 #include "walk_state.h"
 
+#include <algorithm>
+#include <cassert>
+
+#include "../Common/jumper.h"
 #include "jump_state.h"
 #include "idle_state.h"
 #include "../../../Base/Physics/Element/box_collider.h"
@@ -13,44 +17,52 @@
 #include "../../../Base/Input/input.h"
 #include "../../../Base/Physics/physics.h"
 
+#define CLAMP(x, low, hi)	(min(max((x), (low)), (hi)))
+
 using namespace physics;
 
 namespace shadowpartner
 {
 	namespace{
-		float kMoveSpeed = 2.0f;
+		float kMoveForce = 100.0f;
+		float kMaxSpeedX = 1.0f;
 	}
 
-	WalkState::WalkState(Actor * owner) : ActorState(owner)
+	WalkState::WalkState(Actor *owner) : ActorState(owner)
 	{
 		Enter();
 	}
 
 	void WalkState::Enter()
 	{
-		collider = owner_->game_object_->GetComponent<BoxCollider>();
+		collider_ = owner_->GetComponentInherit<Collider>();
+		jumper_ = owner_->GetComponent<Jumper>();
+		assert(collider_ != nullptr && "WalkState‚ÌEnterˆ—‚Åcollider_‚ªnullptr");
 	}
 
 	void WalkState::Execute()
 	{
+		// ˆÚ“®
 		float move = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
-		//BoxCollider *box_collider = owner_->GetComponent<BoxCollider>();
-		Move(move * kMoveSpeed);
+		if (move != 0.0f)
+			Move(move * kMoveForce);
 
-		if (move == 0.0f) {
+		if (collider_->Velocity().x == 0.0f) {
 			// ’âŽ~
 			owner_->ChangeState(new IdleState(owner_));
 		}
-		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump)) {
+		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump))
+		{
 			// ƒWƒƒƒ“ƒv“ü—Í
-			collider->AddForce(Vector2::up() * 700000000.0f);
+			jumper_->Jump();
 			owner_->ChangeState(new JumpState(owner_));
 		}
 	}
 
-	void WalkState::Move(float move)
+	void WalkState::Move(const float move)
 	{
-		owner_->transform_->position_.x += move * kMoveSpeed;
-		collider->SetTransform(owner_->transform_->position_, owner_->transform_->rotation_);
+		collider_->AddForce(Vector2::right() * move);
+		collider_->SetVelocityX(CLAMP(collider_->VelocityX(), -kMaxSpeedX, kMaxSpeedX));
+		//collider_->SetTransform(owner_->transform_->position_, owner_->transform_->rotation_);
 	}
 }

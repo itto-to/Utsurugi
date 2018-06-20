@@ -333,6 +333,12 @@
     <ClCompile Include="src\Game\Actor\Common\jumper.cpp">
       <Filter>ソース ファイル\Game\Actor\Common</Filter>
     </ClCompile>
+    <ClCompile Include="src\Base\Physics\Element\tilemap_collider.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Actor\Common\movable.cpp">
+      <Filter>ソース ファイル\Game\Actor\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base\System\scene.h">
@@ -504,6 +510,9 @@
       <Filter>ヘッダー ファイル\Base\Physics\Filter</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\Actor\Common\jumper.h">
+      <Filter>ヘッダー ファイル\Game\Actor\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Actor\Common\movable.h">
       <Filter>ヘッダー ファイル\Game\Actor\Common</Filter>
     </ClInclude>
   </ItemGroup>

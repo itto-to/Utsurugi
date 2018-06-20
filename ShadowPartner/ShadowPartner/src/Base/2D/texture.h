@@ -21,6 +21,7 @@ using namespace math;
 #define FVF_VERTEX_2D (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 #define NUM_TEXTURE_VERTEX (4)
 #define NUM_TEXTURE_POLYGON (2)
+#define PIXEL_PER_UNIT (100)
 
 namespace shadowpartner
 {

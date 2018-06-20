@@ -70,11 +70,6 @@ namespace shadowpartner
 		{
 			delete texture_;
 		}
-		if (box_collider_ != nullptr)
-		{
-			delete box_collider_;
-		}
-
 	}
 
 	//==========================================================

@@ -61,7 +61,7 @@ namespace shadowpartner
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(TITLE_BACKGROUND_TEXTURE_NAME);
-			sprite->SetSize(Vector2(1120, 630));
+			sprite->SetSize(Vector2(11.2f, 6.3f));
 			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0xff));
 			title_background_->AddComponent(sprite);
 
@@ -70,17 +70,17 @@ namespace shadowpartner
 		}
 
 		current_button_index_ = 0;
-		Vector2 next_button_pos_ = Vector2(400.0f, 0.0f);
-		Vector2 button_pos_diff_ = Vector2(0.0f, -80.0f);
+		Vector2 next_button_pos_ = Vector2(4.0f, 0.0f);
+		Vector2 button_pos_diff_ = Vector2(0.0f, -0.8f);
 
 		// 選択中のコマンドの光のオブジェクト
 		{
 			title_light_fog_ = new GameObject();
-			title_light_fog_->transform_->position_ = Vector2(400.0f, 0.0f);
+			title_light_fog_->transform_->position_ = Vector2(4.0f, 0.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(TITLE_LIGHT_FOG_TEXTURE_NAME);
-			sprite->SetSize(Vector2(160, 80));
+			sprite->SetSize(Vector2(1.6f, 0.8f));
 			sprite->SetColor(TITLE_POINTED_COLOR);
 			title_light_fog_->AddComponent(sprite);
 
@@ -97,7 +97,7 @@ namespace shadowpartner
 
 				// スプライトの設定
 				Sprite *sprite = new Sprite(TITLE_COMMANDS_TEXTURE_NAME);
-				sprite->SetSize(Vector2(160, 80));
+				sprite->SetSize(Vector2(1.6f, 0.8f));
 				sprite->SetUvOffset(Vector2(0.5f * (i / 2),0.5f * (i % 2)));
 				sprite->SetUvSize(Vector2::one() * 0.5f);
 				sprite->SetColor(TITLE_NOT_POINTED_COLOR);
