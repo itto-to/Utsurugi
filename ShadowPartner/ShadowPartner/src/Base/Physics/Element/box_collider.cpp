@@ -57,7 +57,7 @@ namespace physics
 		box_body_def.fixedRotation = ini.fixed_rotation_;
 
 		body_ = PhysicsWorld::CreateBody(this, &box_body_def);
-		body_->SetUserData(this);
+		body_->SetUserData((void *)this);
 
 		b2PolygonShape box;
 		box.SetAsBox(ini.width_ / 2.0f, ini.height_ / 2.0f, b2Vec2(ini.offset_.x, ini.offset_.y), 0.0f);
@@ -123,5 +123,21 @@ namespace physics
 		b2PolygonShape *box = (b2PolygonShape *)body_->GetFixtureList()->GetShape();
 
 		box->SetAsBox(size_.x, size_.y, b2Vec2(offset.x, offset.y), 0.0f);
+	}
+
+	void BoxCollider::AddFixture(const BoxInitializer& ini)
+	{
+		b2PolygonShape box;
+		box.SetAsBox(ini.width_, ini.height_, b2Vec2(ini.offset_.x, ini.offset_.y), 0.0f);
+
+		b2FixtureDef fix_def;
+		fix_def.shape = &box;
+		fix_def.userData = static_cast<void*>(this);
+		fix_def.friction = ini.friction_;
+		fix_def.density = ini.density_;
+		fix_def.isSensor = ini.is_trigger_;
+		fix_def.filter.categoryBits = ini.category_bits_;
+		fix_def.filter.maskBits = ini.mask_bits_;
+		body_->CreateFixture(&fix_def);
 	}
 }

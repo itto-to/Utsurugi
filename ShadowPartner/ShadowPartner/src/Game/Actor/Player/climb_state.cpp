@@ -23,6 +23,7 @@ namespace shadowpartner
 		void ClimbState::Execute()
 		{
 			float move = input::Input::Instance()->GetAxis(input::InputAxis::Vertical);
+			
 			owner_->game_object_->transform_->position_.y += move;
 
 		}

@@ -29,7 +29,7 @@ using namespace physics;
 
 namespace
 {
-	const Vector2 kInitPlayerPos = Vector2(-200.0f, 0.0f);
+	const Vector2 kInitPlayerPos = Vector2(0.0f, 3.0f);
 }
 
 namespace shadowpartner
@@ -68,10 +68,10 @@ namespace shadowpartner
 		// 背景
 		{
 			back_ground_ = new GameObject();
-			back_ground_->transform_->position_ = Vector2(1120, 0);
+			back_ground_->transform_->position_ = Vector2(11.2f, 0.0f);
 
 			Sprite *sprite = new Sprite(BACK_GROUND_TEXTURE_NAME);
-			sprite->SetSize(Vector2(3360.0f, 630.0f));
+			sprite->SetSize(Vector2(33.6f, 6.3f));
 			back_ground_->AddComponent(sprite);
 
 			AddGameObject(back_ground_);
@@ -80,10 +80,10 @@ namespace shadowpartner
 		// ゲート
 		{
 			back_ground_ = new GameObject();
-			back_ground_->transform_->position_ = Vector2(400, -160);
+			back_ground_->transform_->position_ = Vector2(4.0f, -1.6f);
 
 			Sprite *sprite = new Sprite(CLEAR_GATE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(100.0f, 150.0f));
+			sprite->SetSize(Vector2(1.0f, 1.5f));
 			back_ground_->AddComponent(sprite);
 
 			AddGameObject(back_ground_);
@@ -95,7 +95,7 @@ namespace shadowpartner
 			stages_[0] = new GameObject();
 			stages_[0]->transform_->position_ = Vector2(0.0f, 0.0f);
 
-			Stage *stage = new Stage(StageNumber::kTest, *stages_[0], TILE_DATA, STAGE_PASS);
+			Stage *stage = new Stage(StageNumber::kTest, *stages_[0]);
 			stages_[0]->AddComponent(stage);
 
 			AddGameObject(stages_[0]);
@@ -107,16 +107,16 @@ namespace shadowpartner
 			player_->transform_->position_ = kInitPlayerPos;
 
 			Sprite *sprite = new Sprite(PLAYER_TEXTURE_NAME);
-			sprite->SetSize(Vector2(100, 100));
+			sprite->SetSize(Vector2(1.0f, 1.0f));
 			player_->AddComponent(sprite);
 			Player *actor = new Player();
 			player_->AddComponent(actor);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-			box_init.width_ = 100.0f;
-			box_init.height_ = 100.0f;
-			box_init.density_ = 0.00001f;
+			box_init.width_ = 1.0f;
+			box_init.height_ = 1.0f;
+			box_init.density_ = 0.1f;
 			box_init.body_type_ = kDynamicBody;
 			box_init.is_trigger_ = false;
 			box_init.pos_ = player_->transform_->position_;
@@ -128,30 +128,8 @@ namespace shadowpartner
 			AddGameObject(player_);
 
 		}
-
-		//{
-		//	test = new GameObject();
-		//	test->transform_->position_ = Vector2(100.0f, 150.0f);
-
-		//	// スプライトの設定
-		//	Sprite *sprite = new Sprite("Resources/Texture/WhiteCircle.png");
-		//	sprite->SetSize(Vector2(30, 30));
-		//	sprite->SetColor(D3DCOLOR_RGBA(255, 0, 0, 255));
-		//	sprite->SetOrderInLayer(1);
-		//	test->AddComponent(sprite);
-
-		//	// 円形の当たり判定の設定
-		//	CircleInitializer circle_init;
-		//	circle_init.radius_ = 10.0f;
-		//	circle_init.pos_ = test->transform_->position_;
-		//	circle_init.body_type_ = kDynamicBody;
-
-		//	CircleCollider *circle_collider = new CircleCollider(circle_init);
-		//	test->AddComponent(circle_collider);
-
-		//	// シーンにゲームオブジェクトを登録
-		//	AddGameObject(test);
-		//}		StageScene::Init();
+		
+		StageScene::Init();
 
 		return S_OK;
 	}
@@ -174,10 +152,9 @@ namespace shadowpartner
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
 		{
 			static int z = 0;
-			z = (z + 1) % 3;
-			Camera::main_->SetZoom(0.5f + 0.33f * (z + 1));
+			z = (z + 1) % 4;
+			Camera::main_->SetZoom(0.64f + 0.33f * (z + 1));
 		}
-
 	}
 
 	void FirstStageScene::Uninit()

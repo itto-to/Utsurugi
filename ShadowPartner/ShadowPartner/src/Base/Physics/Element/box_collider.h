@@ -66,6 +66,8 @@ namespace physics
 
 		void SetOffset(const Vector2 &offset);
 
+		void AddFixture(const BoxInitializer& ini);
+
 	protected:
 
 		// methods

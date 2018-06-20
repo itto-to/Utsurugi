@@ -9,6 +9,7 @@
 #include "../../Test/Scene/physics_test_scene.h"
 #include "../../Game/Scene/title_scene.h"
 #include "../../Test/Scene/player_test_scene.h"
+//#include "../Physics/physics.h"
 
 namespace shadowpartner
 {
@@ -66,17 +67,17 @@ namespace shadowpartner
 		//current_scene_->Init();
 
 		//scenes_.push_back(title_scene);
-
-		//TEST: Œã‚ÅÁ‚·
-		PlayerTestScene *test = new PlayerTestScene();
-		current_scene_ = test;
-		current_scene_->Init();
-		scenes_.push_back(test);
 		
+		PlayerTestScene *player_test_scene = new PlayerTestScene();
+		current_scene_ = player_test_scene;
+		current_scene_->Init();
+		scenes_.push_back(player_test_scene);
+
+		//PhysicsTestScene *physics_test_scene = new PhysicsTestScene();
+		//current_scene_ = physics_test_scene;
 
 		//current_scene_->Init();
 
-		//scenes_.push_back(physics_test_scene);
 		//scenes_.push_back(physics_test_scene);
 
 		return S_OK;
@@ -163,6 +164,7 @@ namespace shadowpartner
 			instance_->scenes_[i] = nullptr;
 		}
 
+		//physics::PhysicsWorld::ClearBody();
 		instance_->scenes_.clear();
 
 		// V‚µ‚¢ƒV[ƒ“‚Ìì¬

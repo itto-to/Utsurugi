@@ -32,7 +32,7 @@ JumpState::JumpState(Actor *owner) : ActorState(owner)
 
 void JumpState::Enter()
 {
-	collider_ = owner_->game_object_->GetComponent<BoxCollider>();
+	collider_ = owner_->game_object_->GetComponentInherit<Collider>();
 }
 
 
@@ -43,15 +43,15 @@ void JumpState::Execute()
 	Move(move * kMoveForce);
 
 	// 着地判定
-	if (!IsFalling())	// 上昇中なら着地判定しない
-		return;
+	//if (!IsFalling())	// 上昇中なら着地判定しない
+	//	return;
 
 	RaycastHit hit_info = physics::PhysicsFunc::Raycast(
 		owner_->transform_->position_ + Vector2::down() * 0.5f,
-		Vector2::down(), 0.05f);
+		Vector2::down(), 0.6f);
 
 	// FIXME:レイキャストで返ってきたコライダーがトリガーだった場合待機状態に遷移しなくなってしまう
-	if (hit_info.collider != nullptr && !hit_info.collider->is_trigger_)
+	if (hit_info.collider != nullptr)// && !hit_info.collider->is_trigger_)
 	{
 		owner_->ChangeState(new IdleState(owner_));
 	}

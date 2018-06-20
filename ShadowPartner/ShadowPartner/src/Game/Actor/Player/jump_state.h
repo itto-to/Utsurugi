@@ -11,7 +11,7 @@
 
 namespace physics
 {
-	class BoxCollider;
+	class Collider;
 }
 
 namespace shadowpartner
@@ -25,7 +25,7 @@ public:
 	bool IsFalling() const;
 
 private:
-	physics::BoxCollider *collider_;
+	physics::Collider *collider_;
 
 	void Move(float delta);
 };

@@ -28,32 +28,34 @@ namespace physics
 		tilemap_body_def.position.Set(ini.pos_.x, ini.pos_.y);
 
 		body_ = PhysicsWorld::CreateBody(this, &tilemap_body_def);
-		body_->SetUserData(this);
+		body_->SetUserData((void *)this);
 
-		Vector2 offset = Vector2(ini.pos_.x - ini.width_ * ((float)ini.x_lenght_ / 2.0f),ini.pos_.y + ini.height_ * ((float)ini.y_lenght_ / 2.0f));
-		b2PolygonShape box;
-		b2FixtureDef tilemap_fixture_def;
+		Vector2 offset = Vector2(ini.pos_.x - ini.width_ * ((float)ini.x_lenght_ / 2.0f - 0.5f),ini.pos_.y + ini.height_ * ((float)ini.y_lenght_ / 2.0f -0.5f));
 
 		for (int y = 0;y < ini.y_lenght_;++y,offset.y -= ini.height_)
 		{
 			// オフセットのX座標の位置を左はじに戻す
-			offset.x = ini.pos_.x - ini.width_ * ((float)ini.x_lenght_ / 2.0f);
+			offset.x = ini.pos_.x - ini.width_ * ((float)ini.x_lenght_ / 2.0f - 0.5f);
 
 			for (int x = 0;x < ini.x_lenght_;++x,offset.x += ini.width_)
 			{
+				if (ini.collision_exist[y * ini.x_lenght_ + x])
+				{
+					b2PolygonShape box;
+					b2FixtureDef tilemap_fixture_def;
 
-				box.SetAsBox(ini.width_ / 2.0f, ini.height_ / 2.0f, b2Vec2(offset_.x, offset_.y), 0.0f);
+					box.SetAsBox(ini.width_ / 2.0f, ini.height_ / 2.0f, b2Vec2(offset.x, offset.y), 0.0f);
 
+					tilemap_fixture_def.shape = &box;
 
-				tilemap_fixture_def.shape = &box;
+					tilemap_fixture_def.density = ini.density_;
+					tilemap_fixture_def.friction = ini.friction_;
 
-				tilemap_fixture_def.density = ini.density_;
-				tilemap_fixture_def.friction = ini.friction_;
-
-				body_->CreateFixture(&tilemap_fixture_def);
+					body_->CreateFixture(&tilemap_fixture_def);
+				}
 			}
 		}
-		//delete[] ini.collision_exist;
+		delete[] ini.collision_exist;
 		size_ = Vector2(ini.width_, ini.height_);
 	}
 

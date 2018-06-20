@@ -8,7 +8,7 @@
 
 namespace shadowpartner {
 
-	Actor::Actor() : state_(nullptr), is_controllable_(true) {}
+	Actor::Actor() : state_(nullptr), is_controllable_(true), direction_(kRight) {}
 
 	Actor::Actor(ActorState* state) : state_(state) , is_controllable_(true) {}
 

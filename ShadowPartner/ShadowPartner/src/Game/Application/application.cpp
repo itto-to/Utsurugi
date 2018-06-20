@@ -36,7 +36,7 @@ namespace shadowpartner
 	//**********************************************************
 	// ’è”
 	//**********************************************************
-	const D3DCOLOR BACKGROUND_COLOR = D3DCOLOR_RGBA(255, 255, 255, 255);
+	const D3DCOLOR BACKGROUND_COLOR = D3DCOLOR_RGBA(0x77, 0x77, 0x77, 0xff);
 
 	//**********************************************************
 	// Static
@@ -473,7 +473,7 @@ namespace shadowpartner
 			SceneManager::Instance()->Draw();
 
 #ifdef _DEBUG
-			//physics::PhysicsWorld::Draw();
+			physics::PhysicsWorld::Draw();
 			debug::Debug::Draw();
 #endif
 

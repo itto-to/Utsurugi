@@ -55,7 +55,7 @@ namespace shadowpartner
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(TEMP_ENDING_TEXTURE_NAME);
-			sprite->SetSize(Vector2(1120, 630));
+			sprite->SetSize(Vector2(11.2f, 6.3f));
 			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0xff));
 			ending_image_->AddComponent(sprite);
 

@@ -79,6 +79,12 @@ namespace physics
 	// çXêVèàóù
 	void PhysicsWorld::Step()
 	{
+		int check = instance_->colliders_.size();
+		if (check != 0)
+		{
+			check = 0;
+		}
+
 		for (int i = 0;i < instance_->colliders_.size();++i)
 		{
 			instance_->colliders_[i]->SetTransform
@@ -138,6 +144,16 @@ namespace physics
 		}
 
 		instance_->colliders_.erase(instance_->colliders_.begin() + index);
+	}
+
+	void PhysicsWorld::ClearBody()
+	{
+		for (int i = 0;i < instance_->colliders_.size();++i)
+		{
+			instance_->world_.DestroyBody(instance_->colliders_[i]->body_);
+		}
+
+		instance_->colliders_.clear();
 	}
 
 	// AccessorÅEMutator

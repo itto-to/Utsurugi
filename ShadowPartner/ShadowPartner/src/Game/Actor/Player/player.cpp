@@ -9,8 +9,6 @@
 #include "../../../Base/2D/sprite.h"
 #include "shadow.h"
 
-#include "../../../Base/Physics/Filter/collision_filter.h"
-
 #ifdef _DEBUG
 #include "../../../Base/Physics/Debug/debug_draw.h"
 #endif

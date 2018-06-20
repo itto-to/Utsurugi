@@ -1,11 +1,13 @@
+#define _CRT_SECURE_NO_WARNINGS			// scanf のwarning防止
 #include "stage.h"
 #include <stdio.h>
+
 
 using namespace physics;
 
 namespace shadowpartner
 {
-	Stage::Stage(StageNumber stageno, GameObject &game_object, char datatileno[], char datatilepass[])
+	Stage::Stage(StageNumber stageno, GameObject &game_object)
 	{
 
 		LoadStageData(stageno);
@@ -16,8 +18,8 @@ namespace shadowpartner
 		FILE *fp_no;
 		FILE *fp_pass;
 
-		err_no = fopen_s(&fp_no, datatileno, "r");	// ファイルを開く
-		err_pass = fopen_s(&fp_pass, datatilepass, "r");	// ファイルを開く
+		err_no = fopen_s(&fp_no, file_tileno, "r");	// ファイルを開く
+		err_pass = fopen_s(&fp_pass, file_tilepass, "r");	// ファイルを開く
 
 
 		if (err_no == 0)
@@ -43,8 +45,8 @@ namespace shadowpartner
 		tile_init.pos_ = game_object.transform_->position_;
 		tile_init.x_lenght_ = cell_horizontal;
 		tile_init.y_lenght_ = cell_vertical;
-		tile_init.width_ = DEFAULT_SCREEN_WIDTH / cell_horizontal;
-		tile_init.height_ = DEFAULT_SCREEN_HEIGHT / cell_vertical;
+		tile_init.width_ = (float)DEFAULT_SCREEN_WIDTH / cell_horizontal / (float)PIXEL_PER_UNIT;
+		tile_init.height_ = (float)DEFAULT_SCREEN_HEIGHT / cell_vertical / (float)PIXEL_PER_UNIT;
 		bool *collision_exist = new bool[cell_horizontal * cell_vertical];
 
 		for (int y = 0; y < cell_vertical; y++)
@@ -76,15 +78,17 @@ namespace shadowpartner
 		fclose(fp_no);							// ファイル操作終了
 		fclose(fp_pass);							// ファイル操作終了
 
+		tile_init.collision_exist = collision_exist;
 		tilemap_collider = new TileMapCollider(tile_init);
+		game_object.AddComponent(tilemap_collider);
 	}
 
 	void Stage::Draw()
 	{
-		Vector3 world_pos = Vector3(transform_->GetWorldPosition(), 0.0f);
+		Vector3 world_pos = Vector3(transform_->GetWorldPosition(), 0.0f) * PIXEL_PER_UNIT;
 		Vector3 draw_pos = Vector3(world_pos.x, -world_pos.y, 0.0f) / Camera::main_->GetZoom();	// スクリーン上の描画位置.まずy軸の方向を変える
 		Vector3 screen_center = Vector3(Application::Instance()->GetScreenWidth() / 2, Application::Instance()->GetScreenHeight() / 2, 0.0f);
-		draw_pos += screen_center - Vector3(Camera::main_->transform_->position_, 0.0f);
+		draw_pos += screen_center - Vector3(Camera::main_->transform_->position_, 0.0f) * PIXEL_PER_UNIT;
 
 		float zoom = Camera::main_->GetZoom();
 		//Vector2 world_scale = transform_->GetWorldScale();
@@ -155,13 +159,13 @@ namespace shadowpartner
 			fscanf_s(fp, "Stage%d", &compare);
 
 		} while (stageno != compare);
-		fscanf_s(fp, "%d\n", &devide_horizontal);
-		fscanf_s(fp, "%d\n", &devide_vertical);
-		fscanf_s(fp, "%d\n", &cell_horizontal);
-		fscanf_s(fp, "%d\n", &cell_vertical);
+		fscanf_s(fp, "%d", &devide_horizontal);
+		fscanf_s(fp, "%d", &devide_vertical);
+		fscanf_s(fp, "%d", &cell_horizontal);
+		fscanf_s(fp, "%d", &cell_vertical);
 
-		//fscanf_s(fp, "%s", file_tileno);
-		//fscanf_s(fp, "%s", file_tilepass);
+		fscanf(fp, "%s", file_tileno);
+		fscanf(fp, "%s", file_tilepass);
 
 
 		fclose(fp);							// ファイル操作終了

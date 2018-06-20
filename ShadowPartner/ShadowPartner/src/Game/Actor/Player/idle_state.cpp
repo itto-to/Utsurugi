@@ -34,7 +34,7 @@ namespace shadowpartner
 	{
 		RaycastHit hit_info = physics::PhysicsFunc::Raycast(
 			owner_->transform_->position_ + Vector2::down() * 0.5f,
-			Vector2::down(), 0.05f);
+			Vector2::down(), 0.6f);
 		
 		if (hit_info.collider == nullptr || hit_info.collider->is_trigger_)
 		{

@@ -249,33 +249,43 @@ namespace shadowpartner {
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-			box_init.width_      = kPlayerWidth;
-			box_init.height_     = kPlayerHeight;
-			box_init.density_    = 1.0f;
-			box_init.friction_   = 10.0f;
-			box_init.body_type_  = kDynamicBody;
-			box_init.is_trigger_ = false;
-			box_init.pos_ = player_->transform_->position_;
+			box_init.pos_           = player_->transform_->position_;
+			box_init.width_         = kPlayerWidth;
+			box_init.height_        = kPlayerHeight;
+			box_init.density_       = 1.0f;
+			box_init.friction_      = 10.0f;
+			box_init.body_type_     = kDynamicBody;
+			box_init.is_trigger_    = false;
+			box_init.category_bits_ = CollisionFilter::kPlayer;
+			box_init.mask_bits_     = ~CollisionFilter::kShadow;	// 影と衝突しない
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
 			box_collider->SetSleepingAllowed(false);	// Sleepを許可しない
+			// 矩形のセンサーの設定
+			BoxInitializer trigger_init;
+			trigger_init.width_ = kPlayerWidth;
+			trigger_init.height_ = kPlayerHeight;
+			trigger_init.offset_ = Vector2::zero();
+			trigger_init.category_bits_ = CollisionFilter::kPlayer;
+			trigger_init.category_bits_ = CollisionFilter::kShadow;	// 影とだけ反応する
+			box_collider->AddFixture(trigger_init);
+
 			player_->AddComponent(box_collider);
 
 
-			// 矩形のセンサーの設定
-			BoxInitializer box_trigger_init;
-			box_trigger_init.width_      = kPlayerWidth;
-			box_trigger_init.height_     = kPlayerHeight;
-			box_trigger_init.density_    = 1.0f;
-			box_trigger_init.friction_   = 10.0f;
-			box_trigger_init.body_type_  = kDynamicBody;
-			box_trigger_init.is_trigger_ = false;
-			box_trigger_init.pos_ = player_->transform_->position_;
+			//BoxInitializer box_trigger_init;
+			//box_trigger_init.width_      = kPlayerWidth;
+			//box_trigger_init.height_     = kPlayerHeight;
+			//box_trigger_init.density_    = 1.0f;
+			//box_trigger_init.friction_   = 10.0f;
+			//box_trigger_init.body_type_  = kDynamicBody;
+			//box_trigger_init.is_trigger_ = false;
+			//box_trigger_init.pos_ = player_->transform_->position_;
 
-			BoxCollider *box_trigger= new BoxCollider(box_trigger_init);
-			box_trigger->SetSleepingAllowed(false);	// Sleepを許可しない
-			box_trigger->tag_ = Tag::kPlayer;
-			player_->AddComponent(box_trigger);
+			//BoxCollider *box_trigger= new BoxCollider(box_trigger_init);
+			//box_trigger->SetSleepingAllowed(false);	// Sleepを許可しない
+			//box_trigger->tag_ = Tag::kPlayer;
+			//player_->AddComponent(box_trigger);
 
 			Jumper *jumper = new Jumper();
 			player_->AddComponent(jumper);
@@ -334,11 +344,13 @@ namespace shadowpartner {
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-			box_init.width_ = 1.0f;
-			box_init.height_ = 1.0f;
-			box_init.body_type_ = kDynamicBody;
-			box_init.is_trigger_ = true;
-			box_init.pos_ = shadow_->transform_->position_;
+			box_init.pos_           = shadow_->transform_->position_;
+			box_init.width_         = 1.0f;
+			box_init.height_        = 1.0f;
+			box_init.body_type_     = kDynamicBody;
+			box_init.is_trigger_    = true;
+			box_init.mask_bits_     = CollisionFilter::kShadow;
+			box_init.category_bits_ = ~CollisionFilter::kPlayer;	// プレイヤーとは衝突しない
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
 			shadow_->AddComponent(box_collider);
