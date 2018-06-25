@@ -6,6 +6,8 @@
 
 #include "player.h"
 #include "idle_state.h"
+#include "landing_trigger.h"
+#include "sleep_state.h"
 #include "../../../Base/2D/sprite.h"
 #include "shadow.h"
 
@@ -19,7 +21,8 @@ namespace shadowpartner
 	Player::Player() : 
 		hit_large_light(0),
 		hit_middle_light(0),
-		hit_small_light(0)
+		hit_small_light(0),
+		hit_climb(0)
 	{
 		state_ = new IdleState(this);
 	}
@@ -28,7 +31,8 @@ namespace shadowpartner
 		Actor(state),
 		hit_large_light(0),
 		hit_middle_light(0),
-		hit_small_light(0)
+		hit_small_light(0),
+		hit_climb(0)
 	{
 	}
 
@@ -38,79 +42,91 @@ namespace shadowpartner
 		state_ = nullptr;
 	}
 
-	void Player::BeginContact(b2Contact *contact)
-	{
-		Component *comp_a = static_cast<Component*>(contact->GetFixtureA()->GetBody()->GetUserData());
-		Component *comp_b = static_cast<Component*>(contact->GetFixtureB()->GetBody()->GetUserData());
+	//void Player::BeginContact(b2Contact *contact)
+	//{
+	//	Component *comp_a = static_cast<Component*>(contact->GetFixtureA()->GetBody()->GetUserData());
+	//	Component *comp_b = static_cast<Component*>(contact->GetFixtureB()->GetBody()->GetUserData());
 
-		if (comp_a == nullptr || comp_b == nullptr)
-			return;
+	//	if (comp_a == nullptr || comp_b == nullptr)
+	//		return;
 
-		GameObject *other = nullptr;
-		if (comp_a->game_object_ == this->game_object_)
-		{
-			other = comp_b->game_object_;
-			
-		}
-		else if (comp_b->game_object_ == this->game_object_)
-		{
-			other = comp_a->game_object_;
-		}
-		else {
-			return;
-		}
+	//	GameObject *other = nullptr;
+	//	if (comp_a->game_object_ == this->game_object_)
+	//	{
+	//		other = comp_b->game_object_;
+	//		
+	//	}
+	//	else if (comp_b->game_object_ == this->game_object_)
+	//	{
+	//		other = comp_a->game_object_;
+	//	}
+	//	else {
+	//		return;
+	//	}
 
-		// 範囲内になったライトの数をプラス
-		if (other->tag_ == kLargeLight)
-		{
-			hit_large_light++;
-		}
-		else if (other->tag_ == kMiddleLight)
-		{
-			hit_middle_light++;
-		}
-		else if (other->tag_ == kSmallLight)
-		{
-			hit_small_light++;
-		}
-	}
+	//	// 範囲内になったライトの数をプラス
+	//	if (other->tag_ == kLargeLight)
+	//	{
+	//		hit_large_light++;
+	//	}
+	//	else if (other->tag_ == kMiddleLight)
+	//	{
+	//		hit_middle_light++;
+	//	}
+	//	else if (other->tag_ == kSmallLight)
+	//	{
+	//		hit_small_light++;
+	//	}
 
-	void Player::EndContact(b2Contact *contact)
-	{
-		Component *comp_a = static_cast<Component*>(contact->GetFixtureA()->GetBody()->GetUserData());
-		Component *comp_b = static_cast<Component*>(contact->GetFixtureB()->GetBody()->GetUserData());
+	//	// 範囲内になったツタの数をプラス
+	//	if (other->tag_ == Tag::kClimb)
+	//	{
+	//		hit_climb++;
+	//	}
+	//}
 
-		if (comp_a == nullptr || comp_b == nullptr)
-			return;
+	//void Player::EndContact(b2Contact *contact)
+	//{
+	//	Component *comp_a = static_cast<Component*>(contact->GetFixtureA()->GetBody()->GetUserData());
+	//	Component *comp_b = static_cast<Component*>(contact->GetFixtureB()->GetBody()->GetUserData());
 
-		GameObject *other = nullptr;
-		if (comp_a->game_object_ == this->game_object_)
-		{
-			other = comp_b->game_object_;
-		}
-		else if (comp_b->game_object_ == this->game_object_)
-		{
-			other = comp_a->game_object_;
-		}
-		else
-		{
-			return;
-		}
+	//	if (comp_a == nullptr || comp_b == nullptr)
+	//		return;
 
-		// 範囲外になったライトの数をマイナス
-		if (other->tag_ == kLargeLight)
-		{
-			hit_large_light--;
-		}
-		else if (other->tag_ == kMiddleLight)
-		{
-			hit_middle_light--;
-		}
-		else if (other->tag_ == kSmallLight)
-		{
-			hit_small_light--;
-		}
-	}
+	//	GameObject *other = nullptr;
+	//	if (comp_a->game_object_ == this->game_object_)
+	//	{
+	//		other = comp_b->game_object_;
+	//	}
+	//	else if (comp_b->game_object_ == this->game_object_)
+	//	{
+	//		other = comp_a->game_object_;
+	//	}
+	//	else
+	//	{
+	//		return;
+	//	}
+
+	//	// 範囲外になったライトの数をマイナス
+	//	if (other->tag_ == kLargeLight)
+	//	{
+	//		hit_large_light--;
+	//	}
+	//	else if (other->tag_ == kMiddleLight)
+	//	{
+	//		hit_middle_light--;
+	//	}
+	//	else if (other->tag_ == kSmallLight)
+	//	{
+	//		hit_small_light--;
+	//	}
+
+	//	// 範囲内になったツタの数をマイナス
+	//	if (other->tag_ == Tag::kClimb)
+	//	{
+	//		hit_climb--;
+	//	}
+	//}
 
 	void Player::Start()
 	{
@@ -120,8 +136,7 @@ namespace shadowpartner
 	void Player::Update()
 	{
 		state_->Execute();
-
-		SetShadowSize();
+		SetShadowSize();	
 	}
 
 	void Player::SetShadowSize()
@@ -150,14 +165,29 @@ namespace shadowpartner
 		if (hit_small_light > 0)
 		{
 			shadow_->GetComponent<Shadow>()->CreateSmallShadow();
+			SetControllable(false);
 		}
 		else if (hit_middle_light > 0)
 		{
 			shadow_->GetComponent<Shadow>()->CreateMiddleShadow();
+			SetControllable(false);
 		}
 		else if (hit_large_light > 0)
 		{
 			shadow_->GetComponent<Shadow>()->CreateLargeShadow();
+			SetControllable(false);
 		}
+		else
+		{
+			return;
+		}
+
+		ChangeState(new SleepState(this));
+		is_controllable_ = false;
+	}
+
+	bool Player::CanClimb()
+	{
+		return hit_climb > 0;
 	}
 }

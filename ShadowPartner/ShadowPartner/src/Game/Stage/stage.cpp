@@ -45,6 +45,7 @@ namespace shadowpartner
 		tile_init.pos_ = game_object.transform_->position_;
 		tile_init.x_lenght_ = cell_horizontal;
 		tile_init.y_lenght_ = cell_vertical;
+		tile_init.friction_ = 0.0f;
 		tile_init.width_ = (float)DEFAULT_SCREEN_WIDTH / cell_horizontal / (float)PIXEL_PER_UNIT;
 		tile_init.height_ = (float)DEFAULT_SCREEN_HEIGHT / cell_vertical / (float)PIXEL_PER_UNIT;
 		bool *collision_exist = new bool[cell_horizontal * cell_vertical];

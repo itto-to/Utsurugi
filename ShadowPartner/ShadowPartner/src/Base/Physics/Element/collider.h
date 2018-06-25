@@ -80,12 +80,16 @@ namespace physics
 		virtual float GetAngle();
 
 		void AddForce(const Vector2 &force);
+		void Move(const Vector2 &move);
+
 		void SetVelocity(const Vector2 &velo);
 		Vector2 Velocity() const;
 		float VelocityX() const;
 		void SetVelocityX(float x);
 		float VelocityY() const;
 		void SetVelocityY(float y);
+		float GravityScale() const;
+		void SetGravityScale(float scale);
 
 		void SetAwake(bool flag);
 
@@ -102,12 +106,12 @@ namespace physics
 		// methods
 		void FixedUpdate();
 
-		virtual void OnCollisionEnter(Collider *hit) {};
-		virtual void OnCollisionStay(Collider *hit) {};
-		virtual void OnCollisionExit(Collider *hit) {};
-		virtual void OnTriggerEnter(Collider *hit) {};
-		virtual void OnTriggerStay(Collider *hit) {};
-		virtual void OnTriggerExit(Collider *hit) {};
+		//virtual void OnCollisionEnter(Collider *hit) {};
+		//virtual void OnCollisionStay(Collider *hit) {};
+		//virtual void OnCollisionExit(Collider *hit) {};
+		//virtual void OnTriggerEnter(Collider *hit) {};
+		//virtual void OnTriggerStay(Collider *hit) {};
+		//virtual void OnTriggerExit(Collider *hit) {};
 
 	private:
 		// variables

@@ -17,6 +17,10 @@
 #include "../../../Base/Input/input.h"
 #include "../../../Base/Physics/physics.h"
 
+#ifdef _DEBUG
+#include "../../../Base/Debug/debugger.h"
+#endif
+
 #define CLAMP(x, low, hi)	(min(max((x), (low)), (hi)))
 
 using namespace physics;
@@ -38,16 +42,19 @@ namespace shadowpartner
 		collider_ = owner_->GetComponentInherit<Collider>();
 		jumper_ = owner_->GetComponent<Jumper>();
 		assert(collider_ != nullptr && "WalkStateのEnter処理でcollider_がnullptr");
+#ifdef _DEBUG
+		debug::Debug::Log("プレイヤーの状態：歩き");
+#endif
 	}
 
-	void WalkState::Execute()
+	void WalkState::ExecuteState()
 	{
 		// 移動
 		float move = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
 		if (move != 0.0f)
 			Move(move * kMoveForce);
 
-		if (collider_->Velocity().x == 0.0f) {
+		if (collider_->Velocity().x == 0.0f && move == 0.0f) {
 			// 停止
 			owner_->ChangeState(new IdleState(owner_));
 		}

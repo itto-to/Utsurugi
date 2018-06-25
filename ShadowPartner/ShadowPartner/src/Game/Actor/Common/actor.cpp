@@ -39,9 +39,19 @@ namespace shadowpartner {
 		return is_controllable_;
 	}
 
-	void Actor::SetIsControllable(bool is_controllable)
+	void Actor::SetControllable(bool is_controllable)
 	{
 		is_controllable_ = is_controllable;
+	}
+
+	Actor::ActorDirection Actor::GetDirection()
+	{
+		return direction_;
+	}
+
+	void Actor::SetDirection(ActorDirection direction)
+	{
+		direction_ = direction;
 	}
 
 	void Actor::Update()

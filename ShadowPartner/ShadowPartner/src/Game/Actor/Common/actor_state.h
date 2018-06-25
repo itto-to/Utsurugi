@@ -15,12 +15,14 @@ namespace shadowpartner
 	public:
 		ActorState(Actor *owner);
 		virtual ~ActorState();
-		virtual void Execute() {}
 		virtual void Enter() {}
 		virtual void Exit() {}
-
+		virtual void Execute() final;
+		virtual void ExecuteState() {}
 	protected:
 		Actor *owner_;	// ステートの所有コンポーネント
+		int counter_;	// ステート状態のカウンター
+
 	private:
 	};
 }

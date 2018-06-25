@@ -10,13 +10,21 @@
 
 namespace shadowpartner {
 
-	ActorState::ActorState(Actor *owner) : owner_(owner)
+	ActorState::ActorState(Actor *owner) :
+		owner_(owner),
+		counter_(0)
 	{
 	}
 
 	ActorState::~ActorState()
 	{
 		Exit();
+	}
+
+	void ActorState::Execute()
+	{
+		ExecuteState();
+		counter_++;
 	}
 
 } // namespace shadowpartner

@@ -87,6 +87,12 @@ namespace physics
 		body_->ApplyForceToCenter(b2Vec2(force.x,force.y),true);
 	}
 
+	void Collider::Move(const Vector2 &move)
+	{
+		game_object_->transform_->position_ += move;
+		SetTransform(transform_->position_, transform_->rotation_);
+	}
+
 	Vector2 Collider::Velocity() const
 	{
 		b2Vec2 v = body_->GetLinearVelocity();
@@ -116,6 +122,16 @@ namespace physics
 	void Collider::SetVelocityY(float y)
 	{
 		body_->SetLinearVelocity(b2Vec2(body_->GetLinearVelocity().x, y));
+	}
+
+	float Collider::GravityScale() const
+	{
+		return body_->GetGravityScale();
+	}
+
+	void Collider::SetGravityScale(float scale)
+	{
+		body_->SetGravityScale(scale);
 	}
 
 	void Collider::Stop()

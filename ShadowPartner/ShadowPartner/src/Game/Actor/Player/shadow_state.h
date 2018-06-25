@@ -18,12 +18,8 @@ namespace shadowpartner
 	public:
 		ShadowState(Actor *owner);
 
-		void SetPlayer(GameObject *player);
-
 	protected:
-		void Execute() override;
-
-		GameObject *player_;
+		virtual void ExecuteState() override;
 
 	private:
 

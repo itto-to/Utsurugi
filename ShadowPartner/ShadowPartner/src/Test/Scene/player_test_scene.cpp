@@ -10,6 +10,7 @@
 #include "../../Game/Actor/Player/jump_state.h"
 #include "../../Game/Actor/Player/shadow_state.h"
 #include "../../Game/Actor/Common/jumper.h"
+#include "../../Game/Actor/Player/landing_trigger.h"
 //#include "../../Base/Physics/Element/light_collider.h"
 #include "../../Base/Debug/debugger.h"
 #include "../../Base/2D/sprite.h"
@@ -249,7 +250,6 @@ namespace shadowpartner {
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-			box_init.pos_           = player_->transform_->position_;
 			box_init.width_         = kPlayerWidth;
 			box_init.height_        = kPlayerHeight;
 			box_init.density_       = 1.0f;
@@ -272,7 +272,15 @@ namespace shadowpartner {
 
 			player_->AddComponent(box_collider);
 
+			BoxInitializer land_init;
+			land_init.pos_ = player_->transform_->position_;
+			land_init.width_ = kPlayerWidth;
+			land_init.height_ = 5.0f;
+			land_init.offset_ = Vector2(0.0f, -kPlayerHeight / 2);
+			land_init.is_trigger_ = true;
 
+			LandingTrigger *land_trigger = new LandingTrigger(land_init);
+			player_->AddComponent(land_trigger);
 			//BoxInitializer box_trigger_init;
 			//box_trigger_init.width_      = kPlayerWidth;
 			//box_trigger_init.height_     = kPlayerHeight;
@@ -334,12 +342,11 @@ namespace shadowpartner {
 			shadow_->AddComponent(sprite);
 			Shadow *shadow = new Shadow();
 			ShadowState *shadow_state = new ShadowState(shadow);
-			shadow_state->SetPlayer(player_);
 			shadow->SetState(shadow_state);
 			shadow_->AddComponent(shadow);
 
 			// プレイヤーのシャドウに登録
-			shadow->player_object_ = player_;
+			shadow->SetPlayerObject(player_);
 			player_->GetComponent<Player>()->shadow_ = shadow_;
 
 			// 矩形の当たり判定の設定
@@ -347,7 +354,7 @@ namespace shadowpartner {
 			box_init.pos_           = shadow_->transform_->position_;
 			box_init.width_         = 1.0f;
 			box_init.height_        = 1.0f;
-			box_init.body_type_     = kDynamicBody;
+			box_init.body_type_     = kStaticBody;
 			box_init.is_trigger_    = true;
 			box_init.mask_bits_     = CollisionFilter::kShadow;
 			box_init.category_bits_ = ~CollisionFilter::kPlayer;	// プレイヤーとは衝突しない

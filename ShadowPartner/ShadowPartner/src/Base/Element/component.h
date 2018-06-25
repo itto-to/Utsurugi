@@ -13,6 +13,12 @@
 #include <windows.h>
 #include <typeinfo>
 
+namespace physics
+{
+	class Collider;
+}
+
+
 namespace shadowpartner
 {
 	class GameObject;
@@ -22,11 +28,15 @@ namespace shadowpartner
 	{
 		kUntagged = 0,
 		kPlayer,
+		kShadow,
 		kEnemy,
 		kLargeLight,
 		kMiddleLight,
 		kSmallLight,
 		kClimb,
+		kTree,
+		kPlayerTrigger,
+		kPlayerLandingTrigger,
 	};
 
 	//==========================================================
@@ -87,6 +97,20 @@ namespace shadowpartner
 			return false;
 		}
 
+		virtual void OnCollisionEnter(physics::Collider *collider) {}
+		virtual void OnCollisionExit(physics::Collider *collider) {}
+		virtual void OnCollisionStay(physics::Collider *collider) {}
+		virtual void OnTriggerEnter(physics::Collider *collider) {}
+		virtual void OnTriggerExit(physics::Collider *collider) {}
+		virtual void OnTriggerStay(physics::Collider *collider) {}
+
+		//virtual void OnCollisionEnter(physics::Collider *collider) {}
+		//virtual void OnCollisionExit(physics::Collider *collider) {}
+		//virtual void OnCollisionStay(physics::Collider *collider) {}
+		//virtual void OnTriggerEnter(physics::Collider *collider) {}
+		//virtual void OnTriggerExit(physics::Collider *collider) {}
+		//virtual void OnTriggerStay(physics::Collider *collider) {}
+
 	protected:
 
 		// methods
@@ -101,7 +125,6 @@ namespace shadowpartner
 		// variables
 
 		// methods
-
 	};
 }
 

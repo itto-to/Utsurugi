@@ -9,26 +9,23 @@
 
 #include "../Common/actor_state.h"
 
-namespace physics
-{
-	class BoxCollider;
-}
 
 namespace shadowpartner
 {
 	class Player;
 	class Jumper;
+	class LandingTrigger;
 
 	class IdleState : public ActorState {
 	public:
 		IdleState(Actor *owner);
 		void Enter() override;
-		void Execute() override;
+		virtual void ExecuteState() override;
 
 	protected:
 		Player *player_;
 		Jumper *jumper_;
-		physics::BoxCollider *box_collider_;
+		LandingTrigger *landing_trigger_;
 
 	private:
 	};

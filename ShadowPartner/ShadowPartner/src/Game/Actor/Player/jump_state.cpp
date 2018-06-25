@@ -12,6 +12,10 @@
 #include "../../../Base/Input/input.h"
 #include "../Common/actor.h"
 
+#ifdef _DEBUG
+#include "../../../Base/Debug/debugger.h"
+#endif
+
 #define CLAMP(x, low, hi)	(min(max((x), (low)), (hi)))
 
 using namespace physics;
@@ -21,8 +25,8 @@ namespace shadowpartner
 
 namespace
 {
-	float kMoveForce = 100.0f;
-	float kMaxSpeedX = 1.0f;
+	const float kMoveForce = 100.0f;
+	const float kMaxSpeedX = 1.0f;
 }
 
 
@@ -33,39 +37,44 @@ JumpState::JumpState(Actor *owner) : ActorState(owner)
 void JumpState::Enter()
 {
 	collider_ = owner_->game_object_->GetComponentInherit<Collider>();
+#ifdef _DEBUG
+	debug::Debug::Log("プレイヤーの状態：ジャンプ");
+#endif
+
 }
 
 
-void JumpState::Execute()
+void JumpState::ExecuteState()
 {
 	// 移動
 	float move = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
-	Move(move * kMoveForce);
+	Vector2 t = Vector2::right() * move * kMoveForce;
+	Move(t);
 
 	// 着地判定
-	//if (!IsFalling())	// 上昇中なら着地判定しない
-	//	return;
+	if (!IsFalling())	// 上昇中なら着地判定しない
+		return;
 
 	RaycastHit hit_info = physics::PhysicsFunc::Raycast(
 		owner_->transform_->position_ + Vector2::down() * 0.5f,
 		Vector2::down(), 0.6f);
 
 	// FIXME:レイキャストで返ってきたコライダーがトリガーだった場合待機状態に遷移しなくなってしまう
-	if (hit_info.collider != nullptr)// && !hit_info.collider->is_trigger_)
+	if (hit_info.collider != nullptr && !hit_info.collider->is_trigger_)
 	{
 		owner_->ChangeState(new IdleState(owner_));
 	}
 }
 
-void JumpState::Move(const float move)
+bool JumpState::IsFalling() const
 {
-	collider_->AddForce(Vector2::right() * move);
+	return collider_->Velocity().y <= 0.0f;
+}
+
+void JumpState::Move(const math::Vector2 & move)
+{
+	collider_->AddForce(move);
 	collider_->SetVelocityX(CLAMP(collider_->VelocityX(), -kMaxSpeedX, kMaxSpeedX));
 }
 
-bool JumpState::IsFalling() const
-{
-	return collider_->Velocity().y < 0.0f;
-}
-
-}
+}	// namespace shadowpartner

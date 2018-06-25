@@ -12,10 +12,15 @@
 
 #include "../../../Base/Physics/Element/contact_listener.h"
 
+namespace physics
+{
+	class Collider;
+}
+
 namespace shadowpartner
 {
 
-	class Player : public Actor, public physics::ContactListener
+	class Player : public Actor
 	{
 	public:
 		enum LightSize {
@@ -31,8 +36,10 @@ namespace shadowpartner
 
 		// methods
 		void CreateShadow();
+		bool CanClimb();
 
 		// variables
+		physics::Collider *landing_trigger_;
 		GameObject *shadow_;
 
 	protected:
@@ -41,15 +48,13 @@ namespace shadowpartner
 		int hit_large_light;
 		int hit_middle_light;
 		int hit_small_light;
+		int hit_climb;
 		LightSize light_;
 
 		// methods
 		void Start() override;
 		void Update() override;
 		void SetShadowSize();
-
-		void BeginContact(b2Contact *contact) override;
-		void EndContact(b2Contact *contact) override;
 
 	private:
 

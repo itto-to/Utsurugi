@@ -9,6 +9,7 @@
 
 #include "../Common/actor.h"
 #include "../Common/actor_state.h"
+#include "../../../Base/Physics/Element/contact_listener.h"
 
 namespace physics
 {
@@ -17,7 +18,9 @@ namespace physics
 
 namespace shadowpartner
 {
+	class Player;
 	class Sprite;
+	class Jumper;
 
 	class Shadow : public Actor
 	{
@@ -35,18 +38,31 @@ namespace shadowpartner
 
 		// methods
 		void Start() override;
+		void Update() override;
+
 		void SetShadowSize(ShadowSize shadow_size);
 		void CreateSmallShadow();
 		void CreateMiddleShadow();
 		void CreateLargeShadow();
-	public:
-		GameObject *player_object_;
+		void ReturnToPlayerShadow();
+		bool IsHitLight();
+		void SetPlayerObject(GameObject *player_object);
+		GameObject *GetPlayerObject();
 
 	protected:
-		Sprite *sprite;
+
+		// variable
+		GameObject *player_object_;
+		Sprite *sprite_;
+		physics::BoxCollider *collider_;
+		Jumper *jumper_;
+
+		int hit_large_light_;
+		int hit_middle_light_;
+		int hit_small_light_;
 
 	private:
-		physics::BoxCollider *collider;
+
 	};
 
 }	// namespace shadowpartner

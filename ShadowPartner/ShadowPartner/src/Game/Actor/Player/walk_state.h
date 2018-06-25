@@ -23,7 +23,7 @@ class WalkState : public ActorState {
 public:
 	WalkState(Actor *owner);
 	void Enter() override;
-	void Execute() override;
+	void ExecuteState() override;
 
 private:
 	physics::Collider *collider_;

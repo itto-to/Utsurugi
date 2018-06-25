@@ -9,11 +9,16 @@
 #include "jump_state.h"
 #include "walk_state.h"
 #include "climb_state.h"
+#include "landing_trigger.h"
 #include "../Common/actor.h"
 #include "../../../Base/Input/input.h"
 #include "../../../Base/Physics/physics.h"
 #include "player.h"
 #include "../Common/jumper.h"
+
+#ifdef _DEBUG
+#include "../../../Base/Debug/debugger.h"
+#endif
 
 using namespace physics;
 
@@ -25,13 +30,18 @@ namespace shadowpartner
 
 	void IdleState::Enter()
 	{
-		player_ = dynamic_cast<Player*>(owner_);
+		player_ = static_cast<Player*>(owner_);
 		jumper_ = owner_->GetComponent<Jumper>();
-		box_collider_ = owner_->game_object_->GetComponent<BoxCollider>();
+		landing_trigger_ = owner_->GetComponent<LandingTrigger>();
+
+#ifdef _DEBUG
+		debug::Debug::Log("プレイヤーの状態：待機");
+#endif
 	}
 
-	void IdleState::Execute()
+	void IdleState::ExecuteState()
 	{
+
 		RaycastHit hit_info = physics::PhysicsFunc::Raycast(
 			owner_->transform_->position_ + Vector2::down() * 0.5f,
 			Vector2::down(), 0.6f);
@@ -41,27 +51,26 @@ namespace shadowpartner
 			// 空中なら落下
 			owner_->ChangeState(new JumpState(owner_));
 		}
-		else if (input::Input::Instance()->GetAxis(input::InputAxis::Horizontal) != 0.0f)
+		else if ((input::Input::Instance()->GetAxis(input::InputAxis::Horizontal) != 0.0f)  && owner_->IsControllable())
 		{
 			// 移動
 			owner_->ChangeState(new WalkState(owner_));
 		}
-		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump))
+		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump) && landing_trigger_->IsLanding() && owner_->IsControllable())
 		{
 			// ジャンプ入力
 			jumper_->Jump();
-			//box_collider_->AddForce(Vector2::up() * 100.0f);
 			owner_->ChangeState(new JumpState(owner_));
 		}
-		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Skill))
+		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Attack) && owner_->IsControllable())
 		{
 			// 影を作る
 			player_->CreateShadow();
 		}
-		else if (input::Input::Instance()->GetAxis(input::InputAxis::Vertical) != 0.0f)
+		else if ((input::Input::Instance()->GetAxis(input::InputAxis::Vertical) != 0.0f) && player_->CanClimb() && owner_->IsControllable())
 		{
 			// ツタを登る
-			//owner_->ChangeState(new ClimbState(owner_));
+			owner_->ChangeState(new ClimbState(owner_));
 		}
 	}
 

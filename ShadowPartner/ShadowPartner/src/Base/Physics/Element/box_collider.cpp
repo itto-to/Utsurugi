@@ -37,6 +37,7 @@ namespace physics
 
 	void BoxCollider::SetCollider(const BoxInitializer &ini) {
 		shape_ = PhysicsShape::kBox;
+		is_trigger_ = ini.is_trigger_;
 
 		b2BodyDef box_body_def;
 
@@ -55,6 +56,7 @@ namespace physics
 
 		box_body_def.position.Set(ini.pos_.x, ini.pos_.y);
 		box_body_def.fixedRotation = ini.fixed_rotation_;
+		box_body_def.gravityScale  = ini.gravity_scale_;
 
 		body_ = PhysicsWorld::CreateBody(this, &box_body_def);
 		body_->SetUserData((void *)this);
@@ -128,7 +130,7 @@ namespace physics
 	void BoxCollider::AddFixture(const BoxInitializer& ini)
 	{
 		b2PolygonShape box;
-		box.SetAsBox(ini.width_, ini.height_, b2Vec2(ini.offset_.x, ini.offset_.y), 0.0f);
+		box.SetAsBox(ini.width_ / 2.0f, ini.height_ / 2.0f, b2Vec2(ini.offset_.x, ini.offset_.y), 0.0f);
 
 		b2FixtureDef fix_def;
 		fix_def.shape = &box;
