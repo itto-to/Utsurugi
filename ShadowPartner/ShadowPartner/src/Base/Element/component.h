@@ -37,6 +37,7 @@ namespace shadowpartner
 		kTree,
 		kPlayerTrigger,
 		kPlayerLandingTrigger,
+		kGimmick,
 	};
 
 	//==========================================================

@@ -18,6 +18,7 @@ namespace shadowpartner
 	class Player;
 	class Actor;
 	class Movable;
+	class GimmickTrigger;
 
 	class ClimbState : public ActorState
 	{
@@ -31,6 +32,7 @@ namespace shadowpartner
 		Player *player_;
 		Movable *movable_;
 		physics::Collider *collider_;
+		GimmickTrigger *gimmick_trigger_;
 		float old_gravity_scale_;		// もとの重力スケール
 	};
 

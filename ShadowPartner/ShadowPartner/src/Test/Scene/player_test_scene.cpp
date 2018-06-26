@@ -11,7 +11,6 @@
 #include "../../Game/Actor/Player/shadow_state.h"
 #include "../../Game/Actor/Common/jumper.h"
 #include "../../Game/Actor/Player/landing_trigger.h"
-//#include "../../Base/Physics/Element/light_collider.h"
 #include "../../Base/Debug/debugger.h"
 #include "../../Base/2D/sprite.h"
 #include "../../Base/Light/light.h"
@@ -263,9 +262,9 @@ namespace shadowpartner {
 			box_collider->SetSleepingAllowed(false);	// Sleepを許可しない
 			// 矩形のセンサーの設定
 			BoxInitializer trigger_init;
-			trigger_init.width_ = kPlayerWidth;
-			trigger_init.height_ = kPlayerHeight;
-			trigger_init.offset_ = Vector2::zero();
+			trigger_init.width_         = kPlayerWidth;
+			trigger_init.height_        = kPlayerHeight;
+			trigger_init.offset_        = Vector2::zero();
 			trigger_init.category_bits_ = CollisionFilter::kPlayer;
 			trigger_init.category_bits_ = CollisionFilter::kShadow;	// 影とだけ反応する
 			box_collider->AddFixture(trigger_init);
@@ -273,13 +272,13 @@ namespace shadowpartner {
 			player_->AddComponent(box_collider);
 
 			BoxInitializer land_init;
-			land_init.body_type_ = kDynamicBody;
+			land_init.body_type_     = kDynamicBody;
 			land_init.gravity_scale_ = 0.0f;
-			land_init.pos_ = player_->transform_->position_;
-			land_init.width_ = kPlayerWidth;
-			land_init.height_ = 5.0f;
-			land_init.offset_ = Vector2(0.0f, -kPlayerHeight / 2);
-			land_init.is_trigger_ = true;
+			land_init.pos_           = player_->transform_->position_;
+			land_init.width_         = kPlayerWidth;
+			land_init.height_        = 5.0f;
+			land_init.offset_        = Vector2(0.0f, -kPlayerHeight / 2);
+			land_init.is_trigger_    = true;
 
 			LandingTrigger *land_trigger = new LandingTrigger(land_init);
 			land_trigger->SetSleepingAllowed(false);
@@ -350,7 +349,7 @@ namespace shadowpartner {
 
 			// プレイヤーのシャドウに登録
 			shadow->SetPlayerObject(player_);
-			player_->GetComponent<Player>()->shadow_ = shadow_;
+			player_->GetComponent<Player>()->shadow_object_ = shadow_;
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;

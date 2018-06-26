@@ -7,6 +7,7 @@
 #include "player.h"
 #include "idle_state.h"
 #include "landing_trigger.h"
+#include "gimmck_trigger.h"
 #include "sleep_state.h"
 #include "../../../Base/2D/sprite.h"
 #include "shadow.h"
@@ -18,21 +19,13 @@
 namespace shadowpartner
 {
 
-	Player::Player() : 
-		hit_large_light(0),
-		hit_middle_light(0),
-		hit_small_light(0),
-		hit_climb(0)
+	Player::Player()
 	{
 		state_ = new IdleState(this);
 	}
 
 	Player::Player(ActorState* state) : 
-		Actor(state),
-		hit_large_light(0),
-		hit_middle_light(0),
-		hit_small_light(0),
-		hit_climb(0)
+		Actor(state)
 	{
 	}
 
@@ -44,6 +37,8 @@ namespace shadowpartner
 
 	void Player::Start()
 	{
+		gimmick_trigger_ = game_object_->GetComponent<GimmickTrigger>();
+
 		state_->Enter();
 	}
 
@@ -55,44 +50,48 @@ namespace shadowpartner
 
 	void Player::SetShadowSize()
 	{
-		Shadow *shadow = shadow_->GetComponent<Shadow>();
-		if (hit_small_light > 0)
+		Shadow *shadow = shadow_object_->GetComponent<Shadow>();
+
+		LightType light_type = gimmick_trigger_->HittingLightType();
+
+		switch (light_type)
 		{
-			shadow->SetShadowSize(Shadow::ShadowSize::kSmallShadow);
-		}
-		else if (hit_middle_light > 0) 
-		{
-			shadow->SetShadowSize(Shadow::ShadowSize::kMiddleShadow);
-		}
-		else if (hit_large_light > 0)
-		{
+		case kLarge:
 			shadow->SetShadowSize(Shadow::ShadowSize::kLargeShadow);
-		}
-		else
-		{
+			break;
+		case kMiddle:
 			shadow->SetShadowSize(Shadow::ShadowSize::kMiddleShadow);
+			break;
+		case kSmall:
+			shadow->SetShadowSize(Shadow::ShadowSize::kSmallShadow);
+			break;
+		case kLightNone:
+			shadow->SetShadowSize(Shadow::ShadowSize::kMiddleShadow);
+			break;
+		default:
+			break;
 		}
 	}
 
 	void Player::CreateShadow()
 	{
-		if (hit_small_light > 0)
+		LightType light_type = gimmick_trigger_->HittingLightType();
+
+		switch (light_type)
 		{
-			shadow_->GetComponent<Shadow>()->CreateSmallShadow();
+		case kLarge:
+			shadow_object_->GetComponent<Shadow>()->CreateLargeShadow();
 			SetControllable(false);
-		}
-		else if (hit_middle_light > 0)
-		{
-			shadow_->GetComponent<Shadow>()->CreateMiddleShadow();
+			break;
+		case kMiddle:
+			shadow_object_->GetComponent<Shadow>()->CreateMiddleShadow();
 			SetControllable(false);
-		}
-		else if (hit_large_light > 0)
-		{
-			shadow_->GetComponent<Shadow>()->CreateLargeShadow();
+			break;
+		case kSmall:
+			shadow_object_->GetComponent<Shadow>()->CreateSmallShadow();
 			SetControllable(false);
-		}
-		else
-		{
+			break;
+		case kLightNone:
 			return;
 		}
 
@@ -100,8 +99,18 @@ namespace shadowpartner
 		is_controllable_ = false;
 	}
 
-	bool Player::CanClimb()
+	void Player::SetRespawnPoint(Vector2 respawn_point)
 	{
-		return hit_climb > 0;
+		respawn_point_ = respawn_point;
+	}
+
+	Vector2 Player::RespawnPoint()
+	{
+		return respawn_point_;
+	}
+
+	void Player::Respawn()
+	{
+		game_object_->transform_->position_ = respawn_point_;
 	}
 }

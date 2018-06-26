@@ -12,6 +12,7 @@
 #include "../../../Base/Element/component.h"
 #include "../../../Base/Input/input.h"
 #include "../../../Base/Physics/Element/collider.h"
+#include "gimmck_trigger.h"
 
 using namespace physics;
 
@@ -29,6 +30,7 @@ namespace shadowpartner
 	{
 		player_ = owner_->GetComponent<Player>();
 		collider_ = owner_->GetComponentInherit<Collider>();
+		gimmick_trigger_ = owner_->GetComponent<GimmickTrigger>();
 
 		// ƒLƒƒƒ‰‰ñ“]
 		if (owner_->GetDirection() == Actor::ActorDirection::kRight)
@@ -54,7 +56,7 @@ namespace shadowpartner
 		collider_->Move(move);
 		//owner_->game_object_->transform_->position_.y += move;
 
-		if (!player_->CanClimb())
+		if (!gimmick_trigger_->CanClimb())
 		{
 			owner_->ChangeState(new JumpState(owner_));
 		}

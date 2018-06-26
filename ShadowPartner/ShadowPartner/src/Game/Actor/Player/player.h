@@ -19,16 +19,12 @@ namespace physics
 
 namespace shadowpartner
 {
+	class GimmickTrigger;
+	class ActionTrigger;
 
 	class Player : public Actor
 	{
 	public:
-		enum LightType {
-			LargeLight,
-			MiddleLight,
-			SmallLight,
-			LightNone,
-		};
 
 		Player();
 		Player(ActorState *state);
@@ -36,25 +32,27 @@ namespace shadowpartner
 
 		// methods
 		void CreateShadow();
-		bool CanClimb();
+		void SetRespawnPoint(Vector2 respawn_point);
+		Vector2 RespawnPoint();
+		void Respawn();
 
 		// variables
 		physics::Collider *landing_trigger_;
-		GameObject *shadow_;
+		GameObject *shadow_object_;
 
 	protected:
 
 		// variables
-		int hit_large_light;
-		int hit_middle_light;
-		int hit_small_light;
-		int hit_climb;
-		LightType light_;
+		Vector2 respawn_point_;
+
+		GimmickTrigger *gimmick_trigger_;
+		ActionTrigger *action_trigger_;
 
 		// methods
 		void Start() override;
 		void Update() override;
 		void SetShadowSize();
+
 
 	private:
 
