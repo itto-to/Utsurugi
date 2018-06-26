@@ -47,7 +47,7 @@ namespace shadowpartner
 		tile_init.y_lenght_ = cell_vertical;
 		tile_init.width_ = (float)DEFAULT_SCREEN_WIDTH / cell_horizontal / (float)PIXEL_PER_UNIT;
 		tile_init.height_ = (float)DEFAULT_SCREEN_HEIGHT / cell_vertical / (float)PIXEL_PER_UNIT;
-		bool *collision_exist = new bool[cell_horizontal * cell_vertical];
+		collision_exist = new bool[cell_horizontal * cell_vertical];
 
 		for (int y = 0; y < cell_vertical; y++)
 		{
@@ -177,7 +177,13 @@ namespace shadowpartner
 		if (tiles_ != nullptr)
 		{
 			delete tiles_;
+			tiles_ = nullptr;
+		}
 
+		if (collision_exist != nullptr)
+		{
+			delete[] collision_exist;
+			collision_exist = nullptr;
 		}
 	}
 

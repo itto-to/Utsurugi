@@ -88,10 +88,6 @@ namespace shadowpartner
 		virtual void Draw() {};
 
 	private:
-		// variables
-
-		// methods
-
 	};
 }
 

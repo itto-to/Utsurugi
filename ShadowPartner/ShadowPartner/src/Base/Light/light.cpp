@@ -28,11 +28,11 @@ namespace shadowpartner
 		// コンストラクタ
 	Light::Light(const LightInitializer initializer)
 		:light_vertices_(nullptr)
-		, direction_(initializer.direction_)
-		, angle_(initializer.angle_)
+		, angle_(D3DXToRadian(initializer.angle_))
 		, radius_(initializer.radius_)
 		, light_color_(initializer.color_)
 	{
+		direction_ = Angle(initializer.direction_) + D3DX_PI / 4.0f;
 	}
 
 	// デストラクタ
@@ -44,22 +44,22 @@ namespace shadowpartner
 	// 描画処理
 	void Light::Draw()
 	{
-		//Vector3 world_pos = Vector3(transform_->GetWorldPosition(), 0.0f);
-		//Vector3 draw_pos = Vector3(world_pos.x, -world_pos.y, 0.0f) / Camera::main_->GetZoom();	// スクリーン上の描画位置.まずy軸の方向を変える
-		//Vector3 screen_center = Vector3(Application::Instance()->GetScreenWidth() / 2, Application::Instance()->GetScreenHeight() / 2, 0.0f);
-		//draw_pos += screen_center - Vector3(Camera::main_->transform_->position_, 0.0f) * PIXEL_PER_UNIT;
+		Vector3 world_pos = Vector3(transform_->GetWorldPosition(), 0.0f);
+		Vector3 draw_pos = Vector3(world_pos.x, -world_pos.y, 0.0f) / Camera::main_->GetZoom();	// スクリーン上の描画位置.まずy軸の方向を変える
+		Vector3 screen_center = Vector3(Application::Instance()->GetScreenWidth() / 2, Application::Instance()->GetScreenHeight() / 2, 0.0f);
+		draw_pos += screen_center - Vector3(Camera::main_->transform_->position_, 0.0f) * PIXEL_PER_UNIT + Vector3(-10.0f,30.0f,0.0f) / Camera::main_->GetZoom();
 
-		////float zoom = Camera::main_->GetZoom();
-		////Vector2 world_scale = transform_->GetWorldScale();
-		////float width, height;
-		////width = texture_.GetWidth() * world_scale.x / zoom;
-		////height = texture_.GetHeight() * world_scale.y / zoom;
+		//float zoom = Camera::main_->GetZoom();
+		//Vector2 world_scale = transform_->GetWorldScale();
+		//float width, height;
+		//width = texture_.GetWidth() * world_scale.x / zoom;
+		//height = texture_.GetHeight() * world_scale.y / zoom;
 
-		//ReMesh();		// 光の形を再計算する
+		ReMesh();		// 光の形を再計算する
 
-		//SetVertex(draw_pos);	// カメラの位置やズームを踏まえ、描画の位置に頂点を合わせる
+		SetVertex(draw_pos);	// カメラの位置やズームを踏まえ、描画の位置に頂点を合わせる
 
-		//texture_.DrawTriangleFan(light_vertices_, vertex_count_ - 2);	//	描画する
+		texture_.DrawTriangleFan(light_vertices_, vertex_count_ - 2);	//	描画する
 	}
 
 	//==========================================================
@@ -93,7 +93,7 @@ namespace shadowpartner
 	//==========================================================
 	void Light::SetDirection(const Vector2 &direction)
 	{
-		direction_ = Angle(direction);
+		direction_ = Angle(direction) + D3DX_PI / 4.0f;
 	}
 
 	//==========================================================
@@ -139,7 +139,7 @@ namespace shadowpartner
 	}
 
 	// レイを撃つ時にdirectionをどれだけずらすか
-	static const float SHIFT_DEGREE = 0.00003f;
+	static const float SHIFT_DEGREE = 0.0000001f;
 	// レイの長さがこの値以上の割合なら遮られずに到達したとみなす。
 	static const float VALID_RAY_LENGTH_RATE = 0.99f;
 	// 光源の点を除いた光の頂点の最小値
@@ -157,12 +157,9 @@ namespace shadowpartner
 
 		physics::RaycastHit hit_info;
 		float angle_unit = 2 * D3DX_PI / LIGHT_VERTEX_MIN;
-		for (int i = 0;i < LIGHT_VERTEX_MIN;++i)
+		for (float d = direction_ - angle_ / 2.0f;d < direction_ + angle_ / 2.0f;d += angle_ / LIGHT_VERTEX_MIN)
 		{
-			Vector2 direction = Vector2(cosf(angle_unit * i), sinf(angle_unit * i));
-
-			if (!InFan(direction, direction_ - angle_ / 2.0f, direction_ + angle_ / 2.0f))
-				continue;
+			Vector2 direction = Vector2(cosf(d), sinf(d));
 
 			hit_info = physics::PhysicsFunc::Raycast(transform_->position_, direction, radius_);
 			if (hit_info.collider != nullptr)
@@ -177,8 +174,8 @@ namespace shadowpartner
 			radius_);
 
 		// ライトの光の方向と角度から有効なレイの角度を求める
-		float valid_angle_min = Angle(Vector2::right(), direction_) - (angle_ / 2.0f);
-		float valid_angle_max = Angle(Vector2::right(), direction_) + (angle_ / 2.0f);
+		float valid_angle_min = direction_ - (angle_ / 2.0f);
+		float valid_angle_max = direction_ + (angle_ / 2.0f);
 
 		Vector2 ray_direction_base;		// レイの方向
 		float ray_angle;				// レイの角度
@@ -247,24 +244,34 @@ namespace shadowpartner
 		// 光源から光の頂点までのベクトルがなす角度とインデックスを全ての頂点において追加
 		for (int i = 1;i < points.size();++i)
 		{
-			if (transform_->position_.y <= points[i].y)
-				sort_buffer_.push_back(SortTemp(i, Angle(points[i] - light_center)));
-			else
-				sort_buffer_.push_back(SortTemp(i, 360.0f - Angle(points[i] - light_center)));
+			sort_buffer_.push_back(SortTemp(i, Angle(points[i] - light_center)));
 		}
-
 
 #ifdef _DEBUG
 		debug::Debug::StopWatchStart(2);
 #endif
 		// クイックソートを行う
-		//QuickSort(1, sort_buffer_.size() - 1);
+		{
+			//QuickSort(1, sort_buffer_.size() - 1);
+		}
 
 		// マージソートを行う
-		//MergeSort(sort_buffer_);
+		{
+			SortTemp *sort_buffer = (SortTemp *)malloc(sizeof(SortTemp) * sort_buffer_.size());
+			for (int i = 0;i < sort_buffer_.size();++i)
+			{
+				sort_buffer[i] = sort_buffer_[i];
+			}
+			MergeSort(sort_buffer,sort_buffer_.size());
+			for (int i = 0;i < sort_buffer_.size();++i)
+			{
+				sort_buffer_[i] = sort_buffer[i];
+			}
+			free(sort_buffer);
+		}
 
 		// バブルソートを行う。
-		BubbleSort();
+		//BubbleSort();
 
 #ifdef _DEBUG
 		debug::Debug::StopWatchFinish(2);
@@ -402,22 +409,29 @@ namespace shadowpartner
 	//	first      :最初のインデックス
 	//	last       :最後のインデックス
 	//==========================================================
-	void Light::MergeSort(vector<SortTemp> a)
+	void Light::MergeSort(SortTemp* arr, int length)
 	{
-		if (a.size() > 1)
+		if (length > 1)
 		{
-			int half = a.size() / 2;
-			int rest = a.size() - half;
+			int half = length / 2;
+			int rest = length - half;
 
-			vector<SortTemp> early, late;
+			//vector<SortTemp> early, late;
+			SortTemp *early, *late;
 
-			for (int i = 0;i < half;++i)early.push_back(a[i]);
-			for (int i = 0; i < rest;++i)late.push_back(a[half + i]);
+			early = (SortTemp *)malloc(sizeof(SortTemp) * half);
+			late = (SortTemp *)malloc(sizeof(SortTemp) * rest);
 
-			MergeSort(early);
-			MergeSort(late);
+			for (int i = 0;i < half;++i)early[i] = arr[i];
+			for (int i = 0; i < rest;++i)late[i] = arr[half + i];
 
-			Merge(early, late, a);
+			MergeSort(early, half);
+			MergeSort(late, rest);
+
+			Merge(early, half, late, rest, arr);
+
+			free(early);
+			free(late);
 		}
 	}
 
@@ -427,28 +441,28 @@ namespace shadowpartner
 	//	first      :最初のインデックス
 	//	last       :最後のインデックス
 	//==========================================================
-	void Light::Merge(std::vector<SortTemp> early, std::vector<SortTemp> late, std::vector<SortTemp> a)
+	void Light::Merge(SortTemp *early, int early_length, SortTemp *late, int late_length, SortTemp *a)
 	{
 		int e = 0, l = 0;
 
 		// 両方の配列に要素が残っている
-		while (e < early.size() && l < late.size())
+		while (e < early_length && l < late_length)
 		{
 			if (early[e].angle_ <= late[l].angle_)
-			{
-				a[e + l] = early[e];
-				++e;
-			}
-			else
 			{
 				a[e + l] = late[l];
 				++l;
 			}
+			else
+			{
+				a[e + l] = early[e];
+				++e;
+			}
 		}
 
-		for (;e < early.size();++e)
+		for (;e < early_length;++e)
 			a[e + l] = early[e];
-		for (;l < late.size();++l)
+		for (;l < late_length;++l)
 			a[e + l] = late[l];
 	}
 

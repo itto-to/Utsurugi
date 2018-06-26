@@ -21,6 +21,8 @@
 #include "../../Base/Physics/physics.h"
 #include "../../Base/Time/time.h"
 
+#include "../../Base/Light/corner_candidates.h"
+
 #define LIGHT_TEXTURE_NAME "Resources/Texture/LightBulb.png"
 #define BACK_GROUND_TEXTURE_NAME "Resources/Texture/Stage/ForestBackGround.png"
 #define CLEAR_GATE_TEXTURE_NAME "Resources/Texture/Stage/Gate.png"
@@ -98,9 +100,13 @@ namespace shadowpartner
 			Stage *stage = new Stage(StageNumber::kTest, *stages_[0]);
 			stages_[0]->AddComponent(stage);
 
-			AddGameObject(stages_[0]);
-		}
+			CornerCandidates::PreCalculate(stage);
 
+			AddGameObject(stages_[0]);
+
+			
+		}
+		 
 		// ƒvƒŒƒCƒ„[
 		{
 			player_ = new GameObject();
@@ -152,9 +158,14 @@ namespace shadowpartner
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
 		{
 			static int z = 0;
-			z = (z + 1) % 4;
-			Camera::main_->SetZoom(0.64f + 0.33f * (z + 1));
+			z = (z + 1) % 16;
+			Camera::main_->SetZoom(10.0f + 1.0f * (z - 9));
 		}
+
+		//static float rad = 0.0f;
+		//rad += D3DXToRadian(0.1f);
+		//moon_light_->GetComponent<Light>()->SetDirection(Vector2(cosf(rad),sinf(rad)));
+
 	}
 
 	void FirstStageScene::Uninit()

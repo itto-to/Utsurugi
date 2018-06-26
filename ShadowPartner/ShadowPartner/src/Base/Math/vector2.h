@@ -352,22 +352,16 @@ namespace math
 		return result;
 	}
 
-	// 二つのベクトルがなす角度を返します。
+	// 二つのベクトルがなす角度を返します。(鋭角、弧度法)
 	D3DXINLINE const float Angle(const Vector2 &vec0, const Vector2 &vec1)
 	{
-		double rad = acos(Dot(vec0, vec1) / (Length(vec0) * Length(vec1)));
-		float degree = (float)(rad * 180.0f / (double)D3DX_PI);
-		return degree;
-		//return acosf(Dot(vec0, vec1) / (Length(vec0) * Length(vec1)));
+		return acosf(Dot(vec0, vec1) / (Length(vec0) * Length(vec1)));
 	}
 
-	// x軸正方向とのなす角度を度数で返します。
+	// x軸正方向とのなす角度を弧度法で返します。
 	D3DXINLINE const float Angle(const Vector2 &vec)
 	{
-		float rad = acosf(vec.x / LengthD(vec));
-		float degree = (rad * 180.0f / D3DX_PI);
-		return degree;
-		//return acosf(Dot(vec0, vec1) / (Length(vec0) * Length(vec1)));
+		return atan2f(vec.y, vec.x);
 	}
 
 	// ベクトルを指定の角度分、反時計回りに回転させます

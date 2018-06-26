@@ -55,7 +55,6 @@ namespace physics
 				}
 			}
 		}
-		delete[] ini.collision_exist;
 		size_ = Vector2(ini.width_, ini.height_);
 	}
 
