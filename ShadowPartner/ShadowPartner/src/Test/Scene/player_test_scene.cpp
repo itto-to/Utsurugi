@@ -273,6 +273,8 @@ namespace shadowpartner {
 			player_->AddComponent(box_collider);
 
 			BoxInitializer land_init;
+			land_init.body_type_ = kDynamicBody;
+			land_init.gravity_scale_ = 0.0f;
 			land_init.pos_ = player_->transform_->position_;
 			land_init.width_ = kPlayerWidth;
 			land_init.height_ = 5.0f;
@@ -280,6 +282,7 @@ namespace shadowpartner {
 			land_init.is_trigger_ = true;
 
 			LandingTrigger *land_trigger = new LandingTrigger(land_init);
+			land_trigger->SetSleepingAllowed(false);
 			player_->AddComponent(land_trigger);
 			//BoxInitializer box_trigger_init;
 			//box_trigger_init.width_      = kPlayerWidth;

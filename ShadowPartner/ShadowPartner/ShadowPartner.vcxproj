@@ -189,6 +189,7 @@
     <ClCompile Include="src\Game\Actor\Common\movable.cpp" />
     <ClCompile Include="src\Game\Actor\Gimmick\tree.cpp" />
     <ClCompile Include="src\Game\Actor\Player\climb_state.cpp" />
+    <ClCompile Include="src\Game\Actor\Player\gimmick_trigger.cpp" />
     <ClCompile Include="src\Game\Actor\Player\idle_state.cpp" />
     <ClCompile Include="src\Game\Actor\Player\jump_state.cpp" />
     <ClCompile Include="src\Game\Actor\Player\landing_trigger.cpp" />
@@ -253,6 +254,7 @@
     <ClInclude Include="src\Game\Actor\Common\movable.h" />
     <ClInclude Include="src\Game\Actor\Gimmick\tree.h" />
     <ClInclude Include="src\Game\Actor\Player\climb_state.h" />
+    <ClInclude Include="src\Game\Actor\Player\gimmck_trigger.h" />
     <ClInclude Include="src\Game\Actor\Player\idle_state.h" />
     <ClInclude Include="src\Game\Actor\Player\jump_state.h" />
     <ClInclude Include="src\Game\Actor\Player\landing_trigger.h" />

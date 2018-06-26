@@ -7,6 +7,8 @@
 #include "jump_state.h"
 
 #include "idle_state.h"
+#include "landing_trigger.h"
+#include "walk_state.h"
 #include "../../../Base/Physics/physics.h"
 #include "../../../Base/Physics/Func/physics_func.h"
 #include "../../../Base/Input/input.h"
@@ -36,7 +38,8 @@ JumpState::JumpState(Actor *owner) : ActorState(owner)
 
 void JumpState::Enter()
 {
-	collider_ = owner_->game_object_->GetComponentInherit<Collider>();
+	landing_trigger_ = owner_->GetComponent<LandingTrigger>();
+	collider_ = owner_->GetComponentInherit<Collider>();
 #ifdef _DEBUG
 	debug::Debug::Log("プレイヤーの状態：ジャンプ");
 #endif
@@ -55,15 +58,26 @@ void JumpState::ExecuteState()
 	if (!IsFalling())	// 上昇中なら着地判定しない
 		return;
 
-	RaycastHit hit_info = physics::PhysicsFunc::Raycast(
-		owner_->transform_->position_ + Vector2::down() * 0.5f,
-		Vector2::down(), 0.6f);
-
-	// FIXME:レイキャストで返ってきたコライダーがトリガーだった場合待機状態に遷移しなくなってしまう
-	if (hit_info.collider != nullptr && !hit_info.collider->is_trigger_)
+	if (landing_trigger_->IsLanding())
 	{
-		owner_->ChangeState(new IdleState(owner_));
+		if (collider_->VelocityX() != 0.0f) {
+			owner_->ChangeState(new WalkState(owner_));
+		}
+		else
+		{
+			owner_->ChangeState(new IdleState(owner_));
+		}
 	}
+
+	//RaycastHit hit_info = physics::PhysicsFunc::Raycast(
+	//	owner_->transform_->position_ + Vector2::down() * 0.5f,
+	//	Vector2::down(), 0.6f);
+
+	//// FIXME:レイキャストで返ってきたコライダーがトリガーだった場合待機状態に遷移しなくなってしまう
+	//if (hit_info.collider != nullptr && !hit_info.collider->is_trigger_)
+	//{
+	//	owner_->ChangeState(new IdleState(owner_));
+	//}
 }
 
 bool JumpState::IsFalling() const

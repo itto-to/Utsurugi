@@ -6,6 +6,7 @@
 #include "walk_state.h"
 
 #include <algorithm>
+#include <cmath>
 #include <cassert>
 
 #include "../Common/jumper.h"
@@ -51,14 +52,25 @@ namespace shadowpartner
 	{
 		// ˆÚ“®
 		float move = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
-		if (move != 0.0f)
+		if (move != 0.0f) {
 			Move(move * kMoveForce);
-
-		if (collider_->Velocity().x == 0.0f && move == 0.0f) {
-			// ’âŽ~
-			owner_->ChangeState(new IdleState(owner_));
 		}
-		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump))
+		else {
+			float x = collider_->VelocityX() * 0.9f;
+			if (fabs(x) < 0.05f) {
+				collider_->SetVelocityX(0.0f);
+				owner_->ChangeState(new IdleState(owner_));
+			}
+			else
+			{
+				collider_->SetVelocityX(x);
+			}
+		}
+		//if (collider_->Velocity().x == 0.0f && move == 0.0f) {
+		//	// ’âŽ~
+		//	owner_->ChangeState(new IdleState(owner_));
+		//}
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump))
 		{
 			// ƒWƒƒƒ“ƒv“ü—Í
 			jumper_->Jump();

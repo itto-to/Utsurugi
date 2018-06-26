@@ -42,11 +42,12 @@ namespace shadowpartner
 	void IdleState::ExecuteState()
 	{
 
-		RaycastHit hit_info = physics::PhysicsFunc::Raycast(
-			owner_->transform_->position_ + Vector2::down() * 0.5f,
-			Vector2::down(), 0.6f);
-		
-		if (hit_info.collider == nullptr || hit_info.collider->is_trigger_)
+		//RaycastHit hit_info = physics::PhysicsFunc::Raycast(
+		//	owner_->transform_->position_ + Vector2::down() * 0.5f,
+		//	Vector2::down(), 0.6f);
+		//
+		//if (hit_info.collider == nullptr || hit_info.collider->is_trigger_)
+		if(!landing_trigger_->IsLanding())
 		{
 			// ‹ó’†‚È‚ç—Ž‰º
 			owner_->ChangeState(new JumpState(owner_));

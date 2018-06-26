@@ -47,34 +47,6 @@ namespace physics {
 			col_a->OnCollisionEnter(col_b);
 			col_b->OnCollisionEnter(col_a);
 		}
-
-
-		////
-		//if (col_a->tag_ == Tag::kPlayerTrigger || col_b->tag_ == Tag::kPlayerTrigger)
-		//{
-
-		//}
-
-		//// 範囲内になったライトの数をプラス
-		//if (other->tag_ == kLargeLight)
-		//{
-		//	hit_large_light++;
-		//}
-		//else if (other->tag_ == kMiddleLight)
-		//{
-		//	hit_middle_light++;
-		//}
-		//else if (other->tag_ == kSmallLight)
-		//{
-		//	hit_small_light++;
-		//}
-
-		//// 範囲内になったツタの数をプラス
-		//if (other->tag_ == Tag::kClimb)
-		//{
-		//	hit_climb++;
-		//}
-
 	}
 
 	void ContactListener::EndContact(b2Contact *contact)

@@ -17,6 +17,7 @@ namespace physics
 
 namespace shadowpartner
 {
+	class LandingTrigger;
 
 class JumpState : public ActorState {
 public:
@@ -27,6 +28,7 @@ public:
 
 private:
 	physics::Collider *collider_;
+	LandingTrigger *landing_trigger_;
 
 	void Move(const math::Vector2 &move);
 };

@@ -23,7 +23,7 @@ namespace shadowpartner
 	class Player : public Actor
 	{
 	public:
-		enum LightSize {
+		enum LightType {
 			LargeLight,
 			MiddleLight,
 			SmallLight,
@@ -49,7 +49,7 @@ namespace shadowpartner
 		int hit_middle_light;
 		int hit_small_light;
 		int hit_climb;
-		LightSize light_;
+		LightType light_;
 
 		// methods
 		void Start() override;

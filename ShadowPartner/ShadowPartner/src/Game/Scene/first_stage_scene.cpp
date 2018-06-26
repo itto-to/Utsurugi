@@ -16,6 +16,7 @@
 #include "../Actor/Player/landing_trigger.h"
 #include "../Actor/Common/jumper.h"
 #include "../../Base/Physics/Filter/collision_filter.h"
+#include "../Actor/Player/gimmck_trigger.h"
 
 #include "temp_ending.h"
 
@@ -276,28 +277,38 @@ namespace shadowpartner
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
 			box_collider->SetSleepingAllowed(false);	// Sleepを許可しない
-			// 矩形のセンサーの設定
-			BoxInitializer trigger_init;
-			trigger_init.width_ = kPlayerWidth;
-			trigger_init.height_ = kPlayerHeight;
-			trigger_init.is_trigger_ = true;
-			trigger_init.offset_ = Vector2::zero();
-			trigger_init.category_bits_ = CollisionFilter::kPlayer;
-			trigger_init.category_bits_ = CollisionFilter::kShadow;	// 影とだけ反応する
-			box_collider->AddFixture(trigger_init);
+
+			// ギミックトリガーの設定
+			BoxInitializer gimmick_init;
+			gimmick_init.body_type_ = kDynamicBody;
+			gimmick_init.gravity_scale_ = 0.0f;
+			gimmick_init.pos_ = player_->transform_->position_;
+			gimmick_init.width_ = kPlayerWidth;
+			gimmick_init.height_ = kPlayerHeight;
+			gimmick_init.is_trigger_ = true;
+			gimmick_init.offset_ = Vector2::zero();
+			gimmick_init.category_bits_ = CollisionFilter::kPlayer;
+			gimmick_init.category_bits_ = CollisionFilter::kShadow;	// 影とだけ反応する
+
+			GimmickTrigger *gimmick_trigger = new GimmickTrigger(gimmick_init);
+			gimmick_trigger->SetSleepingAllowed(false);
 
 			player_->AddComponent(box_collider);
 
-			// 着地トリガ
+			// 着地トリガーの設定
 			BoxInitializer land_init;
+			land_init.body_type_ = kDynamicBody;
+			land_init.gravity_scale_ = 0.0f;
 			land_init.pos_ = player_->transform_->position_;
 			land_init.width_ = kPlayerWidth;
 			land_init.height_ = 0.1f;
 			land_init.offset_ = Vector2(0.0f, -kPlayerHeight / 2);
 			land_init.is_trigger_ = true;
-			land_init.gravity_scale_ = 0.0f;
+			land_init.category_bits_ = CollisionFilter::kPlayer;
+			land_init.mask_bits_ = ~CollisionFilter::kPlayer;
 
 			LandingTrigger *land_trigger = new LandingTrigger(land_init);
+			land_trigger->SetSleepingAllowed(false);
 			player_->AddComponent(land_trigger);
 
 
@@ -408,8 +419,8 @@ namespace shadowpartner
 	{
 		StageScene::Update();
 
-		if (input::Input::Instance()->GetButtonDown(input::InputButton::Start))
-			SceneManager::LoadScene(new TempEndingScene());
+		//if (input::Input::Instance()->GetButtonDown(input::InputButton::Start))
+		//	SceneManager::LoadScene(new TempEndingScene());
 
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Skill))
 		{

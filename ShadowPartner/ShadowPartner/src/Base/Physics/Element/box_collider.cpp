@@ -54,6 +54,7 @@ namespace physics
 			break;
 		}
 
+		box_body_def.linearDamping = 0.0f;
 		box_body_def.position.Set(ini.pos_.x, ini.pos_.y);
 		box_body_def.fixedRotation = ini.fixed_rotation_;
 		box_body_def.gravityScale  = ini.gravity_scale_;
@@ -80,8 +81,8 @@ namespace physics
 		box_fixture_def.friction = ini.friction_;
 
 		// ƒtƒBƒ‹ƒ^Ý’è
-		box_fixture_def.filter.categoryBits = ini.category_bits_;
-		box_fixture_def.filter.maskBits = ini.mask_bits_;
+		category_bits_ = box_fixture_def.filter.categoryBits = ini.category_bits_;
+		mask_bits_ = box_fixture_def.filter.maskBits = ini.mask_bits_;
 
 		body_->CreateFixture(&box_fixture_def);
 
