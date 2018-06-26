@@ -65,14 +65,33 @@ namespace physics
 		float bounciness_;	// 反発係数
 
 		int index_;	// ワールドに紐づけられたインデックス
+
+		unsigned short category_bits_;
+		unsigned short mask_bits_;
+		
+
 		// methods
+		virtual void SetActive(bool is_active) override;
+		void SetSleepingAllowed(bool flag);
+
 		virtual void SetTransform(const Vector2 &pos, const float &ori);
 
 		virtual Vector2 GetPosition();
 		virtual float GetAngle();
 
 		void AddForce(const Vector2 &force);
+		void Move(const Vector2 &move);
+
 		void SetVelocity(const Vector2 &velo);
+		Vector2 Velocity() const;
+		float VelocityX() const;
+		void SetVelocityX(float x);
+		float VelocityY() const;
+		void SetVelocityY(float y);
+		float GravityScale() const;
+		void SetGravityScale(float scale);
+
+		void SetAwake(bool flag);
 
 		void Stop();
 
@@ -87,12 +106,12 @@ namespace physics
 		// methods
 		void FixedUpdate();
 
-		virtual void OnCollisionEnter(Collider *hit) {};
-		virtual void OnCollisionStay(Collider *hit) {};
-		virtual void OnCollisionExit(Collider *hit) {};
-		virtual void OnTriggerEnter(Collider *hit) {};
-		virtual void OnTriggerStay(Collider *hit) {};
-		virtual void OnTriggerExit(Collider *hit) {};
+		//virtual void OnCollisionEnter(Collider *hit) {};
+		//virtual void OnCollisionStay(Collider *hit) {};
+		//virtual void OnCollisionExit(Collider *hit) {};
+		//virtual void OnTriggerEnter(Collider *hit) {};
+		//virtual void OnTriggerStay(Collider *hit) {};
+		//virtual void OnTriggerExit(Collider *hit) {};
 
 	private:
 		// variables

@@ -37,6 +37,8 @@ namespace shadowpartner
 	private:
 		// variables
 		GameObject *clear_gate_;
+		GameObject *small_light_;
+		GameObject *middle_light_;
 
 		// methods
 

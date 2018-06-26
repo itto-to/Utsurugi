@@ -7,54 +7,88 @@
 #include "jump_state.h"
 
 #include "idle_state.h"
+#include "landing_trigger.h"
+#include "walk_state.h"
 #include "../../../Base/Physics/physics.h"
 #include "../../../Base/Physics/Func/physics_func.h"
 #include "../../../Base/Input/input.h"
 #include "../Common/actor.h"
+
+#ifdef _DEBUG
+#include "../../../Base/Debug/debugger.h"
+#endif
+
+#define CLAMP(x, low, hi)	(min(max((x), (low)), (hi)))
 
 using namespace physics;
 
 namespace shadowpartner
 {
 
-namespace {
-	float kMoveSpeed = 10.0f;
+namespace
+{
+	const float kMoveForce = 100.0f;
+	const float kMaxSpeedX = 1.0f;
 }
 
 
 JumpState::JumpState(Actor *owner) : ActorState(owner)
 {
-	Enter();
 }
 
 void JumpState::Enter()
 {
-	collider = owner_->game_object_->GetComponent<BoxCollider>();
+	landing_trigger_ = owner_->GetComponent<LandingTrigger>();
+	collider_ = owner_->GetComponentInherit<Collider>();
+#ifdef _DEBUG
+	debug::Debug::Log("プレイヤーの状態：ジャンプ");
+#endif
+
 }
 
 
-void JumpState::Execute()
+void JumpState::ExecuteState()
 {
 	// 移動
 	float move = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
-	owner_->game_object_->transform_->position_.x += move * kMoveSpeed;
+	Vector2 t = Vector2::right() * move * kMoveForce;
+	Move(t);
 
 	// 着地判定
-	RaycastHit hit_info = physics::PhysicsFunc::Raycast(
-		owner_->transform_->position_ + Vector2::down() * 50.0f,
-		Vector2::down(), 0.15f);
+	if (!IsFalling())	// 上昇中なら着地判定しない
+		return;
 
-	if (hit_info.collider != nullptr)
+	if (landing_trigger_->IsLanding())
 	{
-		//owner_->transform_->position_ = hit_info.hit_point + Vector2::up() * 50.0f;
-		owner_->ChangeState(new IdleState(owner_));
+		if (collider_->VelocityX() != 0.0f) {
+			owner_->ChangeState(new WalkState(owner_));
+		}
+		else
+		{
+			owner_->ChangeState(new IdleState(owner_));
+		}
 	}
+
+	//RaycastHit hit_info = physics::PhysicsFunc::Raycast(
+	//	owner_->transform_->position_ + Vector2::down() * 0.5f,
+	//	Vector2::down(), 0.6f);
+
+	//// FIXME:レイキャストで返ってきたコライダーがトリガーだった場合待機状態に遷移しなくなってしまう
+	//if (hit_info.collider != nullptr && !hit_info.collider->is_trigger_)
+	//{
+	//	owner_->ChangeState(new IdleState(owner_));
+	//}
 }
 
-void JumpState::Move(float move)
+bool JumpState::IsFalling() const
 {
-	owner_->transform_->position_.x += move * kMoveSpeed;
-	collider->SetTransform(owner_->transform_->position_, owner_->transform_->rotation_);
+	return collider_->Velocity().y <= 0.0f;
 }
 
+void JumpState::Move(const math::Vector2 & move)
+{
+	collider_->AddForce(move);
+	collider_->SetVelocityX(CLAMP(collider_->VelocityX(), -kMaxSpeedX, kMaxSpeedX));
 }
+
+}	// namespace shadowpartner

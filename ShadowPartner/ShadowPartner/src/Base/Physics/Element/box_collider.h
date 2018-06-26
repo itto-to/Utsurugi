@@ -29,6 +29,9 @@ namespace physics
 		float density_;			// 密度
 		float friction_;		// 摩擦係数
 		float bounciness_;		// 反発係数
+		unsigned short category_bits_;	// 自分のフィルタービット列
+		unsigned short mask_bits_;		// 当たる相手のフィルタービット列
+		float gravity_scale_;	// 重力係数
 
 		BoxInitializer()
 			:pos_(Vector2::zero())
@@ -41,6 +44,9 @@ namespace physics
 			, density_(1.0f)
 			, friction_(0.6f)
 			, bounciness_(0.0f)
+			, category_bits_(0x0001)
+			, mask_bits_(0xffff)
+			, gravity_scale_(1.0f)
 		{
 		}
 	};
@@ -54,7 +60,7 @@ namespace physics
 		BoxCollider(const BoxInitializer &initializer);
 		virtual ~BoxCollider() {};
 
-		// ariables
+		// variables
 		// methods
 		Vector2 GetSize();
 
@@ -62,10 +68,14 @@ namespace physics
 
 		void SetOffset(const Vector2 &offset);
 
+		void AddFixture(const BoxInitializer& ini);
+
 	protected:
 
 		// methods
 		void Start();
+
+		void SetCollider(const BoxInitializer &ini);
 
 		virtual void OnCollisionEnter(Collider *hit) {};
 		virtual void OnCollisionStay(Collider *hit) {};

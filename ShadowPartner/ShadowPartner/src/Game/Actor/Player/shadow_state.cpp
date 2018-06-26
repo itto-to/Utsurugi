@@ -1,6 +1,10 @@
 #include "shadow_state.h"
 
+#include "shadow.h"
 #include "player.h"
+#include "../../../Base/Physics/Element/collider.h"
+
+using namespace physics;
 
 namespace shadowpartner
 {
@@ -10,15 +14,10 @@ namespace shadowpartner
 	{
 	}
 
-	// 親となるプレイヤーをセット
-	void ShadowState::SetPlayer(GameObject *player)
+	void ShadowState::ExecuteState()
 	{
-		player_ = player;
-	}
-
-	void ShadowState::Execute()
-	{
-		owner_->transform_->position_ = player_->transform_->position_ + Vector2::down() * 100.0f;
+		owner_->transform_->position_ = static_cast<Shadow*>(owner_)->GetPlayerObject()->transform_->position_ + Vector2::down() * 1.0f;
+		owner_->GetComponentInherit<Collider>()->SetTransform(owner_->transform_->position_, owner_->transform_->rotation_);
 	}
 
 }	// namespace shadowpartner

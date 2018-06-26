@@ -12,18 +12,19 @@
 
 #include "../../../Base/Physics/Element/contact_listener.h"
 
+namespace physics
+{
+	class Collider;
+}
+
 namespace shadowpartner
 {
+	class GimmickTrigger;
+	class ActionTrigger;
 
-	class Player : public Actor, public physics::ContactListener
+	class Player : public Actor
 	{
 	public:
-		enum LightSize {
-			LargeLight,
-			MiddleLight,
-			SmallLight,
-			LightNone,
-		};
 
 		Player();
 		Player(ActorState *state);
@@ -31,20 +32,27 @@ namespace shadowpartner
 
 		// methods
 		void CreateShadow();
+		void SetRespawnPoint(Vector2 respawn_point);
+		Vector2 RespawnPoint();
+		void Respawn();
+
+		// variables
+		physics::Collider *landing_trigger_;
+		GameObject *shadow_object_;
 
 	protected:
 
 		// variables
-		int hit_large_light;
-		int hit_middle_light;
-		int hit_small_light;
-		LightSize light_;
+		Vector2 respawn_point_;
+
+		GimmickTrigger *gimmick_trigger_;
+		ActionTrigger *action_trigger_;
 
 		// methods
+		void Start() override;
 		void Update() override;
+		void SetShadowSize();
 
-		void BeginContact(b2Contact *contact) override;
-		void EndContact(b2Contact *contact) override;
 
 	private:
 

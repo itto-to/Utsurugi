@@ -13,6 +13,12 @@
 #include <windows.h>
 #include <typeinfo>
 
+namespace physics
+{
+	class Collider;
+}
+
+
 namespace shadowpartner
 {
 	class GameObject;
@@ -22,11 +28,16 @@ namespace shadowpartner
 	{
 		kUntagged = 0,
 		kPlayer,
+		kShadow,
 		kEnemy,
 		kLargeLight,
 		kMiddleLight,
 		kSmallLight,
 		kClimb,
+		kTree,
+		kPlayerTrigger,
+		kPlayerLandingTrigger,
+		kGimmick,
 	};
 
 	//==========================================================
@@ -49,7 +60,7 @@ namespace shadowpartner
 		void UpdateComponent();
 		void DrawComponent();
 
-		void SetActive(bool is_active);
+		virtual void SetActive(bool is_active);
 
 		void Attached(GameObject *game_object, Transform *transform, Tag tag);
 
@@ -61,6 +72,16 @@ namespace shadowpartner
 		T *GetComponent() 
 		{
 			return game_object_->GetComponent<T>();
+		}
+
+		//==========================================================
+		// 概要  :指定されたComponentの派生クラスTまたはTを継承したクラスへのポインタの取得を試みます。
+		// 戻り値:Componentの派生クラスTまたはTを継承したクラスへのポインタ(もしなかったらnullptr)
+		//==========================================================
+		template <typename T>
+		T *GetComponentInherit()
+		{
+			return game_object_->GetComponentInherit<T>();
 		}
 
 		//==========================================================
@@ -77,6 +98,20 @@ namespace shadowpartner
 			return false;
 		}
 
+		virtual void OnCollisionEnter(physics::Collider *collider) {}
+		virtual void OnCollisionExit(physics::Collider *collider) {}
+		virtual void OnCollisionStay(physics::Collider *collider) {}
+		virtual void OnTriggerEnter(physics::Collider *collider) {}
+		virtual void OnTriggerExit(physics::Collider *collider) {}
+		virtual void OnTriggerStay(physics::Collider *collider) {}
+
+		//virtual void OnCollisionEnter(physics::Collider *collider) {}
+		//virtual void OnCollisionExit(physics::Collider *collider) {}
+		//virtual void OnCollisionStay(physics::Collider *collider) {}
+		//virtual void OnTriggerEnter(physics::Collider *collider) {}
+		//virtual void OnTriggerExit(physics::Collider *collider) {}
+		//virtual void OnTriggerStay(physics::Collider *collider) {}
+
 	protected:
 
 		// methods
@@ -88,6 +123,9 @@ namespace shadowpartner
 		virtual void Draw() {};
 
 	private:
+		// variables
+
+		// methods
 	};
 }
 

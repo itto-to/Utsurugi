@@ -4,6 +4,7 @@
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 #include "physics_world.h"
+#include "../Element/contact_listener.h"
 
 #ifdef _DEBUG
 #include "../../Debug/debugger.h"
@@ -53,11 +54,13 @@ namespace physics
 		instance_->debug_draw_->Init();
 		instance_->world_.SetDebugDraw(instance_->debug_draw_);
 #endif
+		ContactListener::Init();
 	}
 
 	// I—¹ˆ—
 	void PhysicsWorld::Uninit()
 	{
+		ContactListener::Uninit();
 #ifdef _DEBUG
 		instance_->debug_draw_->Uninit();
 #endif
@@ -103,11 +106,14 @@ namespace physics
 
 		for (int i = 0;i < instance_->colliders_.size();++i)
 		{
-			instance_->colliders_[i]->transform_->position_ = //instance_->colliders_[i]->offset_ -
-				instance_->colliders_[i]->GetPosition();
+			if (!instance_->colliders_[i]->is_trigger_)
+			{
+				instance_->colliders_[i]->transform_->position_ = //instance_->colliders_[i]->offset_ -
+					instance_->colliders_[i]->GetPosition();
 
-			instance_->colliders_[i]->transform_->rotation_ =
-				instance_->colliders_[i]->GetAngle();
+				instance_->colliders_[i]->transform_->rotation_ =
+					instance_->colliders_[i]->GetAngle();
+			}
 		}
 
 	}

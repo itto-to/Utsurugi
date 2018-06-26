@@ -37,6 +37,10 @@ namespace shadowpartner
 		GameObject *stages_[STAGE_FASE_MAX];
 		GameObject *moon_light_;
 		GameObject *player_;
+		GameObject *shadow_;
+		GameObject *enemy_;
+		GameObject *vine_;
+		GameObject *tree_;
 
 		int phase_num_;
 		int current_phase_;					// ステージのフェーズ

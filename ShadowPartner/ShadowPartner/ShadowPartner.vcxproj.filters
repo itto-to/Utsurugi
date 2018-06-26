@@ -184,6 +184,15 @@
     <Filter Include="ヘッダー ファイル\Base\Physics\Particle">
       <UniqueIdentifier>{753dfd82-8826-44c0-a865-04b196ba57c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Base\Physics\Filter">
+      <UniqueIdentifier>{e20e9868-26db-4f4e-93ce-dc1849b19376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Actor\Gimmick">
+      <UniqueIdentifier>{b3c313f1-1b59-40d1-99a4-5baf8e2ce536}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Actor\Gimmick">
+      <UniqueIdentifier>{1de4f307-ba65-4fb0-a504-08a635486d71}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -306,9 +315,6 @@
     <ClCompile Include="src\Test\Scene\player_test_scene.cpp">
       <Filter>ソース ファイル\Test\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Actor\Player\climb_state.cpp">
-      <Filter>ソース ファイル\Game\Actor\Player</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\Actor\Player\jump_state.cpp">
       <Filter>ソース ファイル\Game\Actor\Player</Filter>
     </ClCompile>
@@ -330,14 +336,44 @@
     <ClCompile Include="src\Game\Scene\temp_ending.cpp">
       <Filter>ソース ファイル\Game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="src\Base\Physics\Element\tilemap_collider.cpp">
+    <ClCompile Include="src\Base\Physics\Element\light_collider.cpp">
       <Filter>ソース ファイル\Base\Physics\Element</Filter>
     </ClCompile>
-    <ClCompile Include="src\Base\Physics\Element\light_collider.cpp">
+    <ClCompile Include="src\Game\Actor\Common\jumper.cpp">
+      <Filter>ソース ファイル\Game\Actor\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\Physics\Element\tilemap_collider.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Base\Physics\Particle\particle_system.cpp">
-      <Filter>ソース ファイル\Base\Physics\Particle</Filter>
+    <ClCompile Include="src\Game\Actor\Common\movable.cpp">
+      <Filter>ソース ファイル\Game\Actor\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Actor\Player\sleep_state.cpp">
+      <Filter>ソース ファイル\Game\Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Actor\Player\climb_state.cpp">
+      <Filter>ソース ファイル\Game\Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Actor\Gimmick\tree.cpp">
+      <Filter>ソース ファイル\Game\Actor\Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Actor\Common\light_sensor.h">
+      <Filter>ヘッダー ファイル\Game\Actor\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Actor\Common\light_sensor.cpp">
+      <Filter>ソース ファイル\Game\Actor\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Actor\Player\landing_trigger.cpp">
+      <Filter>ソース ファイル\Game\Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Actor\Player\gimmick_trigger.cpp">
+      <Filter>ソース ファイル\Game\Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Actor\Player\action_trigger.cpp">
+      <Filter>ソース ファイル\Game\Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Actor\Common\gimmick_interface.cpp">
+      <Filter>ソース ファイル\Game\Actor\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -476,9 +512,6 @@
     <ClInclude Include="src\Game\Actor\Common\actor_state.h">
       <Filter>ヘッダー ファイル\Game\Actor\Common</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Actor\Player\climb_state.h">
-      <Filter>ヘッダー ファイル\Game\Actor\Player</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game\Actor\Player\idle_state.h">
       <Filter>ヘッダー ファイル\Game\Actor\Player</Filter>
     </ClInclude>
@@ -503,14 +536,38 @@
     <ClInclude Include="src\Game\Scene\temp_ending.h">
       <Filter>ヘッダー ファイル\Game\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="src\Base\Physics\Element\tilemap_collider.h">
+    <ClInclude Include="src\Base\Physics\Element\light_collider.h">
       <Filter>ヘッダー ファイル\Base\Physics\Element</Filter>
     </ClInclude>
-    <ClInclude Include="src\Base\Physics\Element\light_collider.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="src\Base\Physics\Filter\collision_filter.h">
+      <Filter>ヘッダー ファイル\Base\Physics\Filter</Filter>
     </ClInclude>
-    <ClInclude Include="src\Base\Physics\Particle\particle_system.h">
-      <Filter>ヘッダー ファイル\Base\Physics\Particle</Filter>
+    <ClInclude Include="src\Game\Actor\Common\jumper.h">
+      <Filter>ヘッダー ファイル\Game\Actor\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Actor\Common\movable.h">
+      <Filter>ヘッダー ファイル\Game\Actor\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Actor\Player\sleep_state.h">
+      <Filter>ヘッダー ファイル\Game\Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Actor\Player\climb_state.h">
+      <Filter>ヘッダー ファイル\Game\Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Actor\Gimmick\tree.h">
+      <Filter>ヘッダー ファイル\Game\Actor\Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Actor\Player\landing_trigger.h">
+      <Filter>ヘッダー ファイル\Game\Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Actor\Player\gimmck_trigger.h">
+      <Filter>ヘッダー ファイル\Game\Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Actor\Player\action_trigger.h">
+      <Filter>ヘッダー ファイル\Game\Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Actor\Common\gimmick_interface.h">
+      <Filter>ヘッダー ファイル\Game\Actor\Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -65,6 +65,25 @@ namespace shadowpartner
 			return nullptr;
 		}
 
+		//==========================================================
+		// 概要  :指定されたComponentの派生クラスTまたはTを継承したクラスへのポインタの取得を試みます。
+		// 戻り値:Componentの派生クラスTまたはTを継承したクラスへのポインタ(もしなかったらnullptr)
+		//==========================================================
+		template <typename T>
+		T *GetComponentInherit()
+		{
+			for (int i = 0; i < components_.size(); ++i)
+			{
+				T *p = dynamic_cast<T *>(components_[i]);
+				if (p != nullptr)
+				{
+					return p;
+				}
+			}
+
+			return nullptr;
+		}
+
 		void Destroy();
 		void Destroy(float delay);
 

@@ -6,7 +6,11 @@
 
 #include "player.h"
 #include "idle_state.h"
+#include "landing_trigger.h"
+#include "gimmck_trigger.h"
+#include "sleep_state.h"
 #include "../../../Base/2D/sprite.h"
+#include "shadow.h"
 
 #ifdef _DEBUG
 #include "../../../Base/Physics/Debug/debug_draw.h"
@@ -15,19 +19,13 @@
 namespace shadowpartner
 {
 
-	Player::Player() : 
-		hit_large_light(0),
-		hit_middle_light(0),
-		hit_small_light(0)
+	Player::Player()
 	{
 		state_ = new IdleState(this);
 	}
 
 	Player::Player(ActorState* state) : 
-		Actor(state),
-		hit_large_light(0),
-		hit_middle_light(0),
-		hit_small_light(0)
+		Actor(state)
 	{
 	}
 
@@ -37,91 +35,82 @@ namespace shadowpartner
 		state_ = nullptr;
 	}
 
-	void Player::BeginContact(b2Contact *contact)
+	void Player::Start()
 	{
-		Component *comp_a = static_cast<Component*>(contact->GetFixtureA()->GetBody()->GetUserData());
-		Component *comp_b = static_cast<Component*>(contact->GetFixtureB()->GetBody()->GetUserData());
+		gimmick_trigger_ = game_object_->GetComponent<GimmickTrigger>();
 
-		if (comp_a == nullptr || comp_b == nullptr)
-			return;
-
-		GameObject *other = nullptr;
-		if (comp_a->game_object_ == this->game_object_)
-		{
-			other = comp_b->game_object_;
-		}
-		else if (comp_b->game_object_ == this->game_object_)
-		{
-			other = comp_a->game_object_;
-		}
-		
-
-		// 範囲内になったライトの数をプラス
-		if (other->tag_ == kLargeLight)
-		{
-			hit_large_light++;
-		}
-		else if (other->tag_ == kMiddleLight)
-		{
-			hit_middle_light++;
-		}
-		else if (other->tag_ == kSmallLight)
-		{
-			hit_small_light++;
-		}
-	}
-
-	void Player::EndContact(b2Contact *contact)
-	{
-		Component *comp_a = static_cast<Component*>(contact->GetFixtureA()->GetBody()->GetUserData());
-		Component *comp_b = static_cast<Component*>(contact->GetFixtureB()->GetBody()->GetUserData());
-
-		if (comp_a == nullptr || comp_b == nullptr)
-			return;
-
-		GameObject *other = nullptr;
-		if (comp_a->game_object_ == this->game_object_)
-		{
-			other = comp_b->game_object_;
-		}
-		else if (comp_b->game_object_ == this->game_object_)
-		{
-			other = comp_a->game_object_;
-		}
-
-		// 範囲外になったライトの数をマイナス
-		if (other->tag_ == kLargeLight)
-		{
-			hit_large_light--;
-		}
-		else if (other->tag_ == kMiddleLight)
-		{
-			hit_middle_light--;
-		}
-		else if (other->tag_ == kSmallLight)
-		{
-			hit_small_light--;
-		}
+		state_->Enter();
 	}
 
 	void Player::Update()
 	{
 		state_->Execute();
+		SetShadowSize();	
+	}
+
+	void Player::SetShadowSize()
+	{
+		Shadow *shadow = shadow_object_->GetComponent<Shadow>();
+
+		LightType light_type = gimmick_trigger_->HittingLightType();
+
+		switch (light_type)
+		{
+		case kLarge:
+			shadow->SetShadowSize(Shadow::ShadowSize::kLargeShadow);
+			break;
+		case kMiddle:
+			shadow->SetShadowSize(Shadow::ShadowSize::kMiddleShadow);
+			break;
+		case kSmall:
+			shadow->SetShadowSize(Shadow::ShadowSize::kSmallShadow);
+			break;
+		case kLightNone:
+			shadow->SetShadowSize(Shadow::ShadowSize::kMiddleShadow);
+			break;
+		default:
+			break;
+		}
 	}
 
 	void Player::CreateShadow()
 	{
-		if (hit_small_light > 0)
-		{
+		LightType light_type = gimmick_trigger_->HittingLightType();
 
-		}
-		else if (hit_middle_light > 0)
+		switch (light_type)
 		{
-
+		case kLarge:
+			shadow_object_->GetComponent<Shadow>()->CreateLargeShadow();
+			SetControllable(false);
+			break;
+		case kMiddle:
+			shadow_object_->GetComponent<Shadow>()->CreateMiddleShadow();
+			SetControllable(false);
+			break;
+		case kSmall:
+			shadow_object_->GetComponent<Shadow>()->CreateSmallShadow();
+			SetControllable(false);
+			break;
+		case kLightNone:
+			return;
 		}
-		else if (hit_large_light > 0)
-		{
 
-		}
+		ChangeState(new SleepState(this));
+		is_controllable_ = false;
+	}
+
+	void Player::SetRespawnPoint(Vector2 respawn_point)
+	{
+		respawn_point_ = respawn_point;
+	}
+
+	Vector2 Player::RespawnPoint()
+	{
+		return respawn_point_;
+	}
+
+	void Player::Respawn()
+	{
+		game_object_->transform_->position_ = respawn_point_;
 	}
 }
