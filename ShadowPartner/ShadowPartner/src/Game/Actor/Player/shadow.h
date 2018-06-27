@@ -19,6 +19,9 @@ namespace physics
 namespace shadowpartner
 {
 	class Player;
+	class LandingTrigger;
+	class GimmickTrigger;
+	class ActionTrigger;
 	class Sprite;
 	class Jumper;
 
@@ -55,6 +58,9 @@ namespace shadowpartner
 		GameObject *player_object_;
 		Sprite *sprite_;
 		physics::BoxCollider *collider_;
+		LandingTrigger *landing_trigger_;
+		GimmickTrigger *gimmick_trigger_;
+		ActionTrigger *action_trigger_;
 		Jumper *jumper_;
 
 		int hit_large_light_;

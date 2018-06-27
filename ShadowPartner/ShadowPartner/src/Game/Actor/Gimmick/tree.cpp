@@ -25,7 +25,7 @@ namespace shadowpartner
 	{
 		//if (!is_activated_)
 		{
-			collider_->AddTorque(-20000.0f);
+			collider_->AddTorque(-20000);
 			//collider_->AddForceToPoint(Vector2(10000.0f, 0.0f), Vector2(0.0f, 5.0f));
 			is_activated_ = true;
 		}

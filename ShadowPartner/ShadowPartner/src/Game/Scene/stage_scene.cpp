@@ -51,11 +51,13 @@ namespace shadowpartner
 		// ŒŽ‚ÌŒõ‚ð¶¬
 		{
 			moon_light_ = new GameObject();
-			moon_light_->transform_->position_ = Vector2(0.0f, 0.0f);
+			moon_light_->transform_->position_ = Vector2(10.0f, 30.0f);
 
 			LightInitializer light_init;
-			light_init.radius_ = 1.0f;
-			light_init.color_ = D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x30);
+			light_init.radius_ = 60.0f;
+			light_init.color_ = D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28);
+			light_init.direction_ = Angle(Vector2::down());
+			light_init.angle_ = 120.0f;
 			Light *light = new Light(light_init);
 			moon_light_->AddComponent(light);
 

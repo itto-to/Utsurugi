@@ -15,7 +15,7 @@ namespace shadowpartner
 	// íËêî
 	//**********************************************************
 	const float ZOOM_MIN = 0.1f;
-	const float ZOOM_MAX = 5.0f;
+	const float ZOOM_MAX = 100.0f;
 
 	const float ZOOM_SMOOTHNESS_MIN = 0.0f;
 	const float ZOOM_SMOOTHNESS_MAX = 0.99f;

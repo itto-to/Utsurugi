@@ -13,7 +13,7 @@ namespace shadowpartner
 {
 	namespace
 	{
-		const float kDefaultForce = 900.0f;
+		const float kDefaultForce = 150.0f;
 		const float kDefaultGravity = 1.0f;
 	}
 

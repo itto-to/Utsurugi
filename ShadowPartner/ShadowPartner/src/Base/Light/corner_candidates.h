@@ -30,7 +30,7 @@ namespace shadowpartner
 		static void Init();
 		static void Uninit();
 
-		static void PreCalculate(std::vector<Stage *> stages);
+		static void PreCalculate(Stage *stages);
 		static void PreCalculate(std::vector<physics::Collider *> colliders);
 		static void Clear();
 
@@ -48,6 +48,7 @@ namespace shadowpartner
 
 		static std::vector<math::Vector2> GetCandidatesFromBox(physics::Collider *collider,const math::Vector2 &light_center,const float &distance);
 		static std::vector<math::Vector2> GetCandidatesFromCircle(physics::Collider *collider, const math::Vector2 &light_center, const float &distance);
+		static std::vector<math::Vector2> GetCandidatesFromTilemap(physics::Collider *collider, const math::Vector2 &light_center, const float &distance);
 	};
 }
 

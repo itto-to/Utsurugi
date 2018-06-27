@@ -12,6 +12,9 @@
 #include "../Common/jumper.h"
 #include "shadow_state.h"
 #include "idle_state.h"
+#include "landing_trigger.h"
+#include "gimmck_trigger.h"
+#include "action_trigger.h"
 #include "../../../Base/Input/input.h"
 
 using namespace physics;
@@ -49,9 +52,12 @@ namespace shadowpartner
 
 	void Shadow::Start()
 	{
-		sprite_ = game_object_->GetComponent<Sprite>();
-		collider_ = game_object_->GetComponent<physics::BoxCollider>();
-		jumper_ = game_object_->GetComponent<Jumper>();
+		sprite_          = GetComponent<Sprite>();
+		landing_trigger_ = GetComponent<LandingTrigger>();
+		gimmick_trigger_ = GetComponent<GimmickTrigger>();
+		action_trigger_  = GetComponent<ActionTrigger>();
+		collider_        = GetComponent<physics::BoxCollider>();
+		jumper_          = GetComponent<Jumper>();
 	}
 
 	void Shadow::Update()
@@ -64,80 +70,6 @@ namespace shadowpartner
 			ReturnToPlayerShadow();
 		}
 	}
-
-	//void Shadow::BeginContact(b2Contact *contact)
-	//{
- //		Component *comp_a = static_cast<Component*>(contact->GetFixtureA()->GetBody()->GetUserData());
-	//	Component *comp_b = static_cast<Component*>(contact->GetFixtureB()->GetBody()->GetUserData());
-
-	//	if (comp_a == nullptr || comp_b == nullptr)
-	//		return;
-
-	//	GameObject *other = nullptr;
-	//	if (comp_a->game_object_ == this->game_object_)
-	//	{
-	//		other = comp_b->game_object_;
-
-	//	}
-	//	else if (comp_b->game_object_ == this->game_object_)
-	//	{
-	//		other = comp_a->game_object_;
-	//	}
-	//	else {
-	//		return;
-	//	}
-
-	//	// 範囲内になったライトの数をプラス
-	//	if (other->tag_ == kLargeLight)
-	//	{
-	//		hit_large_light_++;
-	//	}
-	//	else if (other->tag_ == kMiddleLight)
-	//	{
-	//		hit_middle_light_++;
-	//	}
-	//	else if (other->tag_ == kSmallLight)
-	//	{
-	//		hit_small_light_++;
-	//	}
-	//}
-
-	//void Shadow::EndContact(b2Contact *contact)
-	//{
-	//	Component *comp_a = static_cast<Component*>(contact->GetFixtureA()->GetBody()->GetUserData());
-	//	Component *comp_b = static_cast<Component*>(contact->GetFixtureB()->GetBody()->GetUserData());
-
-	//	if (comp_a == nullptr || comp_b == nullptr)
-	//		return;
-
-	//	GameObject *other = nullptr;
-	//	if (comp_a->game_object_ == this->game_object_)
-	//	{
-	//		other = comp_b->game_object_;
-	//	}
-	//	else if (comp_b->game_object_ == this->game_object_)
-	//	{
-	//		other = comp_a->game_object_;
-	//	}
-	//	else
-	//	{
-	//		return;
-	//	}
-
-	//	// 範囲外になったライトの数をマイナス
-	//	if (other->tag_ == kLargeLight)
-	//	{
-	//		hit_large_light_--;
-	//	}
-	//	else if (other->tag_ == kMiddleLight)
-	//	{
-	//		hit_middle_light_--;
-	//	}
-	//	else if (other->tag_ == kSmallLight)
-	//	{
-	//		hit_small_light_--;
-	//	}
-	//}
 
 	void Shadow::SetShadowSize(ShadowSize shadow_size)
 	{
@@ -173,13 +105,13 @@ namespace shadowpartner
 
 		// 矩形の当たり判定の設定
 		BoxInitializer box_init;
-		box_init.width_ = kSmallShadowSize.x;
-		box_init.height_ = kSmallShadowSize.y;
-		box_init.bounciness_ = 0.0f;
+		box_init.width_         = kSmallShadowSize.x;
+		box_init.height_        = kSmallShadowSize.y;
+		box_init.bounciness_    = 0.0f;
 		box_init.category_bits_ = CollisionFilter::kShadow;
-		box_init.mask_bits_ = ~CollisionFilter::kPlayer;
-		box_init.body_type_ = kDynamicBody;
-		box_init.pos_ = game_object_->transform_->position_;
+		box_init.mask_bits_     = ~CollisionFilter::kPlayer;
+		box_init.body_type_     = kDynamicBody;
+		box_init.pos_           = game_object_->transform_->position_;
 
 		collider_->ReSet(box_init);
 
@@ -229,14 +161,14 @@ namespace shadowpartner
 
 		// 矩形の当たり判定の設定
 		BoxInitializer box_init;
-		box_init.pos_ = this->transform_->position_;
-		box_init.width_ = kLargeShadowSize.x;
-		box_init.height_ = kLargeShadowSize.y;
-		box_init.bounciness_ = 0.0f;
+		box_init.pos_           = this->transform_->position_;
+		box_init.width_         = kLargeShadowSize.x;
+		box_init.height_        = kLargeShadowSize.y;
+		box_init.bounciness_    = 0.0f;
 		box_init.category_bits_ = CollisionFilter::kShadow;
-		box_init.mask_bits_ = ~CollisionFilter::kPlayer;
-		box_init.body_type_ = kDynamicBody;
-		box_init.pos_ = game_object_->transform_->position_;
+		box_init.mask_bits_     = ~CollisionFilter::kPlayer;
+		box_init.body_type_     = kDynamicBody;
+		box_init.pos_           = game_object_->transform_->position_;
 
 		collider_->ReSet(box_init);
 
@@ -246,6 +178,8 @@ namespace shadowpartner
 
 	void Shadow::ReturnToPlayerShadow()
 	{
+		
+		// TODO:当たっている光に合わせて影の座標も決定
 		sprite_->SetSize(kMiddleShadowSize);
 		game_object_->transform_->position_ = player_object_->transform_->position_ - Vector2(0.0f, kMiddleShadowSize.y);
 		

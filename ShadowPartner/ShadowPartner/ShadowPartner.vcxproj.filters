@@ -178,6 +178,12 @@
     <Filter Include="ヘッダー ファイル\Base\Light">
       <UniqueIdentifier>{944100da-42a9-4fb3-8a3b-5368f9179f0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Base\Physics\Particle">
+      <UniqueIdentifier>{7721b26a-014e-4317-8ab1-749518802f73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Base\Physics\Particle">
+      <UniqueIdentifier>{753dfd82-8826-44c0-a865-04b196ba57c3}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ヘッダー ファイル\Base\Physics\Filter">
       <UniqueIdentifier>{e20e9868-26db-4f4e-93ce-dc1849b19376}</UniqueIdentifier>
     </Filter>

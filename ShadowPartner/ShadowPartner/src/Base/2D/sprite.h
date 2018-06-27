@@ -32,6 +32,7 @@ namespace shadowpartner
 		//variables
 
 		//methods
+		Vector2 Size();
 		void SetColor(const D3DCOLOR &color);
 		void SetSize(const Vector2 &size);
 		void SetUvOffset(const Vector2 &offset);

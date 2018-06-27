@@ -55,6 +55,7 @@ namespace shadowpartner
 		friend class CornerCandidates;
 		// variables
 		physics::TileMapCollider *tilemap_collider;
+		bool *collision_exist;
 		// methods
 
 	};

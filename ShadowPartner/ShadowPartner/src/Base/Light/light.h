@@ -24,13 +24,13 @@ namespace shadowpartner
 	//==========================================================
 	struct LightInitializer
 	{
-		float direction_;
+		Vector2 direction_;
 		float angle_;
 		float radius_;
 		D3DCOLOR color_;
 
 		LightInitializer()
-			:direction_(D3DX_PI * 3.0f / 4.0f)
+			:direction_(Vector2::down())
 			, angle_(360.0f)
 			, radius_(FLT_MAX)
 			, color_(LIGHT_DEFAULT_COLOR)
@@ -67,7 +67,7 @@ namespace shadowpartner
 		Vertex2D *light_vertices_;
 		int vertex_count_;	
 		float direction_;	// 光の向き
-		float angle_;		// 光の弧の広さ(度数法)
+		float angle_;		// 光の弧の広さ(弧度法)
 		float radius_;		// 光の届く長さ
 
 		D3DCOLOR light_color_;	// 光の色
@@ -95,8 +95,8 @@ namespace shadowpartner
 		int MedianIndex(int first, int last);
 
 		// QuickSortだと極めて近い値だけの配列の場合軸要素の決定が上手くいかず、無限ループに入ることがあるので、他の方法でソートさせる。
-		void MergeSort(std::vector<SortTemp> a);
-		void Merge(std::vector<SortTemp> early, std::vector<SortTemp> late, std::vector<SortTemp> a);
+		void MergeSort(SortTemp* arr, int length);
+		void Merge(SortTemp *early,int early_length, SortTemp *late,int late_length, SortTemp *a);
 
 		void BubbleSort();
 	};

@@ -46,9 +46,12 @@ namespace shadowpartner
 	// 概要  :与えられたタイル情報を元に候補点を事前計算します。
 	// 引数  :タイルステージのコンテナ
 	//==========================================================
-	void CornerCandidates::PreCalculate(vector<Stage *> stages)
+	void CornerCandidates::PreCalculate(Stage *stages)
 	{
+		vector<Vector2> additional;
+		additional = GetCandidatesFromTilemap(stages->tilemap_collider, Vector2::zero(), FLT_MAX);
 
+		static_points_.insert(static_points_.end(), additional.begin(), additional.end());
 	}
 
 	//==========================================================
@@ -94,7 +97,7 @@ namespace shadowpartner
 	{
 		instance_->static_points_.clear();
 	}
-	
+
 	// コライダーの中心が
 	static const float REGARD_AS_SAME_OBJECT = 0.01f;
 
@@ -128,6 +131,10 @@ namespace shadowpartner
 		// 一つ一つのコライダーの種類ごとに候補点の取得を行う。
 		for (int i = 0;i < colliders.size();++i)
 		{
+			// ここで追加するのはDynamicBodyだけ
+			if (colliders[i]->body_->GetType() != b2BodyType::b2_dynamicBody)
+				continue;
+
 			if (colliders[i]->Is<BoxCollider>())
 			{
 				// BoxColliderの場合
@@ -143,6 +150,17 @@ namespace shadowpartner
 			{
 				// CircleColliderの場合
 				additional = GetCandidatesFromCircle
+					(
+						colliders[i],
+						light_center,
+						distance
+						);
+				candidate_points.insert(candidate_points.end(), additional.begin(), additional.end());
+			}
+			else if (colliders[i]->Is<TileMapCollider>())
+			{
+				// TilemapColliderの場合
+				additional = GetCandidatesFromTilemap
 					(
 						colliders[i],
 						light_center,
@@ -167,11 +185,12 @@ namespace shadowpartner
 		BoxCollider *box = (BoxCollider *)collider;
 
 		b2Vec2 p = box->body_->GetTransform().p;
-		Vector2 box_center = Vector2(p.x,p.y);
+		Vector2 box_center = Vector2(p.x, p.y);
 		Vector2 size = box->GetSize();
 
 		Vector2 point;
 
+		// 追加する候補点
 		vector<Vector2> additional_point;
 
 		for (int i = 0; i < 4;++i)
@@ -204,7 +223,7 @@ namespace shadowpartner
 		CircleCollider *circle = (CircleCollider *)collider;
 
 		b2Vec2 p = circle->body_->GetTransform().p;
-		Vector2 circle_center = Vector2(p.x,p.y);
+		Vector2 circle_center = Vector2(p.x, p.y);
 		float radius = circle->GetRadius();
 
 		Vector2 light_to_cirlce = circle_center - light_center;	// 光源からCircleColliderまでのベクトル
@@ -228,6 +247,7 @@ namespace shadowpartner
 
 		contact2 = light_center + (light_to_vertical * light_to_cirlce) + (vertical * -light_to_cirlce_normal);
 
+		// 追加する候補点
 		vector<Vector2> additional_point;
 
 		additional_point.push_back(contact1);
@@ -235,4 +255,109 @@ namespace shadowpartner
 
 		return additional_point;
 	}
+
+	//==========================================================
+	// 概要  :TilemapColliderを元に候補点を返します。
+	// 引数  :
+	//	circle  :光を遮るcircleコライダー
+	//	center  :光の中心点
+	//	distance:光の届く距離
+	// 戻り値:候補点の集合
+	//==========================================================
+	vector<Vector2> CornerCandidates::GetCandidatesFromTilemap(Collider *collider, const math::Vector2 &light_center, const float &distance)
+	{
+		TileMapCollider *tilemap = (TileMapCollider *)collider;
+		Stage *stage = collider->GetComponent<Stage>();
+
+		b2Vec2 p = tilemap->body_->GetTransform().p;
+		Vector2 tilemap_center = Vector2(p.x, p.y);
+		float w, h;
+		w = tilemap->GetSize().x;
+		h = tilemap->GetSize().y;
+
+		Vector2 tilemap_upper_left = Vector2(tilemap_center.x - w * stage->cell_horizontal / 2.0f, tilemap_center.y + h * stage->cell_vertical);
+
+		// 追加する候補点
+		vector<Vector2> additional_point;
+
+		// チェックする格子点を囲む四方の格子にコライダーがあるかどうか
+		bool ul, ur, ll, lr; // upper left,upper right,lower left,lower right
+		int check;
+
+		for (int y = 0;y < stage->cell_vertical + 1;++y)
+		{
+			ul = false;
+			ll = false;
+
+			if (y > 0)
+			{
+				ur = stage->collision_exist[(y - 1) * stage->cell_horizontal];
+			}
+			else
+			{
+				ur = false;
+			}
+
+			if (y < stage->cell_vertical)
+			{
+				lr = stage->collision_exist[y * stage->cell_horizontal];
+			}
+			else
+			{
+				lr = false;
+			}
+
+			for (int x = 0;x < stage->cell_horizontal + 1;++x)
+			{
+				// この格子点が光の頂点になりうるかどうかを確認する
+				check = static_cast<int>(ul) << 0 + static_cast<int>(ur) << 1 + static_cast<int>(ll) << 2 + static_cast<int>(lr) << 3;
+
+				switch (check)
+				{
+				case 0:
+				case 3:
+				case 5:
+				case 10:
+				case 12:
+				case 15:
+				{
+					// 候補点ではないので何もしない。
+				}
+				break;
+
+				default:
+				{
+					// 候補点なので追加する
+					additional_point.push_back(tilemap_upper_left + Vector2(w * x, h * y));
+				}
+					break;
+				}
+
+				// 次の格子点にずらす
+				ul = ur;
+				ll = lr;
+
+				if (y > 0)
+				{
+					ur = stage->collision_exist[(y - 1) * stage->cell_horizontal + x];
+				}
+				else
+				{
+					ur = false;
+				}
+
+				if (y < stage->cell_vertical)
+				{
+					lr = stage->collision_exist[(y + 1) * stage->cell_horizontal + x];
+				}
+				else
+				{
+					lr = false;
+				}
+			}
+		}
+
+		return additional_point;
+	}
+
 }

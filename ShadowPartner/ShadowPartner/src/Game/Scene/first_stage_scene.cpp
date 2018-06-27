@@ -29,12 +29,18 @@
 #include "../../Base/Physics/physics.h"
 #include "../../Base/Time/time.h"
 
-#define LIGHT_TEXTURE_NAME       "Resources/Texture/LightBulb.png"
+
+#include "../../Base/Light/corner_candidates.h"
+
+#define LIGHT_TEXTURE_NAME "Resources/Texture/LightBulb.png"
 #define BACK_GROUND_TEXTURE_NAME "Resources/Texture/Stage/ForestBackGround.png"
 #define CLEAR_GATE_TEXTURE_NAME  "Resources/Texture/Stage/Gate.png"
 #define PLAYER_TEXTURE_NAME      "Resources/Texture/Character/newfox.png"
 #define LIGHT_TEXTURE_NAME       "Resources/Texture/white.png"
-#define TREE_TEXTURE_NAME        "Resources/Texture/white.png"
+#define IVY_TEXTURE_NAME         "Resources/Texture/Stage/Ivy.png"
+#define TREE_LOG_TEXTURE_NAME    "Resources/Texture/Stage/RoundWood.png"
+#define LIGHT_TREE_TEXTURE_NAME  "Resources/Texture/Light/tree.png"
+#define FIREFLY_TEXTURE_NAME     "Resources/Texture/Light/firefly.png"
 
 using namespace physics;
 
@@ -109,16 +115,25 @@ namespace shadowpartner
 			Stage *stage = new Stage(StageNumber::kTest, *stages_[0]);
 			stages_[0]->AddComponent(stage);
 
-			AddGameObject(stages_[0]);
-		}
+			CornerCandidates::PreCalculate(stage);
 
+			AddGameObject(stages_[0]);
+
+			
+		}
+		 
 		// 中ライト生成
 		{
 			middle_light_ = new GameObject();
 			middle_light_->transform_->position_ = Vector2(-2.0f, -1.0f);
 			middle_light_->tag_ = Tag::kMiddleLight;
 
-			// スプライトの設定
+			// ライトツリーのスプライト設定
+			Sprite *tree_sprite = new Sprite(LIGHT_TREE_TEXTURE_NAME);
+			tree_sprite->SetSize(Vector2(3.0f, 3.0f));
+			middle_light_->AddComponent(tree_sprite);
+
+			// 光のスプライト設定
 			Sprite *sprite = new Sprite(LIGHT_TEXTURE_NAME);
 			sprite->SetSize(Vector2(3.0f, 3.0f));
 			sprite->SetColor(D3DCOLOR_RGBA(0x00, 0x00, 0xff, 0x80));
@@ -126,11 +141,11 @@ namespace shadowpartner
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
+			box_init.pos_        = middle_light_->transform_->position_;
 			box_init.width_      = 3.0f;
 			box_init.height_     = 3.0f;
 			box_init.body_type_  = kStaticBody;
 			box_init.is_trigger_ = true;
-			box_init.pos_        = middle_light_->transform_->position_;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
 			middle_light_->AddComponent(box_collider);
@@ -145,6 +160,11 @@ namespace shadowpartner
 			small_light_->transform_->position_ = Vector2(1.0f, -1.5f);
 			small_light_->tag_ = Tag::kSmallLight;
 
+			// ホタルのスプライト設定
+			Sprite *firefly_sprite = new Sprite(FIREFLY_TEXTURE_NAME);
+			firefly_sprite->SetSize(Vector2(1.0f, 1.0f));
+			small_light_->AddComponent(firefly_sprite);
+
 			// スプライトの設定
 			Sprite *sprite = new Sprite(LIGHT_TEXTURE_NAME);
 			sprite->SetSize(Vector2(2.0f, 2.0f));
@@ -153,10 +173,12 @@ namespace shadowpartner
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
+
 			box_init.width_      = 2.0f;
 			box_init.height_     = 2.0f;
 			box_init.body_type_  = kStaticBody;
 			box_init.is_trigger_ = true;
+
 			box_init.pos_        = small_light_->transform_->position_;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
@@ -172,7 +194,7 @@ namespace shadowpartner
 			vine_->transform_->position_ = Vector2(-4.0f, 0.0f);
 			vine_->tag_                  = Tag::kClimb;
 
-			Sprite *sprite = new Sprite(LIGHT_TEXTURE_NAME);
+			Sprite *sprite = new Sprite(IVY_TEXTURE_NAME);
 			sprite->SetSize(Vector2(0.5f, 4.0f));
 			sprite->SetColor(D3DCOLOR_ARGB(0xff, 0x00, 0xff, 0x00));
 			vine_->AddComponent(sprite);
@@ -180,12 +202,12 @@ namespace shadowpartner
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
+			box_init.pos_        = vine_->transform_->position_;
 			box_init.width_      = 0.5f;
 			box_init.height_     = 4.0f;
 			box_init.density_    = 0.1f;
 			box_init.body_type_  = kStaticBody;
 			box_init.is_trigger_ = true;
-			box_init.pos_        = vine_->transform_->position_;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
 			vine_->AddComponent(box_collider);
@@ -204,7 +226,7 @@ namespace shadowpartner
 			tree_log_->tag_ = Tag::kTree;
 
 			// スプライト設定
-			Sprite *sprite = new Sprite(TREE_TEXTURE_NAME);
+			Sprite *sprite = new Sprite(TREE_LOG_TEXTURE_NAME);
 			sprite->SetSize(Vector2(kTreeWidth, kTreeHeight));
 			tree_log_->AddComponent(sprite);
 
@@ -221,7 +243,9 @@ namespace shadowpartner
 			box_init.mask_bits_      = CollisionFilter::kDefaultMask | CollisionFilter::kActionTrigger;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
+
 			tree_log_->AddComponent(box_collider);
+
 
 			Tree *tree_component = new Tree();
 			tree_log_->AddComponent(tree_component);
@@ -319,20 +343,23 @@ namespace shadowpartner
 
 		// 影を生成
 		{
+			const float kShadowWidth  = 1.0f;
+			const float kShadowHeight = 1.0f;
+
 			shadow_ = new GameObject();
 			shadow_->transform_->position_ = player_->transform_->position_ + Vector2::down() * 1.0f;
 			shadow_->tag_ = Tag::kShadow;
 
 			Sprite *sprite = new Sprite(PLAYER_TEXTURE_NAME);
-			sprite->SetSize(Vector2(1.0f, 1.0f));
+			sprite->SetSize(Vector2(kShadowWidth, kShadowHeight));
 			sprite->SetColor(D3DCOLOR_RGBA(0, 0, 0, 0xff));
 			shadow_->AddComponent(sprite);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
 			box_init.pos_           = shadow_->transform_->position_;
-			box_init.width_         = 1.0f;
-			box_init.height_        = 1.0f;
+			box_init.width_         = kShadowWidth;
+			box_init.height_        = kShadowHeight;
 			box_init.friction_      = 0.0f;
 			box_init.body_type_     = kStaticBody;
 			box_init.is_trigger_    = true;
@@ -341,6 +368,22 @@ namespace shadowpartner
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
 			shadow_->AddComponent(box_collider);
+
+			// 着地トリガーの設定
+			BoxInitializer land_init;
+			land_init.body_type_     = kDynamicBody;
+			land_init.gravity_scale_ = 0.0f;
+			land_init.pos_           = player_->transform_->position_;
+			land_init.width_         = kShadowWidth;
+			land_init.height_        = 0.1f;
+			land_init.offset_        = Vector2(0.0f, -kShadowHeight / 2);
+			land_init.is_trigger_    = true;
+			land_init.category_bits_ = CollisionFilter::kShadow;
+			land_init.mask_bits_     = CollisionFilter::kDefaultCategory | CollisionFilter::kClimb | CollisionFilter::kActionObject;
+
+			LandingTrigger *land_trigger = new LandingTrigger(land_init);
+			land_trigger->SetSleepingAllowed(false);
+			player_->AddComponent(land_trigger);
 
 			Jumper *jumper = new Jumper();
 			shadow_->AddComponent(jumper);
@@ -413,9 +456,15 @@ namespace shadowpartner
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
 		{
 			static int z = 0;
-			z = (z + 1) % 4;
-			Camera::main_->SetZoom(0.64f + 0.33f * (z + 1));
+
+			z = (z + 1) % 16;
+			Camera::main_->SetZoom(10.0f + 1.0f * (z - 9));
 		}
+
+		//static float rad = 0.0f;
+		//rad += D3DXToRadian(0.1f);
+		//moon_light_->GetComponent<Light>()->SetDirection(Vector2(cosf(rad),sinf(rad)));
+
 	}
 
 	void FirstStageScene::Uninit()
