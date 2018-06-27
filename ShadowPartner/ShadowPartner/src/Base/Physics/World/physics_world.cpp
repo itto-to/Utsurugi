@@ -92,7 +92,7 @@ namespace physics
 		{
 			instance_->colliders_[i]->SetTransform
 				(
-					instance_->colliders_[i]->transform_->position_ ,//+ instance_->colliders_[i]->offset_,
+					instance_->colliders_[i]->transform_->position_ ,
 					instance_->colliders_[i]->transform_->rotation_
 					);
 		}
@@ -108,7 +108,7 @@ namespace physics
 		{
 			if (!instance_->colliders_[i]->is_trigger_)
 			{
-				instance_->colliders_[i]->transform_->position_ = //instance_->colliders_[i]->offset_ -
+				instance_->colliders_[i]->transform_->position_ = 
 					instance_->colliders_[i]->GetPosition();
 
 				instance_->colliders_[i]->transform_->rotation_ =
@@ -140,6 +140,18 @@ namespace physics
 		return instance_->world_.CreateBody(body_def);
 	}
 
+	//==========================================================
+	// 概要  :物理エンジンの制御下にあるJointを追加する
+	// 引数  :Jointの定義
+	//==========================================================
+	b2Joint *PhysicsWorld::CreateJoint(Joint *joint, const b2JointDef *joint_def)
+	{
+		joint->index_ = instance_->joints_.size();
+		instance_->joints_.push_back(joint);
+
+		return instance_->world_.CreateJoint(joint_def);
+	}
+
 	void PhysicsWorld::DestroyBody(int index,b2Body *body)
 	{
 		instance_->world_.DestroyBody(body);
@@ -152,6 +164,18 @@ namespace physics
 		instance_->colliders_.erase(instance_->colliders_.begin() + index);
 	}
 
+	void PhysicsWorld::DestroyJoint(int index, b2Joint *joint)
+	{
+		instance_->world_.DestroyJoint(joint);
+
+		for (int i = index + 1;i < instance_->joints_.size();++i)
+		{
+			--instance_->joints_[i]->index_;
+		}
+
+		instance_->joints_.erase(instance_->joints_.begin() + index);
+	}
+
 	void PhysicsWorld::ClearBody()
 	{
 		for (int i = 0;i < instance_->colliders_.size();++i)
@@ -160,6 +184,16 @@ namespace physics
 		}
 
 		instance_->colliders_.clear();
+	}
+
+	void PhysicsWorld::ClearJoint()
+	{
+		for (int i = 0;i < instance_->joints_.size();++i)
+		{
+			instance_->world_.DestroyJoint(instance_->joints_[i]->joint_);
+		}
+
+		instance_->joints_.clear();
 	}
 
 	// Accessor・Mutator

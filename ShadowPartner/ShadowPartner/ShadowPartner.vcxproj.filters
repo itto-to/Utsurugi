@@ -193,6 +193,12 @@
     <Filter Include="ヘッダー ファイル\Game\Actor\Gimmick">
       <UniqueIdentifier>{1de4f307-ba65-4fb0-a504-08a635486d71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Base\Physics\Joint">
+      <UniqueIdentifier>{3d5de579-950b-40c3-85cd-a964a70e1e19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Base\Physics\Joint">
+      <UniqueIdentifier>{135b994b-94b8-455d-a3c7-ac11851ec8a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -374,6 +380,15 @@
     </ClCompile>
     <ClCompile Include="src\Game\Actor\Common\gimmick_interface.cpp">
       <Filter>ソース ファイル\Game\Actor\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\Physics\Particle\particle_system.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\Physics\Joint\revolute_joint.cpp">
+      <Filter>ソース ファイル\Base\Physics\Joint</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\Physics\Joint\joint.cpp">
+      <Filter>ソース ファイル\Base\Physics\Joint</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -568,6 +583,15 @@
     </ClInclude>
     <ClInclude Include="src\Game\Actor\Common\gimmick_interface.h">
       <Filter>ヘッダー ファイル\Game\Actor\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Physics\Particle\particle_system.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Physics\Joint\revolute_joint.h">
+      <Filter>ヘッダー ファイル\Base\Physics\Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Physics\Joint\joint.h">
+      <Filter>ヘッダー ファイル\Base\Physics\Joint</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

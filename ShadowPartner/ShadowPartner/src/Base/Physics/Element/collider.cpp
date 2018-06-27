@@ -62,7 +62,7 @@ namespace physics
 
 	void Collider::SetTransform(const Vector2 &pos, const float &ori)
 	{
-		body_->SetTransform(b2Vec2(pos.x, pos.y), ori);
+		body_->SetTransform(b2Vec2(pos.x, pos.y), -D3DXToRadian(ori));
 	}
 
 	void Collider::FixedUpdate()
@@ -79,7 +79,7 @@ namespace physics
 
 	float Collider::GetAngle()
 	{
-		return body_->GetAngle();
+		return -D3DXToDegree(body_->GetAngle());
 	}
 
 	void Collider::AddForce(const Vector2 &force)

@@ -66,7 +66,7 @@ namespace shadowpartner
 		// 動く円形のオブジェクト
 		{
 			dynamic_circle = new GameObject();
-			dynamic_circle->transform_->position_ = Vector2(-1.0f, 1.0f);
+			dynamic_circle->transform_->position_ = Vector2(-3.0f, 1.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
@@ -90,18 +90,18 @@ namespace shadowpartner
 		// 静止したボックス
 		{
 			static_box = new GameObject();
-			static_box->transform_->position_ = Vector2(0.0f, -2.15f);
+			static_box->transform_->position_ = Vector2(0.0f, -2.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
-			sprite->SetSize(Vector2(11.2f, 2.0f));
+			sprite->SetSize(Vector2(11.2f, 3.0f));
 			sprite->SetColor(D3DCOLOR_RGBA(0, 255, 0, 255));
 			static_box->AddComponent(sprite);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
 			box_init.width_ = 11.2f;
-			box_init.height_ = 2.0f;
+			box_init.height_ = 3.0f;
 			box_init.pos_ = static_box->transform_->position_;
 			box_init.body_type_ = BodyType::kStaticBody;
 
@@ -115,22 +115,25 @@ namespace shadowpartner
 		// 動かせるボックス
 		{
 			dynamic_box = new GameObject();
-			dynamic_box->transform_->position_ = Vector2(0.0f, 0.0f);
+			dynamic_box->transform_->position_ = Vector2(-1.0f, 1.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
-			sprite->SetSize(Vector2(0.1f, 0.1f));
+			sprite->SetSize(Vector2(0.1f, 2.0f));
 			sprite->SetColor(D3DCOLOR_RGBA(255, 30, 30, 255));
 			dynamic_box->AddComponent(sprite);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
 			box_init.width_ = 0.1f;
-			box_init.height_ = 0.1f;
+			box_init.height_ = 2.0f;
 			box_init.pos_ = dynamic_box->transform_->position_;
+			box_init.fixed_rotation_ = false;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
 			dynamic_box->AddComponent(box_collider);
+
+			box_collider->AddForce(Vector2(1.0f,1.0f) * 1000.0f);
 
 			// シーンにゲームオブジェクトを登録
 			AddGameObject(dynamic_box);
@@ -139,7 +142,7 @@ namespace shadowpartner
 		// 動かない円形のオブジェクト
 		{
 			static_circle = new GameObject();
-			static_circle->transform_->position_ = Vector2(4.0f, -1.3f);
+			static_circle->transform_->position_ = Vector2(4.0f, -1.0f);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
@@ -160,6 +163,29 @@ namespace shadowpartner
 			AddGameObject(static_circle);
 		}
 
+		// ヒンジジョイントを作る
+		{
+			hinge_joint = new GameObject();
+
+			hinge_joint->transform_->position_ = Vector2(-1.0f, -0.4f);
+
+			RevoluteInitializer ri;
+			ri.collider_a_ = dynamic_box->GetComponent<BoxCollider>();
+			ri.local_anchor_a_ = Vector2(0.0f, -1.1f);
+			ri.collider_b_ = static_box->GetComponent<BoxCollider>();
+			ri.local_anchor_b_ = Vector2(0.0f, 1.6f);
+			ri.world_pos_ = hinge_joint->transform_->position_;
+
+			ri.enable_limit_ = true;
+			ri.lower_angle_ = -60.0f;
+			ri.upper_angle_ = 5.0f;
+
+			RevoluteJoint *revolute_joint = new RevoluteJoint(ri);
+			hinge_joint->AddComponent(revolute_joint);
+
+			AddGameObject(hinge_joint);
+		}
+
 		// ピラミッド作る
 		{
 			for (int i = 0;i < 15;++i)
@@ -178,6 +204,8 @@ namespace shadowpartner
 				box_init.width_ = 0.2f;
 				box_init.height_ = 0.2f;
 				box_init.pos_ = pyramids_[i]->transform_->position_;
+				box_init.friction_ = 0.1f;
+				box_init.fixed_rotation_ = false;
 
 				BoxCollider *box_collider = new BoxCollider(box_init);
 				pyramids_[i]->AddComponent(box_collider);
@@ -216,7 +244,7 @@ namespace shadowpartner
 		move.x = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
 		move.y = input::Input::Instance()->GetAxis(input::InputAxis::Vertical);
 
-		dynamic_circle->GetComponent<CircleCollider>()->AddForce(move * 1.0f);
+		dynamic_circle->GetComponent<CircleCollider>()->SetVelocity(move * 3.0f);
 
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Cancel))
 			SceneManager::LoadScene(new LightTestScene());

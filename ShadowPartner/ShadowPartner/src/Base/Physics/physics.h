@@ -16,6 +16,8 @@
 #include "Element\circle_collider.h"
 #include "Element\tilemap_collider.h"
 
+#include "Joint\revolute_joint.h"
+
 #include "Func\physics_func.h"
 
 #endif
