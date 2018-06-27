@@ -87,6 +87,16 @@ namespace physics
 		body_->ApplyForceToCenter(b2Vec2(force.x,force.y),true);
 	}
 
+	void Collider::AddForceToPoint(const Vector2 &force, const Vector2 &point)
+	{
+		body_->ApplyForce(b2Vec2(force.x, force.y), b2Vec2(point.x, point.y), true);
+	}
+
+	void Collider::AddTorque(const float torque)
+	{
+		body_->ApplyTorque(torque, true);
+	}
+
 	void Collider::Move(const Vector2 &move)
 	{
 		game_object_->transform_->position_ += move;

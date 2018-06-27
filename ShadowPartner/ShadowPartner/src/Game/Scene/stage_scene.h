@@ -40,7 +40,7 @@ namespace shadowpartner
 		GameObject *shadow_;
 		GameObject *enemy_;
 		GameObject *vine_;
-		GameObject *tree_;
+		GameObject *tree_log_;
 
 		int phase_num_;
 		int current_phase_;					// ステージのフェーズ

@@ -66,10 +66,7 @@ namespace shadowpartner
 				collider_->SetVelocityX(x);
 			}
 		}
-		//if (collider_->Velocity().x == 0.0f && move == 0.0f) {
-		//	// ’âŽ~
-		//	owner_->ChangeState(new IdleState(owner_));
-		//}
+
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump))
 		{
 			// ƒWƒƒƒ“ƒv“ü—Í

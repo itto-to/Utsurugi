@@ -29,7 +29,7 @@ namespace shadowpartner
 	protected:
 		physics::Collider *collider_;
 
-
+		bool is_activated_;
 	};
 
 }	// namespace shadowpartner
