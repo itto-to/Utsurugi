@@ -224,10 +224,10 @@ namespace shadowpartner
 			// スプライトの設定
 			ChainInitializer chain_init;
 			chain_init.first_pos_ = chain_object->transform_->position_;
-			chain_init.next_diff_ = Vector2(0.3f, 0.0f);
+			chain_init.next_diff_ = Vector2(0.4f, 0.0f);
 			chain_init.pieces_count_ = 10;
-			chain_init.piece_width_ = 0.3f;
-			chain_init.piece_height_ = 0.05f;
+			chain_init.piece_width_ = 0.4f;
+			chain_init.piece_height_ = 0.2f;
 			Chain *chain = new Chain(chain_init,this);
 			chain_object->AddComponent(chain);
 

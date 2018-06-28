@@ -11,7 +11,7 @@
 
 using namespace physics;
 
-#define CHAIN_PIECE_TEXTURE_NAME "Resources/Texture/white.png"
+#define CHAIN_PIECE_TEXTURE_NAME "Resources/Texture/Stage/IvyTemp.png"
 
 namespace shadowpartner
 {

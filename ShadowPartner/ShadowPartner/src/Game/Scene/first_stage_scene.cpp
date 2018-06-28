@@ -105,9 +105,9 @@ namespace shadowpartner
 		// Stage Fase1
 		{
 			stages_[0] = new GameObject();
-			stages_[0]->transform_->position_ = Vector2(0.0f, 0.0f);
+			stages_[0]->transform_->position_ = Vector2(11.2f, 0.0f);
 
-			Stage *stage = new Stage(StageNumber::kTest, *stages_[0]);
+			Stage *stage = new Stage(StageNumber::kStage1_1, *stages_[0]);
 			stages_[0]->AddComponent(stage);
 
 			CornerCandidates::PreCalculate(stage);
@@ -116,6 +116,37 @@ namespace shadowpartner
 
 			
 		}
+
+		// Stage Fase1
+		{
+			stages_[1] = new GameObject();
+			stages_[1]->transform_->position_ = Vector2(11.2f, 0.0f);
+
+			Stage *stage = new Stage(StageNumber::kStage1_2, *stages_[1]);
+			stages_[1]->AddComponent(stage);
+
+			CornerCandidates::PreCalculate(stage);
+
+			AddGameObject(stages_[1]);
+
+
+		}
+
+		// Stage Fase1
+		{
+			stages_[2] = new GameObject();
+			stages_[2]->transform_->position_ = Vector2(22.4f, 0.0f);
+
+			Stage *stage = new Stage(StageNumber::kStage1_3, *stages_[2]);
+			stages_[2]->AddComponent(stage);
+
+			CornerCandidates::PreCalculate(stage);
+
+			AddGameObject(stages_[2]);
+
+
+		}
+
 		 
 		// ’†ƒ‰ƒCƒg¶¬
 		{
