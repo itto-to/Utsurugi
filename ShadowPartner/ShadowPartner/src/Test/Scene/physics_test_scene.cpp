@@ -11,6 +11,7 @@
 #include "../../Base/System/scene_manager.h"
 #include "light_test_scene.h"
 #include "player_test_scene.h"
+#include "../../Game/Actor/Gimmick/chain.h"
 
 #ifdef _DEBUG
 #include "../../Base/Debug/debugger.h"
@@ -177,7 +178,7 @@ namespace shadowpartner
 			ri.world_pos_ = hinge_joint->transform_->position_;
 
 			ri.enable_limit_ = true;
-			ri.lower_angle_ = -60.0f;
+			ri.lower_angle_ = -90.0f;
 			ri.upper_angle_ = 5.0f;
 
 			RevoluteJoint *revolute_joint = new RevoluteJoint(ri);
@@ -215,6 +216,24 @@ namespace shadowpartner
 			}
 		}
 
+		// チェーン
+		{
+			chain_object = new GameObject();
+			chain_object->transform_->position_ = Vector2(-1.0f, 2.0f);
+
+			// スプライトの設定
+			ChainInitializer chain_init;
+			chain_init.first_pos_ = chain_object->transform_->position_;
+			chain_init.next_diff_ = Vector2(0.3f, 0.0f);
+			chain_init.pieces_count_ = 10;
+			chain_init.piece_width_ = 0.3f;
+			chain_init.piece_height_ = 0.05f;
+			Chain *chain = new Chain(chain_init,this);
+			chain_object->AddComponent(chain);
+
+			// シーンにゲームオブジェクトを登録
+			AddGameObject(chain_object);
+		}
 
 		return S_OK;
 	}

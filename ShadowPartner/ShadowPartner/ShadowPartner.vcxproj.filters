@@ -390,6 +390,12 @@
     <ClCompile Include="src\Base\Physics\Joint\joint.cpp">
       <Filter>ソース ファイル\Base\Physics\Joint</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Actor\Gimmick\chain.cpp">
+      <Filter>ソース ファイル\Game\Actor\Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\Physics\Joint\rope_joint.cpp">
+      <Filter>ソース ファイル\Base\Physics\Joint</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base\System\scene.h">
@@ -591,6 +597,12 @@
       <Filter>ヘッダー ファイル\Base\Physics\Joint</Filter>
     </ClInclude>
     <ClInclude Include="src\Base\Physics\Joint\joint.h">
+      <Filter>ヘッダー ファイル\Base\Physics\Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Actor\Gimmick\chain.h">
+      <Filter>ヘッダー ファイル\Game\Actor\Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Physics\Joint\rope_joint.h">
       <Filter>ヘッダー ファイル\Base\Physics\Joint</Filter>
     </ClInclude>
   </ItemGroup>

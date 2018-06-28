@@ -1,11 +1,11 @@
 //==========================================================
-// 概要  :ヒンジジョイント
+// 概要  :ロープジョイント
 // Author:Itsuki Namito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 
-#ifndef _BASE_PHYSICS_JOINT_REVOLUTE_JOINT_H_
-#define _BASE_PHYSICS_JOINT_REVOLUTE_JOINT_H_
+#ifndef _BASE_PHYSICS_JOINT_ROPE_JOINT_H_
+#define _BASE_PHYSICS_JOINT_ROPE_JOINT_H_
 
 //**********************************************************
 // インクルードファイル
@@ -17,30 +17,26 @@ using namespace shadowpartner;
 
 namespace physics
 {
-	struct RevoluteInitializer
+	struct RopeInitializer
 	{
-		Collider *collider_a_;	// ジョイントするオブジェクト一つ目
+		Collider *collider_a_;		// ジョイントするオブジェクト一つ目
 		Vector2 local_anchor_a_;
-		Collider *collider_b_;	// ジョイントするオブジェクト二つ目
+		Collider *collider_b_;		// ジョイントするオブジェクト二つ目
 		Vector2 local_anchor_b_;
 
-		Vector2 world_pos_;		// ジョイントのワールド座標
+		Vector2 world_pos_;			// ジョイントのワールド座標
 
-		bool enable_limit_;		// 回転を制限する
-		float lower_angle_;		// 回転の最小値(度数)
-		float upper_angle_;		// 回転の最大値(度数)
+		float max_length_;			// ロープの長さの最大値
 
 		bool collide_connected_;	// ジョイントされた者同士で衝突するか
 
-		RevoluteInitializer()
+		RopeInitializer()
 			:collider_a_(nullptr)
 			,local_anchor_a_(Vector2::zero())
 			,collider_b_(nullptr)
 			,local_anchor_b_(Vector2::zero())
 			,world_pos_(Vector2::zero())
-			,enable_limit_(false)
-			,lower_angle_(0.0f)
-			,upper_angle_(0.0f)
+			,max_length_(10.0f)
 		{
 		}
 	};
@@ -48,17 +44,16 @@ namespace physics
 	//==========================================================
 	// 概要  :全コライダーの基底クラス
 	//==========================================================
-	class RevoluteJoint : public Joint
+	class RopeJoint : public Joint
 	{
 	public:
-		RevoluteJoint(const RevoluteInitializer &initializer);
-		virtual ~RevoluteJoint() {};
+		RopeJoint(const RopeInitializer &initializer);
+		virtual ~RopeJoint() {};
 
 		// variables
 		// methods
-		
-		void SetLimitAngles(float lower, float upper);
-		void EnableLimit(bool flag);
+		void SetMaxLength(float length);
+		float GetMaxLength();
 
 	protected:
 
@@ -66,7 +61,8 @@ namespace physics
 
 	private:
 		// variables
-		b2RevoluteJoint *revolute_joint_;
+		b2RopeJoint *rope_joint_;
+
 		// methods
 
 	};
