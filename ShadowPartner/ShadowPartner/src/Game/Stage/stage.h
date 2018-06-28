@@ -26,7 +26,7 @@ namespace shadowpartner
 {
 	enum StageNumber
 	{
-		kStage1_1 = 0,
+		kStage1_1 = 1,
 		kStage1_2,
 		kStage1_3,
 	};
