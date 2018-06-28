@@ -32,6 +32,8 @@ namespace shadowpartner {
 		ActorDirection GetDirection();
 		void SetDirection(ActorDirection direction);
 
+		int StateCounter();
+
 	protected:
 
 		// methods

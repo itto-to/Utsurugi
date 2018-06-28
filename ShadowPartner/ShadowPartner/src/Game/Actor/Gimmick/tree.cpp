@@ -21,6 +21,11 @@ namespace shadowpartner
 		collider_ = GetComponentInherit<Collider>();
 	}
 
+	void Tree::Update()
+	{
+		collider_->AddForce(Vector2(-100.0f, 0.0f));
+	}
+
 	void Tree::ActivateGimmick()
 	{
 		//if (!is_activated_)

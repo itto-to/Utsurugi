@@ -42,6 +42,8 @@ namespace shadowpartner
 		GameObject *static_circle;
 		GameObject *dynamic_circle;
 
+		GameObject *hinge_joint;
+
 		GameObject *pyramids_[15];
 
 		// methods

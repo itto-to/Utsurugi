@@ -51,8 +51,11 @@ void JumpState::ExecuteState()
 {
 	// ˆÚ“®
 	float move = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
-	Vector2 t = Vector2::right() * move * kMoveForce;
-	Move(t);
+	if (move != 0.0f)
+	{
+		Vector2 t = Vector2::right() * move * kMoveForce;
+		Move(t);
+	}
 
 	// ’…’n”»’è
 	if (!IsFalling())	// ã¸’†‚È‚ç’…’n”»’è‚µ‚È‚¢

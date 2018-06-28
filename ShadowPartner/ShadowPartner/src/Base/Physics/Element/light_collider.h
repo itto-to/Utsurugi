@@ -36,7 +36,6 @@ namespace physics
 
 	protected:
 		int num_triangle_;
-		b2Body **bodies_;
 		int body_idx_;
 		shadowpartner::Light *light_;
 

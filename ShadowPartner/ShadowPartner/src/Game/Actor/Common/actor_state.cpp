@@ -27,4 +27,9 @@ namespace shadowpartner {
 		counter_++;
 	}
 
+	int ActorState::StateCounter()
+	{
+		return counter_;
+	}
+
 } // namespace shadowpartner

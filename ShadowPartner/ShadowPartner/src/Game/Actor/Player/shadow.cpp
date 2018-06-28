@@ -15,6 +15,7 @@
 #include "landing_trigger.h"
 #include "gimmck_trigger.h"
 #include "action_trigger.h"
+#include "player.h"
 #include "../../../Base/Input/input.h"
 
 using namespace physics;
@@ -29,17 +30,14 @@ namespace shadowpartner
 	}
 
 	Shadow::Shadow() :
-		hit_large_light_(0),
-		hit_middle_light_(0),
-		hit_small_light_(0)
+		is_shadow_state_(true)
 	{
 		is_controllable_ = false;
 	}
 
-	Shadow::Shadow(ActorState* state) : Actor(state), 
-		hit_large_light_(0),
-		hit_middle_light_(0),
-		hit_small_light_(0)
+	Shadow::Shadow(ActorState* state) : 
+		Actor(state), 
+		is_shadow_state_(true)
 	{
 		is_controllable_ = false;
 	}
@@ -64,8 +62,8 @@ namespace shadowpartner
 	{
 		state_->Execute();
 
-		// 光に当たっていないかもう一度ボタンを押すとプレイヤーの元に戻る
-		if (!IsHitLight() || input::Input::Instance()->GetButtonDown(input::Attack))
+		// 実体化状態で光に当たっていないならプレイヤーの元に戻る
+		if (!is_shadow_state_ && !gimmick_trigger_->IsHitLight())
 		{
 			ReturnToPlayerShadow();
 		}
@@ -94,10 +92,11 @@ namespace shadowpartner
 	{
 		sprite_->SetSize(kSmallShadowSize);
 		*game_object_->transform_ = *player_object_->transform_;
-		game_object_->transform_->position_ += Vector2(0.0f, 5.0f);
+		game_object_->transform_->position_ += Vector2(0.0f, kSmallShadowSize.y / 2.0f - kMiddleShadowSize.x / 2.0f);
 
 		// 待機状態に
 		ChangeState(new IdleState(this));
+		is_shadow_state_ = false;
 		// 操作可能に
 		SetControllable(true);
 		// ジャンプ設定
@@ -123,10 +122,10 @@ namespace shadowpartner
 	{
 		sprite_->SetSize(kMiddleShadowSize);
 		*game_object_->transform_ = *player_object_->transform_;
-		game_object_->transform_->position_ += Vector2(0.0f, 5.0f);
 
 		// 待機状態に
 		ChangeState(new IdleState(this));
+		is_shadow_state_ = false;
 		// 操作可能に
 		SetControllable(true);
 		// ジャンプ設定
@@ -151,9 +150,11 @@ namespace shadowpartner
 	{
 		sprite_->SetSize(kLargeShadowSize);
 		*game_object_->transform_ = *player_object_->transform_;
+		game_object_->transform_->position_ += Vector2(0.0f, kLargeShadowSize.y / 2.0f - kMiddleShadowSize.x / 2.0f);
 
 		// 待機状態に
 		ChangeState(new IdleState(this));
+		is_shadow_state_ = false;
 		// 操作可能に
 		SetControllable(true);
 		// ジャンプ設定
@@ -178,7 +179,8 @@ namespace shadowpartner
 
 	void Shadow::ReturnToPlayerShadow()
 	{
-		
+		is_shadow_state_ = true;
+
 		// TODO:当たっている光に合わせて影の座標も決定
 		sprite_->SetSize(kMiddleShadowSize);
 		game_object_->transform_->position_ = player_object_->transform_->position_ - Vector2(0.0f, kMiddleShadowSize.y);
@@ -188,18 +190,11 @@ namespace shadowpartner
 
 		// 影状態に戻る
 		ChangeState(new ShadowState(this));
-	}
 
-	bool Shadow::IsHitLight()
-	{
-		if (hit_large_light_ > 0)
-			return false;
-		if (hit_middle_light_ > 0)
-			return false;
-		if (hit_small_light_ > 0)
-			return false;
-
-		return true;
+		// プレイヤーを待機状態に戻す
+		Player *player = player_object_->GetComponent<Player>();
+		player->ChangeState(new IdleState(player));
+		player->SetControllable(true);
 	}
 
 	void Shadow::SetPlayerObject(GameObject *player_object)

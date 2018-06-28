@@ -48,7 +48,6 @@ namespace shadowpartner
 		void CreateMiddleShadow();
 		void CreateLargeShadow();
 		void ReturnToPlayerShadow();
-		bool IsHitLight();
 		void SetPlayerObject(GameObject *player_object);
 		GameObject *GetPlayerObject();
 
@@ -63,9 +62,7 @@ namespace shadowpartner
 		ActionTrigger *action_trigger_;
 		Jumper *jumper_;
 
-		int hit_large_light_;
-		int hit_middle_light_;
-		int hit_small_light_;
+		bool is_shadow_state_;
 
 	private:
 

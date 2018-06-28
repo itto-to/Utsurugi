@@ -61,17 +61,23 @@ namespace shadowpartner
 
 	HRESULT SceneManager::Init()
 	{
-		TitleScene *title_scene = new TitleScene();
-		current_scene_ = title_scene;
+		//TitleScene *title_scene = new TitleScene();
+		//current_scene_ = title_scene;
 
-		current_scene_->Init();
+		//current_scene_->Init();
 
-		scenes_.push_back(title_scene);
+		//scenes_.push_back(title_scene);
 
 		//PlayerTestScene *player_test_scene = new PlayerTestScene();
 		//current_scene_ = player_test_scene;
 		//current_scene_->Init();
 		//scenes_.push_back(player_test_scene);
+
+		TitleScene *title = new TitleScene();
+		current_scene_ = title;
+		current_scene_->Init();
+		scenes_.push_back(title);
+
 
 		//PhysicsTestScene *physics_test_scene = new PhysicsTestScene();
 		//current_scene_ = physics_test_scene;

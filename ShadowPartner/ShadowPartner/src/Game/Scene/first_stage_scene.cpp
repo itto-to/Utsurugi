@@ -39,14 +39,18 @@
 #define LIGHT_TEXTURE_NAME       "Resources/Texture/white.png"
 #define IVY_TEXTURE_NAME         "Resources/Texture/Stage/Ivy.png"
 #define TREE_LOG_TEXTURE_NAME    "Resources/Texture/Stage/RoundWood.png"
-#define LIGHT_TREE_TEXTURE_NAME  "Resources/Texture/Light/tree.png"
-#define FIREFLY_TEXTURE_NAME     "Resources/Texture/Light/firefly.png"
+#define LIGHT_TREE_TEXTURE_NAME  "Resources/Texture/Light/TreeLine.png"
+#define FIREFLY_TEXTURE_NAME     "Resources/Texture/Light/FireFly.png"
 
 using namespace physics;
 
 namespace
 {
-	const Vector2 kInitPlayerPos = Vector2(-2.0f, 3.0f);
+	const Vector2 kInitPlayerPos = Vector2(2.0f, 3.0f);
+
+	const Vector2 kTreeLogPosition = Vector2(3.5f, -1.0f);
+	const float kTreeWidth = 0.2f;
+	const float kTreeHeight = 2.0f;
 }
 
 namespace shadowpartner
@@ -218,11 +222,9 @@ namespace shadowpartner
 
 		// 樹の生成
 		{
-			const float kTreeWidth = 0.2f;
-			const float kTreeHeight = 2.0f;
 
 			tree_log_ = new GameObject();
-			tree_log_->transform_->position_ = Vector2(4.0f, 0.0f);
+			tree_log_->transform_->position_ = kTreeLogPosition;
 			tree_log_->tag_ = Tag::kTree;
 
 			// スプライト設定
@@ -239,6 +241,7 @@ namespace shadowpartner
 			box_init.body_type_      = kDynamicBody;
 			box_init.fixed_rotation_ = false;
 			box_init.is_trigger_     = false;
+			box_init.offset_         = Vector2(0.0f, -kTreeHeight / 2.0f);
 			box_init.category_bits_  = CollisionFilter::kActionObject;
 			box_init.mask_bits_      = CollisionFilter::kDefaultMask | CollisionFilter::kActionTrigger;
 
@@ -251,6 +254,47 @@ namespace shadowpartner
 			tree_log_->AddComponent(tree_component);
 
 			AddGameObject(tree_log_);
+		}
+
+		// ヒンジの土台を作る
+		{
+			hinge_joint_base_ = new GameObject();
+			hinge_joint_base_->transform_->position_ = Vector2(kTreeLogPosition.x - kTreeWidth / 2.0f, kTreeLogPosition.y);
+
+			// 矩形の当たり判定の設定
+			BoxInitializer box_init;
+			box_init.width_ = 1.0f;
+			box_init.height_ = 1.0f;
+			box_init.pos_ = hinge_joint_base_->transform_->position_;
+			box_init.body_type_ = BodyType::kStaticBody;
+			box_init.is_trigger_ = true;
+
+			BoxCollider *box_collider = new BoxCollider(box_init);
+			hinge_joint_base_->AddComponent(box_collider);
+
+		}
+
+		// 樹をつなぐヒンジを作る
+		{
+			hinge_joint_ = new GameObject();
+
+			hinge_joint_->transform_->position_ = kTreeLogPosition;
+
+			RevoluteInitializer ri;
+			ri.collider_a_ = tree_log_->GetComponent<BoxCollider>();
+			ri.local_anchor_a_ = Vector2(-kTreeWidth / 2.0f, 0.0f);
+			ri.collider_b_ = hinge_joint_base_->GetComponent<BoxCollider>();
+			ri.local_anchor_b_ = Vector2(0.0f, 0.0f);
+			ri.world_pos_ = hinge_joint_->transform_->position_;
+
+			ri.enable_limit_ = true;
+			ri.lower_angle_ = -90.0f;
+			ri.upper_angle_ = 0.0f;
+
+			RevoluteJoint *revolute_joint = new RevoluteJoint(ri);
+			hinge_joint_->AddComponent(revolute_joint);
+
+			AddGameObject(hinge_joint_);
 		}
 
 		// プレイヤーを生成
@@ -309,7 +353,7 @@ namespace shadowpartner
 			land_init.offset_        = Vector2(0.0f, -kPlayerHeight / 2);
 			land_init.is_trigger_    = true;
 			land_init.category_bits_ = CollisionFilter::kPlayer;
-			land_init.mask_bits_     = ~CollisionFilter::kPlayer;
+			land_init.mask_bits_     = CollisionFilter::kDefaultCategory | CollisionFilter::kClimb | CollisionFilter::kActionObject;
 
 			LandingTrigger *land_trigger = new LandingTrigger(land_init);
 			land_trigger->SetSleepingAllowed(false);
@@ -369,6 +413,23 @@ namespace shadowpartner
 			BoxCollider *box_collider = new BoxCollider(box_init);
 			shadow_->AddComponent(box_collider);
 
+			// ギミックトリガーの設定
+			BoxInitializer gimmick_init;
+			gimmick_init.body_type_ = kDynamicBody;
+			gimmick_init.gravity_scale_ = 0.0f;
+			gimmick_init.pos_ = player_->transform_->position_;
+			gimmick_init.width_ = kShadowWidth;
+			gimmick_init.height_ = kShadowHeight;
+			gimmick_init.is_trigger_ = true;
+			gimmick_init.offset_ = Vector2::zero();
+			gimmick_init.category_bits_ = CollisionFilter::kPlayer;
+			gimmick_init.category_bits_ = CollisionFilter::kShadow;	// 影とだけ反応する
+
+			GimmickTrigger *gimmick_trigger = new GimmickTrigger(gimmick_init);
+			gimmick_trigger->SetSleepingAllowed(false);
+
+			shadow_->AddComponent(gimmick_trigger);
+
 			// 着地トリガーの設定
 			BoxInitializer land_init;
 			land_init.body_type_     = kDynamicBody;
@@ -383,7 +444,7 @@ namespace shadowpartner
 
 			LandingTrigger *land_trigger = new LandingTrigger(land_init);
 			land_trigger->SetSleepingAllowed(false);
-			player_->AddComponent(land_trigger);
+			shadow_->AddComponent(land_trigger);
 
 			Jumper *jumper = new Jumper();
 			shadow_->AddComponent(jumper);
@@ -399,6 +460,7 @@ namespace shadowpartner
 
 			AddGameObject(shadow_);
 		}
+
 
 		// エネミーを生成
 		{

@@ -23,6 +23,7 @@ namespace shadowpartner
 		Tree();
 
 		void Start() override;
+		void Update() override;
 	
 		void ActivateGimmick() override;
 

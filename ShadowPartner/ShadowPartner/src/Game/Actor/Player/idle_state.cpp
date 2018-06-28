@@ -14,6 +14,7 @@
 #include "../../../Base/Input/input.h"
 #include "../../../Base/Physics/physics.h"
 #include "player.h"
+#include "shadow.h"
 #include "../Common/jumper.h"
 #include "gimmck_trigger.h"
 #include "action_trigger.h"
@@ -32,7 +33,8 @@ namespace shadowpartner
 
 	void IdleState::Enter()
 	{
-		player_ = static_cast<Player*>(owner_);
+		player_ = dynamic_cast<Player*>(owner_);
+		shadow_ = dynamic_cast<Shadow*>(owner_);
 		jumper_ = owner_->GetComponent<Jumper>();
 		landing_trigger_ = owner_->GetComponent<LandingTrigger>();
 		gimmick_trigger_ = owner_->GetComponent<GimmickTrigger>();
@@ -45,12 +47,6 @@ namespace shadowpartner
 
 	void IdleState::ExecuteState()
 	{
-
-		//RaycastHit hit_info = physics::PhysicsFunc::Raycast(
-		//	owner_->transform_->position_ + Vector2::down() * 0.5f,
-		//	Vector2::down(), 0.6f);
-		//
-		//if (hit_info.collider == nullptr || hit_info.collider->is_trigger_)
 		if(!landing_trigger_->IsLanding())
 		{
 			// ‹ó’†‚È‚ç—Ž‰º
@@ -69,8 +65,20 @@ namespace shadowpartner
 		}
 		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Attack) && owner_->IsControllable())
 		{
-			// ‰e‚ðì‚é
-			player_->CreateShadow();
+			if (player_ != nullptr)
+			{
+				// ‰e‚ðì‚é
+				player_->CreateShadow();
+			}
+			else if (shadow_ != nullptr)
+			{
+				const int kCountCanReturnToPlayerShadow = 10;
+				// ƒvƒŒƒCƒ„[‚Ì‰e‚É–ß‚é
+				if (counter_ > kCountCanReturnToPlayerShadow)
+				{
+					shadow_->ReturnToPlayerShadow();
+				}
+			}
 		}
 		else if ((input::Input::Instance()->GetAxis(input::InputAxis::Vertical) != 0.0f) && gimmick_trigger_->CanClimb() && owner_->IsControllable())
 		{

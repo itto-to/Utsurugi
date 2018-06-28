@@ -11,6 +11,7 @@
 // インクルードファイル
 //**********************************************************
 #include "../Element/collider.h"
+#include "../Joint/joint.h"
 #ifdef _DEBUG
 #include "../Debug/debug_draw.h"
 #endif
@@ -32,8 +33,11 @@ namespace physics
 		
 		// methods
 		static b2Body *CreateBody(Collider *collider,const b2BodyDef *body_def);
+		static b2Joint *CreateJoint(Joint *joint, const b2JointDef *joint_def);
 		static void DestroyBody(int index,b2Body *body);
+		static void DestroyJoint(int index,b2Joint *joint);
 		static void ClearBody();
+		static void ClearJoint();
 
 		static void Init();
 		static void Uninit();
@@ -70,6 +74,7 @@ namespace physics
 		int position_iteration_;
 
 		std::vector<Collider *> colliders_;
+		std::vector<Joint *> joints_;
 
 #ifdef _DEBUG
 		DebugDraw *debug_draw_;

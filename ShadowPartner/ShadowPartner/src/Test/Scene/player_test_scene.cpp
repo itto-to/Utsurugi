@@ -271,6 +271,7 @@ namespace shadowpartner {
 
 			player_->AddComponent(box_collider);
 
+			// 着地センサーの設定
 			BoxInitializer land_init;
 			land_init.body_type_     = kDynamicBody;
 			land_init.gravity_scale_ = 0.0f;

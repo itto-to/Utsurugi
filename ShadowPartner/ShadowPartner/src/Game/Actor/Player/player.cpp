@@ -45,6 +45,7 @@ namespace shadowpartner
 	void Player::Update()
 	{
 		state_->Execute();
+
 		SetShadowSize();	
 	}
 

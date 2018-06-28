@@ -99,7 +99,10 @@ namespace physics
 
 		friend class PhysicsWorld;
 		friend class PhysicsFunc;
+		friend class Joint;
+		friend class RevoluteJoint;
 		friend class shadowpartner::CornerCandidates;
+
 	protected:
 		// variables
 		b2Body *body_;

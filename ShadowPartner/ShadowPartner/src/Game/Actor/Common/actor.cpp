@@ -54,6 +54,11 @@ namespace shadowpartner {
 		direction_ = direction;
 	}
 
+	int Actor::StateCounter()
+	{
+		return state_->StateCounter();
+	}
+
 	void Actor::Update()
 	{
 		state_->Execute();
