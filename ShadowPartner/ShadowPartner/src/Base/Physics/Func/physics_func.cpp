@@ -26,8 +26,8 @@ namespace physics
 			// 現在のfractionを返す
 			hit_ = true;
 			body_ = fixture->GetBody();
-			point_ = Vector2(point.x,point.y);
-			normal_ = Vector2(normal.x,normal.y);
+			point_ = Vector2(point.x, point.y);
+			normal_ = Vector2(normal.x, normal.y);
 
 			return fraction;
 		}
@@ -85,8 +85,8 @@ namespace physics
 			b2Assert(count_ < kMaxCount);
 
 			bodies_[kMaxCount] = fixture->GetBody();
-			points_[count_] = Vector2(point.x,point.y);
-			normals_[count_] = Vector2(normal.x,normal.y);
+			points_[count_] = Vector2(point.x, point.y);
+			normals_[count_] = Vector2(normal.x, normal.y);
 			++count_;
 
 			if (count_ == kMaxCount)
@@ -112,7 +112,7 @@ namespace physics
 	//**********************************************************
 	// 定数
 	//**********************************************************
-	
+
 	//==========================================================
 	// 概要  :光線を飛ばして最初にヒットしたColliderのポインタを返します。
 	// 引数  :
@@ -121,8 +121,8 @@ namespace physics
 	//	distance  :光線の長さ
 	//	layer_mask:判定をするオブジェクトを決めるためのレイヤー
 	//==========================================================
-	RaycastHit PhysicsFunc::Raycast(Vector2 start,Vector2 direction,
-		float distance,Layer layer_mask)
+	RaycastHit PhysicsFunc::Raycast(Vector2 start, Vector2 direction,
+		float distance, Layer layer_mask)
 	{
 		RaycastHit hit_info;
 
@@ -153,6 +153,39 @@ namespace physics
 		}
 
 		return hit_info;
+	}
+
+	//==========================================================
+	// 概要  :ある点にColliderがあるか調べ、あればそのポインタを返します。
+	// 引数  :
+	//	point     :コライダーがあるかどうか判定する点
+	//	layer_mask:判定をするオブジェクトを決めるためのレイヤー
+	//==========================================================
+	Collider *PhysicsFunc::OverLapPoint(Vector2 point, int layer_mask)
+	{
+		RaycastHit hit_info;
+
+		b2Vec2 point1 = b2Vec2(point.x, point.y);
+		b2Vec2 point2 = b2Vec2(point.x + FLT_MIN, point.y);
+
+		RayCastMultipleCallback callback;
+		PhysicsWorld::instance_->world_.RayCast(&callback, point1, point2);
+
+		for (int i = 0;i < callback.count_;++i)
+		{
+			for (int j = 0;j < PhysicsWorld::instance_->colliders_.size();++i)
+			{
+				if (PhysicsWorld::instance_->colliders_[i]->body_ == callback.bodies_[i])
+				{
+					Collider *check_collidder = PhysicsWorld::instance_->colliders_[i];
+
+					if ((1 << check_collidder->game_object_->layer_) & layer_mask)
+						return PhysicsWorld::instance_->colliders_[i];
+				}
+			}
+		}
+
+		return nullptr;
 	}
 
 }

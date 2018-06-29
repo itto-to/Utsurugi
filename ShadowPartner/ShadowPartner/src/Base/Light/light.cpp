@@ -47,7 +47,7 @@ namespace shadowpartner
 		Vector3 world_pos = Vector3(transform_->GetWorldPosition(), 0.0f);
 		Vector3 draw_pos = Vector3(world_pos.x, -world_pos.y, 0.0f) / Camera::main_->GetZoom();	// スクリーン上の描画位置.まずy軸の方向を変える
 		Vector3 screen_center = Vector3(Application::Instance()->GetScreenWidth() / 2, Application::Instance()->GetScreenHeight() / 2, 0.0f);
-		draw_pos += screen_center - Vector3(Camera::main_->transform_->position_, 0.0f) * PIXEL_PER_UNIT + Vector3(-10.0f,30.0f,0.0f) / Camera::main_->GetZoom();
+		draw_pos += screen_center - Vector3(Camera::main_->transform_->position_, 0.0f) * PIXEL_PER_UNIT + Vector3(-10.0f, 30.0f, 0.0f) / Camera::main_->GetZoom();
 
 		//float zoom = Camera::main_->GetZoom();
 		//Vector2 world_scale = transform_->GetWorldScale();
@@ -69,7 +69,7 @@ namespace shadowpartner
 	{
 		for (int i = 0;i < vertex_count_;++i)
 		{
-			light_vertices_[i].vertex_ = center + 
+			light_vertices_[i].vertex_ = center +
 				Vector3(Vector2(light_world_vertices_[i].x, -light_world_vertices_[i].y), 0.0f) / Camera::main_->GetZoom();
 			//center;
 			light_vertices_[i].rhw_ = 1.0f;
@@ -262,7 +262,7 @@ namespace shadowpartner
 			{
 				sort_buffer[i] = sort_buffer_[i];
 			}
-			MergeSort(sort_buffer,sort_buffer_.size());
+			MergeSort(sort_buffer, sort_buffer_.size());
 			for (int i = 0;i < sort_buffer_.size();++i)
 			{
 				sort_buffer_[i] = sort_buffer[i];
