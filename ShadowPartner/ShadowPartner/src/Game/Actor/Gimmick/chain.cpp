@@ -80,10 +80,13 @@ namespace shadowpartner
 			revolute_init.world_pos_ += init.next_diff_;
 		}
 
+		first_ = chain_pieces_[0]->GetComponent<BoxCollider>();
+		last_ = chain_pieces_[init.pieces_count_ - 1]->GetComponent<BoxCollider>();
+
 		// ƒ[ƒv‚ÌÝ’è
 		RopeInitializer rope_init;
-		rope_init.collider_a_ = chain_pieces_[0]->GetComponent<BoxCollider>();
-		rope_init.collider_b_ = chain_pieces_[init.pieces_count_ - 1]->GetComponent<BoxCollider>();
+		rope_init.collider_a_ = first_;
+		rope_init.collider_b_ = last_;
 
 		rope_init.max_length_ = Length(init.next_diff_ * init.pieces_count_ - init.first_pos_) + 0.01f;
 
