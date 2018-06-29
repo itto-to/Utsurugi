@@ -34,7 +34,6 @@
 #include "../../Base/Light/corner_candidates.h"
 
 #define WHITE_TEXTURE_NAME       "Resources/Texture/white.png"
-#define LIGHT_TEXTURE_NAME       "Resources/Texture/LightBulb.png"
 #define BACK_GROUND_TEXTURE_NAME "Resources/Texture/Stage/ForestBackGround.png"
 #define CLEAR_GATE_TEXTURE_NAME  "Resources/Texture/Stage/Gate.png"
 #define PLAYER_TEXTURE_NAME      "Resources/Texture/Character/PlayerWalk.png"
@@ -59,11 +58,11 @@ namespace
 	const float kTreeWidth  = 0.2f;
 	const float kTreeHeight = 2.0f;
 
-	const Vector2 kFireflyPosition = Vector2(1.0f, -1.2f);
+	const Vector2 kFireflyPosition = Vector2(-2.0f, -1.4f);
 	const Vector2 kFireflySpriteSize = Vector2(0.3f, 0.3f);
 	const Vector2 kFireflyLightSize = Vector2(2.0f, 2.0f);
 
-	const Vector2 kLightTreePosition   = Vector2(-2.0f, -0.6f);
+	const Vector2 kLightTreePosition   = Vector2(0.0f, -0.6f);
 	const Vector2 kLightTreeSpriteSize = Vector2(2.56f, 3.25f);
 	const Vector2 kLightTreeLightSize  = Vector2(3.0f, 3.0f);
 
@@ -118,6 +117,127 @@ namespace shadowpartner
 
 			AddGameObject(back_ground_);
 		}
+
+		// 大ライト1（仮）
+		{
+			const int kWidth = 8;
+			const int kHeight = 16;
+
+			tmp_large_light_[0] = new GameObject();
+			tmp_large_light_[0]->transform_->position_ = Vector2(-4.2f, 0.6f);
+			tmp_large_light_[0]->tag_ = Tag::kLargeLight;
+
+			Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
+			sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
+			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
+			tmp_large_light_[0]->AddComponent(sprite);
+
+			BoxInitializer box_init;
+			box_init.pos_           = tmp_large_light_[0]->transform_->position_;
+			box_init.width_         = 0.35 * kWidth;
+			box_init.height_        = 0.35 * kHeight;
+			box_init.body_type_     = kStaticBody;
+			box_init.is_trigger_    = true;
+			box_init.gravity_scale_ = 0.0f;
+			box_init.category_bits_ = CollisionFilter::kLight;
+			box_init.mask_bits_     = CollisionFilter::kGimmickTrigger;
+
+			BoxCollider *box_col = new BoxCollider(box_init);
+			tmp_large_light_[0]->AddComponent(box_col);
+
+			AddGameObject(tmp_large_light_[0]);
+		}
+
+		// 大ライト2（仮）
+		{
+			const int kWidth = 10;
+			const int kHeight = 5;
+
+			tmp_large_light_[1] = new GameObject();
+			tmp_large_light_[1]->transform_->position_ = Vector2(-1.05f, 2.25f);
+			tmp_large_light_[1]->tag_ = Tag::kLargeLight;
+
+			Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
+			sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
+			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
+			tmp_large_light_[1]->AddComponent(sprite);
+
+			BoxInitializer box_init;
+			box_init.pos_ = tmp_large_light_[1]->transform_->position_;
+			box_init.width_ = 0.35 * kWidth;
+			box_init.height_ = 0.35 * kHeight;
+			box_init.body_type_ = kStaticBody;
+			box_init.is_trigger_ = true;
+			box_init.gravity_scale_ = 0.0f;
+			box_init.category_bits_ = CollisionFilter::kLight;
+			box_init.mask_bits_ = CollisionFilter::kGimmickTrigger;
+
+			BoxCollider *box_col = new BoxCollider(box_init);
+			tmp_large_light_[1]->AddComponent(box_col);
+
+			AddGameObject(tmp_large_light_[1]);
+		}
+
+		// 大ライト3（仮）
+		{
+			const int kWidth = 7;
+			const int kHeight = 4;
+
+			tmp_large_light_[2] = new GameObject();
+			tmp_large_light_[2]->transform_->position_ = Vector2(1.92f, 2.425f);
+			tmp_large_light_[2]->tag_ = Tag::kLargeLight;
+
+			Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
+			sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
+			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
+			tmp_large_light_[2]->AddComponent(sprite);
+
+			BoxInitializer box_init;
+			box_init.pos_ = tmp_large_light_[2]->transform_->position_;
+			box_init.width_ = 0.35 * kWidth;
+			box_init.height_ = 0.35 * kHeight;
+			box_init.body_type_ = kStaticBody;
+			box_init.is_trigger_ = true;
+			box_init.gravity_scale_ = 0.0f;
+			box_init.category_bits_ = CollisionFilter::kLight;
+			box_init.mask_bits_ = CollisionFilter::kGimmickTrigger;
+
+			BoxCollider *box_col = new BoxCollider(box_init);
+			tmp_large_light_[2]->AddComponent(box_col);
+
+			AddGameObject(tmp_large_light_[2]);
+		}
+
+		// 大ライト4（仮）
+		{
+			const int kWidth = 7;
+			const int kHeight = 16;
+
+			tmp_large_light_[3] = new GameObject();
+			tmp_large_light_[3]->transform_->position_ = Vector2(4.375f, 0.6f);
+			tmp_large_light_[3]->tag_ = Tag::kLargeLight;
+
+			Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
+			sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
+			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
+			tmp_large_light_[3]->AddComponent(sprite);
+
+			BoxInitializer box_init;
+			box_init.pos_ = tmp_large_light_[3]->transform_->position_;
+			box_init.width_ = 0.35 * kWidth;
+			box_init.height_ = 0.35 * kHeight;
+			box_init.body_type_ = kStaticBody;
+			box_init.is_trigger_ = true;
+			box_init.gravity_scale_ = 0.0f;
+			box_init.category_bits_ = CollisionFilter::kLight;
+			box_init.mask_bits_ = CollisionFilter::kGimmickTrigger;
+
+			BoxCollider *box_col = new BoxCollider(box_init);
+			tmp_large_light_[3]->AddComponent(box_col);
+
+			AddGameObject(tmp_large_light_[3]);
+		}
+
 
 		// ゲート
 		{
