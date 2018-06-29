@@ -56,12 +56,14 @@ namespace shadowpartner
 		{
 			// ˆÚ“®
 			owner_->ChangeState(new WalkState(owner_));
+			return;
 		}
 		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump) && landing_trigger_->IsLanding() && owner_->IsControllable())
 		{
 			// ƒWƒƒƒ“ƒv“ü—Í
 			jumper_->Jump();
 			owner_->ChangeState(new JumpState(owner_));
+			return;
 		}
 		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Attack) && owner_->IsControllable())
 		{
