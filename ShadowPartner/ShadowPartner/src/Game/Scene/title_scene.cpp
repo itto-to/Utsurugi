@@ -158,6 +158,16 @@ namespace shadowpartner
 			title_light_fog_->transform_->position_ = title_command_buttons_[current_button_index_]->transform_->position_;
 			title_command_buttons_[current_button_index_]->GetComponent<Sprite>()->SetColor(TITLE_POINTED_COLOR);
 		}
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Left))
+		{
+			Sprite *s = title_background_->GetComponent<Sprite>();
+			s->SetFlipX(!s->GetFlipX());
+		}
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Right))
+		{
+			Sprite *s = title_background_->GetComponent<Sprite>();
+			s->SetFlipY(!s->GetFlipY());
+		}
 	}
 
 	void TitleScene::Uninit()
