@@ -18,6 +18,7 @@ namespace shadowpartner
 {
 	class GameObject;
 	class Player;
+	class GimmickTrigger;
 
 	class ShadowState : public ActorState
 	{
@@ -29,6 +30,7 @@ namespace shadowpartner
 		virtual void ExecuteState() override;
 		Player *player_;
 		physics::Collider *collider_;
+		GimmickTrigger *player_gimmick_trigger_;
 	};
 
 }	// namespace shadowpartner

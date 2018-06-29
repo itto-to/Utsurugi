@@ -40,6 +40,8 @@ namespace shadowpartner
 		GameObject *small_light_;
 		GameObject *middle_light_;
 
+		GameObject *test_platform;	// テスト用足場　後で消す
+
 		GameObject *ivy_chain_[2];
 		GameObject *ivy_joint_;
 		// methods

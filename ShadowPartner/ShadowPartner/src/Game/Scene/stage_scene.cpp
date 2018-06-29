@@ -67,7 +67,7 @@ namespace shadowpartner
 			//physics::LightCollider *light_collider = new physics::LightCollider();
 			//moon_light_->AddComponent(light_collider);
 
-			AddGameObject(moon_light_);
+			//AddGameObject(moon_light_);
 		}
 
 		current_phase_ = 0;

@@ -11,6 +11,22 @@
 #include "../Common/actor_state.h"
 #include "../../../Base/Physics/Element/contact_listener.h"
 
+
+	const Vector2 kMiddleShadowSize = Vector2(2.0f, 1.0f);
+
+	const float kSmallShadowScale = 0.5f;
+	const float kLargeShadowScale = 2.0f;
+
+	const Vector2 kSmallShadowSize = kMiddleShadowSize * kSmallShadowScale;
+	const Vector2 kLargeShadowSize = kMiddleShadowSize * kLargeShadowScale;
+
+	const float kShadowCollisionScale = 0.75f;
+
+	const Vector2 kMiddleShadowCollisionSize = kMiddleShadowSize * kShadowCollisionScale;
+	const Vector2 kLargeShadowCollisionSize = kLargeShadowSize * kShadowCollisionScale;
+	const Vector2 kSmallShadowCollisionSize = kSmallShadowSize * kShadowCollisionScale;
+
+
 namespace physics
 {
 	class BoxCollider;
@@ -44,6 +60,7 @@ namespace shadowpartner
 		void Update() override;
 
 		void SetShadowSize(ShadowSize shadow_size);
+		void CreateShadow();
 		void CreateSmallShadow();
 		void CreateMiddleShadow();
 		void CreateLargeShadow();

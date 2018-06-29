@@ -8,6 +8,7 @@
 #include "../../Light/light.h"
 #include "../World/physics_world.h"
 #include "../../2D/texture.h"
+#include "../Filter/collision_filter.h"
 
 namespace physics
 {
@@ -50,6 +51,7 @@ namespace physics
 		// フィクスチャを作成
 		b2FixtureDef light_fixture_def;
 		light_fixture_def.isSensor = true;
+		light_fixture_def.filter.maskBits = CollisionFilter::kPlayer | CollisionFilter::kShadow;
 
 		b2Vec2 tri[3];
 		tri[0] = b2Vec2(0, 0);	// 中心座標

@@ -8,13 +8,16 @@
 
 enum CollisionFilter
 {
-	kDefaultCategory       = 1 << 0,
+	kPlatform              = 1 << 0,
 	kPlayer                = 1 << 1,
 	kShadow                = 1 << 2,
 	kEnemy                 = 1 << 3,
-	kClimb                 = 1 << 4,
-	kActionTrigger         = 1 << 5,
-	kActionObject          = 1 << 6,
+	kLight                 = 1 << 4,
+	kClimb                 = 1 << 5,
+	kLandingTirgger        = 1 << 6,
+	kGimmickTrigger        = 1 << 7,
+	kActionTrigger         = 1 << 8,
+	kActionObject          = 1 << 9,
 	kDefaultMask           = 0xFFFF,	// 全てのフィクスチャと衝突
 };
 

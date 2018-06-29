@@ -22,12 +22,7 @@ using namespace physics;
 
 namespace shadowpartner
 {
-	namespace
-	{
-		const Vector2 kSmallShadowSize = Vector2(0.5f, 0.5f);
-		const Vector2 kMiddleShadowSize = Vector2(1.0f, 1.0f);
-		const Vector2 kLargeShadowSize = Vector2(2.0f, 2.0f);
-	}
+
 
 	Shadow::Shadow() :
 		is_shadow_state_(true)
@@ -60,13 +55,13 @@ namespace shadowpartner
 
 	void Shadow::Update()
 	{
-		state_->Execute();
-
 		// 実体化状態で光に当たっていないならプレイヤーの元に戻る
-		if (!is_shadow_state_ && !gimmick_trigger_->IsHitLight())
+		if (!is_shadow_state_ && !gimmick_trigger_->IsHitLight() && state_->StateCounter() > 10)
 		{
 			ReturnToPlayerShadow();
 		}
+
+		state_->Execute();
 	}
 
 	void Shadow::SetShadowSize(ShadowSize shadow_size)
@@ -88,11 +83,17 @@ namespace shadowpartner
 		}
 	}
 
+	void Shadow::CreateShadow()
+	{
+	}
+
 	void Shadow::CreateSmallShadow()
 	{
 		sprite_->SetSize(kSmallShadowSize);
+		sprite_->SetFlipY(false);
+
 		*game_object_->transform_ = *player_object_->transform_;
-		game_object_->transform_->position_ += Vector2(0.0f, kSmallShadowSize.y / 2.0f - kMiddleShadowSize.x / 2.0f);
+		game_object_->transform_->position_ += Vector2(0.0f, kSmallShadowSize.y / 2.0f - kMiddleShadowSize.y / 2.0f);
 
 		// 待機状態に
 		ChangeState(new IdleState(this));
@@ -104,9 +105,10 @@ namespace shadowpartner
 
 		// 矩形の当たり判定の設定
 		BoxInitializer box_init;
-		box_init.width_         = kSmallShadowSize.x;
-		box_init.height_        = kSmallShadowSize.y;
+		box_init.width_         = kSmallShadowCollisionSize.x;
+		box_init.height_        = kSmallShadowCollisionSize.y;
 		box_init.bounciness_    = 0.0f;
+		box_init.density_       = 1.1f;
 		box_init.category_bits_ = CollisionFilter::kShadow;
 		box_init.mask_bits_     = ~CollisionFilter::kPlayer;
 		box_init.body_type_     = kDynamicBody;
@@ -116,11 +118,16 @@ namespace shadowpartner
 
 		// 当たり判定オン
 		collider_->SetActive(true);
+
+		landing_trigger_->SetTransform(transform_->position_, transform_->rotation_);
+
 	}
 
 	void Shadow::CreateMiddleShadow()
 	{
 		sprite_->SetSize(kMiddleShadowSize);
+		sprite_->SetFlipY(false);
+
 		*game_object_->transform_ = *player_object_->transform_;
 
 		// 待機状態に
@@ -129,17 +136,19 @@ namespace shadowpartner
 		// 操作可能に
 		SetControllable(true);
 		// ジャンプ設定
-		jumper_->SetCanJump(false);
+		jumper_->SetCanJump(true);
 
 		// 矩形の当たり判定の設定
 		BoxInitializer box_init;
-		box_init.width_ = kMiddleShadowSize.x;
-		box_init.height_ = kMiddleShadowSize.y;
-		box_init.bounciness_ = 0.0f;
+		box_init.width_         = kMiddleShadowCollisionSize.x;
+		box_init.height_        = kMiddleShadowCollisionSize.y;
+		box_init.density_       = 1.0f;
+		box_init.friction_      = 0.0f;
+		box_init.bounciness_    = 0.0f;
 		box_init.category_bits_ = CollisionFilter::kShadow;
-		box_init.mask_bits_ = ~CollisionFilter::kPlayer;
-		box_init.body_type_ = kDynamicBody;
-		box_init.pos_ = game_object_->transform_->position_;
+		box_init.mask_bits_     = ~CollisionFilter::kPlayer;
+		box_init.body_type_     = kDynamicBody;
+		box_init.pos_           = game_object_->transform_->position_;
 
 		collider_->ReSet(box_init);
 		// 当たり判定オン
@@ -149,8 +158,10 @@ namespace shadowpartner
 	void Shadow::CreateLargeShadow()
 	{
 		sprite_->SetSize(kLargeShadowSize);
+		sprite_->SetFlipY(false);
+
 		*game_object_->transform_ = *player_object_->transform_;
-		game_object_->transform_->position_ += Vector2(0.0f, kLargeShadowSize.y / 2.0f - kMiddleShadowSize.x / 2.0f);
+		game_object_->transform_->position_ += Vector2(0.0f, kLargeShadowSize.y / 2.0f - kMiddleShadowSize.y / 2.0f);
 
 		// 待機状態に
 		ChangeState(new IdleState(this));
@@ -158,13 +169,13 @@ namespace shadowpartner
 		// 操作可能に
 		SetControllable(true);
 		// ジャンプ設定
-		jumper_->SetCanJump(false);
+		jumper_->SetCanJump(true);
 
 		// 矩形の当たり判定の設定
 		BoxInitializer box_init;
 		box_init.pos_           = this->transform_->position_;
-		box_init.width_         = kLargeShadowSize.x;
-		box_init.height_        = kLargeShadowSize.y;
+		box_init.width_         = kLargeShadowCollisionSize.x;
+		box_init.height_        = kLargeShadowCollisionSize.y;
 		box_init.bounciness_    = 0.0f;
 		box_init.category_bits_ = CollisionFilter::kShadow;
 		box_init.mask_bits_     = ~CollisionFilter::kPlayer;
@@ -185,6 +196,9 @@ namespace shadowpartner
 		sprite_->SetSize(kMiddleShadowSize);
 		game_object_->transform_->position_ = player_object_->transform_->position_ - Vector2(0.0f, kMiddleShadowSize.y);
 		
+		// スプライト上下反転
+		sprite_->SetFlipY(true);
+
 		// 当たり判定オフ
 		collider_->SetActive(false);
 

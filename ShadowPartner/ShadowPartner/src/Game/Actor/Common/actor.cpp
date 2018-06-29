@@ -29,6 +29,10 @@ namespace shadowpartner {
 		state_ = nullptr;
 	}
 
+	void Actor::Start()
+	{
+	}
+
 	void Actor::SetState(ActorState *state)
 	{
 		state_ = state;

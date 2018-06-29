@@ -33,6 +33,12 @@ namespace shadowpartner
 		const float kMoveForce = 100.0f;
 		const float kMaxSpeedX = 1.0f;
 		const float kDampingFactor = 0.8f;
+
+		// テクスチャアニメーション用
+		const int kNumDivideX = 4;
+		const int kNumDivideY = 4;
+		const int kNumAnimPattern = 5;
+		const int kCountPerFrame = 6;
 	}
 
 	WalkState::WalkState(Actor *owner) : ActorState(owner)
@@ -61,7 +67,7 @@ namespace shadowpartner
 				if (owner_->GetDirection() == ActorDirection::kLeft)
 				{
 					owner_->SetDirection(ActorDirection::kRight);
-					owner_->GetComponent<Sprite>()->SetUvNormal();	// スプライトを反転しない
+					owner_->GetComponent<Sprite>()->SetFlipX(false);	// スプライトを反転しない
 				}
 			}
 			else
@@ -70,7 +76,7 @@ namespace shadowpartner
 				if (owner_->GetDirection() == ActorDirection::kRight)
 				{
 					owner_->SetDirection(ActorDirection::kLeft);
-					owner_->GetComponent<Sprite>()->SetUvInvertX();	// スプライトを反転しない
+					owner_->GetComponent<Sprite>()->SetFlipX(true);	// スプライトを反転する
 				}
 			}
 
@@ -97,12 +103,8 @@ namespace shadowpartner
 			return;
 		}
 
-		// テクスチャアニメーション
-		const int kNumDivideX = 4;
-		const int kNumDivideY = 4;
-		const int kNumAnimPattern = 5;
-		const int kCountPerFrame = 10;
 
+		// テクスチャアニメーション
 		sprite_->SetUvSize(Vector2(0.25f, 0.25f));
 
 		int pattern_no = (counter_ / kCountPerFrame) % kNumAnimPattern;

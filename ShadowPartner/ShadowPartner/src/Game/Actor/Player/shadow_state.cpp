@@ -2,6 +2,7 @@
 
 #include "shadow.h"
 #include "player.h"
+#include "../Player/gimmck_trigger.h"
 #include "../../../Base/Physics/Element/collider.h"
 #include "../../../Base/2D/sprite.h"
 
@@ -28,6 +29,7 @@ namespace shadowpartner
 		{
 			// プレイヤーコンポーネント取得
 			player_ = static_cast<Shadow*>(owner_)->GetPlayerObject()->GetComponent<Player>();
+			player_gimmick_trigger_ = player_->GetComponent<GimmickTrigger>();
 		}
 
 		if (collider_ == nullptr)
@@ -37,13 +39,28 @@ namespace shadowpartner
 		}
 
 		// オブジェクトとコライダーを移動
-		owner_->transform_->position_ = player_->transform_->position_ + Vector2::down() * 1.0f;
+		Vector2 offset = Vector2(0.0f, -kMiddleShadowCollisionSize.y / 2.0f);
+		switch (player_gimmick_trigger_->HittingLightType())
+		{
+		case LightType::kLarge:
+			offset.y -= kLargeShadowCollisionSize.y / 2.0f;
+			break;
+		case LightType::kMiddle:
+			offset.y -= kMiddleShadowCollisionSize.y / 2.0f;
+			break;
+		case LightType::kSmall:
+			offset.y -= kSmallShadowCollisionSize.y / 2.0f;
+			break;
+		case LightType::kLightNone:
+			offset.y -= kMiddleShadowCollisionSize.y / 2.0f;
+			break;
+		}
+		owner_->transform_->position_ = player_->transform_->position_ + offset;
 		collider_->SetTransform(owner_->transform_->position_, owner_->transform_->rotation_);
 		
 		// プレイヤーのUV座標を影にもセット
-		Vector2 offset = player_->GetComponent<Sprite>()->UvOffset();
-		Sprite *sprite = owner_->GetComponent<Sprite>();
-		sprite->SetUvOffset(offset);
+		Vector2 uv_offset = player_->GetComponent<Sprite>()->UvOffset();
+		owner_->GetComponent<Sprite>()->SetUvOffset(uv_offset);
 
 		if (owner_->GetDirection() != player_->GetDirection())
 		{
@@ -51,14 +68,17 @@ namespace shadowpartner
 			if (owner_->GetDirection() == ActorDirection::kRight)
 			{
 				// 右移動なら
-				owner_->GetComponent<Sprite>()->SetUvInvertY();
-				sprite->SetUvInvertY();
+				Sprite *sprite = owner_->GetComponent<Sprite>();
+				sprite->SetFlipX(false);
+				sprite->SetFlipY(true);
 			}
 			else
 			{	
 				// 左移動なら
-				owner_->GetComponent<Sprite>()->SetUvInvertXY();
-				sprite->SetUvInvertXY();
+				Sprite *sprite = owner_->GetComponent<Sprite>();
+				sprite->SetFlipX(true);
+				sprite->SetFlipY(true);
+
 			}
 		}
 

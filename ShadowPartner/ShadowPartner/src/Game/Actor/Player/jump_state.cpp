@@ -59,7 +59,7 @@ void JumpState::ExecuteState()
 			if (owner_->GetDirection() == ActorDirection::kLeft)
 			{
 				owner_->SetDirection(ActorDirection::kRight);
-				owner_->GetComponent<Sprite>()->SetUvNormal();	// スプライトを反転しない
+				owner_->GetComponent<Sprite>()->SetFlipX(false);	// スプライトを反転しない
 			}
 		}
 		else
@@ -68,7 +68,7 @@ void JumpState::ExecuteState()
 			if (owner_->GetDirection() == ActorDirection::kRight)
 			{
 				owner_->SetDirection(ActorDirection::kLeft);
-				owner_->GetComponent<Sprite>()->SetUvInvertX();	// スプライトを反転しない
+				owner_->GetComponent<Sprite>()->SetFlipX(true);	// スプライトを反転する
 			}
 		}
 

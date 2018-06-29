@@ -11,10 +11,13 @@
 #include "sleep_state.h"
 #include "../../../Base/2D/sprite.h"
 #include "shadow.h"
+#include "../../../Base/Physics/Element/collider.h"
 
 #ifdef _DEBUG
 #include "../../../Base/Physics/Debug/debug_draw.h"
 #endif
+
+using namespace physics;
 
 namespace shadowpartner
 {
@@ -47,6 +50,10 @@ namespace shadowpartner
 		state_->Execute();
 
 		SetShadowSize();	
+
+		// ƒŠƒXƒ|[ƒ“
+		if (transform_->position_.y < -10.0f)
+			Respawn();
 	}
 
 	void Player::SetShadowSize()
@@ -95,9 +102,10 @@ namespace shadowpartner
 		case kLightNone:
 			return;
 		}
+		//shadow_object_->GetComponentInherit<Collider>()->SetActive(true);
 
-		ChangeState(new SleepState(this));
 		is_controllable_ = false;
+		ChangeState(new SleepState(this));
 	}
 
 	void Player::SetRespawnPoint(Vector2 respawn_point)

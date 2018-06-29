@@ -51,6 +51,7 @@ namespace shadowpartner
 		{
 			// 空中なら落下
 			owner_->ChangeState(new JumpState(owner_));
+			return;
 		}
 		else if ((input::Input::Instance()->GetAxis(input::InputAxis::Horizontal) != 0.0f)  && owner_->IsControllable())
 		{
@@ -58,7 +59,7 @@ namespace shadowpartner
 			owner_->ChangeState(new WalkState(owner_));
 			return;
 		}
-		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump) && landing_trigger_->IsLanding() && owner_->IsControllable())
+		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Jump) && landing_trigger_->IsLanding() && owner_->IsControllable() && jumper_->CanJump())
 		{
 			// ジャンプ入力
 			jumper_->Jump();
@@ -67,12 +68,12 @@ namespace shadowpartner
 		}
 		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Attack) && owner_->IsControllable())
 		{
-			if (player_ != nullptr)
+			if (owner_->tag_ == Tag::kPlayer)
 			{
 				// 影を作る
 				player_->CreateShadow();
 			}
-			else if (shadow_ != nullptr)
+			else if (owner_->tag_ == Tag::kShadow)
 			{
 				const int kCountCanReturnToPlayerShadow = 10;
 				// プレイヤーの影に戻る
@@ -86,6 +87,7 @@ namespace shadowpartner
 		{
 			// ツタを登る
 			owner_->ChangeState(new ClimbState(owner_));
+			return;
 		}
 		else if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
 		{

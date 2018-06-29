@@ -10,6 +10,11 @@
 #include "../../../Base/Element/component.h"
 #include "../../Actor/Common/actor_state.h"
 
+namespace physics
+{
+	class Collider;
+}
+
 namespace shadowpartner {
 
 	enum ActorDirection
@@ -18,12 +23,20 @@ namespace shadowpartner {
 		kLeft
 	};
 
+	class Player;
+	class Shadow;
+	class Jumper;
+	class LandingTrigger;
+	class GimmickTrigger;
+	class ActionTrigger;
+	
 	class Actor : public Component {
 	public:
 
 		Actor();
 		Actor(ActorState* state);
 		virtual ~Actor();
+		void Start() override;
 
 		// methods
 		void SetState(ActorState *state);
@@ -41,6 +54,15 @@ namespace shadowpartner {
 		void Update() override;
 
 		// variables
+		Player *player_;
+		Shadow *shadow_;
+		Jumper *jumper_;
+		LandingTrigger *landing_trigger_;
+		GimmickTrigger *gimmick_trigger_;
+		ActionTrigger *action_trigger_;
+
+		physics::Collider *collider_;
+
 		ActorState *state_;
 		bool is_controllable_;			// 操作可能かどうか
 		ActorDirection direction_;		// アクターの向き

@@ -22,6 +22,8 @@ namespace shadowpartner
 		:uv_offset_(Vector2::zero())
 		,uv_size_(Vector2::one())
 		,order_in_layer_(0)
+		,flip_x_(false)
+		,flip_y_(false)
 	{
 		texture_ = new Texture(file_name);
 
@@ -144,20 +146,11 @@ namespace shadowpartner
 			vertices_[2].diffuse_ =
 			vertices_[3].diffuse_ = D3DCOLOR_RGBA(255, 255, 255, 255);
 
-		if (!flip_)
-		{
-			vertices_[0].tex_coor_ = Vector2::zero();
+
+		vertices_[0].tex_coor_ = Vector2::zero();
 			vertices_[1].tex_coor_ = Vector2(1.0f, 0.0f);
 			vertices_[2].tex_coor_ = Vector2(0.0f, 1.0f);
 			vertices_[3].tex_coor_ = Vector2::one();
-		}
-		else
-		{
-			vertices_[0].tex_coor_ = Vector2(1.0f,0.0f);
-			vertices_[1].tex_coor_ = Vector2(0.0f, 0.0f);
-			vertices_[2].tex_coor_ = Vector2(1.0f, 1.0f);
-			vertices_[3].tex_coor_ = Vector2(0.0f, 1.0f);
-		}
 	}
 
 	//==========================================================
@@ -183,10 +176,22 @@ namespace shadowpartner
 		vertices_[2].vertex_ = center + Vector3(-xcos - ysin, -xsin + ycos,0.0f);
 		vertices_[3].vertex_ = center + Vector3(xcos - ysin, xsin + ycos,0.0f);
 
-		vertices_[0].tex_coor_ = uv_offset_;
-		vertices_[1].tex_coor_ = uv_offset_ + Vector2(uv_size_.x, 0.0f);
-		vertices_[2].tex_coor_ = uv_offset_ + Vector2(0.0f, uv_size_.y);
-		vertices_[3].tex_coor_ = uv_offset_ + uv_size_;
+		if (!flip_x_ && !flip_y_)
+		{
+			SetUvNormal();
+		}
+		else if (flip_x_ && !flip_y_)
+		{
+			SetUvInvertX();
+		}
+		else if (!flip_x_ && flip_y_)
+		{
+			SetUvInvertY();
+		}
+		else
+		{
+			SetUvInvertXY();
+		}
 	}
 
 	void Sprite::SetUvNormal()
@@ -221,13 +226,23 @@ namespace shadowpartner
 		vertices_[3].tex_coor_ = uv_offset_;
 	}
 
-	void Sprite::SetFlip(bool enable_flip)
+	void Sprite::SetFlipX(bool enable_flip)
 	{
-		flip_ = enable_flip;
+		flip_x_ = enable_flip;
 	}
 
-	bool Sprite::GetFlip()
+	void Sprite::SetFlipY(bool enable_flip)
 	{
-		return flip_;
+		flip_y_ = enable_flip;
+	}
+
+	bool Sprite::GetFlipX() const
+	{
+		return flip_x_;
+	}
+
+	bool Sprite::GetFlipY() const
+	{
+		return flip_y_;
 	}
 }

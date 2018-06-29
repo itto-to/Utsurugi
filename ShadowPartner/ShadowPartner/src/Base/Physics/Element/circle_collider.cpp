@@ -36,6 +36,7 @@ namespace physics
 			break;
 		}
 
+		circle_body_def.gravityScale = ini.gravity_scale_;
 		circle_body_def.position.Set(ini.pos_.x, ini.pos_.y);
 
 		body_ = PhysicsWorld::CreateBody(this, &circle_body_def);
@@ -58,6 +59,10 @@ namespace physics
 			circle_fixture_def.density = ini.density_;
 		}
 		circle_fixture_def.friction = ini.friction_;
+
+		// ƒtƒBƒ‹ƒ^Ý’è
+		circle_fixture_def.filter.categoryBits = ini.category_bits_;
+		circle_fixture_def.filter.maskBits     = ini.mask_bits_;
 
 		body_->CreateFixture(&circle_fixture_def);
 
