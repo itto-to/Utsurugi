@@ -18,6 +18,7 @@ enum CollisionFilter
 	kGimmickTrigger        = 1 << 7,
 	kActionTrigger         = 1 << 8,
 	kActionObject          = 1 << 9,
+	kIvy                   = 1 << 10,
 	kDefaultMask           = 0xFFFF,	// 全てのフィクスチャと衝突
 };
 

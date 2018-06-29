@@ -41,6 +41,7 @@ namespace physics
 		rjd.collideConnected = ini.collide_connected_;
 
 		revolute_joint_ = (b2RevoluteJoint *)PhysicsWorld::CreateJoint(this,&rjd);
+		joint_ = revolute_joint_;
 	}
 
 

@@ -31,11 +31,14 @@ namespace shadowpartner
 		box_init.width_ = init.piece_width_;
 		box_init.height_ = init.piece_height_;
 		box_init.fixed_rotation_ = false;
+		box_init.is_trigger_ = init.is_trigger_;
+		box_init.category_bits_ = CollisionFilter::kIvy;
+		box_init.mask_bits_ = ~CollisionFilter::kPlayer;
 
 		next_chain_->AddComponent(new BoxCollider(box_init));
 
 		Sprite *sprite = new Sprite(CHAIN_PIECE_TEXTURE_NAME);
-		sprite->SetSize(Vector2(init.piece_width_, init.piece_height_));
+		sprite->SetSize(Vector2(init.piece_width_ * 1.1f, init.piece_height_ * 1.1f));
 		sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0xff));
 		next_chain_->AddComponent(sprite);
 

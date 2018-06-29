@@ -84,7 +84,7 @@ namespace physics
 
 			b2Assert(count_ < kMaxCount);
 
-			bodies_[kMaxCount] = fixture->GetBody();
+			bodies_[count_] = fixture->GetBody();
 			points_[count_] = Vector2(point.x, point.y);
 			normals_[count_] = Vector2(normal.x, normal.y);
 			++count_;
@@ -122,7 +122,7 @@ namespace physics
 	//	layer_mask:判定をするオブジェクトを決めるためのレイヤー
 	//==========================================================
 	RaycastHit PhysicsFunc::Raycast(Vector2 start, Vector2 direction,
-		float distance, Layer layer_mask)
+		float distance, int layer_mask)
 	{
 		RaycastHit hit_info;
 
@@ -153,6 +153,30 @@ namespace physics
 		}
 
 		return hit_info;
+
+		//RayCastMultipleCallback callback;
+		//PhysicsWorld::instance_->world_.RayCast(&callback, point1, point2);
+
+		//for (int i = 0;(i < callback.count_);++i)
+		//{
+		//	for (int j = 0;j < PhysicsWorld::instance_->colliders_.size();++j)
+		//	{
+		//		if (PhysicsWorld::instance_->colliders_[j]->body_ == callback.bodies_[i])
+		//		{
+		//			Collider *check_collidder = PhysicsWorld::instance_->colliders_[j];
+
+		//			if ((1 << check_collidder->game_object_->layer_) & layer_mask)
+		//			{
+		//				hit_info.collider = PhysicsWorld::instance_->colliders_[j];
+		//				hit_info.hit_point = callback.points_[i];
+		//			}
+		//			break;
+		//		}
+		//	}
+		//}
+
+		//return hit_info;
+
 	}
 
 	//==========================================================

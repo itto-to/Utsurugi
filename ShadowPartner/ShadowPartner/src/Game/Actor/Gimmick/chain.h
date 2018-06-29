@@ -27,6 +27,7 @@ namespace shadowpartner
 		int pieces_count_;			// チェーンはいくつのピースでできているのか
 		float piece_width_;
 		float piece_height_;
+		bool is_trigger_;
 
 		ChainInitializer()
 			:first_pos_(Vector2::zero())
@@ -34,6 +35,7 @@ namespace shadowpartner
 			, pieces_count_(2)
 			, piece_width_(0.1f)
 			, piece_height_(0.1f)
+			, is_trigger_(false)
 		{
 
 		}

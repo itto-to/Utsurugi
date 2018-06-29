@@ -59,9 +59,9 @@ namespace
 	const float kTreeWidth  = 0.2f;
 	const float kTreeHeight = 2.0f;
 
-	const Vector2 kFireflyPosition   = Vector2(1.0f, -1.2f);
+	const Vector2 kFireflyPosition = Vector2(1.0f, -1.2f);
 	const Vector2 kFireflySpriteSize = Vector2(0.3f, 0.3f);
-	const Vector2 kFireflyLightSize  = Vector2(2.0f, 2.0f);
+	const Vector2 kFireflyLightSize = Vector2(2.0f, 2.0f);
 
 	const Vector2 kLightTreePosition   = Vector2(-2.0f, -0.6f);
 	const Vector2 kLightTreeSpriteSize = Vector2(2.56f, 3.25f);
@@ -144,7 +144,7 @@ namespace shadowpartner
 
 			AddGameObject(stages_[0]);
 
-			
+
 		}
 
 		// Stage Fase1
@@ -175,32 +175,6 @@ namespace shadowpartner
 			AddGameObject(stages_[2]);
 		}
 
-		//// TEST:テスト用足場 後で消す
-		//{
-		//	test_platform = new GameObject();
-		//	test_platform->transform_->position_ = Vector2(0.0f, -2.5f);
-
-		//	//	// 矩形の当たり判定の設定
-		//		BoxInitializer box_init;
-		//		box_init.width_          = 20.0f;
-		//		box_init.height_         = 1.0f;
-		//		box_init.density_        = 1000.0f;
-		//		box_init.friction_       = 1000.0f;
-		//		box_init.body_type_      = kStaticBody;
-		//		box_init.fixed_rotation_ = false;
-		//		box_init.is_trigger_     = false;
-		//		box_init.category_bits_  = CollisionFilter::kPlatform;
-		//		box_init.mask_bits_      = CollisionFilter::kDefaultMask;
-		//		BoxCollider *box_collider = new BoxCollider(box_init);
-		//		test_platform->AddComponent(box_collider);
-
-		//		Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
-		//		sprite->SetSize(Vector2(20.0f, 1.0f));
-		//		test_platform->AddComponent(sprite);
-
-		//		AddGameObject(test_platform);
-		//}
-
 
 		// 発光樹（中ライト）生成
 		{
@@ -221,9 +195,9 @@ namespace shadowpartner
 
 			// 円形の当たり判定の設定
 			CircleInitializer circle_init;
-			circle_init.pos_        = middle_light_->transform_->position_;
-			circle_init.radius_     = kLightTreeLightSize.x / 2.0f;
-			circle_init.body_type_  = kStaticBody;
+			circle_init.pos_ = middle_light_->transform_->position_;
+			circle_init.radius_ = kLightTreeLightSize.x / 2.0f;
+			circle_init.body_type_ = kStaticBody;
 			circle_init.is_trigger_ = true;
 			circle_init.gravity_scale_ = 0.0f;
 			circle_init.category_bits_ = CollisionFilter::kLight;
@@ -256,10 +230,10 @@ namespace shadowpartner
 
 			// 円形の当たり判定の設定
 			CircleInitializer circle_init;
-			circle_init.radius_     = kFireflyLightSize.x / 2.0f;
-			circle_init.body_type_  = kStaticBody;
+			circle_init.radius_ = kFireflyLightSize.x / 2.0f;
+			circle_init.body_type_ = kStaticBody;
 			circle_init.is_trigger_ = true;
-			circle_init.pos_        = small_light_->transform_->position_;
+			circle_init.pos_ = small_light_->transform_->position_;
 			circle_init.gravity_scale_ = 0.0f;
 			circle_init.category_bits_ = CollisionFilter::kLight;
 			circle_init.mask_bits_ = CollisionFilter::kGimmickTrigger;
@@ -273,32 +247,36 @@ namespace shadowpartner
 
 		 //ツタの生成
 		{
-			vine_ = new GameObject();
-			vine_->transform_->position_ = Vector2(-4.0f, 0.0f);
-			vine_->tag_                  = Tag::kClimb;
+			//vine_ = new GameObject();
+			//vine_->transform_->position_ = Vector2(-3.0f, 1.6f);
+			//vine_->tag_ = Tag::kClimb;
 
-			Sprite *sprite = new Sprite(IVY_TEXTURE_NAME);
-			sprite->SetSize(Vector2(0.5f, 4.0f));
-			sprite->SetColor(D3DCOLOR_ARGB(0xff, 0x00, 0xff, 0x00));
-			vine_->AddComponent(sprite);
+			//ChainInitializer chain_init;
+			//chain_init.first_pos_ = vine_->transform_->position_;
+			//chain_init.next_diff_ = Vector2(0.2f, 0.0f);
+			//chain_init.pieces_count_ = 15;
+			//chain_init.piece_width_ = 0.3f;
+			//chain_init.piece_height_ = 0.2f;
+			////chain_init.is_trigger_ = true;
+			//Chain *chain = new Chain(chain_init, this);
+			//vine_->AddComponent(chain);
 
+			//RevoluteInitializer revolute_init;
+			//revolute_init.world_pos_ = Vector2(-3.0f, 1.6f);
+			//revolute_init.collider_a_ = stages_[0]->GetComponent<TileMapCollider>();
+			//revolute_init.collider_b_ = chain->first_;
+			//revolute_init.local_anchor_a_ = Vector2(-3.0f, 1.4f);
+			//revolute_init.local_anchor_b_ = Vector2::zero();
+			//revolute_init.collide_connected_ = false;
 
-			// 矩形の当たり判定の設定
-			BoxInitializer box_init;
-			box_init.pos_        = vine_->transform_->position_;
-			box_init.width_      = 0.5f;
-			box_init.height_     = 4.0f;
-			box_init.density_    = 0.1f;
-			box_init.body_type_  = kStaticBody;
-			box_init.is_trigger_ = true;
-			box_init.category_bits_ = CollisionFilter::kClimb;
-			box_init.mask_bits_     = CollisionFilter::kGimmickTrigger;
+			//RevoluteJoint *tree_ivy_joint = new RevoluteJoint(revolute_init);
+			//box_init.category_bits_ = CollisionFilter::kClimb;
+			//box_init.mask_bits_     = CollisionFilter::kGimmickTrigger;
 
-			BoxCollider *box_collider = new BoxCollider(box_init);
-			vine_->AddComponent(box_collider);
+			//vine_->AddComponent(tree_ivy_joint);
 
-			// シーンにゲームオブジェクトを登録
-			AddGameObject(vine_);
+			//AddGameObject(vine_);
+
 		}
 
 		// 丸太の生成
@@ -315,16 +293,12 @@ namespace shadowpartner
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-			box_init.width_          = kTreeWidth;
-			box_init.height_         = kTreeHeight;
-			box_init.density_        = 1000.0f;
-			box_init.friction_       = 1000.0f;
 			box_init.body_type_      = kDynamicBody;
 			box_init.fixed_rotation_ = false;
 			box_init.is_trigger_     = false;
 			//box_init.offset_         = Vector2(0.0f, kTreeHeight / 2.0f);
-			box_init.category_bits_  = CollisionFilter::kActionObject;
-			box_init.mask_bits_      = CollisionFilter::kDefaultMask;
+			box_init.category_bits_ = CollisionFilter::kActionObject;
+			box_init.mask_bits_ = CollisionFilter::kDefaultMask | CollisionFilter::kActionTrigger;
 			BoxCollider *box_collider = new BoxCollider(box_init);
 			tree_log_->AddComponent(box_collider);
 
@@ -367,7 +341,7 @@ namespace shadowpartner
 
 			ri.enable_limit_ = true;
 			ri.lower_angle_ = -90.0f;
-			ri.upper_angle_ = 0.0f;
+			ri.upper_angle_ = 10.0f;
 
 			RevoluteJoint *revolute_joint = new RevoluteJoint(ri);
 			hinge_joint_->AddComponent(revolute_joint);
@@ -394,10 +368,11 @@ namespace shadowpartner
 			box_init.height_        = kPlayerColliderSize.y;
 			box_init.density_       = 1.0f;
 			box_init.friction_      = 0.0f;
+			box_init.gravity_scale_ = 1.0f;
 			box_init.body_type_     = kDynamicBody;
 			box_init.is_trigger_    = false;
 			box_init.category_bits_ = CollisionFilter::kPlayer;
-			box_init.mask_bits_     = ~CollisionFilter::kShadow;	// 影とだけ衝突しない
+			box_init.mask_bits_     = ~(CollisionFilter::kShadow | CollisionFilter::kIvy);	// 影とだけ衝突しない
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
 			box_collider->SetSleepingAllowed(false);	// Sleepを許可しない
@@ -406,10 +381,10 @@ namespace shadowpartner
 			// ギミックトリガーの設定
 			BoxInitializer gimmick_init;
 			gimmick_init.body_type_     = kDynamicBody;
-			gimmick_init.width_         = kPlayerColliderSize.x;
-			gimmick_init.height_        = kPlayerColliderSize.y;
 			gimmick_init.gravity_scale_ = 0.0f;
 			gimmick_init.pos_           = player_->transform_->position_;
+			gimmick_init.width_         = kPlayerColliderSize.x;
+			gimmick_init.height_        = kPlayerColliderSize.y;
 			gimmick_init.is_trigger_    = true;
 			gimmick_init.offset_        = Vector2::zero();
 			gimmick_init.category_bits_ = CollisionFilter::kGimmickTrigger;
@@ -421,16 +396,16 @@ namespace shadowpartner
 
 			// 着地トリガーの設定
 			BoxInitializer land_init;
-			land_init.body_type_     = kDynamicBody;
-			land_init.gravity_scale_ = 0.0f;
-			land_init.pos_           = player_->transform_->position_;
-			land_init.width_         = kPlayerWidth;
-			land_init.height_        = 0.1f;
-			land_init.offset_        = Vector2(0.0f, -kPlayerColliderSize.y / 2);
-			land_init.is_trigger_    = true;
-			land_init.category_bits_ = CollisionFilter::kLandingTirgger;
-			land_init.mask_bits_     = CollisionFilter::kPlatform | CollisionFilter::kClimb | CollisionFilter::kActionObject;
-
+			land_init.body_type_         = kDynamicBody;
+			land_init.gravity_scale_     = 0.0f;
+			land_init.is_trigger_        = true;
+			land_init.pos_               = player_->transform_->position_;
+			land_init.width_             = kPlayerColliderSize.x;
+			land_init.height_            = 0.1f;
+			land_init.offset_            = Vector2(0.0f, -kPlayerColliderSize.y / 2.0f);
+			land_init.is_trigger_        = true;
+			land_init.category_bits_     = CollisionFilter::kLandingTirgger;
+			land_init.mask_bits_         = CollisionFilter::kPlatform | CollisionFilter::kClimb | CollisionFilter::kActionObject;
 			LandingTrigger *land_trigger = new LandingTrigger(land_init);
 			land_trigger->SetSleepingAllowed(false);
 			player_->AddComponent(land_trigger);
@@ -478,9 +453,7 @@ namespace shadowpartner
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-			box_init.pos_           = shadow_->transform_->position_;
-			box_init.width_         = kShadowWidth;
-			box_init.height_        = kShadowHeight;
+			box_init.mask_bits_     = CollisionFilter::kShadow;
 			box_init.density_       = 1.0f;
 			box_init.friction_      = 0.0f;
 			box_init.body_type_     = kStaticBody;
@@ -512,12 +485,16 @@ namespace shadowpartner
 			land_init.body_type_     = kDynamicBody;
 			land_init.gravity_scale_ = 0.0f;
 			land_init.pos_           = player_->transform_->position_;
-			land_init.width_         = kShadowWidth;
+			land_init.width_         = kMiddleShadowCollisionSize.x;
 			land_init.height_        = 0.1f;
-			land_init.offset_        = Vector2(0.0f, -kShadowHeight / 2);
+			land_init.offset_        = Vector2(0.0f, -kMiddleShadowCollisionSize.y / 2);
 			land_init.is_trigger_    = true;
-			land_init.category_bits_ = CollisionFilter::kLandingTirgger;
+			land_init.category_bits_ = CollisionFilter::kShadow;
 			land_init.mask_bits_     = CollisionFilter::kPlatform | CollisionFilter::kClimb | CollisionFilter::kActionObject;
+
+			LandingTrigger *land_trigger = new LandingTrigger(land_init);
+			land_trigger->SetSleepingAllowed(false);
+			shadow_->AddComponent(land_trigger);
 
 			// アクショントリガーの設定
 			BoxInitializer act_init;
@@ -535,9 +512,6 @@ namespace shadowpartner
 			act_trigger->SetSleepingAllowed(false);
 			shadow_->AddComponent(act_trigger);
 
-			LandingTrigger *land_trigger = new LandingTrigger(land_init);
-			land_trigger->SetSleepingAllowed(false);
-			shadow_->AddComponent(land_trigger);
 
 			Jumper *jumper = new Jumper();
 			shadow_->AddComponent(jumper);
@@ -587,83 +561,62 @@ namespace shadowpartner
 			//AddGameObject(enemy_);
 		}
 
-		//// 丸太を固定する蔦1
-		//{
-		//	ivy_chain_[0] = new GameObject();
-		//	ivy_chain_[0]->transform_->position_ = Vector2(4.0f, 1.0f);
+		{
+			//test_object_ = new GameObject();
+			//test_object_->transform_->position_ = Vector2(4.5f, -1.5f);
+			//Sprite *sprite = new Sprite("Resources/Texture/white");
+			//sprite->SetSize(Vector2::one() * 2.0f);
 
-		//	ChainInitializer chain_init;
-		//	chain_init.first_pos_ = Vector2(4.0f, 1.0f);
-		//	chain_init.next_diff_ = Vector2(0.3f, 0.0f);
-		//	chain_init.pieces_count_ = 3;
-		//	chain_init.piece_width_ = 0.5f;
-		//	chain_init.piece_height_ = 0.25f;
-		//	Chain *chain = new Chain(chain_init, this);
-		//	ivy_chain_[0]->AddComponent(chain);
+			//test_object_->AddComponent(sprite);
 
-		//	RevoluteInitializer revolute_init;
-		//	revolute_init.world_pos_ = Vector2(0.0f, 0.0f);
-		//	revolute_init.collider_a_ = tree_log_->GetComponent<BoxCollider>();
-		//	revolute_init.collider_b_ = chain->first_;
-		//	revolute_init.local_anchor_a_ = Vector2(4.0f, 1.0f);
-		//	revolute_init.local_anchor_b_ = Vector2::zero();
-		//	revolute_init.collide_connected_ = false;
+			//AddGameObject(test_object_);
+		}
 
-		//	RevoluteJoint *tree_ivy_joint = new RevoluteJoint(revolute_init);
+		// 丸太を固定する蔦
+		{
+			ivy_chain_ = new GameObject();
+			ivy_chain_->transform_->position_ = Vector2(0.0f, 0.0f);
 
-		//	ivy_chain_[0]->AddComponent(tree_ivy_joint);
+			ChainInitializer chain_init;
+			chain_init.first_pos_ = Vector2(4.0f, 1.0f);
+			chain_init.next_diff_ = Vector2(0.3f, 0.0f);
+			chain_init.pieces_count_ = 6;
+			chain_init.piece_width_ = 0.3f;
+			chain_init.piece_height_ = 0.2f;
+			Chain *chain = new Chain(chain_init, this);
+			ivy_chain_->AddComponent(chain);
 
-		//	AddGameObject(ivy_chain_[0]);
-		//}
-		//
-		//// 丸太を固定する蔦2
-		//{
-		//	ivy_chain_[1] = new GameObject();
-		//	ivy_chain_[1]->transform_->position_ = Vector2(4.75f, 0.0f);
+			RevoluteInitializer revolute_init;
 
-		//	ChainInitializer chain_init;
-		//	chain_init.first_pos_ = Vector2(4.0f, 1.0f);
-		//	chain_init.next_diff_ = Vector2(0.3f, 0.0f);
-		//	chain_init.pieces_count_ = 3;
-		//	chain_init.piece_width_ = 0.5f;
-		//	chain_init.piece_height_ = 0.25f;
-		//	Chain *chain = new Chain(chain_init, this);
-		//	ivy_chain_[1]->AddComponent(chain);
+			revolute_init.world_pos_ = Vector2(0.0f, 0.0f);
+			revolute_init.collider_a_ = chain->last_;
+			revolute_init.collider_b_ = stages_[0]->GetComponent<TileMapCollider>();
+			revolute_init.local_anchor_a_ = Vector2::zero();
+			revolute_init.local_anchor_b_ = Vector2(5.5f, -2.0f);
 
-		//	RevoluteInitializer revolute_init;
+			RevoluteJoint *ivy_first_stage_joint = new RevoluteJoint(revolute_init);
 
-		//	revolute_init.world_pos_ = Vector2(0.0f, 0.0f);
-		//	revolute_init.collider_a_ = chain->last_;
-		//	revolute_init.collider_b_ = stages_[1]->GetComponent<TileMapCollider>();
-		//	revolute_init.local_anchor_a_ = Vector2::zero();
-		//	revolute_init.local_anchor_b_ = Vector2(5.5f,-2.0f);
+			ivy_chain_->AddComponent(ivy_first_stage_joint);
 
-		//	RevoluteJoint *ivy_first_stage_joint = new RevoluteJoint(revolute_init);
+			AddGameObject(ivy_chain_);
+		}
 
-		//	ivy_chain_[1]->AddComponent(ivy_first_stage_joint);
+		{
+			ivy_joint_ = new GameObject();
 
-		//	AddGameObject(ivy_chain_[1]);
-		//}
+			RevoluteInitializer revolute_init;
+			revolute_init.world_pos_ = Vector2(0.0f, 0.0f);
+			revolute_init.collider_a_ = tree_log_->GetComponent<BoxCollider>();
+			revolute_init.collider_b_ = ivy_chain_->GetComponent<Chain>()->first_;
+			revolute_init.local_anchor_a_ = Vector2::Vector2(0.0f, 0.8f);
+			revolute_init.local_anchor_b_ = Vector2::zero();
+			revolute_init.collide_connected_ = false;
 
+			RevoluteJoint *tree_ivy_joint = new RevoluteJoint(revolute_init);
 
-		//{
-		//	ivy_joint_ = new GameObject();
-		//	ivy_joint_->transform_->position_ = Vector2(4.75f, 0.0f);
+			ivy_joint_->AddComponent(tree_ivy_joint);
 
-		//	RevoluteInitializer revolute_init;
-
-		//	revolute_init.world_pos_ = Vector2(4.75f, 0.0f);
-		//	revolute_init.collider_a_ = ivy_chain_[0]->GetComponent<Chain>()->last_;
-		//	revolute_init.collider_b_ = ivy_chain_[1]->GetComponent<Chain>()->first_;
-		//	revolute_init.local_anchor_a_ = Vector2::zero();
-		//	revolute_init.local_anchor_b_ = Vector2::zero();
-
-		//	RevoluteJoint *ivy_ivy_joint = new RevoluteJoint(revolute_init);
-
-		//	ivy_joint_->AddComponent(ivy_ivy_joint);
-
-		//	AddGameObject(ivy_joint_);
-		//}
+		}
 
 		StageScene::Init();
 
@@ -687,16 +640,25 @@ namespace shadowpartner
 		}
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
 		{
-			static int z = 0;
+			/*static int z = 0;
 
 			z = (z + 1) % 16;
 			Camera::main_->SetZoom(10.0f + 1.0f * (z - 9));
+*/
+			Vector2 pp = player_->transform_->position_;
+			if (pp.x > 3.5f && pp.x < 5.5f && pp.y > -2.5f && pp.y < -0.5f)
+			{
+				DestroyImmediate(ivy_joint_);
+			}
 		}
 
 		//static float rad = 0.0f;
 		//rad += D3DXToRadian(0.1f);
 		//moon_light_->GetComponent<Light>()->SetDirection(Vector2(cosf(rad),sinf(rad)));
 
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Start))
+		{
+		}
 	}
 
 	void FirstStageScene::Uninit()
