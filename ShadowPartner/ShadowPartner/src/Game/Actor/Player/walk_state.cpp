@@ -99,7 +99,7 @@ namespace shadowpartner
 		// テクスチャアニメーション
 		const int kNumDivideX = 4;
 		const int kNumDivideY = 4;
-		const int kNumAnimPattern = 6;
+		const int kNumAnimPattern = 5;
 		const int kCountPerFrame = 10;
 
 		sprite_->SetUvSize(Vector2(0.25f, 0.25f));
