@@ -49,22 +49,22 @@ namespace
 {
 	const Vector2 kInitPlayerPos = Vector2(2.0f, 3.0f);
 
-	const float kPlayerWidth = 1.0f;
+	const float kPlayerWidth  = 0.5f;
 	const float kPlayerHeight = 1.0f;
 
 	const Vector2 kTreeLogPosition = Vector2(3.5f, -1.1f);
-	const float kTreeWidth = 0.2f;
+	const float kTreeWidth  = 0.2f;
 	const float kTreeHeight = 2.0f;
 
 	const Vector2 kFireflyPosition   = Vector2(1.0f, -1.2f);
 	const Vector2 kFireflySpriteSize = Vector2(0.3f, 0.3f);
 	const Vector2 kFireflyLightSize  = Vector2(2.0f, 2.0f);
 
-	const Vector2 kLightTreePosition = Vector2(-2.0f, -0.6f);
+	const Vector2 kLightTreePosition   = Vector2(-2.0f, -0.6f);
 	const Vector2 kLightTreeSpriteSize = Vector2(2.56f, 3.25f);
-	const Vector2 kLightTreeLightSize = Vector2(3.0f, 3.0f);
+	const Vector2 kLightTreeLightSize  = Vector2(3.0f, 3.0f);
 
-	const float kShadowWidth = 1.0f;
+	const float kShadowWidth  = 0.5f;
 	const float kShadowHeight = 1.0f;
 
 	const Vector2 kPlayerUVSize = Vector2(0.25f, 0.25f);
