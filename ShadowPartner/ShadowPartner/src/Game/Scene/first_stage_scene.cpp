@@ -236,32 +236,36 @@ namespace shadowpartner
 		}
 
 		// ツタの生成
-		{
-			vine_ = new GameObject();
-			vine_->transform_->position_ = Vector2(-4.0f, 0.0f);
-			vine_->tag_                  = Tag::kClimb;
+		//{
+		//	vine_ = new GameObject();
+		//	vine_->transform_->position_ = Vector2(0.0f, 0.0f);
+		//	vine_->tag_ = Tag::kClimb;
 
-			Sprite *sprite = new Sprite(IVY_TEXTURE_NAME);
-			sprite->SetSize(Vector2(0.5f, 4.0f));
-			sprite->SetColor(D3DCOLOR_ARGB(0xff, 0x00, 0xff, 0x00));
-			vine_->AddComponent(sprite);
+		//	ChainInitializer chain_init;
+		//	chain_init.first_pos_ = vine_->transform_->position_;
+		//	chain_init.next_diff_ = Vector2(0.3f, 0.0f);
+		//	chain_init.pieces_count_ = 3;
+		//	chain_init.piece_width_ = 0.3f;
+		//	chain_init.piece_height_ = 0.2f;
+		//	chain_init.is_trigger_ = true;
+		//	Chain *chain = new Chain(chain_init, this);
+		//	vine_->AddComponent(chain);
 
+		//	RevoluteInitializer revolute_init;
+		//	revolute_init.world_pos_ = Vector2(-1.0f, 2.0f);
+		//	revolute_init.collider_a_ = stages_[0]->GetComponent<TileMapCollider>();
+		//	revolute_init.collider_b_ = chain->first_;
+		//	revolute_init.local_anchor_a_ = Vector2(-1.0f, 2.0f);
+		//	revolute_init.local_anchor_b_ = Vector2::zero();
+		//	revolute_init.collide_connected_ = false;
 
-			// 矩形の当たり判定の設定
-			BoxInitializer box_init;
-			box_init.pos_        = vine_->transform_->position_;
-			box_init.width_      = 0.5f;
-			box_init.height_     = 4.0f;
-			box_init.density_    = 0.1f;
-			box_init.body_type_  = kStaticBody;
-			box_init.is_trigger_ = true;
+		//	RevoluteJoint *tree_ivy_joint = new RevoluteJoint(revolute_init);
 
-			BoxCollider *box_collider = new BoxCollider(box_init);
-			vine_->AddComponent(box_collider);
+		//	vine_->AddComponent(tree_ivy_joint);
 
-			// シーンにゲームオブジェクトを登録
-			AddGameObject(vine_);
-		}
+		//	AddGameObject(vine_);
+
+		//}
 
 		// 丸太の生成
 		{
@@ -534,14 +538,14 @@ namespace shadowpartner
 		// 丸太を固定する蔦1
 		//{
 		//	ivy_chain_[0] = new GameObject();
-		//	ivy_chain_[0]->transform_->position_ = Vector2(4.0f, 1.0f);
+		//	ivy_chain_[0]->transform_->position_ = Vector2(0.0f,0.0f);
 
 		//	ChainInitializer chain_init;
 		//	chain_init.first_pos_ = Vector2(4.0f, 1.0f);
 		//	chain_init.next_diff_ = Vector2(0.3f, 0.0f);
 		//	chain_init.pieces_count_ = 3;
-		//	chain_init.piece_width_ = 0.5f;
-		//	chain_init.piece_height_ = 0.25f;
+		//	chain_init.piece_width_ = 0.3f;
+		//	chain_init.piece_height_ = 0.2f;
 		//	Chain *chain = new Chain(chain_init, this);
 		//	ivy_chain_[0]->AddComponent(chain);
 
@@ -563,14 +567,14 @@ namespace shadowpartner
 		//// 丸太を固定する蔦2
 		//{
 		//	ivy_chain_[1] = new GameObject();
-		//	ivy_chain_[1]->transform_->position_ = Vector2(4.75f, 0.0f);
+		//	ivy_chain_[1]->transform_->position_ = Vector2(0.0f, 0.0f);
 
 		//	ChainInitializer chain_init;
-		//	chain_init.first_pos_ = Vector2(4.0f, 1.0f);
+		//	chain_init.first_pos_ = Vector2(4.75f, 0.0f);
 		//	chain_init.next_diff_ = Vector2(0.3f, 0.0f);
 		//	chain_init.pieces_count_ = 3;
-		//	chain_init.piece_width_ = 0.5f;
-		//	chain_init.piece_height_ = 0.25f;
+		//	chain_init.piece_width_ = 0.3f;
+		//	chain_init.piece_height_ = 0.2f;
 		//	Chain *chain = new Chain(chain_init, this);
 		//	ivy_chain_[1]->AddComponent(chain);
 

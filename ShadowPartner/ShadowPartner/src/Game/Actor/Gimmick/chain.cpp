@@ -31,6 +31,7 @@ namespace shadowpartner
 		box_init.width_ = init.piece_width_;
 		box_init.height_ = init.piece_height_;
 		box_init.fixed_rotation_ = false;
+		box_init.is_trigger_ = init.is_trigger_;
 
 		next_chain_->AddComponent(new BoxCollider(box_init));
 
