@@ -84,10 +84,12 @@ void JumpState::ExecuteState()
 	{
 		if (collider_->VelocityX() != 0.0f) {
 			owner_->ChangeState(new WalkState(owner_));
+			return;
 		}
 		else
 		{
 			owner_->ChangeState(new IdleState(owner_));
+			return;
 		}
 	}
 

@@ -37,7 +37,6 @@ namespace shadowpartner
 
 	WalkState::WalkState(Actor *owner) : ActorState(owner)
 	{
-		Enter();
 	}
 
 	void WalkState::Enter()
@@ -82,6 +81,7 @@ namespace shadowpartner
 			if (fabs(x) < 0.05f) {
 				collider_->SetVelocityX(0.0f);
 				owner_->ChangeState(new IdleState(owner_));
+				return;
 			}
 			else
 			{
@@ -94,6 +94,7 @@ namespace shadowpartner
 			// ジャンプ入力
 			jumper_->Jump();
 			owner_->ChangeState(new JumpState(owner_));
+			return;
 		}
 
 		// テクスチャアニメーション
@@ -104,12 +105,11 @@ namespace shadowpartner
 
 		sprite_->SetUvSize(Vector2(0.25f, 0.25f));
 
-		int pattern_no = (counter_ / kCountPerFrame) % kCountPerFrame;
+		int pattern_no = (counter_ / kCountPerFrame) % kNumAnimPattern;
 
 		Vector2 tex_coord;
 		tex_coord.x = (pattern_no % kNumDivideX) * 0.25f;
 		tex_coord.y = (pattern_no / kNumDivideX) * 0.25f;
-
 		sprite_->SetUvOffset(tex_coord);
 	}
 

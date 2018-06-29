@@ -10,7 +10,7 @@
 
 namespace physics
 {
-	class CircleCollider;
+	class BoxCollider;
 	class RevoluteJoint;
 	class RopeJoint;
 }

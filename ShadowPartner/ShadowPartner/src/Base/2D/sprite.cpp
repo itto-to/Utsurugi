@@ -144,10 +144,20 @@ namespace shadowpartner
 			vertices_[2].diffuse_ =
 			vertices_[3].diffuse_ = D3DCOLOR_RGBA(255, 255, 255, 255);
 
-		vertices_[0].tex_coor_ = Vector2::zero();
-		vertices_[1].tex_coor_ = Vector2(1.0f,0.0f);
-		vertices_[2].tex_coor_ = Vector2(0.0f,1.0f);
-		vertices_[3].tex_coor_ = Vector2::one();
+		if (!flip_)
+		{
+			vertices_[0].tex_coor_ = Vector2::zero();
+			vertices_[1].tex_coor_ = Vector2(1.0f, 0.0f);
+			vertices_[2].tex_coor_ = Vector2(0.0f, 1.0f);
+			vertices_[3].tex_coor_ = Vector2::one();
+		}
+		else
+		{
+			vertices_[0].tex_coor_ = Vector2(1.0f,0.0f);
+			vertices_[1].tex_coor_ = Vector2(0.0f, 0.0f);
+			vertices_[2].tex_coor_ = Vector2(1.0f, 1.0f);
+			vertices_[3].tex_coor_ = Vector2(0.0f, 1.0f);
+		}
 	}
 
 	//==========================================================
@@ -173,10 +183,10 @@ namespace shadowpartner
 		vertices_[2].vertex_ = center + Vector3(-xcos - ysin, -xsin + ycos,0.0f);
 		vertices_[3].vertex_ = center + Vector3(xcos - ysin, xsin + ycos,0.0f);
 
-		//vertices_[0].tex_coor_ = uv_offset_;
-		//vertices_[1].tex_coor_ = uv_offset_ + Vector2(uv_size_.x, 0.0f);
-		//vertices_[2].tex_coor_ = uv_offset_ + Vector2(0.0f, uv_size_.y);
-		//vertices_[3].tex_coor_ = uv_offset_ + uv_size_;
+		vertices_[0].tex_coor_ = uv_offset_;
+		vertices_[1].tex_coor_ = uv_offset_ + Vector2(uv_size_.x, 0.0f);
+		vertices_[2].tex_coor_ = uv_offset_ + Vector2(0.0f, uv_size_.y);
+		vertices_[3].tex_coor_ = uv_offset_ + uv_size_;
 	}
 
 	void Sprite::SetUvNormal()
@@ -209,5 +219,15 @@ namespace shadowpartner
 		vertices_[1].tex_coor_ = uv_offset_ + Vector2(0.0f, uv_size_.y);
 		vertices_[2].tex_coor_ = uv_offset_ + Vector2(uv_size_.x, 0.0f);
 		vertices_[3].tex_coor_ = uv_offset_;
+	}
+
+	void Sprite::SetFlip(bool enable_flip)
+	{
+		flip_ = enable_flip;
+	}
+
+	bool Sprite::GetFlip()
+	{
+		return flip_;
 	}
 }

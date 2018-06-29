@@ -44,6 +44,8 @@ namespace shadowpartner
 		void SetUvInvertX();
 		void SetUvInvertY();
 		void SetUvInvertXY();
+		void SetFlip(bool enable_flip);
+		bool GetFlip();
 
 	protected:
 		void Draw();
@@ -55,6 +57,7 @@ namespace shadowpartner
 		Vector2 uv_size_;		// テクスチャーのuv座標の左上から右下までのベクトル
 		Vertex2D vertices_[NUM_TEXTURE_VERTEX];
 		int order_in_layer_;
+		bool flip_;
 
 		// methods
 		void MakeVertex();
