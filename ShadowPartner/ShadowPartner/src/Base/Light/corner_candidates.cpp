@@ -14,6 +14,7 @@ namespace shadowpartner
 	//**********************************************************
 	// マクロ
 	//**********************************************************
+#define LIGHT_RECEIVABLE_LAYER (1 << Layer::kDefaultLayer + 1 << Layer::kPlayerLayer)
 
 	//**********************************************************
 	// 定数
@@ -48,6 +49,9 @@ namespace shadowpartner
 	//==========================================================
 	void CornerCandidates::PreCalculate(Stage *stages)
 	{
+		if (stages->game_object_->layer_ & ~LIGHT_RECEIVABLE_LAYER)
+			return;
+
 		vector<Vector2> additional;
 		additional = GetCandidatesFromTilemap(stages->tilemap_collider, Vector2::zero(), FLT_MAX);
 
@@ -65,6 +69,9 @@ namespace shadowpartner
 		// 一つ一つのコライダーの種類ごとに候補点の取得を行う。
 		for (int i = 0;i < colliders.size();++i)
 		{
+			if (!((1 << colliders[i]->game_object_->layer_) & LIGHT_RECEIVABLE_LAYER))
+				continue;
+
 			if (colliders[i]->Is<BoxCollider>())
 			{
 				// BoxColliderの場合
@@ -133,6 +140,9 @@ namespace shadowpartner
 		{
 			// ここで追加するのはDynamicBodyだけ
 			if (colliders[i]->body_->GetType() != b2BodyType::b2_dynamicBody)
+				continue;
+
+			if (!((1 << colliders[i]->game_object_->layer_) & ~LIGHT_RECEIVABLE_LAYER))
 				continue;
 
 			if (colliders[i]->Is<BoxCollider>())
@@ -330,7 +340,7 @@ namespace shadowpartner
 					// 候補点なので追加する
 					additional_point.push_back(tilemap_upper_left + Vector2(w * x, h * y));
 				}
-					break;
+				break;
 				}
 
 				// 次の格子点にずらす

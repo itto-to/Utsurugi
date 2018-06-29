@@ -44,7 +44,9 @@ namespace shadowpartner
 
 		RevoluteInitializer revolute_init;
 		revolute_init.collide_connected_ = false;
-		revolute_init.enable_limit_ = false;
+		revolute_init.enable_limit_ = true;
+		revolute_init.lower_angle_ = -60.0f;
+		revolute_init.upper_angle_ = 60.0f;
 		revolute_init.world_pos_ = box_init.pos_ + (init.next_diff_ / 2.0f);
 
 		for (int i = 0;i < init.pieces_count_ - 1;++i)

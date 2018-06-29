@@ -105,7 +105,7 @@ namespace shadowpartner
 		// Stage Fase1
 		{
 			stages_[0] = new GameObject();
-			stages_[0]->transform_->position_ = Vector2(11.2f, 0.0f);
+			stages_[0]->transform_->position_ = Vector2(0.0f, 0.0f);
 
 			Stage *stage = new Stage(StageNumber::kStage1_1, *stages_[0]);
 			stages_[0]->AddComponent(stage);
@@ -432,6 +432,27 @@ namespace shadowpartner
 			//enemy_->AddComponent(box_collider);
 
 			//AddGameObject(enemy_);
+		}
+
+		// テスト用のサークルです
+		{
+			test_circle_ = new GameObject();
+			test_circle_->transform_->position_ = Vector2(10.0f, 30.0f);
+			test_circle_->layer_ = Layer::kTestLayer;
+
+			Sprite *sprite = new Sprite("Resources/Texture/WhiteCircle.png");
+			sprite->SetSize(Vector2::one());
+			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0xff));
+			test_circle_->AddComponent(sprite);
+
+			CircleInitializer circle_init;
+			circle_init.pos_ = test_circle_->transform_->position_;
+			circle_init.radius_ = 0.5f;
+			circle_init.body_type_ = BodyType::kStaticBody;
+			CircleCollider *circle_collider = new CircleCollider(circle_init);
+			test_circle_->AddComponent(circle_collider);
+
+			AddGameObject(test_circle_);
 		}
 		
 		StageScene::Init();

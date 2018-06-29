@@ -20,7 +20,7 @@ namespace shadowpartner
 	GameObject::GameObject()
 		:is_active_(true)
 		,tag_(Tag::kUntagged)
-		, layer_(Layer::kDefault)
+		, layer_(Layer::kDefaultLayer)
 	{
 		transform_ = new Transform();
 

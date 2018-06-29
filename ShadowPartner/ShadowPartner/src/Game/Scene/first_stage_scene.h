@@ -40,6 +40,8 @@ namespace shadowpartner
 		GameObject *small_light_;
 		GameObject *middle_light_;
 
+		GameObject *test_circle_;
+
 		// methods
 
 

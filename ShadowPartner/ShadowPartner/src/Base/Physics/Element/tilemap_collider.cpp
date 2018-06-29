@@ -30,12 +30,12 @@ namespace physics
 		body_ = PhysicsWorld::CreateBody(this, &tilemap_body_def);
 		body_->SetUserData((void *)this);
 
-		Vector2 offset = Vector2(ini.pos_.x - ini.width_ * ((float)ini.x_lenght_ / 2.0f - 0.5f),ini.pos_.y + ini.height_ * ((float)ini.y_lenght_ / 2.0f -0.5f));
+		Vector2 offset = Vector2(- ini.width_ * ((float)ini.x_lenght_ / 2.0f - 0.5f),ini.height_ * ((float)ini.y_lenght_ / 2.0f -0.5f));
 
 		for (int y = 0;y < ini.y_lenght_;++y,offset.y -= ini.height_)
 		{
 			// オフセットのX座標の位置を左はじに戻す
-			offset.x = ini.pos_.x - ini.width_ * ((float)ini.x_lenght_ / 2.0f - 0.5f);
+			offset.x = - ini.width_ * ((float)ini.x_lenght_ / 2.0f - 0.5f);
 
 			for (int x = 0;x < ini.x_lenght_;++x,offset.x += ini.width_)
 			{
