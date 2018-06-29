@@ -46,6 +46,8 @@ namespace shadowpartner
 
 		GameObject *pyramids_[15];
 
+		GameObject *chain_object;
+
 		// methods
 
 

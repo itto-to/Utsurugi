@@ -100,6 +100,7 @@ namespace shadowpartner
 				sprite->SetSize(Vector2(1.6f, 0.8f));
 				sprite->SetUvOffset(Vector2(0.5f * (i / 2),0.5f * (i % 2)));
 				sprite->SetUvSize(Vector2::one() * 0.5f);
+				sprite->SetUvNormal();
 				sprite->SetColor(TITLE_NOT_POINTED_COLOR);
 				title_command_buttons_[i]->AddComponent(sprite);
 

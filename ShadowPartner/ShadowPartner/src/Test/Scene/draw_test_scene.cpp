@@ -62,7 +62,7 @@ namespace shadowpartner
 
 			draw_stage = new GameObject();
 			draw_stage->transform_->position_ = Vector2(0.0f, 0.0f);
-			Stage *stage = new Stage(kTest, *draw_stage);
+			Stage *stage = new Stage(kStage1_1, *draw_stage);
 			draw_stage->AddComponent(stage);
 
 			AddGameObject(draw_stage);

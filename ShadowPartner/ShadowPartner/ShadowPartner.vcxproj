@@ -179,6 +179,7 @@
     <ClCompile Include="src\Base\Physics\Func\physics_func.cpp" />
     <ClCompile Include="src\Base\Physics\Joint\joint.cpp" />
     <ClCompile Include="src\Base\Physics\Joint\revolute_joint.cpp" />
+    <ClCompile Include="src\Base\Physics\Joint\rope_joint.cpp" />
     <ClCompile Include="src\Base\Physics\Particle\particle_system.cpp" />
     <ClCompile Include="src\Base\Physics\World\physics_world.cpp" />
     <ClCompile Include="src\Base\System\scene.cpp" />
@@ -191,7 +192,9 @@
     <ClCompile Include="src\Game\Actor\Common\light_sensor.cpp" />
     <ClCompile Include="src\Game\Actor\Common\light_sensor.h" />
     <ClCompile Include="src\Game\Actor\Common\movable.cpp" />
+    <ClCompile Include="src\Game\Actor\Gimmick\chain.cpp" />
     <ClCompile Include="src\Game\Actor\Enemy\enemy.cpp" />
+    <ClCompile Include="src\Game\Actor\Gimmick\gate.cpp" />
     <ClCompile Include="src\Game\Actor\Gimmick\tree.cpp" />
     <ClCompile Include="src\Game\Actor\Player\action_trigger.cpp" />
     <ClCompile Include="src\Game\Actor\Player\climb_state.cpp" />
@@ -251,6 +254,7 @@
     <ClInclude Include="src\Base\Physics\Func\physics_func.h" />
     <ClInclude Include="src\Base\Physics\Joint\joint.h" />
     <ClInclude Include="src\Base\Physics\Joint\revolute_joint.h" />
+    <ClInclude Include="src\Base\Physics\Joint\rope_joint.h" />
     <ClInclude Include="src\Base\Physics\Particle\particle_system.h" />
     <ClInclude Include="src\Base\Physics\physics.h" />
     <ClInclude Include="src\Base\Physics\World\physics_world.h" />
@@ -263,6 +267,8 @@
     <ClInclude Include="src\Game\Actor\Common\jumper.h" />
     <ClInclude Include="src\Game\Actor\Common\movable.h" />
     <ClInclude Include="src\Game\Actor\Enemy\enemy.h" />
+    <ClInclude Include="src\Game\Actor\Gimmick\chain.h" />
+    <ClInclude Include="src\Game\Actor\Gimmick\gate.h" />
     <ClInclude Include="src\Game\Actor\Gimmick\tree.h" />
     <ClInclude Include="src\Game\Actor\Player\action_trigger.h" />
     <ClInclude Include="src\Game\Actor\Player\climb_state.h" />

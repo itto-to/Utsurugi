@@ -38,6 +38,7 @@ namespace shadowpartner
 		void SetUvOffset(const Vector2 &offset);
 		void SetUvSize(const Vector2 &size);
 		void SetOrderInLayer(const int &layer);
+		Vector2 UvOffset() const;
 
 		void SetUvNormal();
 		void SetUvInvertX();

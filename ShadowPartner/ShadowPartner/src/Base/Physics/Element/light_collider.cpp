@@ -60,7 +60,7 @@ namespace physics
 			tri[1] = b2Vec2(light_vertices[i + 1].x, light_vertices[i + 1].y) / PIXEL_PER_UNIT - center;
 			tri[2] = b2Vec2(light_vertices[i + 2].x, light_vertices[i + 2].y) / PIXEL_PER_UNIT - center;
 		
-			if (b2Cross(tri[1], tri[2]) > 0.0f)
+			if (b2Cross(tri[1], tri[2]) == 0.0f)
 			{
 				b2PolygonShape light_poly;
 				light_poly.Set(tri, 3);

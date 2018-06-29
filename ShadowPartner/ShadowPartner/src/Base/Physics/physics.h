@@ -17,6 +17,7 @@
 #include "Element\tilemap_collider.h"
 
 #include "Joint\revolute_joint.h"
+#include "Joint\rope_joint.h"
 
 #include "Func\physics_func.h"
 

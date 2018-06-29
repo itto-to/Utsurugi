@@ -25,6 +25,7 @@ namespace shadowpartner
 		ShadowState(Actor *owner);
 
 	protected:
+		void Enter() override;
 		virtual void ExecuteState() override;
 		Player *player_;
 		physics::Collider *collider_;

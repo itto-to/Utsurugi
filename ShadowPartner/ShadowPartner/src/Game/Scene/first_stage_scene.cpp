@@ -36,7 +36,7 @@
 #define BACK_GROUND_TEXTURE_NAME "Resources/Texture/Stage/ForestBackGround.png"
 #define CLEAR_GATE_TEXTURE_NAME  "Resources/Texture/Stage/Gate.png"
 #define PLAYER_TEXTURE_NAME      "Resources/Texture/Character/newfox.png"
-#define LIGHT_TEXTURE_NAME       "Resources/Texture/white.png"
+#define LIGHT_TEXTURE_NAME       "Resources/Texture/Light/Light.png"
 #define IVY_TEXTURE_NAME         "Resources/Texture/Stage/Ivy.png"
 #define TREE_LOG_TEXTURE_NAME    "Resources/Texture/Stage/RoundWood.png"
 #define LIGHT_TREE_TEXTURE_NAME  "Resources/Texture/Light/TreeLine.png"
@@ -65,6 +65,8 @@ namespace
 
 	const float kShadowWidth = 1.0f;
 	const float kShadowHeight = 1.0f;
+
+	const Vector2 kPlayerUVSize = Vector2(0.25f, 0.25f);
 
 }
 
@@ -129,9 +131,9 @@ namespace shadowpartner
 		// Stage Fase1
 		{
 			stages_[0] = new GameObject();
-			stages_[0]->transform_->position_ = Vector2(0.0f, 0.0f);
+			stages_[0]->transform_->position_ = Vector2(11.2f, 0.0f);
 
-			Stage *stage = new Stage(StageNumber::kTest, *stages_[0]);
+			Stage *stage = new Stage(StageNumber::kStage1_1, *stages_[0]);
 			stages_[0]->AddComponent(stage);
 
 			CornerCandidates::PreCalculate(stage);
@@ -140,17 +142,40 @@ namespace shadowpartner
 
 			
 		}
-		 
+
+		// Stage Fase1
+		{
+			stages_[1] = new GameObject();
+			stages_[1]->transform_->position_ = Vector2(11.2f, 0.0f);
+
+			Stage *stage = new Stage(StageNumber::kStage1_2, *stages_[1]);
+			stages_[1]->AddComponent(stage);
+
+			CornerCandidates::PreCalculate(stage);
+
+			AddGameObject(stages_[1]);
+
+
+		}
+
+		// Stage Fase1
+		{
+			stages_[2] = new GameObject();
+			stages_[2]->transform_->position_ = Vector2(22.4f, 0.0f);
+
+			Stage *stage = new Stage(StageNumber::kStage1_3, *stages_[2]);
+			stages_[2]->AddComponent(stage);
+
+			CornerCandidates::PreCalculate(stage);
+
+			AddGameObject(stages_[2]);
+		}
+
 		// 発光樹（中ライト）生成
 		{
 			middle_light_ = new GameObject();
 			middle_light_->transform_->position_ = kLightTreePosition;
 			middle_light_->tag_ = Tag::kMiddleLight;
-
-			// ライトツリーのスプライト設定
-			Sprite *tree_sprite = new Sprite(LIGHT_TREE_TEXTURE_NAME);
-			tree_sprite->SetSize(kLightTreeSpriteSize);
-			middle_light_->AddComponent(tree_sprite);
 
 			// 光のスプライト設定
 			Sprite *sprite = new Sprite(LIGHT_TEXTURE_NAME);
@@ -158,16 +183,20 @@ namespace shadowpartner
 			sprite->SetColor(D3DCOLOR_RGBA(0x00, 0x00, 0xff, 0x80));
 			middle_light_->AddComponent(sprite);
 
-			// 矩形の当たり判定の設定
-			BoxInitializer box_init;
-			box_init.pos_        = middle_light_->transform_->position_;
-			box_init.width_      = 3.0f;
-			box_init.height_     = 3.0f;
-			box_init.body_type_  = kStaticBody;
-			box_init.is_trigger_ = true;
+			// ライトツリーのスプライト設定
+			Sprite *tree_sprite = new Sprite(LIGHT_TREE_TEXTURE_NAME);
+			tree_sprite->SetSize(kLightTreeSpriteSize);
+			middle_light_->AddComponent(tree_sprite);
 
-			BoxCollider *box_collider = new BoxCollider(box_init);
-			middle_light_->AddComponent(box_collider);
+			// 円形の当たり判定の設定
+			CircleInitializer circle_init;
+			circle_init.pos_        = middle_light_->transform_->position_;
+			circle_init.radius_     = kLightTreeLightSize.x / 2.0f;
+			circle_init.body_type_  = kStaticBody;
+			circle_init.is_trigger_ = true;
+
+			CircleCollider *circle_collider = new CircleCollider(circle_init);
+			middle_light_->AddComponent(circle_collider);
 
 			// シーンにゲームオブジェクトを登録
 			AddGameObject(middle_light_);
@@ -179,27 +208,27 @@ namespace shadowpartner
 			small_light_->transform_->position_ = kFireflyPosition;
 			small_light_->tag_ = Tag::kSmallLight;
 
-			// ホタルのスプライト設定
-			Sprite *firefly_sprite = new Sprite(FIREFLY_TEXTURE_NAME);
-			firefly_sprite->SetSize(kFireflySpriteSize);
-			small_light_->AddComponent(firefly_sprite);
-
 			// スプライトの設定
 			Sprite *sprite = new Sprite(LIGHT_TEXTURE_NAME);
 			sprite->SetSize(kFireflyLightSize);
 			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0x00, 0x00, 0x80));
 			small_light_->AddComponent(sprite);
 
-			// 矩形の当たり判定の設定
-			BoxInitializer box_init;
-			box_init.width_      = kFireflyLightSize.x;
-			box_init.height_     = kFireflyLightSize.y;
-			box_init.body_type_  = kStaticBody;
-			box_init.is_trigger_ = true;
-			box_init.pos_        = small_light_->transform_->position_;
+			// ホタルのスプライト設定
+			Sprite *firefly_sprite = new Sprite(FIREFLY_TEXTURE_NAME);
+			firefly_sprite->SetSize(kFireflySpriteSize);
+			small_light_->AddComponent(firefly_sprite);
 
-			BoxCollider *box_collider = new BoxCollider(box_init);
-			small_light_->AddComponent(box_collider);
+
+			// 円形の当たり判定の設定
+			CircleInitializer circle_init;
+			circle_init.radius_     = kFireflyLightSize.x / 2.0f;
+			circle_init.body_type_  = kStaticBody;
+			circle_init.is_trigger_ = true;
+			circle_init.pos_        = small_light_->transform_->position_;
+
+			CircleCollider *circle_collider = new CircleCollider(circle_init);
+			small_light_->AddComponent(circle_collider);
 
 			// シーンにゲームオブジェクトを登録
 			AddGameObject(small_light_);
@@ -235,6 +264,7 @@ namespace shadowpartner
 
 		// 丸太の生成
 		{
+
 			tree_log_ = new GameObject();
 			tree_log_->transform_->position_ = kTreeLogPosition;
 			tree_log_->tag_ = Tag::kTree;
@@ -256,9 +286,7 @@ namespace shadowpartner
 			//box_init.offset_         = Vector2(0.0f, kTreeHeight / 2.0f);
 			box_init.category_bits_  = CollisionFilter::kActionObject;
 			box_init.mask_bits_      = CollisionFilter::kDefaultMask | CollisionFilter::kActionTrigger;
-
 			BoxCollider *box_collider = new BoxCollider(box_init);
-
 			tree_log_->AddComponent(box_collider);
 
 
@@ -310,13 +338,14 @@ namespace shadowpartner
 
 		// プレイヤーを生成
 		{
-
 			player_ = new GameObject();
 			player_->transform_->position_ = kInitPlayerPos;
 			player_->tag_ = Tag::kPlayer;
 
 			Sprite *sprite = new Sprite(PLAYER_TEXTURE_NAME);
 			sprite->SetSize(Vector2(1.0f, 1.0f));
+			sprite->SetUvSize(kPlayerUVSize);
+			sprite->SetUvOffset(Vector2::zero());
 
 			player_->AddComponent(sprite);
 
@@ -402,6 +431,8 @@ namespace shadowpartner
 			Sprite *sprite = new Sprite(PLAYER_TEXTURE_NAME);
 			sprite->SetSize(Vector2(kShadowWidth, kShadowHeight));
 			sprite->SetColor(D3DCOLOR_RGBA(0, 0, 0, 0xff));
+			sprite->SetUvSize(kPlayerUVSize);
+			sprite->SetUvOffset(Vector2::zero());
 			shadow_->AddComponent(sprite);
 
 			// 矩形の当たり判定の設定

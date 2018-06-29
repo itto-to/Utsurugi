@@ -101,6 +101,7 @@ namespace physics
 		friend class PhysicsFunc;
 		friend class Joint;
 		friend class RevoluteJoint;
+		friend class RopeJoint;
 		friend class shadowpartner::CornerCandidates;
 
 	protected:

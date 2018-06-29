@@ -18,6 +18,10 @@ namespace shadowpartner
 	{
 	}
 
+	void ShadowState::Enter()
+	{
+	}
+
 	void ShadowState::ExecuteState()
 	{
 		if (player_ == nullptr)
@@ -36,7 +40,11 @@ namespace shadowpartner
 		owner_->transform_->position_ = player_->transform_->position_ + Vector2::down() * 1.0f;
 		collider_->SetTransform(owner_->transform_->position_, owner_->transform_->rotation_);
 		
-		// 
+		// プレイヤーのUV座標を影にもセット
+		Vector2 offset = player_->GetComponent<Sprite>()->UvOffset();
+		Sprite *sprite = owner_->GetComponent<Sprite>();
+		sprite->SetUvOffset(offset);
+
 		if (owner_->GetDirection() != player_->GetDirection())
 		{
 			owner_->SetDirection(player_->GetDirection());
@@ -44,13 +52,16 @@ namespace shadowpartner
 			{
 				// 右移動なら
 				owner_->GetComponent<Sprite>()->SetUvInvertY();
+				sprite->SetUvInvertY();
 			}
 			else
 			{	
 				// 左移動なら
 				owner_->GetComponent<Sprite>()->SetUvInvertXY();
+				sprite->SetUvInvertXY();
 			}
 		}
+
 	}
 
 }	// namespace shadowpartner

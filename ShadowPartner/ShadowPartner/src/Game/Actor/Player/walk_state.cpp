@@ -44,8 +44,10 @@ namespace shadowpartner
 	{
 		collider_ = owner_->GetComponentInherit<Collider>();
 		jumper_ = owner_->GetComponent<Jumper>();
-		assert(collider_ != nullptr && "WalkStateのEnter処理でcollider_がnullptr");
+		sprite_ = owner_->GetComponent<Sprite>();
+
 #ifdef _DEBUG
+		assert(collider_ != nullptr && "WalkStateのEnter処理でcollider_がnullptr");
 		debug::Debug::Log("プレイヤーの状態：歩き");
 #endif
 	}
@@ -93,6 +95,22 @@ namespace shadowpartner
 			jumper_->Jump();
 			owner_->ChangeState(new JumpState(owner_));
 		}
+
+		// テクスチャアニメーション
+		const int kNumDivideX = 4;
+		const int kNumDivideY = 4;
+		const int kNumAnimPattern = 6;
+		const int kCountPerFrame = 10;
+
+		sprite_->SetUvSize(Vector2(0.25f, 0.25f));
+
+		int pattern_no = (counter_ / kCountPerFrame) % kCountPerFrame;
+
+		Vector2 tex_coord;
+		tex_coord.x = (pattern_no % kNumDivideX) * 0.25f;
+		tex_coord.y = (pattern_no / kNumDivideX) * 0.25f;
+
+		sprite_->SetUvOffset(tex_coord);
 	}
 
 	void WalkState::Move(const float move)

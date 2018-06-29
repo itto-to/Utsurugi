@@ -19,6 +19,8 @@ namespace physics
 	// コンストラクタ
 	RevoluteJoint::RevoluteJoint(const RevoluteInitializer &ini)
 	{
+		type_ = JointType::kRevolute;
+
 		collider_a_ = ini.collider_a_;
 		collider_b_ = ini.collider_b_;
 
@@ -35,6 +37,8 @@ namespace physics
 		rjd.upperAngle = ini.upper_angle_ * (b2_pi / 180.0f);
 		
 		rjd.enableLimit = ini.enable_limit_;
+
+		rjd.collideConnected = ini.collide_connected_;
 
 		revolute_joint_ = (b2RevoluteJoint *)PhysicsWorld::CreateJoint(this,&rjd);
 	}

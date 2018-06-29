@@ -137,6 +137,7 @@ namespace shadowpartner
 
 	void Stage::LoadStageData(int stageno)
 	{
+		char text[64];
 		int compare;
 		errno_t err;
 
@@ -155,15 +156,20 @@ namespace shadowpartner
 #endif
 
 		fseek(fp, 0, SEEK_SET);	//	ファイルの始まりからシーク
+
 		do
 		{
-			fscanf_s(fp, "Stage%d", &compare);
+			fscanf(fp, "%s", text);
+			if ((strcmp(text, "Stage")) == 0)
+				fscanf(fp, "%d", &compare);
+
+			//fscanf(fp, "Stage%d", &compare);
 
 		} while (stageno != compare);
-		fscanf_s(fp, "%d", &devide_horizontal);
-		fscanf_s(fp, "%d", &devide_vertical);
-		fscanf_s(fp, "%d", &cell_horizontal);
-		fscanf_s(fp, "%d", &cell_vertical);
+		fscanf(fp, "%d", &devide_horizontal);
+		fscanf(fp, "%d", &devide_vertical);
+		fscanf(fp, "%d", &cell_horizontal);
+		fscanf(fp, "%d", &cell_vertical);
 
 		fscanf(fp, "%s", file_tileno);
 		fscanf(fp, "%s", file_tilepass);
