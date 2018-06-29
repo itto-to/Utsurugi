@@ -17,6 +17,7 @@
 #include "../Actor/Common/jumper.h"
 #include "../../Base/Physics/Filter/collision_filter.h"
 #include "../Actor/Player/gimmck_trigger.h"
+#include "../Actor/Gimmick/chain.h"
 #include "../Actor//Player//action_trigger.h"
 #include "../Actor/Gimmick/tree.h"
 
@@ -544,13 +545,91 @@ namespace shadowpartner
 			CircleInitializer circle_init;
 			circle_init.pos_ = test_circle_->transform_->position_;
 			circle_init.radius_ = 0.5f;
-			circle_init.body_type_ = BodyType::kStaticBody;
+			//circle_init.body_type_ = BodyType::kStaticBody;
 			CircleCollider *circle_collider = new CircleCollider(circle_init);
 			test_circle_->AddComponent(circle_collider);
 
 			AddGameObject(test_circle_);
 		}
+
+		// ŠÛ‘¾‚ðŒÅ’è‚·‚é’Ó1
+		{
+			ivy_chain_[0] = new GameObject();
+			ivy_chain_[0]->transform_->position_ = Vector2(4.0f, 1.0f);
+
+			ChainInitializer chain_init;
+			chain_init.first_pos_ = Vector2(4.0f, 1.0f);
+			chain_init.next_diff_ = Vector2(0.3f, 0.0f);
+			chain_init.pieces_count_ = 3;
+			chain_init.piece_width_ = 0.5f;
+			chain_init.piece_height_ = 0.25f;
+			Chain *chain = new Chain(chain_init, this);
+			ivy_chain_[0]->AddComponent(chain);
+
+			RevoluteInitializer revolute_init;
+			revolute_init.world_pos_ = Vector2(0.0f, 0.0f);
+			revolute_init.collider_a_ = tree_->GetComponent<BoxCollider>();
+			revolute_init.collider_b_ = chain->first_;
+			revolute_init.local_anchor_a_ = Vector2(4.0f, 1.0f);
+			revolute_init.local_anchor_b_ = Vector2::zero();
+			revolute_init.collide_connected_ = false;
+
+			RevoluteJoint *tree_ivy_joint = new RevoluteJoint(revolute_init);
+
+			ivy_chain_[0]->AddComponent(tree_ivy_joint);
+
+			AddGameObject(ivy_chain_[0]);
+		}
 		
+		// ŠÛ‘¾‚ðŒÅ’è‚·‚é’Ó2
+		{
+			ivy_chain_[1] = new GameObject();
+			ivy_chain_[1]->transform_->position_ = Vector2(4.75f, 0.0f);
+
+			ChainInitializer chain_init;
+			chain_init.first_pos_ = Vector2(4.0f, 1.0f);
+			chain_init.next_diff_ = Vector2(0.3f, 0.0f);
+			chain_init.pieces_count_ = 3;
+			chain_init.piece_width_ = 0.5f;
+			chain_init.piece_height_ = 0.25f;
+			Chain *chain = new Chain(chain_init, this);
+			ivy_chain_[1]->AddComponent(chain);
+
+			RevoluteInitializer revolute_init;
+
+			revolute_init.world_pos_ = Vector2(0.0f, 0.0f);
+			revolute_init.collider_a_ = chain->last_;
+			revolute_init.collider_b_ = stages_[1]->GetComponent<TileMapCollider>();
+			revolute_init.local_anchor_a_ = Vector2::zero();
+			revolute_init.local_anchor_b_ = Vector2(5.5f,-2.0f);
+
+			RevoluteJoint *ivy_first_stage_joint = new RevoluteJoint(revolute_init);
+
+			ivy_chain_[1]->AddComponent(ivy_first_stage_joint);
+
+			AddGameObject(ivy_chain_[1]);
+		}
+
+
+		{
+			//ivy_joint_ = new GameObject();
+			//ivy_joint_->transform_->position_ = Vector2(4.75f, 0.0f);
+
+			//RevoluteInitializer revolute_init;
+
+			//revolute_init.world_pos_ = Vector2(4.75f, 0.0f);
+			//revolute_init.collider_a_ = ivy_chain_[0]->GetComponent<Chain>()->last_;
+			//revolute_init.collider_b_ = ivy_chain_[1]->GetComponent<Chain>()->first_;
+			//revolute_init.local_anchor_a_ = Vector2::zero();
+			//revolute_init.local_anchor_b_ = Vector2::zero();
+
+			//RevoluteJoint *ivy_ivy_joint = new RevoluteJoint(revolute_init);
+
+			//ivy_joint_->AddComponent(ivy_ivy_joint);
+
+			//AddGameObject(ivy_joint_);
+		}
+
 		StageScene::Init();
 
 		return S_OK;

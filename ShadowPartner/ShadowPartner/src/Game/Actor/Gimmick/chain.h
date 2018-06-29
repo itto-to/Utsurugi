@@ -48,6 +48,8 @@ namespace shadowpartner
 
 		void Cutting(int cut_joint_index_);
 
+		physics::BoxCollider *first_;
+		physics::BoxCollider *last_;
 	protected:
 
 	private:

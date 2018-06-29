@@ -41,7 +41,8 @@ namespace shadowpartner
 		GameObject *middle_light_;
 
 		GameObject *test_circle_;
-
+		GameObject *ivy_chain_[2];
+		GameObject *ivy_joint_;
 		// methods
 
 
