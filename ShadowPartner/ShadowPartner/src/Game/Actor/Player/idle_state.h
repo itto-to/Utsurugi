@@ -13,6 +13,7 @@
 namespace shadowpartner
 {
 	class Player;
+	class Shadow;
 	class Jumper;
 	class LandingTrigger;
 	class GimmickTrigger;
@@ -26,6 +27,7 @@ namespace shadowpartner
 
 	protected:
 		Player *player_;
+		Shadow *shadow_;
 		Jumper *jumper_;
 		LandingTrigger *landing_trigger_;
 		GimmickTrigger *gimmick_trigger_;

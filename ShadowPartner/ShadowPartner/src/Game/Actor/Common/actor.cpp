@@ -3,14 +3,25 @@
 // Author:Ittoto
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
-
 #include "actor.h"
 
 namespace shadowpartner {
 
-	Actor::Actor() : state_(nullptr), is_controllable_(true), direction_(kRight) {}
+	Actor::Actor() :
+		state_(nullptr),
+		is_controllable_(true),
+		direction_(kRight),
+		old_direction_(kRight)
+	{
+	}
 
-	Actor::Actor(ActorState* state) : state_(state) , is_controllable_(true) {}
+	Actor::Actor(ActorState* state) :
+		state_(state),
+		is_controllable_(true),
+		direction_(kRight),
+		old_direction_(kRight)
+	{
+	}
 
 	Actor::~Actor()
 	{
@@ -34,7 +45,7 @@ namespace shadowpartner {
 		state_->Enter();
 	}
 
-	bool Actor::IsControllable()
+	bool Actor::IsControllable() const
 	{
 		return is_controllable_;
 	}
@@ -44,7 +55,7 @@ namespace shadowpartner {
 		is_controllable_ = is_controllable;
 	}
 
-	Actor::ActorDirection Actor::GetDirection()
+	ActorDirection Actor::GetDirection() const
 	{
 		return direction_;
 	}
@@ -54,9 +65,20 @@ namespace shadowpartner {
 		direction_ = direction;
 	}
 
+	int Actor::StateCounter()
+	{
+		return state_->StateCounter();
+	}
+
 	void Actor::Update()
 	{
+		old_direction_ = direction_;
 		state_->Execute();
+	}
+
+	bool Actor::HasChangedDirection() const
+	{
+		return direction_ != old_direction_;
 	}
 
 }

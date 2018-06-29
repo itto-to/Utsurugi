@@ -80,6 +80,8 @@ namespace physics
 		virtual float GetAngle();
 
 		void AddForce(const Vector2 &force);
+		void AddForceToPoint(const Vector2 &force, const Vector2 &point);
+		void AddTorque(const float torque);
 		void Move(const Vector2 &move);
 
 		void SetVelocity(const Vector2 &velo);

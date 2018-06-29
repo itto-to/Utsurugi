@@ -44,12 +44,18 @@ namespace physics
 		if (game_object_ == nullptr || !is_active)
 		{
 			is_active_ = false;
-			body_->SetActive(false);
+			if (body_ != nullptr)
+			{
+				body_->SetActive(false);
+			}
 		}
 		else if (!is_active_ && is_active)
 		{
 			is_active_ = true;
-			body_->SetActive(true);
+			if (body_ != nullptr)
+			{
+				body_->SetActive(true);
+			}
 			Start();
 		}
 	}
@@ -85,6 +91,16 @@ namespace physics
 	void Collider::AddForce(const Vector2 &force)
 	{
 		body_->ApplyForceToCenter(b2Vec2(force.x,force.y),true);
+	}
+
+	void Collider::AddForceToPoint(const Vector2 &force, const Vector2 &point)
+	{
+		body_->ApplyForce(b2Vec2(force.x, force.y), b2Vec2(point.x, point.y), true);
+	}
+
+	void Collider::AddTorque(const float torque)
+	{
+		body_->ApplyTorque(torque, true);
 	}
 
 	void Collider::Move(const Vector2 &move)

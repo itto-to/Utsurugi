@@ -29,18 +29,17 @@ namespace physics
 		void Start() override;
 		void Update() override;
 
-		void SetTransform(const Vector2 &pos, const float &ori) override;
-		Vector2 GetPosition() override;
-		float GetAngle() override;
+		//void SetTransform(const Vector2 &pos, const float &ori) override;
+		//Vector2 GetPosition() override;
+		//float GetAngle() override;
 
 
 	protected:
 		int num_triangle_;
-		b2Body **bodies_;
 		int body_idx_;
 		shadowpartner::Light *light_;
 
-		void DeleteLightCollider();
+		void DestroyLightCollider();
 
 	};
 }

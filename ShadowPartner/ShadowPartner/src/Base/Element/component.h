@@ -105,13 +105,6 @@ namespace shadowpartner
 		virtual void OnTriggerExit(physics::Collider *collider) {}
 		virtual void OnTriggerStay(physics::Collider *collider) {}
 
-		//virtual void OnCollisionEnter(physics::Collider *collider) {}
-		//virtual void OnCollisionExit(physics::Collider *collider) {}
-		//virtual void OnCollisionStay(physics::Collider *collider) {}
-		//virtual void OnTriggerEnter(physics::Collider *collider) {}
-		//virtual void OnTriggerExit(physics::Collider *collider) {}
-		//virtual void OnTriggerStay(physics::Collider *collider) {}
-
 	protected:
 
 		// methods

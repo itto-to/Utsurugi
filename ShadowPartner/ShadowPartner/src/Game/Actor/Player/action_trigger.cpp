@@ -5,16 +5,18 @@
 //==========================================================
 #include "action_trigger.h"
 
+#include "../Common/actor.h"
 #include "../Common/gimmick_interface.h"
 
 using namespace physics;
 
 namespace shadowpartner
 {
-	ActionTrigger::ActionTrigger(const physics::BoxInitializer & box_init) :
-		BoxCollider(box_init)
+	ActionTrigger::ActionTrigger(const physics::BoxInitializer &box_init) :
+		BoxCollider(box_init),
+		actor_(nullptr)
 	{
-
+		offset_facing_right_ = box_init.offset_;
 	}
 
 	void ActionTrigger::OnTriggerEnter(Collider *col)
@@ -32,6 +34,32 @@ namespace shadowpartner
 				return;
 			}
 		}
+	}
+
+	void ActionTrigger::Update()
+	{
+		if (actor_ == nullptr)
+		{
+			actor_ = GetComponentInherit<Actor>();
+		}
+
+		if (actor_->HasChangedDirection())
+		{
+			if (actor_->GetDirection() == ActorDirection::kRight)
+			{
+				this->SetOffset(offset_facing_right_);
+			}
+			else
+			{
+				Vector2 offset_facing_left = -offset_facing_left;
+				this->SetOffset(offset_facing_left);
+			}
+		}
+	}
+
+	void ActionTrigger::SetOffset(const Vector2 &offset)
+	{
+		offset_facing_right_ = offset;
 	}
 
 	void ActionTrigger::Activate()

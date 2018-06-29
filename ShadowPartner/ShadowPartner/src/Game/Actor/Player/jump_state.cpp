@@ -9,6 +9,7 @@
 #include "idle_state.h"
 #include "landing_trigger.h"
 #include "walk_state.h"
+#include "../../../Base/2D/sprite.h"
 #include "../../../Base/Physics/physics.h"
 #include "../../../Base/Physics/Func/physics_func.h"
 #include "../../../Base/Input/input.h"
@@ -51,8 +52,29 @@ void JumpState::ExecuteState()
 {
 	// 移動
 	float move = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
-	Vector2 t = Vector2::right() * move * kMoveForce;
-	Move(t);
+	if (move != 0.0f)
+	{
+		if (move > 0.0f) {
+			// 右移動なら
+			if (owner_->GetDirection() == ActorDirection::kLeft)
+			{
+				owner_->SetDirection(ActorDirection::kRight);
+				owner_->GetComponent<Sprite>()->SetUvNormal();	// スプライトを反転しない
+			}
+		}
+		else
+		{
+			// 左移動なら
+			if (owner_->GetDirection() == ActorDirection::kRight)
+			{
+				owner_->SetDirection(ActorDirection::kLeft);
+				owner_->GetComponent<Sprite>()->SetUvInvertX();	// スプライトを反転しない
+			}
+		}
+
+		Vector2 t = Vector2::right() * move * kMoveForce;
+		Move(t);
+	}
 
 	// 着地判定
 	if (!IsFalling())	// 上昇中なら着地判定しない

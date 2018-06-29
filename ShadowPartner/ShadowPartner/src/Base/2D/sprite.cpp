@@ -75,6 +75,15 @@ namespace shadowpartner
 	}
 
 	//==========================================================
+	// 概要  :Transformのscaleを基準とした大きさを返します。
+	// 引数  :なし
+	//==========================================================
+	 Vector2 Sprite::Size()
+	{
+		return Vector2(texture_->GetWidth(), texture_->GetHeight());
+	}
+
+	//==========================================================
 	// 概要  :Transformのscaleを基準とした大きさを指定します。
 	// 引数  :伸縮の割合
 	//==========================================================
@@ -82,6 +91,15 @@ namespace shadowpartner
 	{
 		texture_->SetWidth(size.x);
 		texture_->SetHeight(size.y);
+	}
+
+	//==========================================================
+	// 概要  :テクスチャーのuv座標の左上を取得します。
+	// 引数  :なし
+	//==========================================================
+	Vector2 Sprite::UvOffset() const
+	{
+		return uv_offset_;
 	}
 
 	//==========================================================
@@ -155,9 +173,41 @@ namespace shadowpartner
 		vertices_[2].vertex_ = center + Vector3(-xcos - ysin, -xsin + ycos,0.0f);
 		vertices_[3].vertex_ = center + Vector3(xcos - ysin, xsin + ycos,0.0f);
 
+		//vertices_[0].tex_coor_ = uv_offset_;
+		//vertices_[1].tex_coor_ = uv_offset_ + Vector2(uv_size_.x, 0.0f);
+		//vertices_[2].tex_coor_ = uv_offset_ + Vector2(0.0f, uv_size_.y);
+		//vertices_[3].tex_coor_ = uv_offset_ + uv_size_;
+	}
+
+	void Sprite::SetUvNormal()
+	{
 		vertices_[0].tex_coor_ = uv_offset_;
 		vertices_[1].tex_coor_ = uv_offset_ + Vector2(uv_size_.x, 0.0f);
 		vertices_[2].tex_coor_ = uv_offset_ + Vector2(0.0f, uv_size_.y);
 		vertices_[3].tex_coor_ = uv_offset_ + uv_size_;
+	}
+
+	void Sprite::SetUvInvertX()
+	{
+		vertices_[0].tex_coor_ = uv_offset_ + Vector2(uv_size_.x, 0.0f);	// 左上
+		vertices_[1].tex_coor_ = uv_offset_;	// 右上
+		vertices_[2].tex_coor_ = uv_offset_ + uv_size_; 	// 左下
+		vertices_[3].tex_coor_ = uv_offset_ + Vector2(0.0f, uv_size_.y);	// 右下
+	}
+
+	void Sprite::SetUvInvertY()
+	{
+		vertices_[0].tex_coor_ = uv_offset_ + Vector2(0.0f, uv_size_.y);
+		vertices_[1].tex_coor_ = uv_offset_ + uv_size_;
+		vertices_[2].tex_coor_ = uv_offset_;
+		vertices_[3].tex_coor_ = uv_offset_ + Vector2(uv_size_.x, 0.0f);
+	}
+
+	void Sprite::SetUvInvertXY()
+	{
+		vertices_[0].tex_coor_ = uv_offset_ + uv_size_;
+		vertices_[1].tex_coor_ = uv_offset_ + Vector2(0.0f, uv_size_.y);
+		vertices_[2].tex_coor_ = uv_offset_ + Vector2(uv_size_.x, 0.0f);
+		vertices_[3].tex_coor_ = uv_offset_;
 	}
 }

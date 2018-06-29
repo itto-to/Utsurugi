@@ -19,6 +19,8 @@ namespace shadowpartner
 		virtual void Exit() {}
 		virtual void Execute() final;
 		virtual void ExecuteState() {}
+		int StateCounter();	// 現在のカウントを返す
+
 	protected:
 		Actor *owner_;	// ステートの所有コンポーネント
 		int counter_;	// ステート状態のカウンター

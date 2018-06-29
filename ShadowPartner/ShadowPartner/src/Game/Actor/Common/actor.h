@@ -12,13 +12,14 @@
 
 namespace shadowpartner {
 
+	enum ActorDirection
+	{
+		kRight,
+		kLeft
+	};
+
 	class Actor : public Component {
 	public:
-		enum ActorDirection
-		{
-			kRight,
-			kLeft
-		};
 
 		Actor();
 		Actor(ActorState* state);
@@ -27,10 +28,12 @@ namespace shadowpartner {
 		// methods
 		void SetState(ActorState *state);
 		void ChangeState(ActorState *next_state);
-		bool IsControllable();
+		bool IsControllable() const;
 		void SetControllable(bool is_controllable);
-		ActorDirection GetDirection();
+		ActorDirection GetDirection() const;
 		void SetDirection(ActorDirection direction);
+		bool HasChangedDirection() const;
+		int StateCounter();
 
 	protected:
 
@@ -39,8 +42,9 @@ namespace shadowpartner {
 
 		// variables
 		ActorState *state_;
-		bool is_controllable_;	// 操作可能かどうか
-		ActorDirection direction_;	// キャラクターの向き
+		bool is_controllable_;			// 操作可能かどうか
+		ActorDirection direction_;		// アクターの向き
+		ActorDirection old_direction_;	// アクターの前フレームの向き
 
 	private:
 

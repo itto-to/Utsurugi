@@ -23,13 +23,14 @@ namespace shadowpartner
 		Tree();
 
 		void Start() override;
+		void Update() override;
 	
 		void ActivateGimmick() override;
 
 	protected:
 		physics::Collider *collider_;
 
-
+		bool is_activated_;
 	};
 
 }	// namespace shadowpartner

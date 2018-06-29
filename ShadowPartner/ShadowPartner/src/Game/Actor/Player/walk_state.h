@@ -16,7 +16,7 @@ namespace physics
 
 namespace shadowpartner
 {
-
+class Sprite;
 class Jumper;
 
 class WalkState : public ActorState {
@@ -28,6 +28,7 @@ public:
 private:
 	physics::Collider *collider_;
 	Jumper *jumper_;
+	Sprite *sprite_;
 
 	void Move(const float move);
 };

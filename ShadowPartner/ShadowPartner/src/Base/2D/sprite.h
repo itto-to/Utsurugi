@@ -32,11 +32,18 @@ namespace shadowpartner
 		//variables
 
 		//methods
+		Vector2 Size();
 		void SetColor(const D3DCOLOR &color);
 		void SetSize(const Vector2 &size);
 		void SetUvOffset(const Vector2 &offset);
 		void SetUvSize(const Vector2 &size);
 		void SetOrderInLayer(const int &layer);
+		Vector2 UvOffset() const;
+
+		void SetUvNormal();
+		void SetUvInvertX();
+		void SetUvInvertY();
+		void SetUvInvertXY();
 
 	protected:
 		void Draw();
