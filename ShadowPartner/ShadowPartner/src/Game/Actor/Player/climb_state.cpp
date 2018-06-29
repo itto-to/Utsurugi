@@ -33,7 +33,7 @@ namespace shadowpartner
 		gimmick_trigger_ = owner_->GetComponent<GimmickTrigger>();
 
 		// ƒLƒƒƒ‰‰ñ“]
-		if (owner_->GetDirection() == Actor::ActorDirection::kRight)
+		if (owner_->GetDirection() == ActorDirection::kRight)
 		{
 			owner_->game_object_->transform_->rotation_ = -90;
 		}

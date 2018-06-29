@@ -9,9 +9,15 @@
 
 #include "../Common/actor_state.h"
 
+namespace physics
+{
+	class Collider;
+}
+
 namespace shadowpartner
 {
 	class GameObject;
+	class Player;
 
 	class ShadowState : public ActorState
 	{
@@ -20,9 +26,8 @@ namespace shadowpartner
 
 	protected:
 		virtual void ExecuteState() override;
-
-	private:
-
+		Player *player_;
+		physics::Collider *collider_;
 	};
 
 }	// namespace shadowpartner

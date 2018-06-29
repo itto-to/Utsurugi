@@ -48,9 +48,24 @@ namespace
 {
 	const Vector2 kInitPlayerPos = Vector2(2.0f, 3.0f);
 
-	const Vector2 kTreeLogPosition = Vector2(3.5f, -1.0f);
+	const float kPlayerWidth = 1.0f;
+	const float kPlayerHeight = 1.0f;
+
+	const Vector2 kTreeLogPosition = Vector2(3.5f, -1.1f);
 	const float kTreeWidth = 0.2f;
 	const float kTreeHeight = 2.0f;
+
+	const Vector2 kFireflyPosition   = Vector2(1.0f, -1.2f);
+	const Vector2 kFireflySpriteSize = Vector2(0.3f, 0.3f);
+	const Vector2 kFireflyLightSize  = Vector2(2.0f, 2.0f);
+
+	const Vector2 kLightTreePosition = Vector2(-2.0f, -0.6f);
+	const Vector2 kLightTreeSpriteSize = Vector2(2.56f, 3.25f);
+	const Vector2 kLightTreeLightSize = Vector2(3.0f, 3.0f);
+
+	const float kShadowWidth = 1.0f;
+	const float kShadowHeight = 1.0f;
+
 }
 
 namespace shadowpartner
@@ -126,20 +141,20 @@ namespace shadowpartner
 			
 		}
 		 
-		// 中ライト生成
+		// 発光樹（中ライト）生成
 		{
 			middle_light_ = new GameObject();
-			middle_light_->transform_->position_ = Vector2(-2.0f, -1.0f);
+			middle_light_->transform_->position_ = kLightTreePosition;
 			middle_light_->tag_ = Tag::kMiddleLight;
 
 			// ライトツリーのスプライト設定
 			Sprite *tree_sprite = new Sprite(LIGHT_TREE_TEXTURE_NAME);
-			tree_sprite->SetSize(Vector2(3.0f, 3.0f));
+			tree_sprite->SetSize(kLightTreeSpriteSize);
 			middle_light_->AddComponent(tree_sprite);
 
 			// 光のスプライト設定
 			Sprite *sprite = new Sprite(LIGHT_TEXTURE_NAME);
-			sprite->SetSize(Vector2(3.0f, 3.0f));
+			sprite->SetSize(kLightTreeLightSize);
 			sprite->SetColor(D3DCOLOR_RGBA(0x00, 0x00, 0xff, 0x80));
 			middle_light_->AddComponent(sprite);
 
@@ -158,31 +173,29 @@ namespace shadowpartner
 			AddGameObject(middle_light_);
 		}
 
-		// 小ライト生成
+		// ホタル（小ライト）生成
 		{
 			small_light_ = new GameObject();
-			small_light_->transform_->position_ = Vector2(1.0f, -1.5f);
+			small_light_->transform_->position_ = kFireflyPosition;
 			small_light_->tag_ = Tag::kSmallLight;
 
 			// ホタルのスプライト設定
 			Sprite *firefly_sprite = new Sprite(FIREFLY_TEXTURE_NAME);
-			firefly_sprite->SetSize(Vector2(1.0f, 1.0f));
+			firefly_sprite->SetSize(kFireflySpriteSize);
 			small_light_->AddComponent(firefly_sprite);
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(LIGHT_TEXTURE_NAME);
-			sprite->SetSize(Vector2(2.0f, 2.0f));
+			sprite->SetSize(kFireflyLightSize);
 			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0x00, 0x00, 0x80));
 			small_light_->AddComponent(sprite);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
-
-			box_init.width_      = 2.0f;
-			box_init.height_     = 2.0f;
+			box_init.width_      = kFireflyLightSize.x;
+			box_init.height_     = kFireflyLightSize.y;
 			box_init.body_type_  = kStaticBody;
 			box_init.is_trigger_ = true;
-
 			box_init.pos_        = small_light_->transform_->position_;
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
@@ -220,9 +233,8 @@ namespace shadowpartner
 			AddGameObject(vine_);
 		}
 
-		// 樹の生成
+		// 丸太の生成
 		{
-
 			tree_log_ = new GameObject();
 			tree_log_->transform_->position_ = kTreeLogPosition;
 			tree_log_->tag_ = Tag::kTree;
@@ -241,7 +253,7 @@ namespace shadowpartner
 			box_init.body_type_      = kDynamicBody;
 			box_init.fixed_rotation_ = false;
 			box_init.is_trigger_     = false;
-			box_init.offset_         = Vector2(0.0f, -kTreeHeight / 2.0f);
+			//box_init.offset_         = Vector2(0.0f, kTreeHeight / 2.0f);
 			box_init.category_bits_  = CollisionFilter::kActionObject;
 			box_init.mask_bits_      = CollisionFilter::kDefaultMask | CollisionFilter::kActionTrigger;
 
@@ -259,7 +271,7 @@ namespace shadowpartner
 		// ヒンジの土台を作る
 		{
 			hinge_joint_base_ = new GameObject();
-			hinge_joint_base_->transform_->position_ = Vector2(kTreeLogPosition.x - kTreeWidth / 2.0f, kTreeLogPosition.y);
+			hinge_joint_base_->transform_->position_ = Vector2(kTreeLogPosition.x, kTreeLogPosition.y - 1.0f);
 
 			// 矩形の当たり判定の設定
 			BoxInitializer box_init;
@@ -271,7 +283,6 @@ namespace shadowpartner
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
 			hinge_joint_base_->AddComponent(box_collider);
-
 		}
 
 		// 樹をつなぐヒンジを作る
@@ -282,7 +293,7 @@ namespace shadowpartner
 
 			RevoluteInitializer ri;
 			ri.collider_a_ = tree_log_->GetComponent<BoxCollider>();
-			ri.local_anchor_a_ = Vector2(-kTreeWidth / 2.0f, 0.0f);
+			ri.local_anchor_a_ = Vector2(-kTreeWidth / 2.0f, -kTreeHeight / 2.0f);
 			ri.collider_b_ = hinge_joint_base_->GetComponent<BoxCollider>();
 			ri.local_anchor_b_ = Vector2(0.0f, 0.0f);
 			ri.world_pos_ = hinge_joint_->transform_->position_;
@@ -299,8 +310,6 @@ namespace shadowpartner
 
 		// プレイヤーを生成
 		{
-			const float kPlayerWidth = 1.0f;
-			const float kPlayerHeight = 1.0f;
 
 			player_ = new GameObject();
 			player_->transform_->position_ = kInitPlayerPos;
@@ -340,7 +349,6 @@ namespace shadowpartner
 
 			GimmickTrigger *gimmick_trigger = new GimmickTrigger(gimmick_init);
 			gimmick_trigger->SetSleepingAllowed(false);
-
 			player_->AddComponent(gimmick_trigger);
 
 			// 着地トリガーの設定
@@ -387,9 +395,6 @@ namespace shadowpartner
 
 		// 影を生成
 		{
-			const float kShadowWidth  = 1.0f;
-			const float kShadowHeight = 1.0f;
-
 			shadow_ = new GameObject();
 			shadow_->transform_->position_ = player_->transform_->position_ + Vector2::down() * 1.0f;
 			shadow_->tag_ = Tag::kShadow;
@@ -450,8 +455,7 @@ namespace shadowpartner
 			shadow_->AddComponent(jumper);
 
 			Shadow *shadow = new Shadow();
-			ShadowState *shadow_state = new ShadowState(shadow);
-			shadow->SetState(shadow_state);
+			shadow->SetState(new ShadowState(shadow));
 			shadow_->AddComponent(shadow);
 
 			// プレイヤーのシャドウに登録

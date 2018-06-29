@@ -44,12 +44,18 @@ namespace physics
 		if (game_object_ == nullptr || !is_active)
 		{
 			is_active_ = false;
-			body_->SetActive(false);
+			if (body_ != nullptr)
+			{
+				body_->SetActive(false);
+			}
 		}
 		else if (!is_active_ && is_active)
 		{
 			is_active_ = true;
-			body_->SetActive(true);
+			if (body_ != nullptr)
+			{
+				body_->SetActive(true);
+			}
 			Start();
 		}
 	}

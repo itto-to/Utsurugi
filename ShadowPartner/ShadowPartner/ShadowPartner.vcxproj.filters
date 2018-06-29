@@ -199,6 +199,12 @@
     <Filter Include="ヘッダー ファイル\Base\Physics\Joint">
       <UniqueIdentifier>{135b994b-94b8-455d-a3c7-ac11851ec8a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Actor\Enemy">
+      <UniqueIdentifier>{6df095b9-d6bb-43ac-94cd-a6a9da29fc9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Actor\Enemy">
+      <UniqueIdentifier>{57c14760-506c-410d-91e3-ee14b3a3c9f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -389,6 +395,9 @@
     </ClCompile>
     <ClCompile Include="src\Base\Physics\Joint\joint.cpp">
       <Filter>ソース ファイル\Base\Physics\Joint</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Actor\Enemy\enemy.cpp">
+      <Filter>ソース ファイル\Game\Actor\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -592,6 +601,9 @@
     </ClInclude>
     <ClInclude Include="src\Base\Physics\Joint\joint.h">
       <Filter>ヘッダー ファイル\Base\Physics\Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Actor\Enemy\enemy.h">
+      <Filter>ヘッダー ファイル\Game\Actor\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

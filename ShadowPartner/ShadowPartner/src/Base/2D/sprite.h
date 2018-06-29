@@ -39,6 +39,11 @@ namespace shadowpartner
 		void SetUvSize(const Vector2 &size);
 		void SetOrderInLayer(const int &layer);
 
+		void SetUvNormal();
+		void SetUvInvertX();
+		void SetUvInvertY();
+		void SetUvInvertXY();
+
 	protected:
 		void Draw();
 

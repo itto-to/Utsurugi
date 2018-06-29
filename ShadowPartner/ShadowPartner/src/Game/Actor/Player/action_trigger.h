@@ -10,17 +10,26 @@
 
 namespace shadowpartner
 {
+	class Actor;
+
 	class ActionTrigger : public physics::BoxCollider
 	{
 	public:
 		ActionTrigger(const physics::BoxInitializer &box_init);
+
+		void Update() override;
 		void OnTriggerEnter(Collider *col) override;
 		void OnTriggerExit(Collider *col) override;
 		
 		void Activate();
 
+		void SetOffset(const Vector2 &offset);	// 右向き時オフセットをセット
+
 	protected:
 		std::vector<GameObject*> gimmick_objects_;
+		Actor *actor_;
+
+		Vector2 offset_facing_right_;	// 右向き時オフセット
 	};
 }
 

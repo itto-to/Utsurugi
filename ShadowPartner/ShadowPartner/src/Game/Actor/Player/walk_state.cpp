@@ -12,6 +12,7 @@
 #include "../Common/jumper.h"
 #include "jump_state.h"
 #include "idle_state.h"
+#include "../../../Base/2D/sprite.h"
 #include "../../../Base/Physics/Element/box_collider.h"
 #include "../../../Base/Element/gameobject.h"
 #include "../Common/actor.h"
@@ -29,8 +30,9 @@ using namespace physics;
 namespace shadowpartner
 {
 	namespace{
-		float kMoveForce = 100.0f;
-		float kMaxSpeedX = 1.0f;
+		const float kMoveForce = 100.0f;
+		const float kMaxSpeedX = 1.0f;
+		const float kDampingFactor = 0.8f;
 	}
 
 	WalkState::WalkState(Actor *owner) : ActorState(owner)
@@ -53,10 +55,28 @@ namespace shadowpartner
 		// 移動
 		float move = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
 		if (move != 0.0f) {
+			if (move > 0.0f) {
+				// 右移動なら
+				if (owner_->GetDirection() == ActorDirection::kLeft)
+				{
+					owner_->SetDirection(ActorDirection::kRight);
+					owner_->GetComponent<Sprite>()->SetUvNormal();	// スプライトを反転しない
+				}
+			}
+			else
+			{
+				// 左移動なら
+				if (owner_->GetDirection() == ActorDirection::kRight)
+				{
+					owner_->SetDirection(ActorDirection::kLeft);
+					owner_->GetComponent<Sprite>()->SetUvInvertX();	// スプライトを反転しない
+				}
+			}
+
 			Move(move * kMoveForce);
 		}
 		else {
-			float x = collider_->VelocityX() * 0.9f;
+			float x = collider_->VelocityX() * kDampingFactor;
 			if (fabs(x) < 0.05f) {
 				collider_->SetVelocityX(0.0f);
 				owner_->ChangeState(new IdleState(owner_));

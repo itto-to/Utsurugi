@@ -7,6 +7,7 @@
 #include "../../Element/component.h"
 #include "../../Light/light.h"
 #include "../World/physics_world.h"
+#include "../../2D/texture.h"
 
 namespace physics
 {
@@ -36,12 +37,12 @@ namespace physics
 		// ライトの頂点から当たり判定を生成
 		std::vector<math::Vector2> light_vertices;
 		light_->GetVertices(light_vertices);
-		Vector2 center = light_vertices[0];
+		b2Vec2 center = b2Vec2(light_vertices[0].x, light_vertices[0].y) / PIXEL_PER_UNIT;
 
 		b2BodyDef light_body_def;
 		light_body_def.type         = b2_dynamicBody;
 		light_body_def.gravityScale = 0.0f;
-		light_body_def.position     = b2Vec2(light_->transform_->position_.x, light_->transform_->position_.y);
+		light_body_def.position     = center;
 
 		// ボディを作成
 		body_ = PhysicsWorld::CreateBody(this, &light_body_def);
@@ -51,39 +52,42 @@ namespace physics
 		light_fixture_def.isSensor = true;
 
 		b2Vec2 tri[3];
-		tri[0] = b2Vec2(center.x, center.y);	// 中心座標
+		tri[0] = b2Vec2(0, 0);	// 中心座標
 
 		num_triangle_  = light_vertices.size() - 2;	// 三角形の数を取得
 		for (int i = 0; i < num_triangle_; i++)
 		{
-			tri[1] = b2Vec2(light_vertices[i + 1].x, light_vertices[i + 1].y);
-			tri[2] = b2Vec2(light_vertices[i + 2].x, light_vertices[i + 2].y);
+			tri[1] = b2Vec2(light_vertices[i + 1].x, light_vertices[i + 1].y) / PIXEL_PER_UNIT - center;
+			tri[2] = b2Vec2(light_vertices[i + 2].x, light_vertices[i + 2].y) / PIXEL_PER_UNIT - center;
 		
-			b2PolygonShape light_poly;
-			light_poly.Set(tri, 3);
-			light_fixture_def.shape = &light_poly;
-			body_->CreateFixture(&light_fixture_def);
+			if (b2Cross(tri[1], tri[2]) > 0.0f)
+			{
+				b2PolygonShape light_poly;
+				light_poly.Set(tri, 3);
+				light_fixture_def.shape = &light_poly;
+				body_->CreateFixture(&light_fixture_def);
+			}
 		}
 	}
 
-	void LightCollider::SetTransform(const Vector2 & pos, const float & ori)
-	{
+	//void LightCollider::SetTransform(const Vector2 & pos, const float & ori)
+	//{
 		//bodies_[body_idx_]->SetTransform(b2Vec2(pos.x, pos.y), ori);
 		//body_idx_++;
 		//if (body_idx_ == num_triangle_)
 		//{
 		//	body_idx_ = 0;
 		//}
-	}
+	//}
 
-	Vector2 LightCollider::GetPosition()
-	{
+	//Vector2 LightCollider::GetPosition()
+	//{
 		//b2Vec2 pos = bodies_[body_idx_]->GetPosition();
 		//return Vector2(pos.x, pos.y);
-	}
+	//}
 
-	float LightCollider::GetAngle()
-	{
+	//float LightCollider::GetAngle()
+	//{
 		//float angle =  bodies_[body_idx_]->GetAngle();
 		//body_idx_++;
 		//if (body_idx_ == num_triangle_)
@@ -92,10 +96,11 @@ namespace physics
 		//}
 
 		//return angle;
-	}
+	//}
 
 	void LightCollider::DestroyLightCollider()
 	{
-		PhysicsWorld::DestroyBody(index_, body_);
+		if (body_ != nullptr)
+			PhysicsWorld::DestroyBody(index_, body_);
 	}
 }
