@@ -236,36 +236,36 @@ namespace shadowpartner
 		}
 
 		// ƒcƒ^‚Ì¶¬
-		//{
-		//	vine_ = new GameObject();
-		//	vine_->transform_->position_ = Vector2(0.0f, 0.0f);
-		//	vine_->tag_ = Tag::kClimb;
+		{
+			//vine_ = new GameObject();
+			//vine_->transform_->position_ = Vector2(-3.0f, 1.6f);
+			//vine_->tag_ = Tag::kClimb;
 
-		//	ChainInitializer chain_init;
-		//	chain_init.first_pos_ = vine_->transform_->position_;
-		//	chain_init.next_diff_ = Vector2(0.3f, 0.0f);
-		//	chain_init.pieces_count_ = 3;
-		//	chain_init.piece_width_ = 0.3f;
-		//	chain_init.piece_height_ = 0.2f;
-		//	chain_init.is_trigger_ = true;
-		//	Chain *chain = new Chain(chain_init, this);
-		//	vine_->AddComponent(chain);
+			//ChainInitializer chain_init;
+			//chain_init.first_pos_ = vine_->transform_->position_;
+			//chain_init.next_diff_ = Vector2(0.2f, 0.0f);
+			//chain_init.pieces_count_ = 15;
+			//chain_init.piece_width_ = 0.3f;
+			//chain_init.piece_height_ = 0.2f;
+			////chain_init.is_trigger_ = true;
+			//Chain *chain = new Chain(chain_init, this);
+			//vine_->AddComponent(chain);
 
-		//	RevoluteInitializer revolute_init;
-		//	revolute_init.world_pos_ = Vector2(-1.0f, 2.0f);
-		//	revolute_init.collider_a_ = stages_[0]->GetComponent<TileMapCollider>();
-		//	revolute_init.collider_b_ = chain->first_;
-		//	revolute_init.local_anchor_a_ = Vector2(-1.0f, 2.0f);
-		//	revolute_init.local_anchor_b_ = Vector2::zero();
-		//	revolute_init.collide_connected_ = false;
+			//RevoluteInitializer revolute_init;
+			//revolute_init.world_pos_ = Vector2(-3.0f, 1.6f);
+			//revolute_init.collider_a_ = stages_[0]->GetComponent<TileMapCollider>();
+			//revolute_init.collider_b_ = chain->first_;
+			//revolute_init.local_anchor_a_ = Vector2(-3.0f, 1.4f);
+			//revolute_init.local_anchor_b_ = Vector2::zero();
+			//revolute_init.collide_connected_ = false;
 
-		//	RevoluteJoint *tree_ivy_joint = new RevoluteJoint(revolute_init);
+			//RevoluteJoint *tree_ivy_joint = new RevoluteJoint(revolute_init);
 
-		//	vine_->AddComponent(tree_ivy_joint);
+			//vine_->AddComponent(tree_ivy_joint);
 
-		//	AddGameObject(vine_);
+			//AddGameObject(vine_);
 
-		//}
+		}
 
 		// ŠÛ‘¾‚Ì¶¬
 		{
@@ -333,7 +333,7 @@ namespace shadowpartner
 
 			ri.enable_limit_ = true;
 			ri.lower_angle_ = -90.0f;
-			ri.upper_angle_ = 0.0f;
+			ri.upper_angle_ = 10.0f;
 
 			RevoluteJoint *revolute_joint = new RevoluteJoint(ri);
 			hinge_joint_->AddComponent(revolute_joint);
@@ -363,7 +363,7 @@ namespace shadowpartner
 			box_init.body_type_     = kDynamicBody;
 			box_init.is_trigger_    = false;
 			box_init.category_bits_ = CollisionFilter::kPlayer;
-			box_init.mask_bits_     = ~CollisionFilter::kShadow;	// ‰e‚Æ‚¾‚¯Õ“Ë‚µ‚È‚¢
+			box_init.mask_bits_     = ~(CollisionFilter::kShadow | CollisionFilter::kIvy);	// ‰e‚Æ‚¾‚¯Õ“Ë‚µ‚È‚¢
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
 			box_collider->SetSleepingAllowed(false);	// Sleep‚ð‹–‰Â‚µ‚È‚¢
@@ -535,82 +535,52 @@ namespace shadowpartner
 			//AddGameObject(enemy_);
 		}
 
-		// ŠÛ‘¾‚ðŒÅ’è‚·‚é’Ó1
-		//{
-		//	ivy_chain_[0] = new GameObject();
-		//	ivy_chain_[0]->transform_->position_ = Vector2(0.0f,0.0f);
-
-		//	ChainInitializer chain_init;
-		//	chain_init.first_pos_ = Vector2(4.0f, 1.0f);
-		//	chain_init.next_diff_ = Vector2(0.3f, 0.0f);
-		//	chain_init.pieces_count_ = 3;
-		//	chain_init.piece_width_ = 0.3f;
-		//	chain_init.piece_height_ = 0.2f;
-		//	Chain *chain = new Chain(chain_init, this);
-		//	ivy_chain_[0]->AddComponent(chain);
-
-		//	RevoluteInitializer revolute_init;
-		//	revolute_init.world_pos_ = Vector2(0.0f, 0.0f);
-		//	revolute_init.collider_a_ = tree_log_->GetComponent<BoxCollider>();
-		//	revolute_init.collider_b_ = chain->first_;
-		//	revolute_init.local_anchor_a_ = Vector2(4.0f, 1.0f);
-		//	revolute_init.local_anchor_b_ = Vector2::zero();
-		//	revolute_init.collide_connected_ = false;
-
-		//	RevoluteJoint *tree_ivy_joint = new RevoluteJoint(revolute_init);
-
-		//	ivy_chain_[0]->AddComponent(tree_ivy_joint);
-
-		//	AddGameObject(ivy_chain_[0]);
-		//}
-		//
-		//// ŠÛ‘¾‚ðŒÅ’è‚·‚é’Ó2
-		//{
-		//	ivy_chain_[1] = new GameObject();
-		//	ivy_chain_[1]->transform_->position_ = Vector2(0.0f, 0.0f);
-
-		//	ChainInitializer chain_init;
-		//	chain_init.first_pos_ = Vector2(4.75f, 0.0f);
-		//	chain_init.next_diff_ = Vector2(0.3f, 0.0f);
-		//	chain_init.pieces_count_ = 3;
-		//	chain_init.piece_width_ = 0.3f;
-		//	chain_init.piece_height_ = 0.2f;
-		//	Chain *chain = new Chain(chain_init, this);
-		//	ivy_chain_[1]->AddComponent(chain);
-
-		//	RevoluteInitializer revolute_init;
-
-		//	revolute_init.world_pos_ = Vector2(0.0f, 0.0f);
-		//	revolute_init.collider_a_ = chain->last_;
-		//	revolute_init.collider_b_ = stages_[1]->GetComponent<TileMapCollider>();
-		//	revolute_init.local_anchor_a_ = Vector2::zero();
-		//	revolute_init.local_anchor_b_ = Vector2(5.5f,-2.0f);
-
-		//	RevoluteJoint *ivy_first_stage_joint = new RevoluteJoint(revolute_init);
-
-		//	ivy_chain_[1]->AddComponent(ivy_first_stage_joint);
-
-		//	AddGameObject(ivy_chain_[1]);
-		//}
-
-
+		// ŠÛ‘¾‚ðŒÅ’è‚·‚é’Ó
 		{
-			//ivy_joint_ = new GameObject();
-			//ivy_joint_->transform_->position_ = Vector2(4.75f, 0.0f);
+			ivy_chain_ = new GameObject();
+			ivy_chain_->transform_->position_ = Vector2(0.0f,0.0f);
 
-			//RevoluteInitializer revolute_init;
+			ChainInitializer chain_init;
+			chain_init.first_pos_ = Vector2(4.0f, 1.0f);
+			chain_init.next_diff_ = Vector2(0.3f, 0.0f);
+			chain_init.pieces_count_ = 6;
+			chain_init.piece_width_ = 0.3f;
+			chain_init.piece_height_ = 0.2f;
+			Chain *chain = new Chain(chain_init, this);
+			ivy_chain_->AddComponent(chain);
 
-			//revolute_init.world_pos_ = Vector2(4.75f, 0.0f);
-			//revolute_init.collider_a_ = ivy_chain_[0]->GetComponent<Chain>()->last_;
-			//revolute_init.collider_b_ = ivy_chain_[1]->GetComponent<Chain>()->first_;
-			//revolute_init.local_anchor_a_ = Vector2::zero();
-			//revolute_init.local_anchor_b_ = Vector2::zero();
 
-			//RevoluteJoint *ivy_ivy_joint = new RevoluteJoint(revolute_init);
+			RevoluteInitializer revolute_init;
 
-			//ivy_joint_->AddComponent(ivy_ivy_joint);
+			revolute_init.world_pos_ = Vector2(0.0f, 0.0f);
+			revolute_init.collider_a_ = chain->last_;
+			revolute_init.collider_b_ = stages_[0]->GetComponent<TileMapCollider>();
+			revolute_init.local_anchor_a_ = Vector2::zero();
+			revolute_init.local_anchor_b_ = Vector2(5.5f, -2.0f);
 
-			//AddGameObject(ivy_joint_);
+			RevoluteJoint *ivy_first_stage_joint = new RevoluteJoint(revolute_init);
+
+			ivy_chain_->AddComponent(ivy_first_stage_joint);
+
+			AddGameObject(ivy_chain_);
+		}
+		
+		{
+			ivy_joint_ = new GameObject();
+
+			RevoluteInitializer revolute_init;
+			revolute_init.world_pos_ = Vector2(0.0f, 0.0f);
+			revolute_init.collider_a_ = tree_log_->GetComponent<BoxCollider>();
+			revolute_init.collider_b_ = ivy_chain_->GetComponent<Chain>()->first_;
+			revolute_init.local_anchor_a_ = Vector2::Vector2(0.0f, 0.8f);
+			revolute_init.local_anchor_b_ = Vector2::zero();
+			revolute_init.collide_connected_ = false;
+
+			RevoluteJoint *tree_ivy_joint = new RevoluteJoint(revolute_init);
+
+			ivy_joint_->AddComponent(tree_ivy_joint);
+
+			AddGameObject(ivy_joint_);
 		}
 
 		StageScene::Init();
@@ -635,16 +605,21 @@ namespace shadowpartner
 		}
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
 		{
-			static int z = 0;
+			/*static int z = 0;
 
 			z = (z + 1) % 16;
 			Camera::main_->SetZoom(10.0f + 1.0f * (z - 9));
+*/
+			DestroyImmediate(ivy_joint_);
 		}
 
 		//static float rad = 0.0f;
 		//rad += D3DXToRadian(0.1f);
 		//moon_light_->GetComponent<Light>()->SetDirection(Vector2(cosf(rad),sinf(rad)));
 
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Start))
+		{
+		}
 	}
 
 	void FirstStageScene::Uninit()

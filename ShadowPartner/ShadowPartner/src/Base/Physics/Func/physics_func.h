@@ -38,7 +38,7 @@ namespace physics
 		
 		// methods
 		static RaycastHit Raycast(Vector2 start,Vector2 direction,
-			float distance = FLT_MAX,Layer layer_mask = Layer::kDefaultLayer);
+			float distance = FLT_MAX,int layer_mask = 0xffffffff);
 
 		static Collider *OverLapPoint(Vector2 point, int layer_mask = Layer::kDefaultLayer);
 

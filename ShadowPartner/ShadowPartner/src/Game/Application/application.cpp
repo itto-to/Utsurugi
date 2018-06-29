@@ -146,9 +146,10 @@ namespace shadowpartner
 #ifdef _DEBUG
 					debug::Debug::StopWatchStart(3);
 					Update();
+					Draw();
+
 					debug::Debug::StopWatchFinish(3);
 #endif
-					Draw();
 				}
 			}
 		}

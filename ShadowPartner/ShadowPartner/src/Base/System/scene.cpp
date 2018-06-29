@@ -92,4 +92,16 @@ namespace shadowpartner
 	{
 
 	}
+
+	void Scene::DestroyImmediate(GameObject *destroy_object)
+	{
+		for (int i = 0; i < game_objects_.size();++i)
+		{
+			if (destroy_object == game_objects_[i])
+			{
+				delete game_objects_[i];
+				game_objects_.erase(game_objects_.begin() + i);
+			}
+		}
+	}
 }

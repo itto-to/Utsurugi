@@ -44,13 +44,13 @@ namespace shadowpartner
 		virtual void Update();
 		virtual void Draw();
 
+		void DestroyImmediate(GameObject *destroy_object);
 
 
 	private:
 		// variables
 
 		// methods
-
 		// —˜—p‹ÖŽ~
 	};
 }

@@ -15,6 +15,7 @@ enum CollisionFilter
 	kClimb                 = 1 << 4,
 	kActionTrigger         = 1 << 5,
 	kActionObject          = 1 << 6,
+	kIvy                   = 1 << 7,
 	kDefaultMask           = 0xFFFF,	// 全てのフィクスチャと衝突
 };
 

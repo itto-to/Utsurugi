@@ -59,7 +59,7 @@ namespace shadowpartner
 			light_init.radius_ = 60.0f;
 			light_init.color_ = D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28);
 			light_init.direction_ = Angle(Vector2::down());
-			light_init.angle_ = 120.0f;
+			light_init.angle_ = 90.0f;
 			Light *light = new Light(light_init);
 			moon_light_->AddComponent(light);
 
