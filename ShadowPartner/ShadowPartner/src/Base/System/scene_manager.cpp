@@ -34,7 +34,7 @@ namespace shadowpartner
 	}
 
 	// コンストラクタ
-	SceneManager::SceneManager()
+	SceneManager::SceneManager() : next_scene_(nullptr)
 	{
 	}
 
@@ -90,6 +90,11 @@ namespace shadowpartner
 
 	void SceneManager::Update()
 	{
+		if (next_scene_ != nullptr)
+		{
+			ChangeScene();
+		}
+
 		for (int i = 0; i < scenes_.size(); ++i)
 		{
 			if (scenes_[i]->is_active_)
@@ -151,27 +156,55 @@ namespace shadowpartner
 		return scenes_[index];
 	}
 
+	void SceneManager::ChangeScene()
+	{
+		// 既存のシーンを削除
+		for (int i = 0; i < instance_->scenes_.size(); ++i)
+		{
+			delete instance_->scenes_[i];
+			instance_->scenes_[i] = nullptr;
+		}
+		instance_->scenes_.clear();
+
+		// 新しいシーンの作成
+		current_scene_ = next_scene_;
+		current_scene_->Init();
+
+		scenes_.push_back(current_scene_);
+
+		// 次のシーンをnullptrに
+		next_scene_ = nullptr;
+	}
+
 	//==========================================================
 	// 概要  :新しいシーンを読み込みます。古いシーンは削除されます。
 	// 引数  :新しいシーンのインスタンスへのポインタ。(newしておいてください。)
 	//==========================================================
 	void SceneManager::LoadScene(Scene *new_scene)
 	{
-		// 既存のシーンを削除
-		for (int i = 0;i < instance_->scenes_.size();++i)
+		// 同一フレームで既にロードされたシーンがある場合入れ替える
+		if (instance_->next_scene_ != nullptr)
 		{
-			delete instance_->scenes_[i];
-			instance_->scenes_[i] = nullptr;
+			delete instance_->next_scene_;
 		}
 
-		//physics::PhysicsWorld::ClearBody();
-		instance_->scenes_.clear();
+		instance_->next_scene_ = new_scene;
 
-		// 新しいシーンの作成
-		instance_->current_scene_ = new_scene;
-		instance_->current_scene_->Init();
+		//// 既存のシーンを削除
+		//for (int i = 0;i < instance_->scenes_.size();++i)
+		//{
+		//	delete instance_->scenes_[i];
+		//	instance_->scenes_[i] = nullptr;
+		//}
 
-		instance_->scenes_.push_back(new_scene);
+		////physics::PhysicsWorld::ClearBody();
+		//instance_->scenes_.clear();
+
+		//// 新しいシーンの作成
+		//instance_->current_scene_ = new_scene;
+		//instance_->current_scene_->Init();
+
+		//instance_->scenes_.push_back(new_scene);
 	}
 
 	void SceneManager::ExitGame()

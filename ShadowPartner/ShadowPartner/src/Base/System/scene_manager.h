@@ -56,6 +56,7 @@ namespace shadowpartner
 		~SceneManager();
 
 		// methods
+		void ChangeScene();
 
 	private:
 		// variables
@@ -65,6 +66,7 @@ namespace shadowpartner
 
 		Scene *current_scene_;
 		int current_scene_index_;
+		Scene *next_scene_;
 
 		// methods
 
