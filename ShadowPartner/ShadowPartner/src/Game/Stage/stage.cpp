@@ -2,8 +2,10 @@
 #include "stage.h"
 #include <stdio.h>
 
+#include "../../Base/Debug/debugger.h"
 
 using namespace physics;
+using namespace debug;
 
 namespace shadowpartner
 {
@@ -21,24 +23,26 @@ namespace shadowpartner
 		err_no = fopen_s(&fp_no, file_tileno, "r");	// ファイルを開く
 		err_pass = fopen_s(&fp_pass, file_tilepass, "r");	// ファイルを開く
 
+#ifdef _DEBUG
 
 		if (err_no == 0)
 		{
-			printf("The file 'test_no.csv' was opened\n");
+			Debug::Log("The file 'test_no.csv' was opened\n");
 		}
 		else
 		{
-			printf("The file 'test_no.csv' was not opened\n");
+			Debug::Log("The file 'test_no.csv' was not opened\n");
 		}
 
 		if (fp_pass == 0)
 		{
-			printf("The file 'test_no.csv' was opened\n");
+			Debug::Log("The file 'test_no.csv' was opened\n");
 		}
 		else
 		{
-			printf("The file 'test_no.csv' was not opened\n");
+			Debug::Log("The file 'test_no.csv' was not opened\n");
 		}
+#endif
 
 		// TileMapColliderの設定
 		TileMapInitializer tile_init;
