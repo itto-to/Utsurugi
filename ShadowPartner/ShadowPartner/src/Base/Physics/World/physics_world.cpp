@@ -166,18 +166,21 @@ namespace physics
 
 	void PhysicsWorld::DestroyJoint(int index, b2Joint *joint)
 	{
-		instance_->world_.DestroyJoint(joint);
+		b2Joint *j_list = instance_->world_.GetJointList();
 
-		for (int i = index + 1;i < instance_->joints_.size();++i)
+		while (j_list != nullptr)
 		{
-			--instance_->joints_[i]->index_;
+			if (joint == j_list)
+			{
+				instance_->world_.DestroyJoint(joint);
+				break;
+			}
+			else
+			{
+				j_list = j_list->GetNext();
+			}
 		}
 
-		instance_->joints_.erase(instance_->joints_.begin() + index);
-	}
-
-	void PhysicsWorld::EraseJoint(int index)
-	{
 		for (int i = index + 1;i < instance_->joints_.size();++i)
 		{
 			--instance_->joints_[i]->index_;

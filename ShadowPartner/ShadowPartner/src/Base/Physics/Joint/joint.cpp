@@ -18,12 +18,14 @@ namespace physics
 
 	// コンストラクタ
 	Joint::Joint()
+		:joint_(nullptr)
 	{
 	}
 
 	Joint::~Joint()
 	{
-		PhysicsWorld::EraseJoint(index_);
+
+		PhysicsWorld::DestroyJoint(index_, joint_);
 	}
 
 	//void Joint::SetActive(bool is_active)
