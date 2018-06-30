@@ -94,29 +94,7 @@ namespace shadowpartner
 #ifdef _DEBUG
 		debug::Debug::Log("シーンの切り替え：物理テスト");
 #endif
-
-		//カメラ
-		{
-			camera_object_ = new GameObject();
-			camera_object_->transform_->position_ = Vector2::zero();
-
-			Camera *camera = new Camera();
-			camera_object_->AddComponent(camera);
-
-			AddGameObject(camera_object_);
-		}
-
-		// 背景
-		{
-			back_ground_ = new GameObject();
-			back_ground_->transform_->position_ = Vector2(11.2f, 0.0f);
-
-			Sprite *sprite = new Sprite(BACK_GROUND_TEXTURE_NAME);
-			sprite->SetSize(Vector2(33.6f, 6.3f));
-			back_ground_->AddComponent(sprite);
-
-			AddGameObject(back_ground_);
-		}
+		StageScene::Init();
 
 		// 大ライト1（仮）
 		{
@@ -799,8 +777,6 @@ namespace shadowpartner
 
 			//AddGameObject(test_object_);
 		}
-
-		StageScene::Init();
 
 		return S_OK;
 	}
