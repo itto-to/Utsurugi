@@ -56,15 +56,15 @@ namespace
 
 	const Vector2 kPlayerColliderSize = Vector2(1.5f, 0.75f);
 
-	const Vector2 kTreeLogPosition = Vector2(3.5f, -1.1f);
+	const Vector2 kTreeLogPosition = Vector2(2.0f, -1.1f);
 	const float kTreeWidth  = 0.2f;
 	const float kTreeHeight = 2.0f;
 
-	const Vector2 kFireflyPosition = Vector2(-2.0f, -1.4f);
+	const Vector2 kFireflyPosition = Vector2(-4.0f, -1.4f);
 	const Vector2 kFireflySpriteSize = Vector2(0.3f, 0.3f);
 	const Vector2 kFireflyLightSize = Vector2(2.0f, 2.0f);
 
-	const Vector2 kLightTreePosition   = Vector2(0.0f, -0.6f);
+	const Vector2 kLightTreePosition   = Vector2(-1.5f, -0.6f);
 	const Vector2 kLightTreeSpriteSize = Vector2(2.56f, 3.25f);
 	const Vector2 kLightTreeLightSize  = Vector2(3.0f, 3.0f);
 
@@ -122,17 +122,17 @@ namespace shadowpartner
 
 		// 大ライト1（仮）
 		{
-			const int kWidth = 8;
+			const int kWidth = 4;
 			const int kHeight = 16;
 
 			tmp_large_light_[0] = new GameObject();
-			tmp_large_light_[0]->transform_->position_ = Vector2(-4.2f, 0.6f);
+			tmp_large_light_[0]->transform_->position_ = Vector2(-4.90f, 0.6f);
 			tmp_large_light_[0]->tag_ = Tag::kLargeLight;
 
-			Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
-			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
-			tmp_large_light_[0]->AddComponent(sprite);
+			//Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
+			//sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
+			//sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
+			//tmp_large_light_[0]->AddComponent(sprite);
 
 			BoxInitializer box_init;
 			box_init.pos_           = tmp_large_light_[0]->transform_->position_;
@@ -156,13 +156,13 @@ namespace shadowpartner
 			const int kHeight = 5;
 
 			tmp_large_light_[1] = new GameObject();
-			tmp_large_light_[1]->transform_->position_ = Vector2(-1.05f, 2.25f);
+			tmp_large_light_[1]->transform_->position_ = Vector2(-2.45f, 2.27f);
 			tmp_large_light_[1]->tag_ = Tag::kLargeLight;
 
-			Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
-			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
-			tmp_large_light_[1]->AddComponent(sprite);
+			//Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
+			//sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
+			//sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
+			//tmp_large_light_[1]->AddComponent(sprite);
 
 			BoxInitializer box_init;
 			box_init.pos_ = tmp_large_light_[1]->transform_->position_;
@@ -182,17 +182,17 @@ namespace shadowpartner
 
 		// 大ライト3（仮）
 		{
-			const int kWidth = 7;
-			const int kHeight = 4;
+			const int kWidth =7;
+			const int kHeight = 6;
 
 			tmp_large_light_[2] = new GameObject();
-			tmp_large_light_[2]->transform_->position_ = Vector2(1.92f, 2.425f);
+			tmp_large_light_[2]->transform_->position_ = Vector2(0.525f, 2.10f);
 			tmp_large_light_[2]->tag_ = Tag::kLargeLight;
 
-			Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
-			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
-			tmp_large_light_[2]->AddComponent(sprite);
+			//Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
+			//sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
+			//sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
+			//tmp_large_light_[2]->AddComponent(sprite);
 
 			BoxInitializer box_init;
 			box_init.pos_ = tmp_large_light_[2]->transform_->position_;
@@ -212,17 +212,17 @@ namespace shadowpartner
 
 		// 大ライト4（仮）
 		{
-			const int kWidth = 7;
+			const int kWidth = 11;
 			const int kHeight = 16;
 
 			tmp_large_light_[3] = new GameObject();
-			tmp_large_light_[3]->transform_->position_ = Vector2(4.375f, 0.6f);
+			tmp_large_light_[3]->transform_->position_ = Vector2(3.675f, 0.6f);
 			tmp_large_light_[3]->tag_ = Tag::kLargeLight;
 
-			Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
-			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
-			tmp_large_light_[3]->AddComponent(sprite);
+			//Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
+			//sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
+			//sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
+			//tmp_large_light_[3]->AddComponent(sprite);
 
 			BoxInitializer box_init;
 			box_init.pos_ = tmp_large_light_[3]->transform_->position_;
@@ -244,7 +244,7 @@ namespace shadowpartner
 		// ゲート
 		{
 			gate_ = new GameObject();
-			gate_->transform_->position_ = Vector2(4.0f, -1.6f);
+			gate_->transform_->position_ = Vector2(4.5f, -1.6f);
 
 			Sprite *sprite = new Sprite(CLEAR_GATE_TEXTURE_NAME);
 			sprite->SetSize(Vector2(1.0f, 1.5f));
@@ -285,33 +285,91 @@ namespace shadowpartner
 
 		}
 
-		// Stage Fase1
 		{
-			stages_[1] = new GameObject();
-			stages_[1]->transform_->position_ = Vector2(11.2f, 0.0f);
+			invisible_wall_ = new GameObject();
+			invisible_wall_->transform_->position_ = Vector2(0.0f, 0.0f);
 
-			Stage *stage = new Stage(StageNumber::kStage1_2, *stages_[1]);
-			stages_[1]->AddComponent(stage);
+			std::vector<Collider *>cols;
 
-			CornerCandidates::PreCalculate(stage);
+			BoxInitializer bi;
+			bi.width_ = 0.35f;
+			bi.height_ = 5.25f;
+			bi.offset_ = Vector2(-5.425f, 0.525f);
+			bi.friction_ = 0.0f;
+			bi.body_type_ = BodyType::kStaticBody;
 
-			AddGameObject(stages_[1]);
+			BoxCollider *box1 = new BoxCollider(bi);
+			invisible_wall_->AddComponent(box1);
+			cols.push_back(box1);
 
+			bi.width_ = 5.6f;
+			bi.height_ = 1.05f;
+			bi.friction_ = 0.2f;
+			bi.offset_ = Vector2(-2.80f, -2.625f);
 
+			BoxCollider *box2 = new BoxCollider(bi);
+			invisible_wall_->AddComponent(box2);
+			cols.push_back(box2);
+
+			bi.width_ = 3.85f;
+			bi.height_ = 1.05f;
+			bi.offset_ = Vector2(3.675f, -2.625f);
+
+			BoxCollider *box3 = new BoxCollider(bi);
+			invisible_wall_->AddComponent(box3);
+			cols.push_back(box3);
+
+			bi.width_ = 3.5f;
+			bi.height_ = 1.05f;
+			bi.offset_ = Vector2(-2.45f, 0.875f);
+
+			BoxCollider *box4 = new BoxCollider(bi);
+			invisible_wall_->AddComponent(box4);
+			cols.push_back(box4);
+
+			bi.width_ = 2.45f;
+			bi.height_ = 1.05f;
+			bi.offset_ = Vector2(0.525f, 0.525f);
+
+			BoxCollider *box5 = new BoxCollider(bi);
+			invisible_wall_->AddComponent(box5);
+			cols.push_back(box5);
+
+			CornerCandidates::PreCalculate(cols);
+
+			AddGameObject(invisible_wall_);
+
+			
 		}
 
-		// Stage Fase1
-		{
-			stages_[2] = new GameObject();
-			stages_[2]->transform_->position_ = Vector2(22.4f, 0.0f);
 
-			Stage *stage = new Stage(StageNumber::kStage1_3, *stages_[2]);
-			stages_[2]->AddComponent(stage);
+		// Stage Fase2
+		//{
+		//	stages_[1] = new GameObject();
+		//	stages_[1]->transform_->position_ = Vector2(11.2f, 0.0f);
 
-			CornerCandidates::PreCalculate(stage);
+		//	Stage *stage = new Stage(StageNumber::kStage1_2, *stages_[1]);
+		//	stages_[1]->AddComponent(stage);
 
-			AddGameObject(stages_[2]);
-		}
+		//	CornerCandidates::PreCalculate(stage);
+
+		//	AddGameObject(stages_[1]);
+
+
+		//}
+
+		// Stage Fase3
+		//{
+		//	stages_[2] = new GameObject();
+		//	stages_[2]->transform_->position_ = Vector2(22.4f, 0.0f);
+
+		//	Stage *stage = new Stage(StageNumber::kStage1_3, *stages_[2]);
+		//	stages_[2]->AddComponent(stage);
+
+		//	CornerCandidates::PreCalculate(stage);
+
+		//	AddGameObject(stages_[2]);
+		//}
 
 
 		// 発光樹（中ライト）生成
@@ -435,9 +493,11 @@ namespace shadowpartner
 			box_init.fixed_rotation_   = false;
 			box_init.is_trigger_       = false;
 			//box_init.offset_         = Vector2(0.0f, kTreeHeight / 2.0f);
-			box_init.category_bits_    = CollisionFilter::kActionObject;
-			box_init.mask_bits_        = CollisionFilter::kDefaultMask | CollisionFilter::kActionTrigger;
-			BoxCollider *box_collider  = new BoxCollider(box_init);
+			box_init.width_ = kTreeWidth;
+			box_init.height_ = kTreeHeight;
+			box_init.category_bits_ = CollisionFilter::kActionObject;
+			box_init.mask_bits_ = CollisionFilter::kDefaultMask | CollisionFilter::kActionTrigger;
+			BoxCollider *box_collider = new BoxCollider(box_init);
 			tree_log_->AddComponent(box_collider);
 
 
@@ -478,13 +538,60 @@ namespace shadowpartner
 			ri.world_pos_ = hinge_joint_->transform_->position_;
 
 			ri.enable_limit_ = true;
-			ri.lower_angle_ = -90.0f;
+			ri.lower_angle_ = -89.0f;
 			ri.upper_angle_ = 10.0f;
 
 			RevoluteJoint *revolute_joint = new RevoluteJoint(ri);
 			hinge_joint_->AddComponent(revolute_joint);
 
 			AddGameObject(hinge_joint_);
+		}
+
+		// 丸太を固定する蔦
+		{
+			ivy_chain_ = new GameObject();
+			ivy_chain_->transform_->position_ = Vector2(0.0f, 0.0f);
+
+			ChainInitializer chain_init;
+			chain_init.first_pos_ = Vector2(2.0f, 1.0f);
+			chain_init.next_diff_ = Vector2(0.3f, 0.0f);
+			chain_init.pieces_count_ = 6;
+			chain_init.piece_width_ = 0.3f;
+			chain_init.piece_height_ = 0.2f;
+			Chain *chain = new Chain(chain_init, this);
+			ivy_chain_->AddComponent(chain);
+
+			RevoluteInitializer revolute_init;
+
+			revolute_init.world_pos_ = Vector2(0.0f, 0.0f);
+			revolute_init.collider_a_ = chain->last_;
+			revolute_init.collider_b_ = stages_[0]->GetComponent<TileMapCollider>();
+			revolute_init.local_anchor_a_ = Vector2::zero();
+			revolute_init.local_anchor_b_ = Vector2(3.5f, -2.0f);
+
+			RevoluteJoint *ivy_first_stage_joint = new RevoluteJoint(revolute_init);
+
+			ivy_chain_->AddComponent(ivy_first_stage_joint);
+
+			AddGameObject(ivy_chain_);
+		}
+
+		{
+			ivy_joint_ = new GameObject();
+
+			RevoluteInitializer revolute_init;
+			revolute_init.world_pos_ = Vector2(0.0f, 0.0f);
+			revolute_init.collider_a_ = tree_log_->GetComponent<BoxCollider>();
+			revolute_init.collider_b_ = ivy_chain_->GetComponent<Chain>()->first_;
+			revolute_init.local_anchor_a_ = Vector2::Vector2(0.0f, 0.7f);
+			revolute_init.local_anchor_b_ = Vector2::zero();
+			revolute_init.collide_connected_ = false;
+
+			RevoluteJoint *tree_ivy_joint = new RevoluteJoint(revolute_init);
+
+			ivy_joint_->AddComponent(tree_ivy_joint);
+
+			AddGameObject(ivy_joint_);
 		}
 
 		// プレイヤーを生成
@@ -701,60 +808,14 @@ namespace shadowpartner
 
 		{
 			//test_object_ = new GameObject();
-			//test_object_->transform_->position_ = Vector2(4.5f, -1.5f);
+			//test_object_->transform_->position_ = Vector2(-5.425f, 0.525f);
 			//Sprite *sprite = new Sprite("Resources/Texture/white");
-			//sprite->SetSize(Vector2::one() * 2.0f);
+			//sprite->SetSize(Vector2(0.35f,5.25f));
+			//sprite->SetColor(D3DCOLOR_RGBA(0xff, 0x00, 0x00, 0x55));
 
 			//test_object_->AddComponent(sprite);
 
 			//AddGameObject(test_object_);
-		}
-
-		// 丸太を固定する蔦
-		{
-			ivy_chain_ = new GameObject();
-			ivy_chain_->transform_->position_ = Vector2(0.0f, 0.0f);
-
-			ChainInitializer chain_init;
-			chain_init.first_pos_ = Vector2(4.0f, 1.0f);
-			chain_init.next_diff_ = Vector2(0.3f, 0.0f);
-			chain_init.pieces_count_ = 6;
-			chain_init.piece_width_ = 0.3f;
-			chain_init.piece_height_ = 0.2f;
-			Chain *chain = new Chain(chain_init, this);
-			ivy_chain_->AddComponent(chain);
-
-			RevoluteInitializer revolute_init;
-
-			revolute_init.world_pos_ = Vector2(0.0f, 0.0f);
-			revolute_init.collider_a_ = chain->last_;
-			revolute_init.collider_b_ = stages_[0]->GetComponent<TileMapCollider>();
-			revolute_init.local_anchor_a_ = Vector2::zero();
-			revolute_init.local_anchor_b_ = Vector2(5.5f, -2.0f);
-
-			RevoluteJoint *ivy_first_stage_joint = new RevoluteJoint(revolute_init);
-
-			ivy_chain_->AddComponent(ivy_first_stage_joint);
-
-			AddGameObject(ivy_chain_);
-		}
-
-		{
-			ivy_joint_ = new GameObject();
-
-			RevoluteInitializer revolute_init;
-			revolute_init.world_pos_ = Vector2(0.0f, 0.0f);
-			revolute_init.collider_a_ = tree_log_->GetComponent<BoxCollider>();
-			revolute_init.collider_b_ = ivy_chain_->GetComponent<Chain>()->first_;
-			revolute_init.local_anchor_a_ = Vector2::Vector2(0.0f, 0.8f);
-			revolute_init.local_anchor_b_ = Vector2::zero();
-			revolute_init.collide_connected_ = false;
-
-			RevoluteJoint *tree_ivy_joint = new RevoluteJoint(revolute_init);
-
-			ivy_joint_->AddComponent(tree_ivy_joint);
-
-			AddGameObject(ivy_joint_);
 		}
 
 		StageScene::Init();
@@ -769,24 +830,24 @@ namespace shadowpartner
 		//if (input::Input::Instance()->GetButtonDown(input::InputButton::Start))
 		//	SceneManager::LoadScene(new TempEndingScene());
 #ifdef _DEBUG
-		if (input::Input::Instance()->GetButtonDown(input::InputButton::Skill))
-		{
-			NextPhase();
-		}
-		if (input::Input::Instance()->GetButtonDown(input::InputButton::Cancel))
-		{
-			PrevPhase();
-		}
+		//if (input::Input::Instance()->GetButtonDown(input::InputButton::Skill))
+		//{
+		//	NextPhase();
+		//}
+		//if (input::Input::Instance()->GetButtonDown(input::InputButton::Cancel))
+		//{
+		//	PrevPhase();
+		//}
 #endif
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
 		{
-			/*static int z = 0;
+			//static int z = 0;
 
-			z = (z + 1) % 16;
-			Camera::main_->SetZoom(10.0f + 1.0f * (z - 9));
-*/
+			//z = (z + 1) % 16;
+			//Camera::main_->SetZoom(10.0f + 1.0f * (z - 9));
+
 			Vector2 pp = shadow_->transform_->position_;
-			if (pp.x > 3.5f && pp.x < 5.5f && pp.y > -2.5f && pp.y < -0.5f)
+			if (pp.x > 1.5f && pp.x < 3.5f && pp.y > -2.5f && pp.y < -0.5f)
 			{
 				DestroyImmediate(ivy_joint_);
 			}
@@ -796,10 +857,13 @@ namespace shadowpartner
 		//rad += D3DXToRadian(0.1f);
 		//moon_light_->GetComponent<Light>()->SetDirection(Vector2(cosf(rad),sinf(rad)));
 
+#ifdef _DEBUG
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Start))
 		{
 			SceneManager::LoadScene(new TitleScene());
 		}
+#endif
+		tree_log_->GetComponent<BoxCollider>()->AddForce(Vector2(-5.0f, -10.0f));
 	}
 
 	void FirstStageScene::Uninit()

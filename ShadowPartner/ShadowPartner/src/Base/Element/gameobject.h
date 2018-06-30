@@ -87,9 +87,6 @@ namespace shadowpartner
 			return nullptr;
 		}
 
-		void Destroy();
-		void Destroy(float delay);
-
 	protected:
 
 		// methods

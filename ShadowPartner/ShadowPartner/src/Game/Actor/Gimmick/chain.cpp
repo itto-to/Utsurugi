@@ -33,7 +33,7 @@ namespace shadowpartner
 		box_init.fixed_rotation_ = false;
 		box_init.is_trigger_ = init.is_trigger_;
 		box_init.category_bits_ = CollisionFilter::kIvy;
-		box_init.mask_bits_ = ~CollisionFilter::kPlayer;
+		box_init.mask_bits_ = ~(CollisionFilter::kPlayer | CollisionFilter::kShadow);
 
 		next_chain_->AddComponent(new BoxCollider(box_init));
 
