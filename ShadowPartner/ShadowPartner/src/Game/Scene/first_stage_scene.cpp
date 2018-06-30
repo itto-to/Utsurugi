@@ -835,12 +835,12 @@ namespace shadowpartner
 		//rad += D3DXToRadian(0.1f);
 		//moon_light_->GetComponent<Light>()->SetDirection(Vector2(cosf(rad),sinf(rad)));
 
-//#ifdef _DEBUG
+#ifdef _DEBUG
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Start))
 		{
 			SceneManager::LoadScene(new TitleScene());
 		}
-//#endif
+#endif
 		tree_log_->GetComponent<BoxCollider>()->AddForce(Vector2(-5.0f, -10.0f));
 	}
 
