@@ -6,7 +6,7 @@
 #include "gate.h"
 
 #include "../../../Base/Element/gameobject.h"
-#include "../../Scene/title_scene.h"
+#include "../../Scene/result_scene.h"
 #include "../../../Base/System/scene_manager.h"
 
 namespace shadowpartner
@@ -18,7 +18,7 @@ namespace shadowpartner
 			is_activated_ = true;
 
 			// ƒS[ƒ‹ˆ—
-			SceneManager::LoadScene(new TitleScene());
+			SceneManager::LoadScene(new ResultScene());
 		}
 	}
 

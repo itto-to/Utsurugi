@@ -408,6 +408,9 @@
     <ClCompile Include="src\Game\Actor\Gimmick\gate.cpp">
       <Filter>ソース ファイル\Game\Actor\Gimmick</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Scene\result_scene.cpp">
+      <Filter>ソース ファイル\Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Base\System\scene.h">
@@ -622,6 +625,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\Actor\Gimmick\gate.h">
       <Filter>ヘッダー ファイル\Game\Actor\Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Scene\result_scene.h">
+      <Filter>ヘッダー ファイル\Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
