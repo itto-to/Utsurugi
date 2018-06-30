@@ -52,6 +52,8 @@ namespace shadowpartner
 		revolute_init.upper_angle_ = 60.0f;
 		revolute_init.world_pos_ = box_init.pos_ + (init.next_diff_ / 2.0f);
 
+		RevoluteJoint *joint;
+
 		for (int i = 0;i < init.pieces_count_ - 1;++i)
 		{
 			next_chain_ = new GameObject();
@@ -78,7 +80,9 @@ namespace shadowpartner
 			revolute_init.local_anchor_b_ = -init.next_diff_ / 2.0f;
 
 			// ジョイントを作る
-			chain_joints_.push_back(new RevoluteJoint(revolute_init));
+			joint = new RevoluteJoint(revolute_init);
+			chain_joints_.push_back(joint);
+			next_chain_->AddComponent(joint);
 
 			revolute_init.world_pos_ += init.next_diff_;
 		}
@@ -95,6 +99,8 @@ namespace shadowpartner
 
 		// ロープの作成
 		rope_joint_ = new RopeJoint(rope_init);
+
+		next_chain_->AddComponent(rope_joint_);
 	}
 
 	void Chain::Start()

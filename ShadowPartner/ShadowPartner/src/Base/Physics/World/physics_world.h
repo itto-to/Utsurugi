@@ -36,6 +36,7 @@ namespace physics
 		static b2Joint *CreateJoint(Joint *joint, const b2JointDef *joint_def);
 		static void DestroyBody(int index,b2Body *body);
 		static void DestroyJoint(int index,b2Joint *joint);
+		static void EraseJoint(int index);
 		static void ClearBody();
 		static void ClearJoint();
 

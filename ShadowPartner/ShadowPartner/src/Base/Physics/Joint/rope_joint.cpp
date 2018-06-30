@@ -36,6 +36,7 @@ namespace physics
 		rjd.collideConnected = ini.collide_connected_;
 
 		rope_joint_ = (b2RopeJoint *)PhysicsWorld::CreateJoint(this,&rjd);
+		joint_ = rope_joint_;
 	}
 
 	//==========================================================

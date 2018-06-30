@@ -176,6 +176,16 @@ namespace physics
 		instance_->joints_.erase(instance_->joints_.begin() + index);
 	}
 
+	void PhysicsWorld::EraseJoint(int index)
+	{
+		for (int i = index + 1;i < instance_->joints_.size();++i)
+		{
+			--instance_->joints_[i]->index_;
+		}
+
+		instance_->joints_.erase(instance_->joints_.begin() + index);
+	}
+
 	void PhysicsWorld::ClearBody()
 	{
 		for (int i = 0;i < instance_->colliders_.size();++i)

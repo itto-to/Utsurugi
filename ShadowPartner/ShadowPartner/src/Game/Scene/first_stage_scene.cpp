@@ -500,6 +500,8 @@ namespace shadowpartner
 
 			BoxCollider *box_collider = new BoxCollider(box_init);
 			hinge_joint_base_->AddComponent(box_collider);
+
+			AddGameObject(hinge_joint_base_);
 		}
 
 		// ÷‚ğ‚Â‚È‚®ƒqƒ“ƒW‚ğì‚é

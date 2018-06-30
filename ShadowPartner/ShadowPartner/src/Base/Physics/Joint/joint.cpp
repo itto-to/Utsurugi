@@ -23,7 +23,7 @@ namespace physics
 
 	Joint::~Joint()
 	{
-		PhysicsWorld::DestroyJoint(index_, joint_);
+		PhysicsWorld::EraseJoint(index_);
 	}
 
 	//void Joint::SetActive(bool is_active)
