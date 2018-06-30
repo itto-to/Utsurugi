@@ -40,7 +40,7 @@ namespace shadowpartner
 		GameObject *small_light_;
 		GameObject *middle_light_;
 		GameObject *tmp_large_light_[4];
-
+		GameObject *gate_;
 		GameObject *test_object_;
 		GameObject *ivy_chain_;
 		GameObject *ivy_joint_;

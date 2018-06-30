@@ -20,6 +20,8 @@
 #include "../Actor/Gimmick/chain.h"
 #include "../Actor//Player//action_trigger.h"
 #include "../Actor/Gimmick/tree.h"
+#include "../Actor/Gimmick/gate.h"
+#include "../Scene/title_scene.h"
 
 #include "temp_ending.h"
 
@@ -202,13 +204,13 @@ namespace shadowpartner
 
 			BoxInitializer box_init;
 			box_init.pos_ = tmp_large_light_[3]->transform_->position_;
-			box_init.width_ = 0.35 * kWidth;
-			box_init.height_ = 0.35 * kHeight;
-			box_init.body_type_ = kStaticBody;
-			box_init.is_trigger_ = true;
+			box_init.width_         = 0.35 * kWidth;
+			box_init.height_        = 0.35 * kHeight;
+			box_init.body_type_     = kStaticBody;
+			box_init.is_trigger_    = true;
 			box_init.gravity_scale_ = 0.0f;
 			box_init.category_bits_ = CollisionFilter::kLight;
-			box_init.mask_bits_ = CollisionFilter::kGimmickTrigger;
+			box_init.mask_bits_     = CollisionFilter::kGimmickTrigger;
 
 			BoxCollider *box_col = new BoxCollider(box_init);
 			tmp_large_light_[3]->AddComponent(box_col);
@@ -219,14 +221,30 @@ namespace shadowpartner
 
 		// ƒQ[ƒg
 		{
-			back_ground_ = new GameObject();
-			back_ground_->transform_->position_ = Vector2(4.5f, -1.6f);
+			gate_ = new GameObject();
+			gate_->transform_->position_ = Vector2(4.5f, -1.6f);
 
 			Sprite *sprite = new Sprite(CLEAR_GATE_TEXTURE_NAME);
 			sprite->SetSize(Vector2(1.0f, 1.5f));
-			back_ground_->AddComponent(sprite);
+			gate_->AddComponent(sprite);
 
-			AddGameObject(back_ground_);
+			BoxInitializer box_init;
+			box_init.pos_           = gate_->transform_->position_;
+			box_init.body_type_     = kDynamicBody;
+			box_init.is_trigger_    = true;
+			box_init.gravity_scale_ = 0.0f;
+			box_init.width_         = 1.0f;
+			box_init.height_        = 1.5f;
+			box_init.category_bits_ = CollisionFilter::kActionObject;
+			box_init.mask_bits_     = CollisionFilter::kActionTrigger;
+			BoxCollider *box_col = new BoxCollider(box_init);
+			gate_->AddComponent(box_col);
+
+
+			Gate *gate_compo = new Gate();
+			gate_->AddComponent(gate_compo);
+
+			AddGameObject(gate_);
 
 		}
 
@@ -449,9 +467,9 @@ namespace shadowpartner
 
 			// ‹éŒ`‚Ì“–‚½‚è”»’è‚ÌÝ’è
 			BoxInitializer box_init;
-			box_init.body_type_      = kDynamicBody;
-			box_init.fixed_rotation_ = false;
-			box_init.is_trigger_     = false;
+			box_init.body_type_        = kDynamicBody;
+			box_init.fixed_rotation_   = false;
+			box_init.is_trigger_       = false;
 			//box_init.offset_         = Vector2(0.0f, kTreeHeight / 2.0f);
 			box_init.width_ = kTreeWidth;
 			box_init.height_ = kTreeHeight;
@@ -787,7 +805,7 @@ namespace shadowpartner
 
 		//if (input::Input::Instance()->GetButtonDown(input::InputButton::Start))
 		//	SceneManager::LoadScene(new TempEndingScene());
-
+#ifdef _DEBUG
 		//if (input::Input::Instance()->GetButtonDown(input::InputButton::Skill))
 		//{
 		//	NextPhase();
@@ -796,6 +814,7 @@ namespace shadowpartner
 		//{
 		//	PrevPhase();
 		//}
+#endif
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
 		{
 			//static int z = 0;
@@ -814,6 +833,12 @@ namespace shadowpartner
 		//rad += D3DXToRadian(0.1f);
 		//moon_light_->GetComponent<Light>()->SetDirection(Vector2(cosf(rad),sinf(rad)));
 
+#ifdef _DEBUG
+		if (input::Input::Instance()->GetButtonDown(input::InputButton::Start))
+		{
+			SceneManager::LoadScene(new TitleScene());
+		}
+#endif
 		tree_log_->GetComponent<BoxCollider>()->AddForce(Vector2(-5.0f, -10.0f));
 	}
 

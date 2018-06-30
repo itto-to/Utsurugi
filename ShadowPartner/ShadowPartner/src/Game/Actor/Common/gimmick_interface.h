@@ -10,10 +10,17 @@
 
 namespace shadowpartner
 {
+	class GameObject;
+
 	class GimmickInterface
 	{
 	public:
-		virtual void ActivateGimmick() = 0;
+		GimmickInterface() : is_activated_(false) {}
+		virtual void ActivateGimmick(GameObject *activator) = 0;
+		bool IsActivated() {return is_activated_;}
+
+	protected:
+		bool is_activated_;
 	};
 }
 

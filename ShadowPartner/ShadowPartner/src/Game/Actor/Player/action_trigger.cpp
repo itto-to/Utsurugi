@@ -21,7 +21,8 @@ namespace shadowpartner
 
 	void ActionTrigger::OnTriggerEnter(Collider *col)
 	{
-		gimmick_objects_.push_back(col->game_object_);
+		if (!col->GetComponentInherit<GimmickInterface>()->IsActivated())
+			gimmick_objects_.push_back(col->game_object_);
 	}
 
 	void ActionTrigger::OnTriggerExit(Collider *col)
@@ -66,10 +67,15 @@ namespace shadowpartner
 	{
 		if (gimmick_objects_.size() > 0)
 		{
-			GimmickInterface *gimmick = gimmick_objects_[0]->GetComponentInherit<GimmickInterface>();
-			if (gimmick != nullptr)
+			for (auto itr = gimmick_objects_.begin(); itr != gimmick_objects_.end(); itr++)
 			{
-				gimmick->ActivateGimmick();
+				GimmickInterface *gimmick = (*itr)->GetComponentInherit<GimmickInterface>();
+				if (gimmick != nullptr && !gimmick->IsActivated())
+				{
+					gimmick->ActivateGimmick(game_object_);
+					if (gimmick->IsActivated())
+						gimmick_objects_.erase(itr);
+				}
 			}
 		}
 	}

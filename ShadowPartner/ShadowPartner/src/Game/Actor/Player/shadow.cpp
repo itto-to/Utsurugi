@@ -60,7 +60,11 @@ namespace shadowpartner
 		{
 			ReturnToPlayerShadow();
 		}
-
+		else if (transform_->position_.y < -10.0f)
+		{
+			// 落下したらプレイヤーの元に戻る
+			ReturnToPlayerShadow();
+		}
 		state_->Execute();
 	}
 
@@ -121,6 +125,35 @@ namespace shadowpartner
 
 		landing_trigger_->SetTransform(transform_->position_, transform_->rotation_);
 
+		// 設地判定トリガー
+		BoxInitializer land_init;
+		land_init.body_type_     = kDynamicBody;
+		land_init.gravity_scale_ = 0.0f;
+		land_init.is_trigger_    = true;
+		land_init.pos_           = transform_->position_;
+		land_init.width_         = kSmallShadowCollisionSize.x;
+		land_init.height_        = 0.1f;
+		land_init.offset_        = Vector2(0.0f, -kSmallShadowCollisionSize.y / 2.0f);
+		land_init.is_trigger_    = true;
+		land_init.category_bits_ = CollisionFilter::kLandingTirgger;
+		land_init.mask_bits_     = CollisionFilter::kPlatform | CollisionFilter::kClimb | CollisionFilter::kActionObject;
+
+		landing_trigger_->ReSet(land_init);
+
+		// ギミックトリガーの再設定
+		BoxInitializer gimmick_init;
+		gimmick_init.body_type_     = kDynamicBody;
+		gimmick_init.gravity_scale_ = 0.0f;
+		gimmick_init.pos_           = transform_->position_;
+		gimmick_init.width_         = kSmallShadowCollisionSize.x;
+		gimmick_init.height_        = kSmallShadowCollisionSize.y;
+		gimmick_init.is_trigger_    = true;
+		gimmick_init.offset_        = Vector2::zero();
+		gimmick_init.category_bits_ = CollisionFilter::kGimmickTrigger;
+		gimmick_init.mask_bits_     = CollisionFilter::kLight | CollisionFilter::kClimb;	// 光とツタだけ反応する
+
+		gimmick_trigger_->ReSet(gimmick_init);
+
 	}
 
 	void Shadow::CreateMiddleShadow()
@@ -153,6 +186,35 @@ namespace shadowpartner
 		collider_->ReSet(box_init);
 		// 当たり判定オン
 		collider_->SetActive(true);
+
+		// 設地判定トリガー
+		BoxInitializer land_init;
+		land_init.body_type_     = kDynamicBody;
+		land_init.gravity_scale_ = 0.0f;
+		land_init.is_trigger_    = true;
+		land_init.pos_           = transform_->position_;
+		land_init.width_         = kMiddleShadowCollisionSize.x;
+		land_init.height_        = 0.1f;
+		land_init.offset_        = Vector2(0.0f, -kMiddleShadowCollisionSize.y / 2.0f);
+		land_init.is_trigger_    = true;
+		land_init.category_bits_ = CollisionFilter::kLandingTirgger;
+		land_init.mask_bits_     = CollisionFilter::kPlatform | CollisionFilter::kClimb | CollisionFilter::kActionObject;
+
+		landing_trigger_->ReSet(land_init);
+
+		// ギミックトリガーの再設定
+		BoxInitializer gimmick_init;
+		gimmick_init.body_type_     = kDynamicBody;
+		gimmick_init.gravity_scale_ = 0.0f;
+		gimmick_init.pos_           = transform_->position_;
+		gimmick_init.width_         = kMiddleShadowCollisionSize.x;
+		gimmick_init.height_        = kMiddleShadowCollisionSize.y;
+		gimmick_init.is_trigger_    = true;
+		gimmick_init.offset_        = Vector2::zero();
+		gimmick_init.category_bits_ = CollisionFilter::kGimmickTrigger;
+		gimmick_init.mask_bits_     = CollisionFilter::kLight | CollisionFilter::kClimb;	// 光とツタだけ反応する
+
+		gimmick_trigger_->ReSet(gimmick_init);
 	}
 
 	void Shadow::CreateLargeShadow()
@@ -186,6 +248,35 @@ namespace shadowpartner
 
 		// 当たり判定オン
 		collider_->SetActive(true);
+
+		// 着地判定トリガー再設定
+		BoxInitializer land_init;
+		land_init.body_type_     = kDynamicBody;
+		land_init.gravity_scale_ = 0.0f;
+		land_init.is_trigger_    = true;
+		land_init.pos_           = transform_->position_;
+		land_init.width_         = kLargeShadowCollisionSize.x;
+		land_init.height_        = 0.1f;
+		land_init.offset_        = Vector2(0.0f, -kLargeShadowCollisionSize.y / 2.0f);
+		land_init.is_trigger_    = true;
+		land_init.category_bits_ = CollisionFilter::kLandingTirgger;
+		land_init.mask_bits_     = CollisionFilter::kPlatform | CollisionFilter::kClimb | CollisionFilter::kActionObject;
+
+		landing_trigger_->ReSet(land_init);
+
+		// ギミックトリガーの再設定
+		BoxInitializer gimmick_init;
+		gimmick_init.body_type_     = kDynamicBody;
+		gimmick_init.gravity_scale_ = 0.0f;
+		gimmick_init.pos_           = transform_->position_;
+		gimmick_init.width_         = kLargeShadowCollisionSize.x;
+		gimmick_init.height_        = kLargeShadowCollisionSize.y;
+		gimmick_init.is_trigger_    = true;
+		gimmick_init.offset_        = Vector2::zero();
+		gimmick_init.category_bits_ = CollisionFilter::kGimmickTrigger;
+		gimmick_init.mask_bits_     = CollisionFilter::kLight | CollisionFilter::kClimb;	// 光とツタだけ反応する
+
+		gimmick_trigger_->ReSet(gimmick_init);
 	}
 
 	void Shadow::ReturnToPlayerShadow()
