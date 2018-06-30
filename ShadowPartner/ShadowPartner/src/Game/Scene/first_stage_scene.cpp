@@ -62,7 +62,7 @@ namespace
 	const Vector2 kFireflySpriteSize = Vector2(0.3f, 0.3f);
 	const Vector2 kFireflyLightSize = Vector2(2.0f, 2.0f);
 
-	const Vector2 kLightTreePosition   = Vector2(-1.0f, -0.6f);
+	const Vector2 kLightTreePosition   = Vector2(-1.5f, -0.6f);
 	const Vector2 kLightTreeSpriteSize = Vector2(2.56f, 3.25f);
 	const Vector2 kLightTreeLightSize  = Vector2(3.0f, 3.0f);
 
@@ -269,18 +269,61 @@ namespace shadowpartner
 
 		{
 			invisible_wall_ = new GameObject();
-			invisible_wall_->transform_->position_ = Vector2(-5.425f, 0.0f);
+			invisible_wall_->transform_->position_ = Vector2(0.0f, 0.0f);
+
+			std::vector<Collider *>cols;
 
 			BoxInitializer bi;
 			bi.width_ = 0.35f;
-			bi.height_ = 20.0f;
+			bi.height_ = 5.25f;
+			bi.offset_ = Vector2(-5.425f, 0.525f);
+			bi.friction_ = 0.0f;
 			bi.body_type_ = BodyType::kStaticBody;
 
-			BoxCollider *box = new BoxCollider(bi);
-			invisible_wall_->AddComponent(box);
+			BoxCollider *box1 = new BoxCollider(bi);
+			invisible_wall_->AddComponent(box1);
+			cols.push_back(box1);
+
+			bi.width_ = 5.6f;
+			bi.height_ = 1.05f;
+			bi.friction_ = 0.2f;
+			bi.offset_ = Vector2(-2.80f, -2.625f);
+
+			BoxCollider *box2 = new BoxCollider(bi);
+			invisible_wall_->AddComponent(box2);
+			cols.push_back(box2);
+
+			bi.width_ = 3.85f;
+			bi.height_ = 1.05f;
+			bi.offset_ = Vector2(3.675f, -2.625f);
+
+			BoxCollider *box3 = new BoxCollider(bi);
+			invisible_wall_->AddComponent(box3);
+			cols.push_back(box3);
+
+			bi.width_ = 3.5f;
+			bi.height_ = 1.05f;
+			bi.offset_ = Vector2(-2.45f, 0.875f);
+
+			BoxCollider *box4 = new BoxCollider(bi);
+			invisible_wall_->AddComponent(box4);
+			cols.push_back(box4);
+
+			bi.width_ = 2.45f;
+			bi.height_ = 1.05f;
+			bi.offset_ = Vector2(0.525f, 0.525f);
+
+			BoxCollider *box5 = new BoxCollider(bi);
+			invisible_wall_->AddComponent(box5);
+			cols.push_back(box5);
+
+			CornerCandidates::PreCalculate(cols);
 
 			AddGameObject(invisible_wall_);
+
+			
 		}
+
 
 		// Stage Fase2
 		//{
@@ -477,7 +520,7 @@ namespace shadowpartner
 			ri.world_pos_ = hinge_joint_->transform_->position_;
 
 			ri.enable_limit_ = true;
-			ri.lower_angle_ = -90.0f;
+			ri.lower_angle_ = -89.0f;
 			ri.upper_angle_ = 10.0f;
 
 			RevoluteJoint *revolute_joint = new RevoluteJoint(ri);
@@ -747,9 +790,10 @@ namespace shadowpartner
 
 		{
 			//test_object_ = new GameObject();
-			//test_object_->transform_->position_ = Vector2(4.5f, -1.5f);
+			//test_object_->transform_->position_ = Vector2(-5.425f, 0.525f);
 			//Sprite *sprite = new Sprite("Resources/Texture/white");
-			//sprite->SetSize(Vector2::one() * 2.0f);
+			//sprite->SetSize(Vector2(0.35f,5.25f));
+			//sprite->SetColor(D3DCOLOR_RGBA(0xff, 0x00, 0x00, 0x55));
 
 			//test_object_->AddComponent(sprite);
 
@@ -778,11 +822,11 @@ namespace shadowpartner
 		}
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
 		{
-			/*static int z = 0;
+			//static int z = 0;
 
-			z = (z + 1) % 16;
-			Camera::main_->SetZoom(10.0f + 1.0f * (z - 9));
-*/
+			//z = (z + 1) % 16;
+			//Camera::main_->SetZoom(10.0f + 1.0f * (z - 9));
+
 			Vector2 pp = shadow_->transform_->position_;
 			if (pp.x > 1.5f && pp.x < 3.5f && pp.y > -2.5f && pp.y < -0.5f)
 			{
@@ -794,7 +838,7 @@ namespace shadowpartner
 		//rad += D3DXToRadian(0.1f);
 		//moon_light_->GetComponent<Light>()->SetDirection(Vector2(cosf(rad),sinf(rad)));
 
-		tree_log_->GetComponent<BoxCollider>()->AddForce(Vector2(-1.0f, -1.0f));
+		tree_log_->GetComponent<BoxCollider>()->AddForce(Vector2(-5.0f, -10.0f));
 	}
 
 	void FirstStageScene::Uninit()

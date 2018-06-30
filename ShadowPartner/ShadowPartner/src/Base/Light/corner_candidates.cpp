@@ -138,8 +138,8 @@ namespace shadowpartner
 		// 一つ一つのコライダーの種類ごとに候補点の取得を行う。
 		for (int i = 0;i < colliders.size();++i)
 		{
-			// ここで追加するのはDynamicBodyだけ
-			if (colliders[i]->body_->GetType() != b2BodyType::b2_dynamicBody)
+			// ここではStaticBodyは追加しない
+			if (colliders[i]->body_->GetType() == b2BodyType::b2_staticBody)
 				continue;
 
 			if (!((1 << colliders[i]->game_object_->layer_) & ~LIGHT_RECEIVABLE_LAYER))
