@@ -5,7 +5,10 @@
 #include "../../Base/Debug/debugger.h"
 
 using namespace physics;
+
+#ifdef _DEBUG
 using namespace debug;
+#endif
 
 namespace shadowpartner
 {
