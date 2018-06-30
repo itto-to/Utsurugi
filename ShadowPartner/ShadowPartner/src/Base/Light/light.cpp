@@ -20,6 +20,7 @@ namespace shadowpartner
 	//**********************************************************
 	// ƒ}ƒNƒ
 	//**********************************************************
+#define LIGHT_RECEIVABLE_LAYER ~(CollisionFilter::kLight)
 
 		//**********************************************************
 		// ’è”
@@ -161,7 +162,7 @@ namespace shadowpartner
 		{
 			Vector2 direction = Vector2(cosf(d), sinf(d));
 
-			hit_info = physics::PhysicsFunc::Raycast(transform_->position_, direction, radius_);
+			hit_info = physics::PhysicsFunc::Raycast(transform_->position_, direction, radius_,LIGHT_RECEIVABLE_LAYER);
 			if (hit_info.collider != nullptr)
 				new_light_vertices.push_back(hit_info.hit_point);
 			else
@@ -195,7 +196,7 @@ namespace shadowpartner
 			// ‚P‚Â–Ú
 			{
 				hit_info = physics::PhysicsFunc::Raycast(transform_->position_,
-					Rotate(ray_direction_base, SHIFT_DEGREE), radius_);
+					Rotate(ray_direction_base, SHIFT_DEGREE), radius_,LIGHT_RECEIVABLE_LAYER);
 
 				if (hit_info.collider != nullptr)
 				{
@@ -212,7 +213,7 @@ namespace shadowpartner
 			// 2‚Â–Ú
 			{
 				hit_info = physics::PhysicsFunc::Raycast(transform_->position_,
-					Rotate(ray_direction_base, -SHIFT_DEGREE), radius_);
+					Rotate(ray_direction_base, -SHIFT_DEGREE), radius_,LIGHT_RECEIVABLE_LAYER);
 
 				if (hit_info.collider != nullptr)
 				{

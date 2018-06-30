@@ -127,10 +127,10 @@ namespace shadowpartner
 			tmp_large_light_[0]->transform_->position_ = Vector2(-4.90f, 0.6f);
 			tmp_large_light_[0]->tag_ = Tag::kLargeLight;
 
-			Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
-			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
-			tmp_large_light_[0]->AddComponent(sprite);
+			//Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
+			//sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
+			//sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
+			//tmp_large_light_[0]->AddComponent(sprite);
 
 			BoxInitializer box_init;
 			box_init.pos_           = tmp_large_light_[0]->transform_->position_;
@@ -157,10 +157,10 @@ namespace shadowpartner
 			tmp_large_light_[1]->transform_->position_ = Vector2(-2.45f, 2.27f);
 			tmp_large_light_[1]->tag_ = Tag::kLargeLight;
 
-			Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
-			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
-			tmp_large_light_[1]->AddComponent(sprite);
+			//Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
+			//sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
+			//sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
+			//tmp_large_light_[1]->AddComponent(sprite);
 
 			BoxInitializer box_init;
 			box_init.pos_ = tmp_large_light_[1]->transform_->position_;
@@ -187,10 +187,10 @@ namespace shadowpartner
 			tmp_large_light_[2]->transform_->position_ = Vector2(0.525f, 2.10f);
 			tmp_large_light_[2]->tag_ = Tag::kLargeLight;
 
-			Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
-			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
-			tmp_large_light_[2]->AddComponent(sprite);
+			//Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
+			//sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
+			//sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
+			//tmp_large_light_[2]->AddComponent(sprite);
 
 			BoxInitializer box_init;
 			box_init.pos_ = tmp_large_light_[2]->transform_->position_;
@@ -217,10 +217,10 @@ namespace shadowpartner
 			tmp_large_light_[3]->transform_->position_ = Vector2(3.675f, 0.6f);
 			tmp_large_light_[3]->tag_ = Tag::kLargeLight;
 
-			Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
-			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
-			tmp_large_light_[3]->AddComponent(sprite);
+			//Sprite *sprite = new Sprite(WHITE_TEXTURE_NAME);
+			//sprite->SetSize(Vector2(0.35 * kWidth, 0.35 * kHeight));
+			//sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28));
+			//tmp_large_light_[3]->AddComponent(sprite);
 
 			BoxInitializer box_init;
 			box_init.pos_ = tmp_large_light_[3]->transform_->position_;
@@ -812,14 +812,14 @@ namespace shadowpartner
 		//if (input::Input::Instance()->GetButtonDown(input::InputButton::Start))
 		//	SceneManager::LoadScene(new TempEndingScene());
 
-		if (input::Input::Instance()->GetButtonDown(input::InputButton::Skill))
-		{
-			NextPhase();
-		}
-		if (input::Input::Instance()->GetButtonDown(input::InputButton::Cancel))
-		{
-			PrevPhase();
-		}
+		//if (input::Input::Instance()->GetButtonDown(input::InputButton::Skill))
+		//{
+		//	NextPhase();
+		//}
+		//if (input::Input::Instance()->GetButtonDown(input::InputButton::Cancel))
+		//{
+		//	PrevPhase();
+		//}
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
 		{
 			//static int z = 0;

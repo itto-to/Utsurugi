@@ -474,7 +474,7 @@ namespace shadowpartner
 			SceneManager::Instance()->Draw();
 
 #ifdef _DEBUG
-			physics::PhysicsWorld::Draw();
+			//physics::PhysicsWorld::Draw();
 			debug::Debug::Draw();
 #endif
 

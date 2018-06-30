@@ -18,11 +18,19 @@ namespace physics
 	public:
 		RayCastClosestCallback()
 			:hit_(false)
+			,layer_mask_(0xffffffff)
 		{
 		}
 
 		float ReportFixture(b2Fixture *fixture, const b2Vec2 &point, const b2Vec2 &normal, float fraction)
 		{
+			b2Filter reported_filter = fixture->GetFilterData();
+
+			if (~layer_mask_ & reported_filter.categoryBits)
+			{
+				return -1.0f;
+			}
+
 			// Œ»Ý‚Ìfraction‚ð•Ô‚·
 			hit_ = true;
 			body_ = fixture->GetBody();
@@ -36,6 +44,7 @@ namespace physics
 		b2Body *body_;
 		Vector2 point_;
 		Vector2 normal_;
+		int layer_mask_;
 	};
 
 	class RayCastAnyCallback : public b2RayCastCallback
@@ -132,6 +141,7 @@ namespace physics
 		b2Vec2 point2 = point1 + b2Vec2(direction.x, direction.y) * distance;
 
 		RayCastClosestCallback callback;
+		callback.layer_mask_ = layer_mask;
 		PhysicsWorld::instance_->world_.RayCast(&callback, point1, point2);
 
 		if (callback.hit_)

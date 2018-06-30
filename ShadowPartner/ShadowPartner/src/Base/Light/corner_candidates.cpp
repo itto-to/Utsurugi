@@ -14,7 +14,7 @@ namespace shadowpartner
 	//**********************************************************
 	// É}ÉNÉç
 	//**********************************************************
-#define LIGHT_RECEIVABLE_LAYER (1 << Layer::kDefaultLayer + 1 << Layer::kPlayerLayer)
+#define LIGHT_RECEIVABLE_LAYER ~(CollisionFilter::kLight)
 
 	//**********************************************************
 	// íËêî
