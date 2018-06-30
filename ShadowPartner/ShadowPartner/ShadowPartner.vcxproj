@@ -209,6 +209,7 @@
     <ClCompile Include="src\Game\Actor\Player\walk_state.cpp" />
     <ClCompile Include="src\Game\Application\application.cpp" />
     <ClCompile Include="src\Game\Scene\first_stage_scene.cpp" />
+    <ClCompile Include="src\Game\Scene\result_scene.cpp" />
     <ClCompile Include="src\Game\Scene\stage_scene.cpp" />
     <ClCompile Include="src\Game\Scene\temp_ending.cpp" />
     <ClCompile Include="src\Game\Scene\title_scene.cpp" />
@@ -283,6 +284,7 @@
     <ClInclude Include="src\Game\Actor\Player\walk_state.h" />
     <ClInclude Include="src\Game\Application\application.h" />
     <ClInclude Include="src\Game\Scene\first_stage_scene.h" />
+    <ClInclude Include="src\Game\Scene\result_scene.h" />
     <ClInclude Include="src\Game\Scene\stage_scene.h" />
     <ClInclude Include="src\Game\Scene\temp_ending.h" />
     <ClInclude Include="src\Game\Scene\title_scene.h" />
