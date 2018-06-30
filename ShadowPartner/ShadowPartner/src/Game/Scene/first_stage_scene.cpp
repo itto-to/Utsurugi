@@ -267,6 +267,21 @@ namespace shadowpartner
 
 		}
 
+		{
+			invisible_wall_ = new GameObject();
+			invisible_wall_->transform_->position_ = Vector2(-5.425f, 0.0f);
+
+			BoxInitializer bi;
+			bi.width_ = 0.35f;
+			bi.height_ = 20.0f;
+			bi.body_type_ = BodyType::kStaticBody;
+
+			BoxCollider *box = new BoxCollider(bi);
+			invisible_wall_->AddComponent(box);
+
+			AddGameObject(invisible_wall_);
+		}
+
 		// Stage Fase2
 		//{
 		//	stages_[1] = new GameObject();
