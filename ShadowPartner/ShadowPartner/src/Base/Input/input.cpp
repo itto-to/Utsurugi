@@ -256,7 +256,7 @@ namespace input {
 			}
 
 			// アタックボタン(キーボードVとゲームパッド□)
-			if (CheckKey(DIK_V, i) || CheckPad(0, 0, i))
+			if (CheckKey(DIK_R, i) || CheckPad(0, 0, i))
 			{
 				MeetButton(InputButton::Attack, i);
 			}

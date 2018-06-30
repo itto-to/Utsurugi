@@ -736,6 +736,7 @@ namespace shadowpartner
 
 			ivy_joint_->AddComponent(tree_ivy_joint);
 
+			AddGameObject(ivy_joint_);
 		}
 
 		StageScene::Init();
@@ -765,7 +766,7 @@ namespace shadowpartner
 			z = (z + 1) % 16;
 			Camera::main_->SetZoom(10.0f + 1.0f * (z - 9));
 */
-			Vector2 pp = player_->transform_->position_;
+			Vector2 pp = shadow_->transform_->position_;
 			if (pp.x > 3.5f && pp.x < 5.5f && pp.y > -2.5f && pp.y < -0.5f)
 			{
 				DestroyImmediate(ivy_joint_);
