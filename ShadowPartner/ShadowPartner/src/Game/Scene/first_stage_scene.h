@@ -50,7 +50,6 @@ namespace shadowpartner
 		// methods
 
 
-
 		// —˜—p‹ÖŽ~
 	};
 }
