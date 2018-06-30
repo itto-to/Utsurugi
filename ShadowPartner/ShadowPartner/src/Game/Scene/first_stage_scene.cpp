@@ -749,7 +749,7 @@ namespace shadowpartner
 
 		//if (input::Input::Instance()->GetButtonDown(input::InputButton::Start))
 		//	SceneManager::LoadScene(new TempEndingScene());
-
+#ifdef _DEBUG
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Skill))
 		{
 			NextPhase();
@@ -758,6 +758,7 @@ namespace shadowpartner
 		{
 			PrevPhase();
 		}
+#endif
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Action))
 		{
 			/*static int z = 0;
