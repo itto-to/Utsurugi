@@ -16,6 +16,7 @@ namespace physics
 
 namespace shadowpartner
 {
+	class GameObject;
 
 	class Tree : public Component, public GimmickInterface
 	{
@@ -25,7 +26,7 @@ namespace shadowpartner
 		void Start() override;
 		void Update() override;
 	
-		void ActivateGimmick() override;
+		void ActivateGimmick(GameObject *activator) override;
 
 	protected:
 		physics::Collider *collider_;

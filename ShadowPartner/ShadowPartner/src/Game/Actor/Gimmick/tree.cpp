@@ -5,6 +5,7 @@
 //==========================================================
 #include "tree.h"
 
+#include "../../../Base/Element/gameobject.h"
 #include "../../../Base/Physics/Element/collider.h"
 
 using namespace physics;
@@ -25,7 +26,7 @@ namespace shadowpartner
 	{
 	}
 
-	void Tree::ActivateGimmick()
+	void Tree::ActivateGimmick(GameObject *activator)
 	{
 		if (!is_activated_)
 		{

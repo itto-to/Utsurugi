@@ -11,16 +11,16 @@
 
 namespace shadowpartner
 {
+	class GameObject;
 
 	class  Gate : public Component, public GimmickInterface
 	{
 	public:
-		Gate() : is_activated(false) {}
+		Gate() {}
 
-		void ActivateGimmick() override;
+		void ActivateGimmick(GameObject *activator) override;
 
 	protected:
-		bool is_activated;
 	};
 
 }	// namespace shadowpartner

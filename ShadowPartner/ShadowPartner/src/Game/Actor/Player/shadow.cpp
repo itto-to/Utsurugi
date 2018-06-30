@@ -60,7 +60,11 @@ namespace shadowpartner
 		{
 			ReturnToPlayerShadow();
 		}
-
+		else if (transform_->position_.y < -10.0f)
+		{
+			// —Ž‰º‚µ‚½‚çƒvƒŒƒCƒ„[‚ÌŒ³‚É–ß‚é
+			ReturnToPlayerShadow();
+		}
 		state_->Execute();
 	}
 
