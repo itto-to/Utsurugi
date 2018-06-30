@@ -73,8 +73,6 @@ namespace shadowpartner
 				if (gimmick != nullptr && !gimmick->IsActivated())
 				{
 					gimmick->ActivateGimmick(game_object_);
-					if (gimmick->IsActivated())
-						gimmick_objects_.erase(itr);
 				}
 			}
 		}
