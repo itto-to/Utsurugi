@@ -39,7 +39,7 @@
 #define BACK_GROUND_TEXTURE_NAME "Resources/Texture/Stage/ForestBackGround.png"
 #define CLEAR_GATE_TEXTURE_NAME  "Resources/Texture/Stage/Gate.png"
 #define PLAYER_TEXTURE_NAME      "Resources/Texture/Character/PlayerWalk.png"
-#define LIGHT_TEXTURE_NAME       "Resources/Texture/Light/Light.png"
+#define LIGHT_TEXTURE_NAME       "Resources/Texture/Light/Light-test.png"
 #define IVY_TEXTURE_NAME         "Resources/Texture/Stage/Ivy.png"
 #define TREE_LOG_TEXTURE_NAME    "Resources/Texture/Stage/RoundWood.png"
 #define LIGHT_TREE_TEXTURE_NAME  "Resources/Texture/Light/TreeLine.png"
@@ -359,7 +359,7 @@ namespace shadowpartner
 			// 光のスプライト設定
 			Sprite *sprite = new Sprite(LIGHT_TEXTURE_NAME);
 			sprite->SetSize(kLightTreeLightSize);
-			sprite->SetColor(D3DCOLOR_RGBA(0x80, 0x080, 0x00, 0x80));
+			sprite->SetColor(D3DCOLOR_RGBA(0xFF, 0xFF, 0xFF, 0xFF));
 			middle_light_->AddComponent(sprite);
 
 			// ライトツリーのスプライト設定
@@ -393,7 +393,7 @@ namespace shadowpartner
 			// スプライトの設定
 			Sprite *sprite = new Sprite(LIGHT_TEXTURE_NAME);
 			sprite->SetSize(kFireflyLightSize);
-			sprite->SetColor(D3DCOLOR_RGBA(0x80, 0x80, 0x00, 0x80));
+			sprite->SetColor(D3DCOLOR_RGBA(0xFF, 0xFF, 0xFF, 0x80));
 			small_light_->AddComponent(sprite);
 
 			// ホタルのスプライト設定
