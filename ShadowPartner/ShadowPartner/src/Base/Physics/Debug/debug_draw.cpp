@@ -8,8 +8,30 @@
 #include "debug_draw.h"
 #include "../../../Game/Application/application.h"
 #include "../../Debug/debugger.h"
+#include "../../Math/math.h"
+#include <d3dx9.h>
+#include "../../2D/texture.h"
+#include "../../2D/camera.h"
+
 
 using namespace shadowpartner;
+using namespace math;
+
+namespace
+{
+	//==========================================================
+	// ワールド座標からスクリーン座標へ変換
+	//==========================================================
+	Vector2 ToScreenPos(const Vector2 &world_pos)
+	{
+		Vector2 pixel_world_pos = world_pos * PIXEL_PER_UNIT;
+		Vector2 draw_pos = Vector2(pixel_world_pos.x, -pixel_world_pos.y) / Camera::main_->GetZoom();
+		Vector2 screen_center = Vector2(Application::Instance()->GetScreenWidth() / 2, Application::Instance()->GetScreenHeight() / 2);
+		draw_pos += screen_center - Vector2(Camera::main_->transform_->position_) * PIXEL_PER_UNIT;
+
+		return draw_pos;
+	}
+}
 
 namespace physics
 {
@@ -19,6 +41,7 @@ namespace physics
 #define FVF_WIREFRAME (D3DFVF_XYZRHW | D3DFVF_DIFFUSE)
 #define DEBUG_CIRCLE_VERTEX_NUM (60)
 #define DEBUG_PARTICLE_VERTEX_NUM (8)
+
 
 	DebugDraw::DebugDraw()
 		:line_count_(0)
@@ -35,6 +58,7 @@ namespace physics
 	{
 		LPDIRECT3DDEVICE9 device = Application::Instance()->device;
 
+		D3DXCreateLine(device, &line_object_);
 		HRESULT hr;
 
 		// 頂点バッファの作成
@@ -65,17 +89,20 @@ namespace physics
 		if (FAILED(hr))
 			debug::Debug::WarningBox("インデックスバッファの作成に失敗");
 
-		SetDrawFlags(settings_);
+		//SetDrawFlags(settings_);
 	}
 
 	// 終了処理
 	void DebugDraw::Uninit()
 	{
+		line_object_->Release();
+		line_object_ = nullptr;
 	}
 
 	// 描画処理
 	void DebugDraw::Draw()
 	{
+
 		if (line_count_ == 0)
 			return;
 
@@ -143,24 +170,35 @@ namespace physics
 	//==========================================================
 	void DebugDraw::DrawPolygon(const b2Vec2 *vertices, int vertex_count, const b2Color &color)
 	{
-		//D3DCOLOR c = B2_TO_D3D_COLOR(color);
-		D3DCOLOR c = D3DCOLOR_RGBA(0x00, 0xff, 0x00, 0xff);
+		Vector2 *vertex_list = new Vector2[vertex_count + 1];
 
-		DebugLine line;
-		for (int i = 0;i < vertex_count - 1;++i)
+		for (int i = 0; i < vertex_count; i++)
 		{
-			line.p1 = DebugVertex(vertices[i], c);
-			line.p2 = DebugVertex(vertices[i + 1], c);
-			//line.p1 = DebugVertex(vertices[i].x,-vertices[i].y, c);
-			//line.p2 = DebugVertex(vertices[i + 1].x, -vertices[i + 1].y, c);
-
-			lines_[line_count_++] = line;
+			vertex_list[i] = ToScreenPos(Vector2(vertices[i].x, vertices[i].y));
 		}
+		vertex_list[vertex_count] = vertex_list[0];
 
-		line.p1 = DebugVertex(vertices[vertex_count - 1], c);
-		line.p2 = DebugVertex(vertices[0], c);
+		line_object_->Draw(vertex_list, vertex_count + 1, D3DXCOLOR(color.r, color.g, color.b, 1.0f));
+		delete[] vertex_list;
 
-		lines_[line_count_++] = line;
+		//D3DCOLOR c = B2_TO_D3D_COLOR(color);
+		//D3DCOLOR c = D3DCOLOR_RGBA(0x00, 0xff, 0x00, 0xff);
+
+		//DebugLine line;
+		//for (int i = 0;i < vertex_count - 1;++i)
+		//{
+		//	line.p1 = DebugVertex(vertices[i], c);
+		//	line.p2 = DebugVertex(vertices[i + 1], c);
+		//	//line.p1 = DebugVertex(vertices[i].x,-vertices[i].y, c);
+		//	//line.p2 = DebugVertex(vertices[i + 1].x, -vertices[i + 1].y, c);
+
+		//	lines_[line_count_++] = line;
+		//}
+
+		//line.p1 = DebugVertex(vertices[vertex_count - 1], c);
+		//line.p2 = DebugVertex(vertices[0], c);
+
+		//lines_[line_count_++] = line;
 	}
 
 	void DebugDraw::DrawFlatPolygon(const b2Vec2 *vertices, int vertex_count, const b2Color &color)
@@ -178,31 +216,43 @@ namespace physics
 	//==========================================================
 	void DebugDraw::DrawCircle(const b2Vec2 &center, float radius, const b2Color &color)
 	{
-		//D3DCOLOR c = B2_TO_D3D_COLOR(color);
-		D3DCOLOR c = D3DCOLOR_RGBA(0x00, 0xff, 0x00, 0xff);
+		const int kDegreeBetweenVertex = 6;
+		const int kNumVertex = 360 / kDegreeBetweenVertex + 1;
 
-		DebugLine line;
-		float theta;		// 円の中心と新規に登録する頂点がなす線分がなす角度
-
-		line.p1 = DebugVertex(center + b2Vec2(radius, 0.0f), c);
-		theta = b2_pi / DEBUG_CIRCLE_VERTEX_NUM;
-		line.p2 = DebugVertex(center + b2Vec2(cosf(theta) * radius, sinf(theta) * radius),c);
-
-		lines_[line_count_++] = line;
-
-		for (int i = 1;i < DEBUG_CIRCLE_VERTEX_NUM - 1;++i)
+		Vector2 *vertex_list = new Vector2[kNumVertex];
+		for (int i = 0; i < kNumVertex; i++)
 		{
-			line.p1 = line.p2;
-			theta = b2_pi * (float)(i + 1) / DEBUG_CIRCLE_VERTEX_NUM;
-			line.p2 = DebugVertex(center + b2Vec2(cosf(theta) * radius, sinf(theta) * radius), c);
-
-			lines_[line_count_++] = line;
+			float rad = D3DXToRadian(i * kDegreeBetweenVertex);
+			vertex_list[i] = ToScreenPos(Vector2(center.x, center.y) + radius * Vector2(cosf(rad), sinf(rad)));
 		}
+		//vertex_list[kNumVertex] = vertex_list[0];
 
-		line.p1 = line.p2;
-		line.p2 = DebugVertex(center + b2Vec2(radius, 0.0f), c);
+		line_object_->Draw(vertex_list, kNumVertex, D3DXCOLOR(color.r, color.g, color.b, 1.0f));
+		////D3DCOLOR c = B2_TO_D3D_COLOR(color);
+		//D3DCOLOR c = D3DCOLOR_RGBA(0x00, 0xff, 0x00, 0xff);
 
-		lines_[line_count_++] = line;
+		//DebugLine line;
+		//float theta;		// 円の中心と新規に登録する頂点がなす線分がなす角度
+
+		//line.p1 = DebugVertex(center + b2Vec2(radius, 0.0f), c);
+		//theta = b2_pi / DEBUG_CIRCLE_VERTEX_NUM;
+		//line.p2 = DebugVertex(center + b2Vec2(cosf(theta) * radius, sinf(theta) * radius),c);
+
+		//lines_[line_count_++] = line;
+
+		//for (int i = 1;i < DEBUG_CIRCLE_VERTEX_NUM - 1;++i)
+		//{
+		//	line.p1 = line.p2;
+		//	theta = b2_pi * (float)(i + 1) / DEBUG_CIRCLE_VERTEX_NUM;
+		//	line.p2 = DebugVertex(center + b2Vec2(cosf(theta) * radius, sinf(theta) * radius), c);
+
+		//	lines_[line_count_++] = line;
+		//}
+
+		//line.p1 = line.p2;
+		//line.p2 = DebugVertex(center + b2Vec2(radius, 0.0f), c);
+
+		//lines_[line_count_++] = line;
 	}
 
 	void DebugDraw::DrawSolidCircle(const b2Vec2 &center, float radius, const b2Vec2 &axis, const b2Color &color)
@@ -215,6 +265,10 @@ namespace physics
 	//==========================================================
 	void DebugDraw::DrawSegment(const b2Vec2 &p1, const b2Vec2 &p2, const b2Color &color)
 	{
+		Vector2 vertex[2];
+		vertex[0] = Vector2(p1.x, p1.y);
+		vertex[1] = Vector2(p2.x, p2.y);
+		line_object_->Draw(vertex, 2, D3DXCOLOR(color.r, color.g, color.b, 1.0f));
 
 	}
 
@@ -292,7 +346,6 @@ namespace physics
 	{
 
 	}
-
 }
 
 #endif

@@ -53,6 +53,7 @@ namespace physics
 #ifdef _DEBUG
 		instance_->debug_draw_->Init();
 		instance_->world_.SetDebugDraw(instance_->debug_draw_);
+		instance_->debug_draw_->SetFlags(b2Draw::e_shapeBit);
 #endif
 		ContactListener::Init();
 	}

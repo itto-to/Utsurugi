@@ -74,7 +74,7 @@ namespace shadowpartner
 		GameObject *player_object_;
 		Sprite *sprite_;
 		physics::BoxCollider *collider_;
-		LandingTrigger *landing_trigger_;
+		LandingTrigger *land_trigger_;
 		GimmickTrigger *gimmick_trigger_;
 		ActionTrigger *action_trigger_;
 		Jumper *jumper_;

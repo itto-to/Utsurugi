@@ -88,7 +88,7 @@ void JumpState::ExecuteState()
 		}
 		else
 		{
-			owner_->ChangeState(new IdleState(owner_));
+  			owner_->ChangeState(new IdleState(owner_));
 			return;
 		}
 	}

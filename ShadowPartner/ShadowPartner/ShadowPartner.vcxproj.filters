@@ -279,9 +279,6 @@
     <ClCompile Include="src\Base\Physics\Element\circle_collider.cpp">
       <Filter>ソース ファイル\Base\Physics\Element</Filter>
     </ClCompile>
-    <ClCompile Include="src\Base\Physics\World\physics_world.cpp">
-      <Filter>ソース ファイル\Base\Physics\World</Filter>
-    </ClCompile>
     <ClCompile Include="src\Test\Scene\physics_test_scene.cpp">
       <Filter>ソース ファイル\Test\Scene</Filter>
     </ClCompile>
@@ -410,6 +407,9 @@
     </ClCompile>
     <ClCompile Include="src\Game\Scene\result_scene.cpp">
       <Filter>ソース ファイル\Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\Physics\World\physics_world.cpp">
+      <Filter>ソース ファイル\Base\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

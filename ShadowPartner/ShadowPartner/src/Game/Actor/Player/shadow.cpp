@@ -46,7 +46,7 @@ namespace shadowpartner
 	void Shadow::Start()
 	{
 		sprite_          = GetComponent<Sprite>();
-		landing_trigger_ = GetComponent<LandingTrigger>();
+		land_trigger_ = GetComponent<LandingTrigger>();
 		gimmick_trigger_ = GetComponent<GimmickTrigger>();
 		action_trigger_  = GetComponent<ActionTrigger>();
 		collider_        = GetComponent<physics::BoxCollider>();
@@ -113,6 +113,7 @@ namespace shadowpartner
 		box_init.height_        = kSmallShadowCollisionSize.y;
 		box_init.bounciness_    = 0.0f;
 		box_init.density_       = 1.1f;
+		box_init.friction_      = 0.0f;
 		box_init.category_bits_ = CollisionFilter::kShadow;
 		box_init.mask_bits_     = ~CollisionFilter::kPlayer;
 		box_init.body_type_     = kDynamicBody;
@@ -123,9 +124,9 @@ namespace shadowpartner
 		// 当たり判定オン
 		collider_->SetActive(true);
 
-		landing_trigger_->SetTransform(transform_->position_, transform_->rotation_);
+		land_trigger_->SetTransform(transform_->position_, transform_->rotation_);
 
-		// 設地判定トリガー
+		// 接地判定トリガー
 		BoxInitializer land_init;
 		land_init.body_type_     = kDynamicBody;
 		land_init.gravity_scale_ = 0.0f;
@@ -137,8 +138,9 @@ namespace shadowpartner
 		land_init.is_trigger_    = true;
 		land_init.category_bits_ = CollisionFilter::kLandingTirgger;
 		land_init.mask_bits_     = CollisionFilter::kPlatform | CollisionFilter::kClimb | CollisionFilter::kActionObject;
+		land_trigger_->ReSet(land_init);
+		land_trigger_->SetSleepingAllowed(false);
 
-		landing_trigger_->ReSet(land_init);
 
 		// ギミックトリガーの再設定
 		BoxInitializer gimmick_init;
@@ -187,7 +189,7 @@ namespace shadowpartner
 		// 当たり判定オン
 		collider_->SetActive(true);
 
-		// 設地判定トリガー
+		// 接地判定トリガー
 		BoxInitializer land_init;
 		land_init.body_type_     = kDynamicBody;
 		land_init.gravity_scale_ = 0.0f;
@@ -199,8 +201,8 @@ namespace shadowpartner
 		land_init.is_trigger_    = true;
 		land_init.category_bits_ = CollisionFilter::kLandingTirgger;
 		land_init.mask_bits_     = CollisionFilter::kPlatform | CollisionFilter::kClimb | CollisionFilter::kActionObject;
-
-		landing_trigger_->ReSet(land_init);
+		land_trigger_->ReSet(land_init);
+		land_trigger_->SetSleepingAllowed(false);
 
 		// ギミックトリガーの再設定
 		BoxInitializer gimmick_init;
@@ -239,6 +241,7 @@ namespace shadowpartner
 		box_init.width_         = kLargeShadowCollisionSize.x;
 		box_init.height_        = kLargeShadowCollisionSize.y;
 		box_init.bounciness_    = 0.0f;
+		box_init.friction_      = 0.0f;
 		box_init.category_bits_ = CollisionFilter::kShadow;
 		box_init.mask_bits_     = ~CollisionFilter::kPlayer;
 		box_init.body_type_     = kDynamicBody;
@@ -261,8 +264,8 @@ namespace shadowpartner
 		land_init.is_trigger_    = true;
 		land_init.category_bits_ = CollisionFilter::kLandingTirgger;
 		land_init.mask_bits_     = CollisionFilter::kPlatform | CollisionFilter::kClimb | CollisionFilter::kActionObject;
-
-		landing_trigger_->ReSet(land_init);
+		land_trigger_->ReSet(land_init);
+		land_trigger_->SetSleepingAllowed(false);
 
 		// ギミックトリガーの再設定
 		BoxInitializer gimmick_init;
