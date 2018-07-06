@@ -14,6 +14,10 @@
 
 namespace shadowpartner
 {
+	namespace {
+		const int kMaxPlatform = 56;
+	}
+
 	//==========================================================
 	// 概要  :プレイヤーのテスト用シーン
 	//==========================================================
@@ -31,11 +35,12 @@ namespace shadowpartner
 		void Update();
 
 	private:
+
 		// variables
 		GameObject *player_;
 		GameObject *shadow_;
 		GameObject *camera_object_;
-		GameObject *platform_[4];
+		GameObject *platform_[kMaxPlatform];
 		GameObject *large_light_;
 		GameObject *middle_light_;
 		GameObject *small_light_;

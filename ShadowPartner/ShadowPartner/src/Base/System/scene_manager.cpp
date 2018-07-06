@@ -69,11 +69,6 @@ namespace shadowpartner
 
 		scenes_.push_back(title_scene);
 
-		//PlayerTestScene *player_test_scene = new PlayerTestScene();
-		//current_scene_ = player_test_scene;
-		//current_scene_->Init();
-		//scenes_.push_back(player_test_scene);
-
 		//PhysicsTestScene *physics_test_scene = new PhysicsTestScene();
 		//current_scene_ = physics_test_scene;
 
