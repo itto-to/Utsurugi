@@ -13,6 +13,7 @@
 // インクルードファイル
 //**********************************************************
 #include <Box2D\Box2D.h>
+#include <Box2D\Dynamics\b2World.h>
 #include <d3dx9.h>
 
 namespace physics
@@ -113,14 +114,14 @@ namespace physics
 
 		void SetDrawFlags(DrawSettings settings);
 
-		void DrawPolygon(const b2Vec2 *vertices, int vertex_count, const b2Color &color);
+		void DrawPolygon(const b2Vec2 *vertices, int vertex_count, const b2Color &color) override;
 		void DrawFlatPolygon(const b2Vec2 *vertices, int vertex_count, const b2Color &color);
-		void DrawSolidPolygon(const b2Vec2 *vertices, int vertex_count, const b2Color &color);
+		void DrawSolidPolygon(const b2Vec2 *vertices, int vertex_count, const b2Color &color) override;
 
-		void DrawCircle(const b2Vec2 &center, float radius, const b2Color &color);
-		void DrawSolidCircle(const b2Vec2 &center, float radius, const b2Vec2 &axis, const b2Color &color);
+		void DrawCircle(const b2Vec2 &center, float radius, const b2Color &color) override;
+		void DrawSolidCircle(const b2Vec2 &center, float radius, const b2Vec2 &axis, const b2Color &color) override;
 
-		void DrawSegment(const b2Vec2 &p1, const b2Vec2 &p2, const b2Color &color);
+		void DrawSegment(const b2Vec2 &p1, const b2Vec2 &p2, const b2Color &color) override;
 
 		void DrawParticles(const b2Vec2 *centers, float radius, const b2ParticleColor *colors, int count);
 
@@ -134,6 +135,8 @@ namespace physics
 		void DrawAABB(b2AABB *aabb, const b2Color &color);
 
 	private:
+		LPD3DXLINE line_object_;
+
 		LPDIRECT3DVERTEXBUFFER9 vertex_buff_;
 		LPDIRECT3DINDEXBUFFER9 index_buff_;
 
