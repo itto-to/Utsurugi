@@ -10,7 +10,6 @@
 #include "../Application/application.h"
 #include "../../Base/Element/component.h"
 #include "../../Base/Debug/debugger.h"
-
 #include "../../Base/Physics/physics.h"
 
 //==========================================================
@@ -18,10 +17,6 @@
 //==========================================================
 #define STAGE_DATA "stage_file.dat"
 #define TILE_PICTURE "Resources/Texture/Tile/GroundTiles.png"
-#define CELL_VERTICAL (20)	//（仮）
-#define CELL_HORIZONTAL (15)//（仮）
-#define FILE_CHAR_BUFFER (32)//（仮）
-
 namespace shadowpartner
 {
 	enum StageNumber

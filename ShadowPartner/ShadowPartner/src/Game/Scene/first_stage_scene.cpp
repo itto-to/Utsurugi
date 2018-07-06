@@ -39,7 +39,7 @@
 #define BACK_GROUND_TEXTURE_NAME "Resources/Texture/Stage/ForestBackGround.png"
 #define CLEAR_GATE_TEXTURE_NAME  "Resources/Texture/Stage/Gate.png"
 #define PLAYER_TEXTURE_NAME      "Resources/Texture/Character/PlayerWalk.png"
-#define LIGHT_TEXTURE_NAME       "Resources/Texture/Light/Light-test.png"
+#define LIGHT_TEXTURE_NAME       "Resources/Texture/Light/Light.png"
 #define IVY_TEXTURE_NAME         "Resources/Texture/Stage/Ivy.png"
 #define TREE_LOG_TEXTURE_NAME    "Resources/Texture/Stage/RoundWood.png"
 #define LIGHT_TREE_TEXTURE_NAME  "Resources/Texture/Light/TreeLine.png"
