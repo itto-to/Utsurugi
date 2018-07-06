@@ -19,13 +19,23 @@
 #define TITLE_BACKGROUND_TEXTURE_NAME "Resources/Texture/Title/TitleBackGround.png"
 #define TITLE_LIGHT_FOG_TEXTURE_NAME "Resources/Texture/Title/LightFog.png"
 #define TITLE_COMMANDS_TEXTURE_NAME "Resources/Texture/Title/TitleCommands.png"
+#define TITLE_CEFFECT_TEXTURE_NAME "Resources/Texture/Title/TitleCommandsEffect.png"
 
 
-#define TITLE_POINTED_COLOR			D3DCOLOR_RGBA(0xfe,0xf2,0x63,0xff)
-#define TITLE_NOT_POINTED_COLOR		D3DCOLOR_RGBA(0x70,0x58,0xa3,0xff)
+
+//#define TITLE_POINTED_COLOR			D3DCOLOR_RGBA(0xfe,0xf2,0x63,0xff)
+//#define TITLE_NOT_POINTED_COLOR		D3DCOLOR_RGBA(0x70,0x58,0xa3,0xff)
 
 namespace shadowpartner
 {
+
+	namespace {
+		const int kCountPerFrame = 10;
+		bool decision_flag_ = FALSE;
+	}
+
+
+
 	// コンストラクタ
 	TitleScene::TitleScene()
 	{
@@ -70,23 +80,10 @@ namespace shadowpartner
 		}
 
 		current_button_index_ = 0;
+		blink_counter_ = 0;
 		Vector2 next_button_pos_ = Vector2(4.0f, 0.0f);
 		Vector2 button_pos_diff_ = Vector2(0.0f, -0.8f);
 
-		// 選択中のコマンドの光のオブジェクト
-		{
-			title_light_fog_ = new GameObject();
-			title_light_fog_->transform_->position_ = Vector2(4.0f, 0.0f);
-
-			// スプライトの設定
-			Sprite *sprite = new Sprite(TITLE_LIGHT_FOG_TEXTURE_NAME);
-			sprite->SetSize(Vector2(1.6f, 0.8f));
-			sprite->SetColor(TITLE_POINTED_COLOR);
-			title_light_fog_->AddComponent(sprite);
-
-			// シーンにゲームオブジェクトを登録
-			AddGameObject(title_light_fog_);
-		}
 
 		// タイトルのコマンドボタン
 		{
@@ -101,7 +98,7 @@ namespace shadowpartner
 				sprite->SetUvOffset(Vector2(0.5f * (i / 2),0.5f * (i % 2)));
 				sprite->SetUvSize(Vector2::one() * 0.5f);
 				sprite->SetUvNormal();
-				sprite->SetColor(TITLE_NOT_POINTED_COLOR);
+				sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0xff));
 				title_command_buttons_[i]->AddComponent(sprite);
 
 				// シーンにゲームオブジェクトを登録
@@ -110,7 +107,25 @@ namespace shadowpartner
 				next_button_pos_ += button_pos_diff_;
 			}
 
-			title_command_buttons_[0]->GetComponent<Sprite>()->SetColor(TITLE_POINTED_COLOR);
+		}
+
+
+		// 選択中のコマンドの光のオブジェクト
+		{
+
+			title_light_fog_ = new GameObject();
+			title_light_fog_->transform_->position_ = Vector2(4.0f, 0.0f);
+
+			// スプライトの設定
+			Sprite *sprite = new Sprite(TITLE_CEFFECT_TEXTURE_NAME);
+			sprite->SetSize(Vector2(1.6f, 0.8f));
+			sprite->SetUvSize(Vector2::one() * 0.5f);
+			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0xff));
+			title_light_fog_->AddComponent(sprite);
+
+
+			// シーンにゲームオブジェクトを登録
+			AddGameObject(title_light_fog_);
 		}
 
 
@@ -122,6 +137,29 @@ namespace shadowpartner
 	void TitleScene::Update()
 	{
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Start))
+		{
+			decision_flag_ = TRUE;
+
+		}
+
+		if (decision_flag_)
+		{
+			blink_counter_++;
+#ifdef _DEBUG
+			debug::Debug::Log("title_counter:%d", blink_counter_);
+#endif
+			if (blink_counter_ % kCountPerFrame>=kCountPerFrame/2)
+			{
+				title_light_fog_->is_active_ = FALSE;
+			}
+			else
+			{
+				title_light_fog_->is_active_ = TRUE;
+
+			}
+		}
+
+		if (blink_counter_ ==50)
 		{
 			switch (current_button_index_)
 			{
@@ -140,34 +178,38 @@ namespace shadowpartner
 				break;
 			}
 		}
+
 			
 		// 選択コマンドの上下への移動
-		if (input::Input::Instance()->GetButtonDown(input::InputButton::Up))
+		if (!decision_flag_) //ボタン決定したらもう移動しないこと
 		{
 
-			title_command_buttons_[current_button_index_]->GetComponent<Sprite>()->SetColor(TITLE_NOT_POINTED_COLOR);
-			current_button_index_ = (current_button_index_ + (TitleButton::kTitleButtonCount - 1)) % TitleButton::kTitleButtonCount;
-			title_light_fog_->transform_->position_ = title_command_buttons_[current_button_index_]->transform_->position_;
-			title_command_buttons_[current_button_index_]->GetComponent<Sprite>()->SetColor(TITLE_POINTED_COLOR);
+			if (input::Input::Instance()->GetButtonDown(input::InputButton::Up))
+			{
+
+				current_button_index_ = (current_button_index_ + (TitleButton::kTitleButtonCount - 1)) % TitleButton::kTitleButtonCount;
+				title_light_fog_->transform_->position_ = title_command_buttons_[current_button_index_]->transform_->position_;
+				title_light_fog_->GetComponent<Sprite>()->SetUvOffset(Vector2(0.5f * (current_button_index_ / 2), 0.5f * (current_button_index_ % 2)));
+			}
+
+			if (input::Input::Instance()->GetButtonDown(input::InputButton::Down))
+			{
+				current_button_index_ = (current_button_index_ + 1) % TitleButton::kTitleButtonCount;
+				title_light_fog_->transform_->position_ = title_command_buttons_[current_button_index_]->transform_->position_;
+				title_light_fog_->GetComponent<Sprite>()->SetUvOffset(Vector2(0.5f * (current_button_index_ / 2), 0.5f * (current_button_index_ % 2)));
+			}
+			if (input::Input::Instance()->GetButtonDown(input::InputButton::Left))
+			{
+				Sprite *s = title_background_->GetComponent<Sprite>();
+				s->SetFlipX(!s->GetFlipX());
+			}
+			if (input::Input::Instance()->GetButtonDown(input::InputButton::Right))
+			{
+				Sprite *s = title_background_->GetComponent<Sprite>();
+				s->SetFlipY(!s->GetFlipY());
+			}
 		}
 
-		if (input::Input::Instance()->GetButtonDown(input::InputButton::Down))
-		{
-			title_command_buttons_[current_button_index_]->GetComponent<Sprite>()->SetColor(TITLE_NOT_POINTED_COLOR);
-			current_button_index_ = (current_button_index_ + 1) % TitleButton::kTitleButtonCount;
-			title_light_fog_->transform_->position_ = title_command_buttons_[current_button_index_]->transform_->position_;
-			title_command_buttons_[current_button_index_]->GetComponent<Sprite>()->SetColor(TITLE_POINTED_COLOR);
-		}
-		if (input::Input::Instance()->GetButtonDown(input::InputButton::Left))
-		{
-			Sprite *s = title_background_->GetComponent<Sprite>();
-			s->SetFlipX(!s->GetFlipX());
-		}
-		if (input::Input::Instance()->GetButtonDown(input::InputButton::Right))
-		{
-			Sprite *s = title_background_->GetComponent<Sprite>();
-			s->SetFlipY(!s->GetFlipY());
-		}
 	}
 
 	void TitleScene::Uninit()

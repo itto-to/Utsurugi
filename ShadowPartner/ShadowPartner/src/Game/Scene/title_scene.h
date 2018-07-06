@@ -50,6 +50,7 @@ namespace shadowpartner
 		};
 
 		int current_button_index_;
+		int blink_counter_;
 		GameObject *title_light_fog_;
 		GameObject *title_command_buttons_[TitleButton::kTitleButtonCount];
 
