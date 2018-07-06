@@ -31,7 +31,7 @@ namespace shadowpartner
 
 	namespace {
 		const int kCountPerFrame = 10;
-		bool decision_flag_ = FALSE;
+		bool decision_flag_;
 	}
 
 
@@ -81,6 +81,7 @@ namespace shadowpartner
 
 		current_button_index_ = 0;
 		blink_counter_ = 0;
+		decision_flag_ = FALSE;
 		Vector2 next_button_pos_ = Vector2(4.0f, 0.0f);
 		Vector2 button_pos_diff_ = Vector2(0.0f, -0.8f);
 
