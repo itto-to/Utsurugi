@@ -17,7 +17,6 @@
 #include "../../Base/Time/time.h"
 
 #define TITLE_BACKGROUND_TEXTURE_NAME "Resources/Texture/Title/TitleBackGround.png"
-#define TITLE_LIGHT_FOG_TEXTURE_NAME "Resources/Texture/Title/LightFog.png"
 #define TITLE_COMMANDS_TEXTURE_NAME "Resources/Texture/Title/TitleCommands.png"
 #define TITLE_CEFFECT_TEXTURE_NAME "Resources/Texture/Title/TitleCommandsEffect.png"
 

@@ -1,3 +1,9 @@
+//==========================================================
+// 概要  :ステージ
+// Author:Higasi
+// Copyright(c) Utsurugi.All right reserved.
+//==========================================================
+
 #ifndef _GAME_STAGE_STAGE_H_
 #define _GAME_STAGE_STAGE_H_
 

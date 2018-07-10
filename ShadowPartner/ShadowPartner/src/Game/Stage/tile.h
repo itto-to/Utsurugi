@@ -26,7 +26,6 @@ namespace shadowpartner
 		~Tile();
 
 		//variables
-		//Layer tilelayer_;
 		Texture *texture_;
 		Vertex2D vertices_[NUM_TEXTURE_VERTEX];
 		Vector2 uv_offset_;		// テクスチャーのuv座標の左上
