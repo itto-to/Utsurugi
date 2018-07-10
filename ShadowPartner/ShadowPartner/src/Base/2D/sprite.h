@@ -25,6 +25,28 @@ namespace shadowpartner
 	class Sprite:public Component
 	{
 	public:
+
+		enum Anchor
+		{
+			kUpperRight,
+			kUpperCenter,
+			kUpperLeft,
+			kMiddleRight,
+			kMiddleCenter,
+			kMiddleLeft,
+			kLowerRight,
+			kLowerCenter,
+			kLowerLeft,
+			kAnchorCount
+		};
+
+		enum TrapezoidAxis
+		{
+			kXaxis,
+			kYaxis,
+
+		};
+
 		Sprite(const char *file_name);
 		Sprite(const Sprite &copy);
 		~Sprite();
@@ -33,6 +55,11 @@ namespace shadowpartner
 
 		//methods
 		Vector2 Size();
+		void SetAnchor(const Anchor &anchor);
+		Anchor GetAnchor();
+		void SetOffset(const Vector2 &offset);
+		Vector2 GetOffset();
+
 		void SetColor(const D3DCOLOR &color);
 		void SetSize(const Vector2 &size);
 		void SetUvOffset(const Vector2 &offset);
@@ -49,18 +76,28 @@ namespace shadowpartner
 		bool GetFlipX() const;
 		bool GetFlipY() const;
 
+		void SetAsTrapezoid(float height, float upper_base, float lower_base, TrapezoidAxis trapezoid_axis = TrapezoidAxis::kYaxis);
+		void CustomShape( const Vector2 &p0, const Vector2 &p1, const Vector2 &p2, const Vector2 &p3);
+		void EnableSquare();
+
 	protected:
 		void Draw();
 
 	private:
 		// variables
-		Texture *texture_;	
+		Texture *texture_;
+		Anchor anchor_;			// transform.positionは画像のどの位置を表しているか
+		Vector2 offset_;		// transform.positionからどれだけずらす
 		Vector2 uv_offset_;		// テクスチャーのuv座標の左上
 		Vector2 uv_size_;		// テクスチャーのuv座標の左上から右下までのベクトル
 		Vertex2D vertices_[NUM_TEXTURE_VERTEX];
+		Vector2 custom_vertices_[NUM_TEXTURE_VERTEX];
+		float custom_rhw_[NUM_TEXTURE_VERTEX];
 		int order_in_layer_;
 		bool flip_x_;
 		bool flip_y_;
+
+		bool is_square_;	// 正方形
 
 		// methods
 		void MakeVertex();

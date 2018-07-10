@@ -478,7 +478,7 @@ namespace shadowpartner
 
 #ifdef _DEBUG
 			physics::PhysicsWorld::Draw();
-			//debug::Debug::Draw();
+			debug::Debug::Draw();
 #endif
 
 			// •`‰æ‚ÌI—¹
