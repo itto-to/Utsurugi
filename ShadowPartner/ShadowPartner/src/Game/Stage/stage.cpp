@@ -1,3 +1,9 @@
+//==========================================================
+// äTóv  :ÉXÉeÅ[ÉW
+// Author:Higasi
+// Copyright(c) Utsurugi.All right reserved.
+//==========================================================
+
 #define _CRT_SECURE_NO_WARNINGS			// scanf ÇÃwarningñhé~
 #include "stage.h"
 #include <stdio.h>
