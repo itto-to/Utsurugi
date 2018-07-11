@@ -45,6 +45,12 @@ namespace shadowpartner
 		GameObject *ivy_chain_;
 		GameObject *ivy_joint_;
 
+		GameObject *enemy_;
+		GameObject *vine_;
+		GameObject *tree_log_;
+		GameObject *hinge_joint_;
+		GameObject *hinge_joint_base_;
+
 		GameObject *invisible_wall_;
 
 		// methods

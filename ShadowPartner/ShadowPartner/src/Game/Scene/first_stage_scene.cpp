@@ -270,6 +270,7 @@ namespace shadowpartner
 			std::vector<Collider *>cols;
 
 			BoxInitializer bi;
+			bi.category_bits_ = CollisionFilter::kPlatform;
 			bi.width_ = 0.35f;
 			bi.height_ = 5.25f;
 			bi.offset_ = Vector2(-5.425f, 0.525f);

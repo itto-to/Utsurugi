@@ -20,7 +20,7 @@ namespace shadowpartner
 	//**********************************************************
 	// マクロ
 	//**********************************************************
-#define LIGHT_RECEIVABLE_LAYER ~(CollisionFilter::kLight)
+#define LIGHT_RECEIVABLE_LAYER (CollisionFilter::kPlatform | CollisionFilter::kPlayer | CollisionFilter::kEnemy | CollisionFilter::kIvy)
 
 		//**********************************************************
 		// 定数
@@ -48,7 +48,7 @@ namespace shadowpartner
 		Vector3 world_pos = Vector3(transform_->GetWorldPosition(), 0.0f);
 		Vector3 draw_pos = Vector3(world_pos.x, -world_pos.y, 0.0f) / Camera::main_->GetZoom();	// スクリーン上の描画位置.まずy軸の方向を変える
 		Vector3 screen_center = Vector3(Application::Instance()->GetScreenWidth() / 2, Application::Instance()->GetScreenHeight() / 2, 0.0f);
-		draw_pos += screen_center - Vector3(Camera::main_->transform_->position_, 0.0f) * PIXEL_PER_UNIT + Vector3(-10.0f, 30.0f, 0.0f) / Camera::main_->GetZoom();
+		draw_pos += screen_center - Vector3(Camera::main_->transform_->position_, 0.0f) * PIXEL_PER_UNIT +Vector3(0.0f, 30.0f, 0.0f) / Camera::main_->GetZoom();
 
 		//float zoom = Camera::main_->GetZoom();
 		//Vector2 world_scale = transform_->GetWorldScale();
@@ -142,7 +142,7 @@ namespace shadowpartner
 	// レイを撃つ時にdirectionをどれだけずらすか
 	static const float SHIFT_DEGREE = 0.0000001f;
 	// レイの長さがこの値以上の割合なら遮られずに到達したとみなす。
-	static const float VALID_RAY_LENGTH_RATE = 0.99f;
+	static const float VALID_RAY_LENGTH_RATE = 0.95f;
 	// 光源の点を除いた光の頂点の最小値
 	static const int LIGHT_VERTEX_MIN = 72;
 	//==========================================================

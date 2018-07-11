@@ -12,6 +12,8 @@
 //**********************************************************
 #include <Box2D\Box2D.h>
 #include "../../Element/component.h"
+#include "../Filter/collision_filter.h"
+
 #include <windows.h>
 #include <typeinfo>
 

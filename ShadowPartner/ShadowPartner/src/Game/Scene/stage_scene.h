@@ -40,23 +40,21 @@ namespace shadowpartner
 		GameObject *moon_light_;
 		GameObject *player_;
 		GameObject *shadow_;
-		GameObject *enemy_;
-		GameObject *vine_;
-		GameObject *tree_log_;
-		GameObject *hinge_joint_;
-		GameObject *hinge_joint_base_;
+
+		GameObject *result_layer_;
 
 		int phase_num_;
 		int current_phase_;					// ステージのフェーズ
 
 		// methods
 		HRESULT Init();
+		HRESULT LateInit();
 		void Update();
 		void Uninit();
 
 		void NextPhase();
 		void PrevPhase();
-
+		void StageClear();
 		virtual void CreateBackGround();
 
 	private:

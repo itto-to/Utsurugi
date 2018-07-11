@@ -40,7 +40,7 @@ namespace physics
 			, density_(1.0f)
 			, friction_(0.6f)
 			, bounciness_(0.0f)
-			, category_bits_(0x0001)
+			, category_bits_(CollisionFilter::kDefault)
 			, mask_bits_(0xffff)
 			, gravity_scale_(1.0f)
 		{

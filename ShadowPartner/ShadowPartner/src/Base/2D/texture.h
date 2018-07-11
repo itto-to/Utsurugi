@@ -12,6 +12,7 @@
 //**********************************************************
 #include <d3dx9.h>
 #include "../Math/math.h"
+#include "../Color/color.h"
 
 using namespace math;
 
