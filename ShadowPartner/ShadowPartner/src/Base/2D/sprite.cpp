@@ -31,6 +31,11 @@ namespace shadowpartner
 		texture_ = new Texture(file_name);
 
 		MakeVertex();
+
+		for (int i = 0;i < NUM_TEXTURE_VERTEX;++i)
+		{
+			custom_rhw_[i] = 1.0f;
+		}
 	}
 
 	// コピーコンストラクタ
