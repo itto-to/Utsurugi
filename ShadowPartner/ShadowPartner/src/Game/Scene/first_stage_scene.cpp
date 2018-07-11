@@ -56,6 +56,8 @@ namespace
 
 	const Vector2 kPlayerColliderSize = Vector2(1.5f, 0.75f);
 
+	const float kLandingTriggerHeight = 0.1f;
+
 	const Vector2 kTreeLogPosition = Vector2(2.0f, -1.1f);
 	const float kTreeWidth  = 0.2f;
 	const float kTreeHeight = 2.0f;
@@ -625,8 +627,8 @@ namespace shadowpartner
 			land_init.gravity_scale_     = 0.0f;
 			land_init.is_trigger_        = true;
 			land_init.pos_               = player_->transform_->position_;
-			land_init.width_             = kPlayerColliderSize.x;
-			land_init.height_            = 0.1f;
+			land_init.width_             = kPlayerColliderSize.x - 0.1f;
+			land_init.height_            = kLandingTriggerHeight;
 			land_init.offset_            = Vector2(0.0f, -kPlayerColliderSize.y / 2.0f);
 			land_init.is_trigger_        = true;
 			land_init.category_bits_     = CollisionFilter::kLandingTirgger;
@@ -711,7 +713,7 @@ namespace shadowpartner
 			land_init.gravity_scale_ = 0.0f;
 			land_init.pos_           = player_->transform_->position_;
 			land_init.width_         = kMiddleShadowCollisionSize.x;
-			land_init.height_        = 0.1f;
+			land_init.height_        = kLandingTriggerHeight;
 			land_init.offset_        = Vector2(0.0f, -kMiddleShadowCollisionSize.y / 2);
 			land_init.is_trigger_    = true;
 			land_init.category_bits_ = CollisionFilter::kShadow;

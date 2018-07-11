@@ -30,7 +30,7 @@ private:
 	physics::Collider *collider_;
 	LandingTrigger *landing_trigger_;
 
-	void Move(const math::Vector2 &move);
+	void Move(float move);
 };
 
 }	// namespace shadowpartner

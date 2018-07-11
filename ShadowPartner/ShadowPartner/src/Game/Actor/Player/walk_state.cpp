@@ -30,15 +30,15 @@ using namespace physics;
 namespace shadowpartner
 {
 	namespace{
-		const float kMoveForce = 100.0f;
-		const float kMaxSpeedX = 1.0f;
+		const float kMaxSpeedX     = 2.5f;
+		const float kAcceleration  = 0.75f;
 		const float kDampingFactor = 0.8f;
 
 		// テクスチャアニメーション用
-		const int kNumDivideX = 4;
-		const int kNumDivideY = 4;
+		const int kNumDivideX     = 4;
+		const int kNumDivideY     = 4;
 		const int kNumAnimPattern = 5;
-		const int kCountPerFrame = 6;
+		const int kCountPerFrame  = 6;
 	}
 
 	WalkState::WalkState(Actor *owner) : ActorState(owner)
@@ -48,8 +48,8 @@ namespace shadowpartner
 	void WalkState::Enter()
 	{
 		collider_ = owner_->GetComponentInherit<Collider>();
-		jumper_ = owner_->GetComponent<Jumper>();
-		sprite_ = owner_->GetComponent<Sprite>();
+		jumper_   = owner_->GetComponent<Jumper>();
+		sprite_   = owner_->GetComponent<Sprite>();
 
 #ifdef _DEBUG
 		assert(collider_ != nullptr && "WalkStateのEnter処理でcollider_がnullptr");
@@ -80,7 +80,7 @@ namespace shadowpartner
 				}
 			}
 
-			Move(move * kMoveForce);
+			Move(move);
 		}
 		else {
 			float x = collider_->VelocityX() * kDampingFactor;
@@ -117,8 +117,9 @@ namespace shadowpartner
 
 	void WalkState::Move(const float move)
 	{
-		collider_->AddForce(Vector2::right() * move);
-		collider_->SetVelocityX(CLAMP(collider_->VelocityX(), -kMaxSpeedX, kMaxSpeedX));
-		//collider_->SetTransform(owner_->transform_->position_, owner_->transform_->rotation_);
+		collider_->SetVelocityX(CLAMP(collider_->VelocityX() + move * kAcceleration, -kMaxSpeedX, kMaxSpeedX));
+#ifdef _DEBUG
+		debug::Debug::Log("プレイヤー速度：%f\n", collider_->VelocityX());
+#endif
 	}
 }
