@@ -178,12 +178,6 @@
     <Filter Include="ヘッダー ファイル\Base\Light">
       <UniqueIdentifier>{944100da-42a9-4fb3-8a3b-5368f9179f0b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Base\Physics\Particle">
-      <UniqueIdentifier>{7721b26a-014e-4317-8ab1-749518802f73}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Base\Physics\Particle">
-      <UniqueIdentifier>{753dfd82-8826-44c0-a865-04b196ba57c3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Base\Physics\Filter">
       <UniqueIdentifier>{e20e9868-26db-4f4e-93ce-dc1849b19376}</UniqueIdentifier>
     </Filter>
@@ -204,6 +198,9 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\Game\Actor\Enemy">
       <UniqueIdentifier>{57c14760-506c-410d-91e3-ee14b3a3c9f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Base\Color">
+      <UniqueIdentifier>{1b5ed26b-893b-439d-a933-1bcdd96756fb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -351,9 +348,6 @@
     <ClCompile Include="src\Game\Actor\Common\jumper.cpp">
       <Filter>ソース ファイル\Game\Actor\Common</Filter>
     </ClCompile>
-    <ClCompile Include="src\Base\Physics\Element\tilemap_collider.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\Actor\Common\movable.cpp">
       <Filter>ソース ファイル\Game\Actor\Common</Filter>
     </ClCompile>
@@ -384,9 +378,6 @@
     <ClCompile Include="src\Game\Actor\Common\gimmick_interface.cpp">
       <Filter>ソース ファイル\Game\Actor\Common</Filter>
     </ClCompile>
-    <ClCompile Include="src\Base\Physics\Particle\particle_system.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\Base\Physics\Joint\revolute_joint.cpp">
       <Filter>ソース ファイル\Base\Physics\Joint</Filter>
     </ClCompile>
@@ -410,6 +401,9 @@
     </ClCompile>
     <ClCompile Include="src\Base\Physics\World\physics_world.cpp">
       <Filter>ソース ファイル\Base\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base\Physics\Element\tilemap_collider.cpp">
+      <Filter>ソース ファイル\Base\Physics\Element</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -605,9 +599,6 @@
     <ClInclude Include="src\Game\Actor\Common\gimmick_interface.h">
       <Filter>ヘッダー ファイル\Game\Actor\Common</Filter>
     </ClInclude>
-    <ClInclude Include="src\Base\Physics\Particle\particle_system.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\Base\Physics\Joint\revolute_joint.h">
       <Filter>ヘッダー ファイル\Base\Physics\Joint</Filter>
     </ClInclude>
@@ -628,6 +619,12 @@
     </ClInclude>
     <ClInclude Include="src\Game\Scene\result_scene.h">
       <Filter>ヘッダー ファイル\Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Physics\Element\tilemap_collider.h">
+      <Filter>ヘッダー ファイル\Base\Physics\Element</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base\Color\color.h">
+      <Filter>ヘッダー ファイル\Base\Color</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

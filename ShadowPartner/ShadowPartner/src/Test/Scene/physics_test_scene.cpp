@@ -64,30 +64,6 @@ namespace shadowpartner
 			AddGameObject(camera_object);
 		}
 
-		// 動く円形のオブジェクト
-		{
-			dynamic_circle = new GameObject();
-			dynamic_circle->transform_->position_ = Vector2(-3.0f, 1.0f);
-
-			// スプライトの設定
-			Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(0.3f, 0.3f));
-			sprite->SetColor(D3DCOLOR_RGBA(255, 0, 0, 255));
-			sprite->SetOrderInLayer(1);
-			dynamic_circle->AddComponent(sprite);
-
-			// 円形の当たり判定の設定
-			CircleInitializer circle_init;
-			circle_init.radius_ = 0.1f;
-			circle_init.pos_ = dynamic_circle->transform_->position_;
-
-			CircleCollider *circle_collider = new CircleCollider(circle_init);
-			dynamic_circle->AddComponent(circle_collider);
-
-			// シーンにゲームオブジェクトを登録
-			AddGameObject(dynamic_circle);
-		}
-
 		// 静止したボックス
 		{
 			static_box = new GameObject();
@@ -122,6 +98,7 @@ namespace shadowpartner
 			Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
 			sprite->SetSize(Vector2(0.1f, 2.0f));
 			sprite->SetColor(D3DCOLOR_RGBA(255, 30, 30, 255));
+
 			dynamic_box->AddComponent(sprite);
 
 			// 矩形の当たり判定の設定
@@ -146,9 +123,9 @@ namespace shadowpartner
 			static_circle->transform_->position_ = Vector2(4.0f, -1.0f);
 
 			// スプライトの設定
-			Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
+			Sprite *sprite = new Sprite("Resources/Texture/TestCircle.png");
 			sprite->SetSize(Vector2(2, 2));
-			sprite->SetColor(D3DCOLOR_RGBA(30, 200, 30, 255));
+			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0xff));
 			static_circle->AddComponent(sprite);
 
 			// 円形の当たり判定の設定
@@ -189,15 +166,22 @@ namespace shadowpartner
 
 		// ピラミッド作る
 		{
-			for (int i = 0;i < 15;++i)
+			for (int i = 0;i < 1;++i)
 			{
 				pyramids_[i] = new GameObject();
 
 				pyramids_[i]->transform_->position_ = pyramid_points[i];
 
-				Sprite *sprite = new Sprite(BOX_TEXTURE_NAME);
+				Sprite *sprite = new Sprite("Resources/Texture/TestSquare.png");
 				sprite->SetSize(Vector2(0.2f, 0.2f));
-				sprite->SetColor(D3DCOLOR_RGBA(200, 153, 50, 255));
+				sprite->SetAsTrapezoid(2.0f, 2.0f, 4.0f);
+				//sprite->CustomShape
+				//	(
+				//		Vector2(-0.05f, 0.05f),
+				//		Vector2(0.05f, 0.05f),
+				//		Vector2(-0.1f, -0.05f),
+				//		Vector2(0.1f, -0.05f)
+				//		);
 				pyramids_[i]->AddComponent(sprite);
 
 				// 矩形の当たり判定の設定
@@ -219,7 +203,7 @@ namespace shadowpartner
 		// チェーン
 		{
 			chain_object = new GameObject();
-			chain_object->transform_->position_ = Vector2(-1.0f, 2.0f);
+			chain_object->transform_->position_ = Vector2(-2.0f, 2.0f);
 
 			// スプライトの設定
 			ChainInitializer chain_init;
@@ -233,6 +217,31 @@ namespace shadowpartner
 
 			// シーンにゲームオブジェクトを登録
 			AddGameObject(chain_object);
+		}
+
+		// 動く円形のオブジェクト
+		{
+			dynamic_circle = new GameObject();
+			dynamic_circle->transform_->position_ = Vector2(-3.0f, 1.0f);
+
+			// スプライトの設定
+			Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
+			sprite->SetSize(Vector2(0.3f, 0.3f));
+			sprite->SetColor(D3DCOLOR_RGBA(255, 0, 0, 255));
+			sprite->SetOrderInLayer(1);
+			dynamic_circle->AddComponent(sprite);
+
+			// 円形の当たり判定の設定
+			CircleInitializer circle_init;
+			circle_init.radius_ = 0.1f;
+			circle_init.pos_ = dynamic_circle->transform_->position_;
+			circle_init.density_ = 50.0f;
+
+			CircleCollider *circle_collider = new CircleCollider(circle_init);
+			dynamic_circle->AddComponent(circle_collider);
+
+			// シーンにゲームオブジェクトを登録
+			AddGameObject(dynamic_circle);
 		}
 
 		return S_OK;
@@ -267,6 +276,14 @@ namespace shadowpartner
 
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Cancel))
 			SceneManager::LoadScene(new LightTestScene());
+
+		static int t = 0;
+		int a = (t++ / 300) % Sprite::Anchor::kAnchorCount;
+		static_circle->GetComponent<Sprite>()->SetAnchor((Sprite::Anchor)a);
+		float r = (float)t / 300.0f * D3DX_PI * 2.0f;
+		static_circle->GetComponent<Sprite>()->SetOffset(Vector2(cosf(r), sinf(r)));
+
+		static_circle->transform_->rotation_ += 1.0f;
 	}
 
 	void PhysicsTestScene::Uninit()

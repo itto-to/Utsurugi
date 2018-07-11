@@ -19,11 +19,14 @@ namespace shadowpartner
 
 		// コンストラクタ
 	Sprite::Sprite(const char *file_name)
-		:uv_offset_(Vector2::zero())
+		:anchor_(Sprite::Anchor::kMiddleCenter)
+		, offset_(Vector2::zero())
+		, uv_offset_(Vector2::zero())
 		, uv_size_(Vector2::one())
 		, order_in_layer_(0)
-		,flip_x_(false)
-		,flip_y_(false)
+		, flip_x_(false)
+		, flip_y_(false)
+		, is_square_(true)
 	{
 		texture_ = new Texture(file_name);
 
@@ -48,18 +51,53 @@ namespace shadowpartner
 	// 描画処理
 	void Sprite::Draw()
 	{
-		Vector3 world_pos = Vector3(transform_->GetWorldPosition(), 0.0f) * PIXEL_PER_UNIT;
+		float zoom = Camera::main_->GetZoom();
+		Vector2 world_scale = transform_->GetWorldScale();
+		float width, height;
+		width = texture_->GetWidth() * world_scale.x / zoom * PIXEL_PER_UNIT;
+		height = texture_->GetHeight() * world_scale.y / zoom * PIXEL_PER_UNIT;
+
+		Vector3 world_pos = (Vector3(transform_->GetWorldPosition(), 0.0f) + Vector3(offset_, 0.0f)) * PIXEL_PER_UNIT;
+
+		switch (anchor_)
+		{
+		case shadowpartner::Sprite::kUpperRight:
+			world_pos += Vector3(-width / 2.0f, -height / 2.0f, 0.0f);
+			break;
+		case shadowpartner::Sprite::kUpperCenter:
+			world_pos += Vector3(0.0f, -height / 2.0f, 0.0f);
+			break;
+		case shadowpartner::Sprite::kUpperLeft:
+			world_pos += Vector3(width / 2.0f, -height / 2.0f, 0.0f);
+			break;
+		case shadowpartner::Sprite::kMiddleRight:
+			world_pos += Vector3(-width / 2.0f, 0.0f, 0.0f);
+			break;
+		case shadowpartner::Sprite::kMiddleCenter:
+			break;
+		case shadowpartner::Sprite::kMiddleLeft:
+			world_pos += Vector3(width / 2.0f, 0.0f, 0.0f);
+			break;
+		case shadowpartner::Sprite::kLowerRight:
+			world_pos += Vector3(-width / 2.0f, height / 2.0f, 0.0f);
+			break;
+		case shadowpartner::Sprite::kLowerCenter:
+			world_pos += Vector3(0.0f, height / 2.0f, 0.0f);
+			break;
+		case shadowpartner::Sprite::kLowerLeft:
+			world_pos += Vector3(width / 2.0f, height / 2.0f, 0.0f);
+			break;
+		case shadowpartner::Sprite::kAnchorCount:
+			break;
+		default:
+			break;
+		}
+
 		Vector3 draw_pos = Vector3(world_pos.x, -world_pos.y, 0.0f) / Camera::main_->GetZoom();	// スクリーン上の描画位置.まずy軸の方向を変える
 		Vector3 screen_center = Vector3(Application::Instance()->GetScreenWidth() / 2, Application::Instance()->GetScreenHeight() / 2, 0.0f);
 		draw_pos += screen_center - Vector3(Camera::main_->transform_->position_, 0.0f) * PIXEL_PER_UNIT;
 
-		float zoom = Camera::main_->GetZoom();
-		Vector2 world_scale = transform_->GetWorldScale();
-		float width, height;
-		width = texture_->GetWidth() * world_scale.x / zoom;
-		height = texture_->GetHeight() * world_scale.y / zoom;
-
-		SetVertex(draw_pos, width * PIXEL_PER_UNIT, height * PIXEL_PER_UNIT, transform_->GetWorldRotation());
+		SetVertex(draw_pos, width, height, transform_->GetWorldRotation());
 
 		texture_->DrawTriangleStrip(&vertices_[0]);
 	}
@@ -83,6 +121,42 @@ namespace shadowpartner
 	Vector2 Sprite::Size()
 	{
 		return Vector2(texture_->GetWidth(), texture_->GetHeight());
+	}
+
+	//==========================================================
+	// 概要  :描画の位置を画像のどの位置を基準とするのかを設定する。
+	// 引数  :基準とするAnchor
+	//==========================================================
+	void Sprite::SetAnchor(const Anchor &anchor)
+	{
+		anchor_ = anchor;
+	}
+
+	//==========================================================
+	// 概要  :スプライトの描画位置をpositionからずらす距離を取得します。
+	// 戻り値:ずらす量
+	//==========================================================
+	Sprite::Anchor Sprite::GetAnchor()
+	{
+		return anchor_;
+	}
+
+	//==========================================================
+	// 概要  :スプライトの描画位置をpositionからずらす距離を設定します。
+	// 引数  :ずらす量
+	//==========================================================
+	void Sprite::SetOffset(const Vector2 &offset)
+	{
+		offset_ = offset;
+	}
+
+	//==========================================================
+	// 概要  :スプライトの描画位置をpositionからずらす距離を取得します。
+	// 戻り値:ずらす量
+	//==========================================================
+	Vector2 Sprite::GetOffset()
+	{
+		return offset_;
 	}
 
 	//==========================================================
@@ -170,23 +244,37 @@ namespace shadowpartner
 	void Sprite::SetVertex(const Vector3 &center, const float &width,
 		const float &height, const float &rotation)
 	{
-		float hw = width / 2.0f, hh = height / 2.0f;
-
 		float rad = D3DXToRadian(rotation);
 
-		float xsin = hw * sinf(rad), xcos = hw * cosf(rad);
-		float ysin = hh * sinf(rad), ycos = hh * cosf(rad);
+		if (is_square_)
+		{
+			float hw = width / 2.0f, hh = height / 2.0f;
 
-		vertices_[0].vertex_ = center + Vector3(-xcos + ysin, -xsin - ycos, 0.0f);
-		vertices_[1].vertex_ = center + Vector3(xcos + ysin, xsin - ycos, 0.0f);
-		vertices_[2].vertex_ = center + Vector3(-xcos - ysin, -xsin + ycos, 0.0f);
-		vertices_[3].vertex_ = center + Vector3(xcos - ysin, xsin + ycos, 0.0f);
+			float xsin = hw * sinf(rad), xcos = hw * cosf(rad);
+			float ysin = hh * sinf(rad), ycos = hh * cosf(rad);
 
-		vertices_[0].tex_coor_ = uv_offset_;
-		vertices_[1].tex_coor_ = uv_offset_ + Vector2(uv_size_.x, 0.0f);
-		vertices_[2].tex_coor_ = uv_offset_ + Vector2(0.0f, uv_size_.y);
-		vertices_[3].tex_coor_ = uv_offset_ + uv_size_;
+			vertices_[0].vertex_ = center + Vector3(-xcos + ysin, -xsin - ycos, 0.0f);
+			vertices_[1].vertex_ = center + Vector3(xcos + ysin, xsin - ycos, 0.0f);
+			vertices_[2].vertex_ = center + Vector3(-xcos - ysin, -xsin + ycos, 0.0f);
+			vertices_[3].vertex_ = center + Vector3(xcos - ysin, xsin + ycos, 0.0f);
+		}
+		else
+		{
+			float lx, ly;
+			float c = cosf(rad), s = sinf(rad);
 
+			Vector2 ws = transform_->GetWorldScale();
+
+			for (int i = 0;i < NUM_TEXTURE_VERTEX;++i)
+			{
+				lx = custom_vertices_[i].x * PIXEL_PER_UNIT * ws.x;
+				ly = -(custom_vertices_[i].y * PIXEL_PER_UNIT * ws.y);
+
+				vertices_[i].vertex_ = center + Vector3(c * lx - s * ly, s * lx + c * ly, 0.0f);
+			}
+		}
+
+		// テクスチャー内の描画領域の設定
 		float left, right, up, down;
 
 		left = !flip_x_ ? uv_offset_.x : uv_offset_.x + uv_size_.x;
@@ -198,6 +286,11 @@ namespace shadowpartner
 		vertices_[1].tex_coor_ = Vector2(right, up);
 		vertices_[2].tex_coor_ = Vector2(left, down);
 		vertices_[3].tex_coor_ = Vector2(right, down);
+
+		vertices_[0].rhw_ = custom_rhw_[0];
+		vertices_[1].rhw_ = custom_rhw_[1];
+		vertices_[2].rhw_ = custom_rhw_[2];
+		vertices_[3].rhw_ = custom_rhw_[3];
 	}
 
 	void Sprite::SetUvNormal()
@@ -252,5 +345,57 @@ namespace shadowpartner
 	bool Sprite::GetFlipY() const
 	{
 		return flip_y_;
+	}
+
+	void Sprite::SetAsTrapezoid(float height, float upper_base, float lower_base, Sprite::TrapezoidAxis trapezoid_axis)
+	{
+		float rhw = lower_base / upper_base;
+
+		if (trapezoid_axis == Sprite::TrapezoidAxis::kYaxis)
+		{
+			custom_vertices_[0] = Vector2(-upper_base / 2.0f, height / 2.0f);
+			custom_vertices_[1] = Vector2(upper_base / 2.0f, height / 2.0f);
+			custom_vertices_[2] = Vector2(-lower_base / 2.0f, -height / 2.0f);
+			custom_vertices_[3] = Vector2(lower_base / 2.0f, -height / 2.0f);
+
+			custom_rhw_[0] = 1.0f;
+			custom_rhw_[1] = 1.0f;
+			custom_rhw_[2] = rhw;
+			custom_rhw_[3] = rhw;
+		}
+		else
+		{
+			custom_vertices_[0] = Vector2(-height / 2.0f, upper_base / 2.0f);
+			custom_vertices_[1] = Vector2(height / 2.0f, lower_base / 2.0f);
+			custom_vertices_[2] = Vector2(-height / 2.0f, -upper_base / 2.0f);
+			custom_vertices_[3] = Vector2(height / 2.0f, -lower_base / 2.0f);
+
+			custom_rhw_[0] = 1.0f;
+			custom_rhw_[1] = rhw;
+			custom_rhw_[2] = 1.0f;
+			custom_rhw_[3] = rhw;
+		}
+
+		is_square_ = false;
+	}
+
+	void Sprite::CustomShape(const Vector2 &p0, const Vector2 &p1, const Vector2 &p2, const Vector2 &p3)
+	{
+		custom_vertices_[0] = p0;
+		custom_vertices_[1] = p1;
+		custom_vertices_[2] = p2;
+		custom_vertices_[3] = p3;
+
+		custom_rhw_[0] = 1.0f;
+		custom_rhw_[1] = 1.0f;
+		custom_rhw_[2] = 1.0f;
+		custom_rhw_[3] = 1.0f;
+
+		is_square_ = false;
+	}
+
+	void Sprite::EnableSquare()
+	{
+		is_square_ = true;
 	}
 }
