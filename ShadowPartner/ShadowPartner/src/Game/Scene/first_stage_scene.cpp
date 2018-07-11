@@ -54,7 +54,8 @@ namespace
 	const float kPlayerWidth  = 2.0f;
 	const float kPlayerHeight = 1.0f;
 
-	const Vector2 kPlayerColliderSize = Vector2(1.5f, 0.75f);
+	const Vector2 kPlayerColliderSize = Vector2(1.1f, 0.75f);
+	const Vector2 kPlayerSpriteOffset = Vector2(-0.45f, 0.0f);	// 右向き時のオフセット
 
 	const float kLandingTriggerHeight = 0.1f;
 
@@ -74,7 +75,6 @@ namespace
 	const float kShadowHeight = 1.0f;
 
 	const Vector2 kPlayerUVSize = Vector2(0.25f, 0.25f);
-
 }
 
 namespace shadowpartner
@@ -587,6 +587,7 @@ namespace shadowpartner
 			sprite->SetSize(Vector2(kPlayerWidth, kPlayerHeight));
 			sprite->SetUvSize(kPlayerUVSize);
 			sprite->SetUvOffset(Vector2::zero());
+			sprite->SetOffset(kPlayerSpriteOffset);
 
 			player_->AddComponent(sprite);
 
