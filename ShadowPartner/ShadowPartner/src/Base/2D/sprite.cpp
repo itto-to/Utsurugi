@@ -262,6 +262,11 @@ namespace shadowpartner
 			vertices_[1].vertex_ = center + Vector3(xcos + ysin, xsin - ycos, 0.0f);
 			vertices_[2].vertex_ = center + Vector3(-xcos - ysin, -xsin + ycos, 0.0f);
 			vertices_[3].vertex_ = center + Vector3(xcos - ysin, xsin + ycos, 0.0f);
+
+			vertices_[0].rhw_ =
+				vertices_[1].rhw_ =
+				vertices_[2].rhw_ =
+				vertices_[3].rhw_ = 1.0f;
 		}
 		else
 		{
@@ -277,6 +282,11 @@ namespace shadowpartner
 
 				vertices_[i].vertex_ = center + Vector3(c * lx - s * ly, s * lx + c * ly, 0.0f);
 			}
+
+			vertices_[0].rhw_ = custom_rhw_[0];
+			vertices_[1].rhw_ = custom_rhw_[1];
+			vertices_[2].rhw_ = custom_rhw_[2];
+			vertices_[3].rhw_ = custom_rhw_[3];
 		}
 
 		// テクスチャー内の描画領域の設定
@@ -291,11 +301,6 @@ namespace shadowpartner
 		vertices_[1].tex_coor_ = Vector2(right, up);
 		vertices_[2].tex_coor_ = Vector2(left, down);
 		vertices_[3].tex_coor_ = Vector2(right, down);
-
-		vertices_[0].rhw_ = custom_rhw_[0];
-		vertices_[1].rhw_ = custom_rhw_[1];
-		vertices_[2].rhw_ = custom_rhw_[2];
-		vertices_[3].rhw_ = custom_rhw_[3];
 	}
 
 	void Sprite::SetUvNormal()
