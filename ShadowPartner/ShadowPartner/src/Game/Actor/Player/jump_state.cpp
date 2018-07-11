@@ -28,8 +28,9 @@ namespace shadowpartner
 
 namespace
 {
-	const float kMoveForce = 100.0f;
-	const float kMaxSpeedX = 1.0f;
+	const float kMoveForce    = 100.0f;
+	const float kMaxSpeedX    = 2.5f;
+	const float kAcceleration = 0.75f;
 }
 
 
@@ -71,9 +72,7 @@ void JumpState::ExecuteState()
 				owner_->GetComponent<Sprite>()->SetFlipX(true);	// スプライトを反転する
 			}
 		}
-
-		Vector2 t = Vector2::right() * move * kMoveForce;
-		Move(t);
+		Move(move);
 	}
 
 	// 着地判定
@@ -88,20 +87,10 @@ void JumpState::ExecuteState()
 		}
 		else
 		{
-  			owner_->ChangeState(new IdleState(owner_));
+			owner_->ChangeState(new IdleState(owner_));
 			return;
 		}
 	}
-
-	//RaycastHit hit_info = physics::PhysicsFunc::Raycast(
-	//	owner_->transform_->position_ + Vector2::down() * 0.5f,
-	//	Vector2::down(), 0.6f);
-
-	//// FIXME:レイキャストで返ってきたコライダーがトリガーだった場合待機状態に遷移しなくなってしまう
-	//if (hit_info.collider != nullptr && !hit_info.collider->is_trigger_)
-	//{
-	//	owner_->ChangeState(new IdleState(owner_));
-	//}
 }
 
 bool JumpState::IsFalling() const
@@ -109,10 +98,9 @@ bool JumpState::IsFalling() const
 	return collider_->Velocity().y <= 0.0f;
 }
 
-void JumpState::Move(const math::Vector2 & move)
+void JumpState::Move(const float move)
 {
-	collider_->AddForce(move);
-	collider_->SetVelocityX(CLAMP(collider_->VelocityX(), -kMaxSpeedX, kMaxSpeedX));
+	collider_->SetVelocityX(CLAMP(collider_->VelocityX() + kAcceleration * move, -kMaxSpeedX, kMaxSpeedX));
 }
 
 }	// namespace shadowpartner

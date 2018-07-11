@@ -277,7 +277,7 @@ namespace shadowpartner {
 			land_init.gravity_scale_ = 0.0f;
 			land_init.is_trigger_ = true;
 			land_init.pos_ = player_->transform_->position_;
-			land_init.width_ = kPlayerColliderSize.x;
+			land_init.width_ = kPlayerColliderSize.x - 0.1f;
 			land_init.height_ = 0.1f;
 			land_init.offset_ = Vector2(0.0f, -kPlayerColliderSize.y / 2.0f);
 			land_init.is_trigger_ = true;

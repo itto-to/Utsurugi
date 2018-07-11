@@ -13,21 +13,24 @@ namespace shadowpartner
 {
 	namespace
 	{
-		const float kDefaultForce = 170.0f;
-		const float kDefaultGravity = 1.0f;
+		const float kDefaultInitialVelocity = 2.0f;
+		const float kDefaultGravityScale = 1.0f;
 	}
 
-	Jumper::Jumper() : can_jump_(true)
+	Jumper::Jumper() : 
+		can_jump_(true),
+		initial_velocity_(kDefaultInitialVelocity),
+		gravity_scale_(kDefaultGravityScale)
 	{
-		force_ = kDefaultForce;
-		gravity_ = kDefaultGravity;
+		initial_velocity_ = kDefaultInitialVelocity;
+		gravity_scale_ = kDefaultGravityScale;
 	}
 
 	Jumper::Jumper(bool can_jump, float force, float gravity)
 	{
 		can_jump_ = can_jump;
-		force_ = force;
-		gravity_ = gravity;
+		initial_velocity_ = force;
+		gravity_scale_ = gravity;
 	}
 
 	void Jumper::Start()
@@ -36,18 +39,17 @@ namespace shadowpartner
 		transform_ = game_object_->GetComponent<Transform>();
 	}
 
-
 	void Jumper::Jump()
 	{
 		if (can_jump_)
 		{
-			collider_->AddForce(Vector2(0.0f, force_));
+			collider_->SetVelocityY(initial_velocity_);
 		}
 	}
 
 	float Jumper::Force()
 	{
-		return force_;
+		return initial_velocity_;
 	}
 
 	void Jumper::SetCanJump(bool can_jump)
@@ -60,19 +62,19 @@ namespace shadowpartner
 		return can_jump_;
 	}
 
-	void Jumper::SetForce(float force)
+	void Jumper::SetInitialVelocity(float initial_velocity)
 	{
-		force_ = force;
+		initial_velocity_ = initial_velocity;
 	}
 
 	float Jumper::Gravity()
 	{
-		return gravity_;
+		return gravity_scale_;
 	}
 
 	void Jumper::SetGravity(float gravity)
 	{
-		gravity_ = gravity;
+		gravity_scale_ = gravity;
 	}
 
 }	// namespace shadowpartner

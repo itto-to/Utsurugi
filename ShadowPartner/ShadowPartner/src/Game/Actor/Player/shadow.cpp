@@ -22,7 +22,11 @@ using namespace physics;
 
 namespace shadowpartner
 {
-
+	namespace
+	{
+		const float kSmallShadowJumpVelocity  = 7.0f;
+		const float kMiddleShadowJumpVelocity = 2.0f;
+	}
 
 	Shadow::Shadow() :
 		is_shadow_state_(true)
@@ -46,7 +50,7 @@ namespace shadowpartner
 	void Shadow::Start()
 	{
 		sprite_          = GetComponent<Sprite>();
-		land_trigger_ = GetComponent<LandingTrigger>();
+		land_trigger_    = GetComponent<LandingTrigger>();
 		gimmick_trigger_ = GetComponent<GimmickTrigger>();
 		action_trigger_  = GetComponent<ActionTrigger>();
 		collider_        = GetComponent<physics::BoxCollider>();
@@ -106,6 +110,7 @@ namespace shadowpartner
 		SetControllable(true);
 		// ジャンプ設定
 		jumper_->SetCanJump(true);
+		jumper_->SetInitialVelocity(kSmallShadowJumpVelocity);
 
 		// 矩形の当たり判定の設定
 		BoxInitializer box_init;
@@ -132,7 +137,7 @@ namespace shadowpartner
 		land_init.gravity_scale_ = 0.0f;
 		land_init.is_trigger_    = true;
 		land_init.pos_           = transform_->position_;
-		land_init.width_         = kSmallShadowCollisionSize.x;
+		land_init.width_         = kSmallShadowCollisionSize.x - 0.1f;
 		land_init.height_        = 0.1f;
 		land_init.offset_        = Vector2(0.0f, -kSmallShadowCollisionSize.y / 2.0f);
 		land_init.is_trigger_    = true;
@@ -172,6 +177,7 @@ namespace shadowpartner
 		SetControllable(true);
 		// ジャンプ設定
 		jumper_->SetCanJump(true);
+		jumper_->SetInitialVelocity(kMiddleShadowJumpVelocity);
 
 		// 矩形の当たり判定の設定
 		BoxInitializer box_init;
@@ -195,7 +201,7 @@ namespace shadowpartner
 		land_init.gravity_scale_ = 0.0f;
 		land_init.is_trigger_    = true;
 		land_init.pos_           = transform_->position_;
-		land_init.width_         = kMiddleShadowCollisionSize.x;
+		land_init.width_         = kMiddleShadowCollisionSize.x - 0.1f;
 		land_init.height_        = 0.1f;
 		land_init.offset_        = Vector2(0.0f, -kMiddleShadowCollisionSize.y / 2.0f);
 		land_init.is_trigger_    = true;
@@ -258,7 +264,7 @@ namespace shadowpartner
 		land_init.gravity_scale_ = 0.0f;
 		land_init.is_trigger_    = true;
 		land_init.pos_           = transform_->position_;
-		land_init.width_         = kLargeShadowCollisionSize.x;
+		land_init.width_         = kLargeShadowCollisionSize.x - 0.1f;
 		land_init.height_        = 0.1f;
 		land_init.offset_        = Vector2(0.0f, -kLargeShadowCollisionSize.y / 2.0f);
 		land_init.is_trigger_    = true;
