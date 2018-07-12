@@ -67,7 +67,8 @@ namespace shadowpartner
 				if (owner_->GetDirection() == ActorDirection::kLeft)
 				{
 					owner_->SetDirection(ActorDirection::kRight);
-					owner_->GetComponent<Sprite>()->SetFlipX(false);	// スプライトを反転しない
+					sprite_->SetFlipX(false);	// スプライトを反転しない
+					sprite_->SetOffset(-sprite_->GetOffset());
 				}
 			}
 			else
@@ -76,7 +77,8 @@ namespace shadowpartner
 				if (owner_->GetDirection() == ActorDirection::kRight)
 				{
 					owner_->SetDirection(ActorDirection::kLeft);
-					owner_->GetComponent<Sprite>()->SetFlipX(true);	// スプライトを反転する
+					sprite_->SetFlipX(true);	// スプライトを反転する
+					sprite_->SetOffset(-sprite_->GetOffset());
 				}
 			}
 

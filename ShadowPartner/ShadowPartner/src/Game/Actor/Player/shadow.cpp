@@ -25,7 +25,7 @@ namespace shadowpartner
 	namespace
 	{
 		const float kSmallShadowJumpVelocity  = 7.0f;
-		const float kMiddleShadowJumpVelocity = 2.0f;
+		const float kMiddleShadowJumpVelocity = 3.0f;
 	}
 
 	Shadow::Shadow() :
@@ -97,8 +97,17 @@ namespace shadowpartner
 
 	void Shadow::CreateSmallShadow()
 	{
+		// スプライト設定
 		sprite_->SetSize(kSmallShadowSize);
 		sprite_->SetFlipY(false);
+		if (direction_ == ActorDirection::kRight)
+		{
+			sprite_->SetOffset(kSmallShadowSpriteOffset);
+		}
+		else
+		{
+			sprite_->SetOffset(-kSmallShadowSpriteOffset);
+		}
 
 		*game_object_->transform_ = *player_object_->transform_;
 		game_object_->transform_->position_ += Vector2(0.0f, kSmallShadowSize.y / 2.0f - kMiddleShadowSize.y / 2.0f);
@@ -165,8 +174,17 @@ namespace shadowpartner
 
 	void Shadow::CreateMiddleShadow()
 	{
+		// スプライト設定
 		sprite_->SetSize(kMiddleShadowSize);
 		sprite_->SetFlipY(false);
+		if (direction_ == ActorDirection::kRight)
+		{
+			sprite_->SetOffset(kMiddleShadowSpriteOffset);
+		}
+		else
+		{
+			sprite_->SetOffset(-kMiddleShadowSpriteOffset);
+		}
 
 		*game_object_->transform_ = *player_object_->transform_;
 
@@ -227,8 +245,17 @@ namespace shadowpartner
 
 	void Shadow::CreateLargeShadow()
 	{
+		// スプライト設定
 		sprite_->SetSize(kLargeShadowSize);
 		sprite_->SetFlipY(false);
+		if (direction_ == ActorDirection::kRight)
+		{
+			sprite_->SetOffset(kLargeShadowSpriteOffset);
+		}
+		else
+		{
+			sprite_->SetOffset(-kLargeShadowSpriteOffset);
+		}
 
 		*game_object_->transform_ = *player_object_->transform_;
 		game_object_->transform_->position_ += Vector2(0.0f, kLargeShadowSize.y / 2.0f - kMiddleShadowSize.y / 2.0f);

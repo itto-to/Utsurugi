@@ -11,7 +11,8 @@
 #include "../Common/actor_state.h"
 #include "../../../Base/Physics/Element/contact_listener.h"
 
-
+namespace
+{
 	const Vector2 kMiddleShadowSize = Vector2(2.0f, 1.0f);
 
 	const float kSmallShadowScale = 0.5f;
@@ -22,10 +23,14 @@
 
 	const float kShadowCollisionScale = 0.75f;
 
-	const Vector2 kMiddleShadowCollisionSize = kMiddleShadowSize * kShadowCollisionScale;
-	const Vector2 kLargeShadowCollisionSize = kLargeShadowSize * kShadowCollisionScale;
-	const Vector2 kSmallShadowCollisionSize = kSmallShadowSize * kShadowCollisionScale;
+	const Vector2 kMiddleShadowCollisionSize = Vector2(1.1f, 0.75f);
+	const Vector2 kSmallShadowCollisionSize = kMiddleShadowCollisionSize * kSmallShadowScale;
+	const Vector2 kLargeShadowCollisionSize = kMiddleShadowCollisionSize * kLargeShadowScale;
 
+	const Vector2 kMiddleShadowSpriteOffset = Vector2(-0.45f, 0.0f);
+	const Vector2 kSmallShadowSpriteOffset = kMiddleShadowSpriteOffset * kSmallShadowScale;
+	const Vector2 kLargeShadowSpriteOffset = kMiddleShadowSpriteOffset * kLargeShadowScale;
+}
 
 namespace physics
 {

@@ -42,6 +42,8 @@ void JumpState::Enter()
 {
 	landing_trigger_ = owner_->GetComponent<LandingTrigger>();
 	collider_ = owner_->GetComponentInherit<Collider>();
+	sprite_ = owner_->GetComponent<Sprite>();
+
 #ifdef _DEBUG
 	debug::Debug::Log("プレイヤーの状態：ジャンプ");
 #endif
@@ -53,14 +55,17 @@ void JumpState::ExecuteState()
 {
 	// 移動
 	float move = input::Input::Instance()->GetAxis(input::InputAxis::Horizontal);
+
 	if (move != 0.0f)
 	{
-		if (move > 0.0f) {
+		if (move > 0.0f)
+		{
 			// 右移動なら
 			if (owner_->GetDirection() == ActorDirection::kLeft)
 			{
 				owner_->SetDirection(ActorDirection::kRight);
-				owner_->GetComponent<Sprite>()->SetFlipX(false);	// スプライトを反転しない
+				sprite_->SetFlipX(false);	// スプライトを反転しない
+				sprite_->SetOffset(-sprite_->GetOffset());
 			}
 		}
 		else
@@ -69,7 +74,8 @@ void JumpState::ExecuteState()
 			if (owner_->GetDirection() == ActorDirection::kRight)
 			{
 				owner_->SetDirection(ActorDirection::kLeft);
-				owner_->GetComponent<Sprite>()->SetFlipX(true);	// スプライトを反転する
+				sprite_->SetFlipX(true);	// スプライトを反転する
+				sprite_->SetOffset(-sprite_->GetOffset());
 			}
 		}
 		Move(move);
