@@ -16,6 +16,8 @@ using namespace shadowpartner;
 
 namespace physics
 {
+	struct ContourTrackingTemp;
+
 	//==========================================================
 	// 概要  :タイルマップの初期化情報
 	// 注意  :collision_existはnewで確保したものを渡してください。内部でdeleteするので、
@@ -75,7 +77,10 @@ namespace physics
 		Vector2 size_;
 
 		// methods
+		int RasterScan(int start, ContourTrackingTemp *ctt, int tile_max);
+		void CreatePolygonOutLineCollider(Vector2 *points, int point_count);
 
+		void ContourTracking(int start, ContourTrackingTemp *ctt, int x_length, int y_length, bool is_outer = true);
 	};
 }
 

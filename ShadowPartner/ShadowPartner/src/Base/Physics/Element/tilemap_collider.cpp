@@ -13,14 +13,28 @@ namespace physics
 	//**********************************************************
 
 	//**********************************************************
-	// 定数
+	// 輪郭追跡用構造体
 	//**********************************************************
+	struct ContourTrackingTemp
+	{
+		bool isChecked;		// 走査済み
+		bool isCollider;	// コライダーがある？
+		int label;			// 領域のラベル。-1は背景
+
+		ContourTrackingTemp()
+			:isChecked(false)
+			,isCollider(false)
+			,label(-1)
+		{}
+	};
+
 
 	// コンストラクタ
 	TileMapCollider::TileMapCollider(const TileMapInitializer &ini)
 	{
 		shape_ = PhysicsShape::kBox;
 
+		// タイルマップコライダーのbody
 		b2BodyDef tilemap_body_def;
 
 		tilemap_body_def.type = b2_staticBody;
@@ -29,6 +43,29 @@ namespace physics
 
 		body_ = PhysicsWorld::CreateBody(this, &tilemap_body_def);
 		body_->SetUserData((void *)this);
+
+		//int current = 0;
+
+		//// 輪郭追跡用のデータ配列の生成
+		//ContourTrackingTemp *ctt = new ContourTrackingTemp[ini.x_lenght_ * ini.y_lenght_];
+
+		//for (int y = 0;y < ini.y_lenght_;++y)
+		//{
+		//	for (int x = 0;x < ini.x_lenght_;++x)
+		//	{
+		//		ctt[y * ini.x_lenght_ + x].isCollider = ini.collision_exist[y * ini.x_lenght_ + x];
+		//	}
+		//}
+
+		//int start;	// 輪郭追跡のスタート地点
+		//while (start = RasterScan(current, ctt, ini.x_lenght_ * ini.y_lenght_))
+		//{
+		//	ContourTracking(start, ctt, ini.x_lenght_, ini.y_lenght_);
+
+		//	current = start + 1;
+		//}
+
+		//delete[] ctt;
 
 		Vector2 offset = Vector2(- ini.width_ * ((float)ini.x_lenght_ / 2.0f - 0.5f),ini.height_ * ((float)ini.y_lenght_ / 2.0f -0.5f));
 
@@ -71,4 +108,32 @@ namespace physics
 	{
 		return size_;
 	}
+
+	//==========================================================
+	// 概要  :ラスタースキャンでコライダーを持ったタイルを探します
+	// 戻り値:見つけたタイルのインデックス
+	// 引数  :
+	//  start   :
+	//  ctt     :
+	//  tile_max:
+	//==========================================================
+	int TileMapCollider::RasterScan(int start, ContourTrackingTemp *ctt, int tile_max)
+	{
+		int current = start;
+
+		while (current < tile_max)
+		{
+			if (!ctt[current].isChecked && ctt[current].isCollider)
+			{
+				// まだコライダーを作っていないタイルを探す
+				return current;
+			}
+
+			ctt[current].isChecked = true;
+
+			++current;
+		}
+	}
+
+
 }
