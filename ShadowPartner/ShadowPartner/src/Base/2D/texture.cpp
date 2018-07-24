@@ -21,6 +21,7 @@ namespace shadowpartner
 		:tex_(nullptr)
 		,width_(10.0f)
 		,height_(10.0f)
+		,order_in_layer_(0)
 	{
 		if (tex_ != nullptr)
 		{
@@ -33,6 +34,7 @@ namespace shadowpartner
 		:tex_(nullptr)
 		,width_(10.0f)
 		,height_(10.0f)
+		,order_in_layer_(0)
 	{
 		if (FAILED(D3DXCreateTextureFromFile(Application::Instance()->device, (LPCSTR)file_name, &tex_)))
 		{
@@ -66,9 +68,38 @@ namespace shadowpartner
 	{
 		LPDIRECT3DDEVICE9 device = Application::Instance()->device;
 
+		// ステンシルバッファ使う
+		//device->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+		//device->SetRenderState(D3DRS_STENCILENABLE, TRUE);
+		//device->SetRenderState(D3DRS_STENCILMASK, 0xff);				// ステンシルマスクの設定。データはそのまま使う。
+		//device->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_GREATEREQUAL);	// 現在のステンシル値以上なら合格
+		//device->SetRenderState(D3DRS_COLORWRITEENABLE, 0x00);			// バックバッファへRGB値を書き込まない
+
+		//device->SetRenderState(D3DRS_STENCILFAIL, D3DSTENCILCAPS_REPLACE);
+		//device->SetRenderState(D3DRS_STENCILZFAIL, D3DSTENCILCAPS_REPLACE);
+
+		//device->SetRenderState(D3DRS_STENCILPASS,D3DSTENCILCAPS_REPLACE);	// テストに合格したら書き換える
+
+		//device->SetRenderState(D3DRS_STENCILREF, order_in_layer_);		// ステンシルバッファの値と比較する参照値
+		//device->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_LESSEQUAL);	// 比較関数　条件が真のときステンシルテスト合格
+		//device->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_KEEP);	// ステンシルテストに合格した場合ステンシル値には何もしない
+
+		//device->SetRenderState(D3DRS_COLORWRITEENABLE,
+		//	D3DCOLORWRITEENABLE_RED |
+		//	D3DCOLORWRITEENABLE_GREEN |
+		//	D3DCOLORWRITEENABLE_BLUE |
+		//	D3DCOLORWRITEENABLE_ALPHA);
+
+
+		//device->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+		// ステンシルバッファここまで
+
+		// 描画処理
 		device->SetTexture(0, tex_);
 		device->SetFVF(FVF_VERTEX_2D);
 		device->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, vertices, sizeof(Vertex2D));
+
+		//device->SetRenderState(D3DRS_STENCILENABLE, FALSE);
 	}
 
 	//==========================================================
@@ -130,5 +161,10 @@ namespace shadowpartner
 	float Texture::GetHeight()
 	{
 		return height_;
+	}
+
+	void Texture::SetOrderInLayer(const int &layer)
+	{
+		order_in_layer_ = layer;
 	}
 }

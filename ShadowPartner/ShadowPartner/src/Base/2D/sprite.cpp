@@ -208,6 +208,7 @@ namespace shadowpartner
 	void Sprite::SetOrderInLayer(const int &layer)
 	{
 		order_in_layer_ = layer;
+		texture_->SetOrderInLayer(layer);
 	}
 
 	//==========================================================

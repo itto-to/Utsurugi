@@ -148,6 +148,11 @@ namespace math
 		);
 	}
 
+	D3DXINLINE Vector2::operator b2Vec2()
+	{
+		return b2Vec2(x, y);
+	}
+
 	//Accessor
 	D3DXINLINE Vector2 &Vector2::element(int idx, float value)
 	{

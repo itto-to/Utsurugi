@@ -166,7 +166,7 @@ namespace shadowpartner
 
 		// ピラミッド作る
 		{
-			for (int i = 0;i < 1;++i)
+			for (int i = 0;i < 15;++i)
 			{
 				pyramids_[i] = new GameObject();
 
@@ -174,7 +174,7 @@ namespace shadowpartner
 
 				Sprite *sprite = new Sprite("Resources/Texture/TestSquare.png");
 				sprite->SetSize(Vector2(0.2f, 0.2f));
-				sprite->SetAsTrapezoid(2.0f, 2.0f, 4.0f);
+				sprite->SetAsTrapezoid(0.2f, 0.1f, 0.2f);
 				//sprite->CustomShape
 				//	(
 				//		Vector2(-0.05f, 0.05f),
@@ -226,7 +226,7 @@ namespace shadowpartner
 
 			// スプライトの設定
 			Sprite *sprite = new Sprite(CIRCLE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(0.3f, 0.3f));
+			sprite->SetSize(Vector2(0.2f, 0.2f));
 			sprite->SetColor(D3DCOLOR_RGBA(255, 0, 0, 255));
 			sprite->SetOrderInLayer(1);
 			dynamic_circle->AddComponent(sprite);
@@ -277,13 +277,13 @@ namespace shadowpartner
 		if (input::Input::Instance()->GetButtonDown(input::InputButton::Cancel))
 			SceneManager::LoadScene(new LightTestScene());
 
-		static int t = 0;
-		int a = (t++ / 300) % Sprite::Anchor::kAnchorCount;
-		static_circle->GetComponent<Sprite>()->SetAnchor((Sprite::Anchor)a);
-		float r = (float)t / 300.0f * D3DX_PI * 2.0f;
-		static_circle->GetComponent<Sprite>()->SetOffset(Vector2(cosf(r), sinf(r)));
+		//static int t = 0;
+		//int a = (t++ / 300) % Sprite::Anchor::kAnchorCount;
+		//static_circle->GetComponent<Sprite>()->SetAnchor((Sprite::Anchor)a);
+		//float r = (float)t / 300.0f * D3DX_PI * 2.0f;
+		//static_circle->GetComponent<Sprite>()->SetOffset(Vector2(cosf(r), sinf(r)));
 
-		static_circle->transform_->rotation_ += 1.0f;
+		//static_circle->transform_->rotation_ += 1.0f;
 	}
 
 	void PhysicsTestScene::Uninit()

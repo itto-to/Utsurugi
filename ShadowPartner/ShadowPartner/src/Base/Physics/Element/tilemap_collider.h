@@ -78,8 +78,8 @@ namespace physics
 
 		// methods
 		int RasterScan(int start, ContourTrackingTemp *ctt, int tile_max);
-		void CreatePolygonOutLineCollider(Vector2 *points, int point_count);
-
+		void CreatePolygonOutLineCollider(int start,std::vector<int> chain_list,bool is_outer,int x_length,int y_length);
+		void FillArea(int fill_index);	// 与えられたタイルとつながっているタイルをチェック済みに塗りつぶします
 		void ContourTracking(int start, ContourTrackingTemp *ctt, int x_length, int y_length, bool is_outer = true);
 	};
 }

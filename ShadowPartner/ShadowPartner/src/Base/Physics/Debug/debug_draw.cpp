@@ -266,8 +266,8 @@ namespace physics
 	void DebugDraw::DrawSegment(const b2Vec2 &p1, const b2Vec2 &p2, const b2Color &color)
 	{
 		Vector2 vertex[2];
-		vertex[0] = Vector2(p1.x, p1.y);
-		vertex[1] = Vector2(p2.x, p2.y);
+		vertex[0] = ToScreenPos(Vector2(p1.x, p1.y));
+		vertex[1] = ToScreenPos(Vector2(p2.x, p2.y));
 		line_object_->Draw(vertex, 2, D3DXCOLOR(color.r, color.g, color.b, 1.0f));
 
 	}

@@ -57,12 +57,14 @@ namespace shadowpartner
 		float GetWidth();
 		void SetHeight(float height);
 		float GetHeight();
+		void SetOrderInLayer(const int &layer);
 
 	private:
 		// variables
 		LPDIRECT3DTEXTURE9 tex_;
 		float width_;	// このテクスチャーの横幅
 		float height_;
+		int order_in_layer_;
 	};
 }
 

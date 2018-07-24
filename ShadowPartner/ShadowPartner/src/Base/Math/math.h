@@ -8,6 +8,7 @@
 
 #include <d3dx9.h>
 #pragma comment (lib,"d3dx9.lib")
+#include <Box2D\Common\b2Math.h>
 
 namespace math
 {
@@ -59,6 +60,8 @@ namespace math
 		D3DXINLINE Vector2 &operator /=(float scalar);
 
 		D3DXINLINE const Vector2 operator -() const;
+
+		D3DXINLINE operator b2Vec2();
 
 		//Accessor
 		D3DXINLINE Vector2 &element(int idx, float value);

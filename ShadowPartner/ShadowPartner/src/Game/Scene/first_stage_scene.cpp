@@ -247,7 +247,6 @@ namespace shadowpartner
 			gate_->AddComponent(gate_compo);
 
 			AddGameObject(gate_);
-
 		}
 
 		// Stage Fase1
@@ -261,64 +260,62 @@ namespace shadowpartner
 			CornerCandidates::PreCalculate(stage);
 
 			AddGameObject(stages_[0]);
-
-
 		}
 
 		{
-			invisible_wall_ = new GameObject();
-			invisible_wall_->transform_->position_ = Vector2(0.0f, 0.0f);
+			//invisible_wall_ = new GameObject();
+			//invisible_wall_->transform_->position_ = Vector2(0.0f, 0.0f);
 
-			std::vector<Collider *>cols;
+			//std::vector<Collider *>cols;
 
-			BoxInitializer bi;
-			bi.category_bits_ = CollisionFilter::kPlatform;
-			bi.width_ = 0.35f;
-			bi.height_ = 5.25f;
-			bi.offset_ = Vector2(-5.425f, 0.525f);
-			bi.friction_ = 0.0f;
-			bi.body_type_ = BodyType::kStaticBody;
+			//BoxInitializer bi;
+			//bi.category_bits_ = CollisionFilter::kPlatform;
+			//bi.width_ = 0.35f;
+			//bi.height_ = 5.25f;
+			//bi.offset_ = Vector2(-5.425f, 0.525f);
+			//bi.friction_ = 0.0f;
+			//bi.body_type_ = BodyType::kStaticBody;
 
-			BoxCollider *box1 = new BoxCollider(bi);
-			invisible_wall_->AddComponent(box1);
-			cols.push_back(box1);
+			//BoxCollider *box1 = new BoxCollider(bi);
+			//invisible_wall_->AddComponent(box1);
+			//cols.push_back(box1);
 
-			bi.width_ = 5.6f;
-			bi.height_ = 1.05f;
-			bi.friction_ = 0.2f;
-			bi.offset_ = Vector2(-2.80f, -2.625f);
+			//bi.width_ = 5.6f;
+			//bi.height_ = 1.05f;
+			//bi.friction_ = 0.2f;
+			//bi.offset_ = Vector2(-2.80f, -2.625f);
 
-			BoxCollider *box2 = new BoxCollider(bi);
-			invisible_wall_->AddComponent(box2);
-			cols.push_back(box2);
+			//BoxCollider *box2 = new BoxCollider(bi);
+			//invisible_wall_->AddComponent(box2);
+			//cols.push_back(box2);
 
-			bi.width_ = 3.85f;
-			bi.height_ = 1.05f;
-			bi.offset_ = Vector2(3.675f, -2.625f);
+			//bi.width_ = 3.85f;
+			//bi.height_ = 1.05f;
+			//bi.offset_ = Vector2(3.675f, -2.625f);
 
-			BoxCollider *box3 = new BoxCollider(bi);
-			invisible_wall_->AddComponent(box3);
-			cols.push_back(box3);
+			//BoxCollider *box3 = new BoxCollider(bi);
+			//invisible_wall_->AddComponent(box3);
+			//cols.push_back(box3);
 
-			bi.width_ = 3.5f;
-			bi.height_ = 1.05f;
-			bi.offset_ = Vector2(-2.45f, 0.875f);
+			//bi.width_ = 3.5f;
+			//bi.height_ = 1.05f;
+			//bi.offset_ = Vector2(-2.45f, 0.875f);
 
-			BoxCollider *box4 = new BoxCollider(bi);
-			invisible_wall_->AddComponent(box4);
-			cols.push_back(box4);
+			//BoxCollider *box4 = new BoxCollider(bi);
+			//invisible_wall_->AddComponent(box4);
+			//cols.push_back(box4);
 
-			bi.width_ = 2.45f;
-			bi.height_ = 1.05f;
-			bi.offset_ = Vector2(0.525f, 0.525f);
+			//bi.width_ = 2.45f;
+			//bi.height_ = 1.05f;
+			//bi.offset_ = Vector2(0.525f, 0.525f);
 
-			BoxCollider *box5 = new BoxCollider(bi);
-			invisible_wall_->AddComponent(box5);
-			cols.push_back(box5);
+			//BoxCollider *box5 = new BoxCollider(bi);
+			//invisible_wall_->AddComponent(box5);
+			//cols.push_back(box5);
 
-			CornerCandidates::PreCalculate(cols);
+			//CornerCandidates::PreCalculate(cols);
 
-			AddGameObject(invisible_wall_);
+			//AddGameObject(invisible_wall_);
 
 			
 		}

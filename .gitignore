@@ -286,3 +286,10 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+/ShadowPartner/Debug/ShadowPartner_Debug.pdb
+/ShadowPartner/Debug/ShadowPartner_Debug.exe
+/ShadowPartner/Debug/ShadowPartner_Debug.ilk
+/ShadowPartner/Release/ShadowPartner_Release.pdb
+/ShadowPartner/Release/ShadowPartner_Release.exe
+/ShadowPartner/Release/ShadowPartner_Release.iobj
+/ShadowPartner/Release/ShadowPartner_Release.ipdb
