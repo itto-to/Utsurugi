@@ -9,6 +9,7 @@
 #include "../../Base/Time/time.h"
 #include "../../Base/Input/input.h"
 #include "../../Base/Physics/physics.h"
+#include "../../Base/Sound/sound.h"
 
 #ifdef _DEBUG
 #include "../../Base/Debug/debugger.h"
@@ -229,6 +230,7 @@ namespace shadowpartner
 #endif
 		input::Input::Instance()->Init(h_instance_,h_wnd_);
 		physics::PhysicsWorld::Init();
+		sound::InitSound(h_wnd_);
 
 		return S_OK;
 	}
@@ -413,7 +415,7 @@ namespace shadowpartner
 #endif
 		physics::PhysicsWorld::Uninit();
 		input::Input::Instance()->Uninit();
-
+		sound::UninitSound();
 	}
 
 	//==========================================================

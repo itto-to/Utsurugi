@@ -6,6 +6,7 @@
 #include "light.h"
 #include "../2D/camera.h"
 #include "../../Game/Application/application.h"
+#include "../Time/time.h"
 
 #include "corner_candidates.h"
 
@@ -68,13 +69,23 @@ namespace shadowpartner
 	//==========================================================
 	void Light::SetVertex(const Vector3 &center)
 	{
+		int time_fluc = ((int)Time::Instance()->app_time_ % 60000);	// ŽžŠÔ‚É‚æ‚é–¾‚é‚³‚Ì‚ä‚ç‚¬
+		float tf = fabsf((float)time_fluc / 20000.0f - 1.5f);
+		D3DCOLOR light_fluc;
+		float fluc;
+		int f;
+		
 		for (int i = 0;i < vertex_count_;++i)
 		{
+			fluc = (sinf((float)i / (float)vertex_count_ * D3DX_PI * 10.0f * tf) + 1.0f) / 2.0f;
+			f = (int)(fluc * 0x20);
+			light_fluc = D3DCOLOR_RGBA(0, 0, 0, f);
+
 			light_vertices_[i].vertex_ = center +
 				Vector3(Vector2(light_world_vertices_[i].x, -light_world_vertices_[i].y), 0.0f) / Camera::main_->GetZoom();
 			//center;
 			light_vertices_[i].rhw_ = 1.0f;
-			light_vertices_[i].diffuse_ = light_color_;
+			light_vertices_[i].diffuse_ = light_color_ + light_fluc;
 			light_vertices_[i].tex_coor_ = 0.0f;
 		}
 	}

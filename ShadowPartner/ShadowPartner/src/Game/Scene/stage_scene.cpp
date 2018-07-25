@@ -67,7 +67,7 @@ namespace shadowpartner
 
 			LightInitializer light_init;
 			light_init.radius_ = 60.0f;
-			light_init.color_ = D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x28);
+			light_init.color_ = D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x10);
 			light_init.direction_ = Angle(Vector2::down());
 			light_init.angle_ = 30.0f;
 			Light *light = new Light(light_init);

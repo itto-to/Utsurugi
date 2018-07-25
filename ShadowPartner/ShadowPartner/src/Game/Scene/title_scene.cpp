@@ -9,6 +9,7 @@
 #include "../../Base/Input/input.h"
 #include "../../Base/System/scene_manager.h"
 #include "first_stage_scene.h"
+#include "../../Base/Sound/sound.h"
 
 #ifdef _DEBUG
 #include "../../Base/Debug/debugger.h"
@@ -53,6 +54,8 @@ namespace shadowpartner
 #ifdef _DEBUG
 		debug::Debug::Log("シーンの切り替え：タイトル");
 #endif
+		sound::PlaySound(sound::SOUND_LABEL_BGM_INTRO);
+
 		// カメラオブジェクトを生成
 		{
 			camera_object_ = new GameObject();

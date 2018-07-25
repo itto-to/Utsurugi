@@ -184,6 +184,7 @@
     <ClCompile Include="src\Base\Physics\Joint\revolute_joint.cpp" />
     <ClCompile Include="src\Base\Physics\Joint\rope_joint.cpp" />
     <ClCompile Include="src\Base\Physics\World\physics_world.cpp" />
+    <ClCompile Include="src\Base\Sound\sound.cpp" />
     <ClCompile Include="src\Base\System\scene.cpp" />
     <ClCompile Include="src\Base\System\scene_manager.cpp" />
     <ClCompile Include="src\Base\Time\time.cpp" />
@@ -262,6 +263,7 @@
     <ClInclude Include="src\Base\Physics\Joint\rope_joint.h" />
     <ClInclude Include="src\Base\Physics\physics.h" />
     <ClInclude Include="src\Base\Physics\World\physics_world.h" />
+    <ClInclude Include="src\Base\Sound\sound.h" />
     <ClInclude Include="src\Base\System\scene.h" />
     <ClInclude Include="src\Base\System\scene_manager.h" />
     <ClInclude Include="src\Base\Time\time.h" />
