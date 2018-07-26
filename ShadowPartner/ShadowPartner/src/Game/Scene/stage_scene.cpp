@@ -10,6 +10,7 @@
 #include "../../Base/Input/input.h"
 #include "../../Base/System/scene_manager.h"
 #include "../../Base/Physics/Element/light_collider.h"
+#include "../Stage/stage_manager.h"
 
 #ifdef _DEBUG
 #include "../../Base/Debug/debugger.h"
@@ -24,6 +25,8 @@
 #define BACK_GROUND_TREE1_SIZE Vector2(1.28f,2.575f)
 #define BACK_GROUND_TREE2_NAME "Resources/Texture/BackGround/Tree2.png"
 #define BACK_GROUND_TREE2_SIZE Vector2(2.56f,2.625f)
+
+#define RESULT_TEXTURE "Resources/Texture/Result/Result.png"
 
 namespace shadowpartner
 {
@@ -81,6 +84,30 @@ namespace shadowpartner
 		}
 
 		current_phase_ = 0;
+
+		return S_OK;
+	}
+
+	HRESULT StageScene::LateInit()
+	{
+		// ステージ管理者
+		{
+			result_layer_ = new GameObject();
+
+			Sprite *sprite = new Sprite(RESULT_TEXTURE);
+			sprite->SetSize(Vector2(11.2f, 6.3f));
+			sprite->SetColor(D3DCOLOR_RGBA(0xff, 0xff, 0xff, 0x00));
+			result_layer_->AddComponent(sprite);
+
+			stage_manager_ = new GameObject();
+
+			StageManager *manager = new StageManager();
+			manager->SetResultScreen(sprite);
+			stage_manager_->AddComponent(manager);
+
+			AddGameObject(result_layer_);
+			AddGameObject(stage_manager_);
+		}
 
 		return S_OK;
 	}

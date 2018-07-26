@@ -49,7 +49,7 @@
 #define LIGHT_TREE_TEXTURE_NAME  "Resources/Texture/Light/TreeLine.png"
 #define FIREFLY_TEXTURE_NAME     "Resources/Texture/Light/FireFly.png"
 #define NEEDLE_GATE_TEXTURE_NAME "Resources/Texture/Stage/Needle.png"
-#define SWITCH_TEXTURE_NAME      "Resources/Texture/white.png"
+#define SWITCH_TEXTURE_NAME      "Resources/Texture/Stage/SwitchLamp.png"
 
 using namespace physics;
 
@@ -230,7 +230,7 @@ namespace shadowpartner
 		// ゲート
 		{
 			gate_ = new GameObject();
-			gate_->transform_->position_ = Vector2(4.5f, -1.6f);
+			gate_->transform_->position_ = Vector2(25.5f, -1.6f);
 
 			Sprite *sprite = new Sprite(CLEAR_GATE_TEXTURE_NAME);
 			sprite->SetSize(Vector2(1.0f, 1.5f));
@@ -269,32 +269,32 @@ namespace shadowpartner
 		}
 
 		// Stage Fase2
-		//{
-		//	stages_[1] = new GameObject();
-		//	stages_[1]->transform_->position_ = Vector2(11.2f, 0.0f);
+		{
+			stages_[1] = new GameObject();
+			stages_[1]->transform_->position_ = Vector2(11.2f, 0.0f);
 
-		//	Stage *stage = new Stage(StageNumber::kStage1_2, *stages_[1]);
-		//	stages_[1]->AddComponent(stage);
+			Stage *stage = new Stage(StageNumber::kStage1_2, *stages_[1]);
+			stages_[1]->AddComponent(stage);
 
-		//	CornerCandidates::PreCalculate(stage);
+			CornerCandidates::PreCalculate(stage);
 
-		//	AddGameObject(stages_[1]);
+			AddGameObject(stages_[1]);
 
 
-		//}
+		}
 
 		// Stage Fase3
-		//{
-		//	stages_[2] = new GameObject();
-		//	stages_[2]->transform_->position_ = Vector2(22.4f, 0.0f);
+		{
+			stages_[2] = new GameObject();
+			stages_[2]->transform_->position_ = Vector2(22.4f, 0.0f);
 
-		//	Stage *stage = new Stage(StageNumber::kStage1_3, *stages_[2]);
-		//	stages_[2]->AddComponent(stage);
+			Stage *stage = new Stage(StageNumber::kStage1_3, *stages_[2]);
+			stages_[2]->AddComponent(stage);
 
-		//	CornerCandidates::PreCalculate(stage);
+			CornerCandidates::PreCalculate(stage);
 
-		//	AddGameObject(stages_[2]);
-		//}
+			AddGameObject(stages_[2]);
+		}
 
 
 		// 発光樹（中ライト）生成
@@ -750,16 +750,16 @@ namespace shadowpartner
 		{
 			// とげのゲート
 			observer_gate_ = new GameObject();
-			observer_gate_->transform_->position_ = Vector2(22.0f, -2.0f);
+			observer_gate_->transform_->position_ = Vector2(20.0f, -1.7f);
 
 			Sprite *sprite = new Sprite(NEEDLE_GATE_TEXTURE_NAME);
-			sprite->SetSize(Vector2(1.0f, 1.0f));
+			sprite->SetSize(Vector2(2.0f, 3.0f));
 			observer_gate_->AddComponent(sprite);
 
 			BoxInitializer box_init;
 			box_init.pos_ = observer_gate_->transform_->position_;
-			box_init.width_ = 1.0f;
-			box_init.height_ = 1.0f;
+			box_init.width_ = 2.0f;
+			box_init.height_ = 3.0f;
 			box_init.category_bits_ = CollisionFilter::kPlatform;
 			box_init.mask_bits_ = CollisionFilter::kPlayer;
 			box_init.body_type_ = BodyType::kKinematicBody;
@@ -769,16 +769,16 @@ namespace shadowpartner
 
 			ObserverGate *og = new ObserverGate();
 			og->SetClosePos(observer_gate_->transform_->position_);
-			og->SetOpenPos(observer_gate_->transform_->position_ + Vector2::down());
+			og->SetOpenPos(observer_gate_->transform_->position_ + Vector2::down() * 3.0f);
 
 			observer_gate_->AddComponent(og);
 
 			// 同時押しスイッチ１
 			observable_switch1_ = new GameObject();
-			observable_switch1_->transform_->position_ = Vector2(18.0f, -2.0f);
+			observable_switch1_->transform_->position_ = Vector2(18.0f, -1.7f);
 
 			sprite = new Sprite(SWITCH_TEXTURE_NAME);
-			sprite->SetSize(Vector2(1.0f, 0.3f));
+			sprite->SetSize(Vector2(1.0f, 1.0f));
 			observable_switch1_->AddComponent(sprite);
 
 			ObservableSwitch *os = new ObservableSwitch();
@@ -786,22 +786,24 @@ namespace shadowpartner
 			observable_switch1_->AddComponent(os);
 
 			// 同時押しスイッチ2
-			observable_switch2_ = new GameObject();
-			observable_switch2_->transform_->position_ = Vector2(26.0f, -2.0f);
+			//observable_switch2_ = new GameObject();
+			//observable_switch2_->transform_->position_ = Vector2(23.0f, -1.7f);
 
-			sprite = new Sprite(SWITCH_TEXTURE_NAME);
-			sprite->SetSize(Vector2(1.0f, 0.3f));
-			observable_switch2_->AddComponent(sprite);
+			//sprite = new Sprite(SWITCH_TEXTURE_NAME);
+			//sprite->SetSize(Vector2(1.0f, 1.0f));
+			//observable_switch2_->AddComponent(sprite);
 
-			os = new ObservableSwitch();
-			os->StartObservation(og);
-			observable_switch2_->AddComponent(os);
+			//os = new ObservableSwitch();
+			//os->StartObservation(og);
+			//observable_switch2_->AddComponent(os);
 
 			// これらのゲームオブジェクトを登録
 			AddGameObject(observer_gate_);
 			AddGameObject(observable_switch1_);
-			AddGameObject(observable_switch2_);
+			//AddGameObject(observable_switch2_);
 		}
+
+		StageScene::LateInit();
 
 		return S_OK;
 	}
@@ -847,6 +849,16 @@ namespace shadowpartner
 		}
 #endif
 		tree_log_->GetComponent<BoxCollider>()->AddForce(Vector2(-5.0f, -10.0f));
+
+		camera_object_->transform_->position_.x = player_->transform_->position_.x;
+		if (camera_object_->transform_->position_.x < 0.0f)
+			camera_object_->transform_->position_.x = 0.0f;
+		if (camera_object_->transform_->position_.x > 22.4f)
+			camera_object_->transform_->position_.x = 22.4f;
+
+		back_ground_->transform_->position_.x = camera_object_->transform_->position_.x;
+		moon_light_->transform_->position_.x = camera_object_->transform_->position_.x;
+		result_layer_->transform_->position_.x = camera_object_->transform_->position_.x;
 	}
 
 	void FirstStageScene::Uninit()

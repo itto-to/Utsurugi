@@ -1,6 +1,6 @@
 //==========================================================
 // 概要  :スイッチ
-// Author:Ittoto
+// Author:ItsukiNamito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 #include "observable_switch.h"
@@ -15,12 +15,12 @@ using namespace physics;
 namespace shadowpartner
 {
 	const BoxInitializer DEFAULT_BOX_INIT =
-		BoxInitializer(Vector2::zero(), Vector2(0.0f, -0.0f), 1.0f, 0.3f, kStaticBody,
+		BoxInitializer(Vector2::zero(), Vector2(0.0f, -0.0f), 1.0f, 1.0f, kStaticBody,
 			true, true, 1.0f, 0.6f, 0.0f, CollisionFilter::kGimmickTrigger,
 			CollisionFilter::kPlayer, 1.0f);
 
-#define PRESSED_SWITCH_COLOR D3DCOLOR_RGBA(0xa0,0xa0,0xa0,0xff)
-#define UNPRESSED_SWITCH_COLOR D3DCOLOR_RGBA(0xff,0xff,0xff,0xff)
+#define PRESSED_SWITCH_COLOR D3DCOLOR_RGBA(0xff,0xff,0xa0,0xff)
+#define UNPRESSED_SWITCH_COLOR D3DCOLOR_RGBA(0xa0,0xa0,0xa0,0xff)
 
 	ObservableSwitch::ObservableSwitch()
 		:GimmickInterface(DEFAULT_BOX_INIT)

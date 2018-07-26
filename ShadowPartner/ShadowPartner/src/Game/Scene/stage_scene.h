@@ -41,6 +41,8 @@ namespace shadowpartner
 		GameObject *player_;
 		GameObject *shadow_;
 
+		GameObject *stage_manager_;
+
 		GameObject *result_layer_;
 
 		int phase_num_;

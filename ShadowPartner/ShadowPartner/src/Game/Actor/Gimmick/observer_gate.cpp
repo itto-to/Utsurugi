@@ -1,6 +1,6 @@
 //==========================================================
 // 概要  :倒木コンポーネント
-// Author:Ittoto
+// Author:ItsukiNamito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 #include "observer_gate.h"

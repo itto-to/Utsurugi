@@ -1,6 +1,6 @@
 //==========================================================
 // 概要  :スイッチ
-// Author:Ittoto
+// Author:ItsukiNamito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 #ifndef _GAME_ACTOR_GIMMICK_OBSERVABLE_SWITCH_H_

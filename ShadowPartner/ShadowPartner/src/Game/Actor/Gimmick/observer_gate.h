@@ -1,6 +1,6 @@
 //==========================================================
 // äTóv  :Ç∆Ç∞ÇÃÉQÅ[Ég
-// Author:Ittoto
+// Author:ItsukiNamito
 // Copyright(c) Utsurugi.All right reserved.
 //==========================================================
 #ifndef _GAME_ACTOR_GIMMICK_OBSERVER_GATE_H_
