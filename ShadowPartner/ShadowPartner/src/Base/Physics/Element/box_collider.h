@@ -49,6 +49,27 @@ namespace physics
 			, gravity_scale_(1.0f)
 		{
 		}
+
+		BoxInitializer(
+			Vector2 pos, Vector2 offset, float width, float height, BodyType body_type,
+			bool is_trigger, bool fixed_rotation, float density, float friction, float bounciness,
+			unsigned short category_bits, unsigned short mask_bits, float gravity_scale
+			)
+			: pos_(pos)
+			, offset_(offset)
+			, width_(width)
+			, height_(height)
+			, body_type_(body_type)
+			, is_trigger_(is_trigger)
+			, fixed_rotation_(fixed_rotation)
+			, density_(density)
+			, friction_(friction)
+			, bounciness_(bounciness)
+			, category_bits_(category_bits)
+			, mask_bits_(mask_bits)
+			, gravity_scale_(gravity_scale)
+		{
+		}
 	};
 
 	//==========================================================
@@ -57,6 +78,7 @@ namespace physics
 	class BoxCollider : public Collider
 	{
 	public:
+		BoxCollider();
 		BoxCollider(const BoxInitializer &initializer);
 		virtual ~BoxCollider() {};
 

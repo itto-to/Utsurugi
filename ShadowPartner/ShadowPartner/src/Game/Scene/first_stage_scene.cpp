@@ -23,6 +23,10 @@
 #include "../Actor/Gimmick/gate.h"
 #include "../Scene/title_scene.h"
 
+// Fase 3
+#include "../Actor/Gimmick/observable_switch.h"
+#include "../Actor/Gimmick/observer_gate.h"
+
 #include "temp_ending.h"
 
 #ifdef _DEBUG
@@ -44,6 +48,8 @@
 #define TREE_LOG_TEXTURE_NAME    "Resources/Texture/Stage/RoundWood.png"
 #define LIGHT_TREE_TEXTURE_NAME  "Resources/Texture/Light/TreeLine.png"
 #define FIREFLY_TEXTURE_NAME     "Resources/Texture/Light/FireFly.png"
+#define NEEDLE_GATE_TEXTURE_NAME "Resources/Texture/Stage/Needle.png"
+#define SWITCH_TEXTURE_NAME      "Resources/Texture/white.png"
 
 using namespace physics;
 
@@ -261,65 +267,6 @@ namespace shadowpartner
 
 			AddGameObject(stages_[0]);
 		}
-
-		{
-			//invisible_wall_ = new GameObject();
-			//invisible_wall_->transform_->position_ = Vector2(0.0f, 0.0f);
-
-			//std::vector<Collider *>cols;
-
-			//BoxInitializer bi;
-			//bi.category_bits_ = CollisionFilter::kPlatform;
-			//bi.width_ = 0.35f;
-			//bi.height_ = 5.25f;
-			//bi.offset_ = Vector2(-5.425f, 0.525f);
-			//bi.friction_ = 0.0f;
-			//bi.body_type_ = BodyType::kStaticBody;
-
-			//BoxCollider *box1 = new BoxCollider(bi);
-			//invisible_wall_->AddComponent(box1);
-			//cols.push_back(box1);
-
-			//bi.width_ = 5.6f;
-			//bi.height_ = 1.05f;
-			//bi.friction_ = 0.2f;
-			//bi.offset_ = Vector2(-2.80f, -2.625f);
-
-			//BoxCollider *box2 = new BoxCollider(bi);
-			//invisible_wall_->AddComponent(box2);
-			//cols.push_back(box2);
-
-			//bi.width_ = 3.85f;
-			//bi.height_ = 1.05f;
-			//bi.offset_ = Vector2(3.675f, -2.625f);
-
-			//BoxCollider *box3 = new BoxCollider(bi);
-			//invisible_wall_->AddComponent(box3);
-			//cols.push_back(box3);
-
-			//bi.width_ = 3.5f;
-			//bi.height_ = 1.05f;
-			//bi.offset_ = Vector2(-2.45f, 0.875f);
-
-			//BoxCollider *box4 = new BoxCollider(bi);
-			//invisible_wall_->AddComponent(box4);
-			//cols.push_back(box4);
-
-			//bi.width_ = 2.45f;
-			//bi.height_ = 1.05f;
-			//bi.offset_ = Vector2(0.525f, 0.525f);
-
-			//BoxCollider *box5 = new BoxCollider(bi);
-			//invisible_wall_->AddComponent(box5);
-			//cols.push_back(box5);
-
-			//CornerCandidates::PreCalculate(cols);
-
-			//AddGameObject(invisible_wall_);
-
-			
-		}
-
 
 		// Stage Fase2
 		//{
@@ -797,6 +744,63 @@ namespace shadowpartner
 			//test_object_->AddComponent(sprite);
 
 			//AddGameObject(test_object_);
+		}
+
+		// Fase 3
+		{
+			// とげのゲート
+			observer_gate_ = new GameObject();
+			observer_gate_->transform_->position_ = Vector2(22.0f, -2.0f);
+
+			Sprite *sprite = new Sprite(NEEDLE_GATE_TEXTURE_NAME);
+			sprite->SetSize(Vector2(1.0f, 1.0f));
+			observer_gate_->AddComponent(sprite);
+
+			BoxInitializer box_init;
+			box_init.pos_ = observer_gate_->transform_->position_;
+			box_init.width_ = 1.0f;
+			box_init.height_ = 1.0f;
+			box_init.category_bits_ = CollisionFilter::kPlatform;
+			box_init.mask_bits_ = CollisionFilter::kPlayer;
+			box_init.body_type_ = BodyType::kKinematicBody;
+
+			BoxCollider *box_collider = new BoxCollider(box_init);
+			observer_gate_->AddComponent(box_collider);
+
+			ObserverGate *og = new ObserverGate();
+			og->SetClosePos(observer_gate_->transform_->position_);
+			og->SetOpenPos(observer_gate_->transform_->position_ + Vector2::down());
+
+			observer_gate_->AddComponent(og);
+
+			// 同時押しスイッチ１
+			observable_switch1_ = new GameObject();
+			observable_switch1_->transform_->position_ = Vector2(18.0f, -2.0f);
+
+			sprite = new Sprite(SWITCH_TEXTURE_NAME);
+			sprite->SetSize(Vector2(1.0f, 0.3f));
+			observable_switch1_->AddComponent(sprite);
+
+			ObservableSwitch *os = new ObservableSwitch();
+			os->StartObservation(og);	// 観察開始
+			observable_switch1_->AddComponent(os);
+
+			// 同時押しスイッチ2
+			observable_switch2_ = new GameObject();
+			observable_switch2_->transform_->position_ = Vector2(26.0f, -2.0f);
+
+			sprite = new Sprite(SWITCH_TEXTURE_NAME);
+			sprite->SetSize(Vector2(1.0f, 0.3f));
+			observable_switch2_->AddComponent(sprite);
+
+			os = new ObservableSwitch();
+			os->StartObservation(og);
+			observable_switch2_->AddComponent(os);
+
+			// これらのゲームオブジェクトを登録
+			AddGameObject(observer_gate_);
+			AddGameObject(observable_switch1_);
+			AddGameObject(observable_switch2_);
 		}
 
 		return S_OK;

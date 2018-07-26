@@ -51,7 +51,10 @@ namespace shadowpartner
 		GameObject *hinge_joint_;
 		GameObject *hinge_joint_base_;
 
-		GameObject *invisible_wall_;
+		// Fase 3
+		GameObject *observable_switch1_;
+		GameObject *observable_switch2_;
+		GameObject *observer_gate_;
 
 		// methods
 

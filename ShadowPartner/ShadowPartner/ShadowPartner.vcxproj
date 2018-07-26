@@ -198,6 +198,8 @@
     <ClCompile Include="src\Game\Actor\Gimmick\chain.cpp" />
     <ClCompile Include="src\Game\Actor\Enemy\enemy.cpp" />
     <ClCompile Include="src\Game\Actor\Gimmick\gate.cpp" />
+    <ClCompile Include="src\Game\Actor\Gimmick\observable_switch.cpp" />
+    <ClCompile Include="src\Game\Actor\Gimmick\observer_gate.cpp" />
     <ClCompile Include="src\Game\Actor\Gimmick\tree.cpp" />
     <ClCompile Include="src\Game\Actor\Player\action_trigger.cpp" />
     <ClCompile Include="src\Game\Actor\Player\climb_state.cpp" />
@@ -275,6 +277,8 @@
     <ClInclude Include="src\Game\Actor\Enemy\enemy.h" />
     <ClInclude Include="src\Game\Actor\Gimmick\chain.h" />
     <ClInclude Include="src\Game\Actor\Gimmick\gate.h" />
+    <ClInclude Include="src\Game\Actor\Gimmick\observable_switch.h" />
+    <ClInclude Include="src\Game\Actor\Gimmick\observer_gate.h" />
     <ClInclude Include="src\Game\Actor\Gimmick\tree.h" />
     <ClInclude Include="src\Game\Actor\Player\action_trigger.h" />
     <ClInclude Include="src\Game\Actor\Player\climb_state.h" />

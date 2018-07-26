@@ -19,7 +19,10 @@ namespace shadowpartner
 
 	void Tree::Start()
 	{
-		collider_ = GetComponentInherit<Collider>();
+		collider_ = Component::GetComponentInherit<Collider>();
+
+		Collider::transform_ = Component::transform_;
+		Collider::game_object_ = Component::game_object_;
 	}
 
 	void Tree::Update()

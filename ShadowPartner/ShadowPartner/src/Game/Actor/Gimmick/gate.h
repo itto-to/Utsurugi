@@ -21,6 +21,7 @@ namespace shadowpartner
 		void ActivateGimmick(GameObject *activator) override;
 
 	protected:
+		void Start() override;
 	};
 
 }	// namespace shadowpartner

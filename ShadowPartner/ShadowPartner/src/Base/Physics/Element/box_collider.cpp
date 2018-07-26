@@ -17,6 +17,12 @@ namespace physics
 	//**********************************************************
 
 	// コンストラクタ
+	BoxCollider::BoxCollider()
+	{
+		BoxInitializer ini;
+		SetCollider(ini);
+	}
+	
 	BoxCollider::BoxCollider(const BoxInitializer &ini)
 	{
 		SetCollider(ini);

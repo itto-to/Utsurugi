@@ -22,4 +22,9 @@ namespace shadowpartner
 		}
 	}
 
+	void Gate::Start()
+	{
+		Collider::transform_ = Component::transform_;
+		Collider::game_object_ = Component::game_object_;
+	}
 }	// namespace shadowpartner
